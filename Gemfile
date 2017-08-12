@@ -1,1 +1,2 @@
 gem "jekyll-whiteglass"
+gemspec
