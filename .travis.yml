@@ -6,18 +6,14 @@ rvm:
 env:
   global:
     -secure: "ihwDr/4uHtNtIMKbqftJhBJkBZralfDaA+4xBxf/VpbXO1GGZQY50fjtbAgTiom7GvbKgXh0E3dC+SFbfPFdThfwNK0MoUul3njlzLncbGEzaXoGBWYHGvuLr1YwH8welqPiCaz22Aye6A19ARmjM0RvIDqRclXqcxvisrebFPNMk2wMifuWvG1ikpGQcLFkFN4g+u9PRp3JX/eYQA7YDLJ+0yyRq20z3NboXmaRFjrAtih9WwVCMdI1hiOcMEKq3Vz4c2WhMtDaR846pVzvVDqVUaUNKwWVJAaIQv2GH+7NHC19WAt4syW9wdZXkQUICmiJSNDv77WBaOqnp2vnh4NtilPra7y9jJ5zRJQvxq96zDGrImwEDmIT5dtmIf2UaZn3PN0PV+Lo3zpmqPh2s7NaZklmKhqzIk4mtFOicDnpfaQOopHGWNPQ5b3wIzxKaAB2x3w7kLWAhb9tr1sg7OcyN10tTK77T7/wBzAxY5esjwa1nwJR/BHUH5g9SCzCmhplM0vY0X70lHQ8YFsbyqonTN0ZMGggnteqel/YGXibbie+43YSCXU1GGzjMqBy+FzHCxj7UjZ8gcfORCPW2gDMB60pC5nSOEyrWA2tlNPMdskgV4iZFQuFenXGZhEQp7SK0tYH57qzleW5EkdGQSZx/oIz/DtDJlRwl6R8/qY="
-
 before_install:
   - gem update --system
   - gem update --remote bundler
-
 before_script:
   - git config --global user.name "$(git --no-pager show --no-patch --format='%an')"
   - git config --global user.email "$(git --no-pager show --no-patch --format='%ae')"
-
 script:
   - bundle exec jekyll build
-
 branches:
   only:
 - master
