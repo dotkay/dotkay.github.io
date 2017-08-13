@@ -1,5 +1,5 @@
 *.gem
-_site/
+_site
 .bundle
 .sass-cache
 Gemfile.lock
