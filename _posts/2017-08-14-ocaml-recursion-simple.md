@@ -68,4 +68,4 @@ Isn't this intuitive and elegant way of programming? We'll talk more about simpl
 Thanks for your interest and keep checking out this space for more.
 
 
-[OCaml]: www.ocaml.org 
+[OCaml]: http://www.ocaml.org 
