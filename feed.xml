@@ -5,7 +5,7 @@
   
   <link href="https://quotidien.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://quotidien.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-15T07:37:55+00:00</updated>
+  <updated>2017-08-15T07:45:54+00:00</updated>
   <id>https://quotidien.github.io//</id>
 
   
@@ -30,7 +30,7 @@
       <id>https://quotidien.github.io/2017/08/14/ocaml-recursion-simple</id>
       <content type="html" xml:base="https://quotidien.github.io/2017/08/14/ocaml-recursion-simple/">&lt;p&gt;Recursion has been one of my favourite concepts for a very long time much like my fascination for mathematical induction. The subtle differences between the two would be a topic for a separate post.&lt;/p&gt;
 
-&lt;p&gt;Let’s do some simple recursive functions just to illustrate the beauty. I chose &lt;a href=&quot;www.ocaml.org&quot;&gt;OCaml&lt;/a&gt; for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive.&lt;/p&gt;
+&lt;p&gt;Let’s do some simple recursive functions just to illustrate the beauty. I chose &lt;a href=&quot;http://www.ocaml.org&quot;&gt;OCaml&lt;/a&gt; for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive.&lt;/p&gt;
 
 &lt;p&gt;OCaml is a very nice functional programming language and it offers &lt;code class=&quot;highlighter-rouge&quot;&gt;list&lt;/code&gt; as a primitive data type. For example, if we want a list of five integers, this is how we do it in OCaml:&lt;/p&gt;
 
