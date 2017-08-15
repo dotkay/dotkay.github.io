@@ -8,7 +8,7 @@ external-url: http://dotkay.github.io/2017/08/14/ocaml-recursion-simple/
 
 Recursion has been one of my favourite concepts for a very long time much like my fascination for mathematical induction. The subtle differences between the two would be a topic for a separate post. 
 
-Let's do some simple recursive functions just to illustrate the beauty. I chose [OCaml] for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive.
+Let's do some simple recursive functions just to illustrate the beauty. I chose [OCaml](http://www.ocaml.org) for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive.
 
 OCaml is a very nice functional programming language and it offers `list` as a primitive data type. For example, if we want a list of five integers, this is how we do it in OCaml:
 
@@ -67,5 +67,3 @@ Isn't this intuitive and elegant way of programming? We'll talk more about simpl
 
 Thanks for your interest and keep checking out this space for more.
 
-
-[OCaml]: http://www.ocaml.org 
