@@ -5,6 +5,10 @@
 <lastmod>2017-08-10T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://quotidien.github.io/2017/08/14/ocaml-recursion-simple/</loc>
+<lastmod>2017-08-14T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://quotidien.github.io/about/</loc>
 </url>
 <url>
@@ -15,5 +19,11 @@
 </url>
 <url>
 <loc>https://quotidien.github.io/categories/misc/</loc>
+</url>
+<url>
+<loc>https://quotidien.github.io/categories/ocaml/</loc>
+</url>
+<url>
+<loc>https://quotidien.github.io/categories/recursion/</loc>
 </url>
 </urlset>

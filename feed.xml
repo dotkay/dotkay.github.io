@@ -5,7 +5,7 @@
   
   <link href="https://quotidien.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://quotidien.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-14T05:52:57+00:00</updated>
+  <updated>2017-08-15T07:37:55+00:00</updated>
   <id>https://quotidien.github.io//</id>
 
   
@@ -18,6 +18,95 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Let’s play with some simple recursion →</title>
+      
+      <link href="https://quotidien.github.io/2017/08/14/ocaml-recursion-simple/" rel="alternate" type="text/html" title="Let's play with some simple recursion" />
+      <published>2017-08-14T00:00:00+00:00</published>
+      <updated>2017-08-14T00:00:00+00:00</updated>
+      <id>https://quotidien.github.io/2017/08/14/ocaml-recursion-simple</id>
+      <content type="html" xml:base="https://quotidien.github.io/2017/08/14/ocaml-recursion-simple/">&lt;p&gt;Recursion has been one of my favourite concepts for a very long time much like my fascination for mathematical induction. The subtle differences between the two would be a topic for a separate post.&lt;/p&gt;
+
+&lt;p&gt;Let’s do some simple recursive functions just to illustrate the beauty. I chose &lt;a href=&quot;www.ocaml.org&quot;&gt;OCaml&lt;/a&gt; for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive.&lt;/p&gt;
+
+&lt;p&gt;OCaml is a very nice functional programming language and it offers &lt;code class=&quot;highlighter-rouge&quot;&gt;list&lt;/code&gt; as a primitive data type. For example, if we want a list of five integers, this is how we do it in OCaml:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We would usually think of the list data type itself to be a recursive definition. i.e., a list is made of either an empty list or a list composed of a &lt;code class=&quot;highlighter-rouge&quot;&gt;head&lt;/code&gt; element and &lt;code class=&quot;highlighter-rouge&quot;&gt;tail&lt;/code&gt; where tail itself is a list (possibly empty list). For example, in the list &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt; above, &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; constitutes the head element and the tail corresponds to the list &lt;code class=&quot;highlighter-rouge&quot;&gt;2;3;4;5&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s write a recursive function to count the number of elements in the list.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Let’s think of the base case: when the list is empty - in which case we just return &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; as the result.&lt;/li&gt;
+  &lt;li&gt;And let’s build our thought process this way - what if the list has just one element? This would correspond to a list where there is a single head element and an empty list as the tail. i.e., we count the single head element and the empty list (the tail) we know contributes &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; to our result (the base case we just saw in 1.).&lt;/li&gt;
+  &lt;li&gt;Now, when the list has 2 elements, we think of it as having a head element and a tail list that consists of a single element. Now, we count the head element and apply the same function (our counting) to count the number of elements in the tail list (which now corresponds to the case we saw in 2.).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Essentially what we are doing is:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;If the list is empty, return 0 as the result&lt;/li&gt;
+  &lt;li&gt;If the list is not empty, count the head element (1) and call the function (recursively) to count the number of elements in the tail&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now, let’s write the above two steps in the following program which we call &lt;code class=&quot;highlighter-rouge&quot;&gt;lst_len&lt;/code&gt; (for list length), that takes a single input parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_len&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_len&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* val len_lst : 'a list -&amp;gt; int = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Recursive functions in OCaml are defined with &lt;code class=&quot;highlighter-rouge&quot;&gt;rec&lt;/code&gt; keyword. Let’s use this function to count the number of elements in our list &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;lst_len&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* - : int = 5 *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Let’s use the same thought process to write a recursive function &lt;code class=&quot;highlighter-rouge&quot;&gt;lst_sum&lt;/code&gt; to sum up (add) the elements of the list.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* val lst_sum : int list -&amp;gt; int = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And let’s use this function to sum up the elements in our list &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* - : int = 15 *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Isn’t this intuitive and elegant way of programming? We’ll talk more about simple programs that can be written in an intuitive way and try to develop our understanding of the concepts in a clear way.&lt;/p&gt;
+
+&lt;p&gt;Thanks for your interest and keep checking out this space for more.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="ocaml" />
+      
+        <category term="recursion" />
+      
+
+      
+
+      
+        <summary type="html">Recursion has been one of my favourite concepts for a very long time much like my fascination for mathematical induction. The subtle differences between the two would be a topic for a separate post. Let’s do some simple recursive functions just to illustrate the beauty. I chose OCaml for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive. OCaml is a very nice functional programming language and it offers list as a primitive data type. For example, if we want a list of five integers, this is how we do it in OCaml: let l1 = [1;2;3;4;5];; We would usually think of the list data type itself to be a recursive definition. i.e., a list is made of either an empty list or a list composed of a head element and tail where tail itself is a list (possibly empty list). For example, in the list l1 above, 1 constitutes the head element and the tail corresponds to the list 2;3;4;5. Now, let’s write a recursive function to count the number of elements in the list. Let’s think of the base case: when the list is empty - in which case we just return 0 as the result. And let’s build our thought process this way - what if the list has just one element? This would correspond to a list where there is a single head element and an empty list as the tail. i.e., we count the single head element and the empty list (the tail) we know contributes 0 to our result (the base case we just saw in 1.). Now, when the list has 2 elements, we think of it as having a head element and a tail list that consists of a single element. Now, we count the head element and apply the same function (our counting) to count the number of elements in the tail list (which now corresponds to the case we saw in 2.). Essentially what we are doing is: If the list is empty, return 0 as the result If the list is not empty, count the head element (1) and call the function (recursively) to count the number of elements in the tail Now, let’s write the above two steps in the following program which we call lst_len (for list length), that takes a single input parameter lst: let rec lst_len lst = match lst with | [] -&amp;gt; 0 | h::t -&amp;gt; 1 + lst_len t;; (* val len_lst : 'a list -&amp;gt; int = &amp;lt;fun&amp;gt; *) Recursive functions in OCaml are defined with rec keyword. Let’s use this function to count the number of elements in our list l1: lst_len l1;; (* - : int = 5 *) Let’s use the same thought process to write a recursive function lst_sum to sum up (add) the elements of the list. let rec lst_sum lst = match lst with | [] -&amp;gt; 0 | h::t -&amp;gt; h + lst_sum t;; (* val lst_sum : int list -&amp;gt; int = &amp;lt;fun&amp;gt; *) And let’s use this function to sum up the elements in our list l1: lst_sum l1;; (* - : int = 15 *) Isn’t this intuitive and elegant way of programming? We’ll talk more about simple programs that can be written in an intuitive way and try to develop our understanding of the concepts in a clear way. Thanks for your interest and keep checking out this space for more.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
