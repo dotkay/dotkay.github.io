@@ -144,8 +144,8 @@
 <span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">failwith</span><span class="p">(</span><span class="s2">"empty list"</span><span class="p">)</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">x</span>
-  <span class="p">|</span> <span class="n">x</span><span class="p">::</span><span class="n">xs</span> <span class="p">-&gt;</span> <span class="n">min</span> <span class="n">x</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">xs</span><span class="o">);;</span>
+  <span class="p">|</span> <span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">h</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">min</span> <span class="n">h</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">t</span><span class="o">);;</span>
 <span class="c">(* val find_min : 'a list -&gt; 'a = &lt;fun&gt; *)</span></code></pre></figure>
 
 <p>Let’s test it out:</p>
@@ -158,7 +158,8 @@
 
 <p>Let’s now move away from having lists as input, and work on an example that produces an output list. This is a very familiar introductory CS example - converting an input decimal number to it’s base-2 (<code class="highlighter-rouge">binary</code>) representation. Humans naturally count in base-10 (also called <code class="highlighter-rouge">decimal</code>) number system, probably because most of us were born with 10 fingers. Computers, to be technically correct I should say digital circuits, work on base-2 number system - they know <code class="highlighter-rouge">0</code> and <code class="highlighter-rouge">1</code>. Just like how we count 0 .. 9 and then start counting 10 .. 19, followed by 20 .. 29, etc., digital circuits  count 0, 1 followed by 10, 11 and then follow that by 100, 101, and 110,  111, etc. You see the pattern. Probably, it is more apparent if I write it one after the other:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>     0  	  	     0
+<div class="highlighter-rouge"><pre class="highlight"><code>  base-2    	   	  base-10
+     0  	  	     0
      1  	  	     1
     10 	 &lt;-- restart	     2
     11 		 	     3
