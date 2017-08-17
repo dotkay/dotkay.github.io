@@ -34,8 +34,8 @@ exception Failure of string
 let rec find_min lst =
   match lst with
   | [] -> failwith("empty list")
-  | [x] -> x
-  | x::xs -> min x (find_min xs);;
+  | [h] -> h
+  | h::t -> min h (find_min t);;
 (* val find_min : 'a list -> 'a = <fun> *)
 {% endhighlight %}
 
@@ -52,6 +52,7 @@ find_min l2;;
 Let's now move away from having lists as input, and work on an example that produces an output list. This is a very familiar introductory CS example - converting an input decimal number to it's base-2 (`binary`) representation. Humans naturally count in base-10 (also called `decimal`) number system, probably because most of us were born with 10 fingers. Computers, to be technically correct I should say digital circuits, work on base-2 number system - they know `0` and `1`. Just like how we count 0 .. 9 and then start counting 10 .. 19, followed by 20 .. 29, etc., digital circuits  count 0, 1 followed by 10, 11 and then follow that by 100, 101, and 110,  111, etc. You see the pattern. Probably, it is more apparent if I write it one after the other:
 
 
+      base-2    	   	  base-10
 	     0  	  	     0
 	     1  	  	     1
 	    10 	 <-- restart	     2
