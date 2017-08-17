@@ -5,7 +5,7 @@
   
   <link href="https://quotidien.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://quotidien.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-17T06:23:20+00:00</updated>
+  <updated>2017-08-17T06:28:22+00:00</updated>
   <id>https://quotidien.github.io//</id>
 
   
@@ -45,11 +45,11 @@ It is an added motivation for me to use more avenues to share my knowledge with 
       
 
       
-        <category term="TED" />
+        <category term="education" />
       
         <category term="NPR" />
       
-        <category term="education" />
+        <category term="TED" />
       
 
       
