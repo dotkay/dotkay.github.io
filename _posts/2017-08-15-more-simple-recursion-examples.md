@@ -3,7 +3,7 @@ layout: post
 title: Some more recursion examples
 categories: ocaml recursion
 keywords:
-external-url: http://dotkay.github.io/2017/08/14/more-simple-recursion-examples
+external-url: http://dotkay.github.io/2017/08/15/more-simple-recursion-examples
 ---
 
 Continuing with our [previous post](http://dotkay.github.io/2017/08/14/ocaml-recursion-simple/) on recursions, let's play with a couple of more simple examples to get ourselves familiar. This is just to start thinking in terms of recursive functions for the problems we try to solve. This kind of thinking will become more useful when we learn about tail recursion in one of the future posts.
