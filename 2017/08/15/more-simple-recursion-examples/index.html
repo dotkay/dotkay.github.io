@@ -129,7 +129,9 @@
 <figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">find</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">false</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="p">=</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="bp">true</span> <span class="k">else</span> <span class="p">(</span><span class="n">find</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="p">=</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="bp">true</span>
+     <span class="k">else</span> <span class="p">(</span><span class="n">find</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span>
 <span class="c">(* val find : 'a -&gt; 'a list -&gt; bool = &lt;fun&gt; *)</span></code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">find</span> <span class="mi">2</span> <span class="n">l1</span><span class="p">;;</span>
@@ -204,7 +206,8 @@
 
 <figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">bin_of_dec</span> <span class="n">n</span> <span class="p">=</span>
   <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">then</span> <span class="bp">[]</span>
-  <span class="k">else</span> <span class="n">bin_of_dec</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">n</span> <span class="ow">mod</span> <span class="mi">2</span><span class="o">)::[];;</span>
+  <span class="k">else</span> <span class="n">bin_of_dec</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">@</span>
+         <span class="p">(</span><span class="n">n</span> <span class="ow">mod</span> <span class="mi">2</span><span class="o">)::[];;</span>
 <span class="c">(* val bin_of_dec : int -&gt; int list = &lt;fun&gt; *)</span></code></pre></figure>
 
 <p>Let’s check if what we worked out for 7 and 13 are consistent with what this program computes:</p>
