@@ -14,7 +14,9 @@ Let's write a small function, call it `find`, to find if a given element belongs
 let rec find x lst =
   match lst with
   | [] -> false
-  | h::t -> if (h = x) then true else (find x t);;
+  | h::t ->
+     if (h = x) then true
+     else (find x t);;
 (* val find : 'a -> 'a list -> bool = <fun> *)
 {% endhighlight %}
 
@@ -92,7 +94,8 @@ If you observe carefully, what we are doing essentially is repeatedly dividing t
 {% highlight ocaml %}
 let rec bin_of_dec n =
   if n <= 0 then []
-  else bin_of_dec (n/2) @ (n mod 2)::[];;
+  else bin_of_dec (n/2) @
+         (n mod 2)::[];;
 (* val bin_of_dec : int -> int list = <fun> *)
 {% endhighlight %}
 
