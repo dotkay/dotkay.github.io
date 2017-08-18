@@ -1,6 +1,6 @@
 ---
 layout: post
-title: An Interesting Podcast on Education
+title: An interesting podcast on education
 categories: education NPR TED
 keywords:
 external-url: https://dotkay.github.io/2017/08/16/interesting-podcast-on-education
