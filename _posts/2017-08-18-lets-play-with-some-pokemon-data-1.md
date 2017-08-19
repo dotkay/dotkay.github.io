@@ -50,6 +50,6 @@ plt.bar(no_gens, count_per_gen)
 
 This would result in a plot as shown below:
 <br>
-![Pokemons of each generation](/assets/images/data_science/pokemon_generations.png) "Number of Pokemons of each generation")
+![Pokemons of each generation](/assets/images/data_science/pokemon_generations.png){:class="img=responsive"}
 
 That was pretty quick. Let me stop here and let you all digest the information presented. We will analyze the Pokemon dataset more in the coming posts.
