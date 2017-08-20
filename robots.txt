@@ -1,1 +1,1 @@
-Sitemap: https://quotidien.github.io/sitemap.xml
+Sitemap: https://dotkay.github.io/sitemap.xml

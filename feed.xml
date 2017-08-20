@@ -3,10 +3,10 @@
   <generator uri="http://jekyllrb.com" version="3.5.1">Jekyll</generator>
   
   
-  <link href="https://quotidien.github.io/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="https://quotidien.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-20T18:03:36+00:00</updated>
-  <id>https://quotidien.github.io//</id>
+  <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
+  <updated>2017-08-20T18:14:07+00:00</updated>
+  <id>https://dotkay.github.io//</id>
 
   
     <title type="html">Quotidien</title>
@@ -24,11 +24,11 @@
       
       <title type="html">Some more recursion please… →</title>
       
-      <link href="https://quotidien.github.io/2017/08/19/some-more-recursion/" rel="alternate" type="text/html" title="Some more recursion please..." />
+      <link href="https://dotkay.github.io/2017/08/19/some-more-recursion/" rel="alternate" type="text/html" title="Some more recursion please..." />
       <published>2017-08-19T00:00:00+00:00</published>
       <updated>2017-08-19T00:00:00+00:00</updated>
-      <id>https://quotidien.github.io/2017/08/19/some-more-recursion</id>
-      <content type="html" xml:base="https://quotidien.github.io/2017/08/19/some-more-recursion/">&lt;p&gt;Let’s put on our thinking-in-recursion hat and put to use all that we have learned from our examples. We will do this by working out only two (so this will be a short post) examples that will use the recursion concepts that are bread and butter for us now.&lt;/p&gt;
+      <id>https://dotkay.github.io/2017/08/19/some-more-recursion</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/19/some-more-recursion/">&lt;p&gt;Let’s put on our thinking-in-recursion hat and put to use all that we have learned from our examples. We will do this by working out only two (so this will be a short post) examples that will use the recursion concepts that are bread and butter for us now.&lt;/p&gt;
 
 &lt;p&gt;As a first example, we will write a function to eliminate consecutive repetitions of elements in a list. For example, if we pass the list &lt;code class=&quot;highlighter-rouge&quot;&gt;[1;1;2;2;3;3;3;4;5;5]&lt;/code&gt; to our function, it should return &lt;code class=&quot;highlighter-rouge&quot;&gt;[1;2;3;4;5]&lt;/code&gt;, after removing the repetitions. How do we go about doing this? The moment we see consecutive repetitions, we know that we can easily track this by observing any two consecutive elements in the list while traversing the list. We need to observe at least two consecutive elements in order to find out if they are repetitions. So far, in our previous examples, we have usually been observing one element, the first element of a list (or a sub-list) calling it the &lt;code class=&quot;highlighter-rouge&quot;&gt;head&lt;/code&gt; and denoting it &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt;. Remember the pattern-matchings of the form &lt;code class=&quot;highlighter-rouge&quot;&gt;| h::t -&amp;gt; &lt;/code&gt; in our previous code snippets? We were observing an element &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt; concatenated with a list &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;. Now, we need to observe two consecutive elements instead of one, to check if they are repetitions - something of this shape &lt;code class=&quot;highlighter-rouge&quot;&gt;| h1 :: h2::t&lt;/code&gt;. Now, we can compare &lt;code class=&quot;highlighter-rouge&quot;&gt;h1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;h2&lt;/code&gt; and check if &lt;code class=&quot;highlighter-rouge&quot;&gt;h2&lt;/code&gt; is a repetition of &lt;code class=&quot;highlighter-rouge&quot;&gt;h1&lt;/code&gt;. If they are not the same, we can always treat &lt;code class=&quot;highlighter-rouge&quot;&gt;h2::t&lt;/code&gt; as the rest-of-the-list, which we called &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt; (as in &lt;code class=&quot;highlighter-rouge&quot;&gt;h::t&lt;/code&gt;) in our previous examples. Now, let’s jump in to the algorithm:&lt;/p&gt;
 
@@ -119,11 +119,11 @@
       
       <title type="html">Let’s play with some Pokemon data - 1 →</title>
       
-      <link href="https://quotidien.github.io/2017/08/18/lets-play-with-some-pokemon-data-1/" rel="alternate" type="text/html" title="Let's play with some Pokemon data - 1" />
+      <link href="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1/" rel="alternate" type="text/html" title="Let's play with some Pokemon data - 1" />
       <published>2017-08-18T00:00:00+00:00</published>
       <updated>2017-08-18T00:00:00+00:00</updated>
-      <id>https://quotidien.github.io/2017/08/18/lets-play-with-some-pokemon-data-1</id>
-      <content type="html" xml:base="https://quotidien.github.io/2017/08/18/lets-play-with-some-pokemon-data-1/">&lt;p&gt;Let’s take a small break from OCaml and recursion and learn some data analysis. For this purpose, I am using python and a couple of libraries like &lt;a href=&quot;http://pandas.pydata.org/&quot;&gt;Pandas&lt;/a&gt;, &lt;a href=&quot;http://www.numpy.org/&quot;&gt;Numpy&lt;/a&gt; and &lt;a href=&quot;https://matplotlib.org/&quot;&gt;Matplotlib&lt;/a&gt;, which will help us in preprocessing the data, some numerical data-types as well as plotting the data, respectively. In future posts, we will see more such awesome libraries.&lt;/p&gt;
+      <id>https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1/">&lt;p&gt;Let’s take a small break from OCaml and recursion and learn some data analysis. For this purpose, I am using python and a couple of libraries like &lt;a href=&quot;http://pandas.pydata.org/&quot;&gt;Pandas&lt;/a&gt;, &lt;a href=&quot;http://www.numpy.org/&quot;&gt;Numpy&lt;/a&gt; and &lt;a href=&quot;https://matplotlib.org/&quot;&gt;Matplotlib&lt;/a&gt;, which will help us in preprocessing the data, some numerical data-types as well as plotting the data, respectively. In future posts, we will see more such awesome libraries.&lt;/p&gt;
 
 &lt;p&gt;For this post, let’s just focus on a Pokemon dataset that I happened to come across in Kaggle. Although I have never played Pokemon and never knew the different Pokemon characters, this is a nice simple example to get us started.&lt;/p&gt;
 
@@ -191,11 +191,11 @@
       
       <title type="html">Let’s practice some more recursion! →</title>
       
-      <link href="https://quotidien.github.io/2017/08/17/lets-practice-some-more-examples/" rel="alternate" type="text/html" title="Let's practice some more recursion!" />
+      <link href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/" rel="alternate" type="text/html" title="Let's practice some more recursion!" />
       <published>2017-08-17T00:00:00+00:00</published>
       <updated>2017-08-17T00:00:00+00:00</updated>
-      <id>https://quotidien.github.io/2017/08/17/lets-practice-some-more-examples</id>
-      <content type="html" xml:base="https://quotidien.github.io/2017/08/17/lets-practice-some-more-examples/">&lt;p&gt;Let’s continue from our &lt;a href=&quot;https://dotkay.github.io/2017/08/15/more-simple-recursion-examples&quot;&gt;earlier post&lt;/a&gt; and practice some more simple problems just to get more and more familiar with recursion.&lt;/p&gt;
+      <id>https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/">&lt;p&gt;Let’s continue from our &lt;a href=&quot;https://dotkay.github.io/2017/08/15/more-simple-recursion-examples&quot;&gt;earlier post&lt;/a&gt; and practice some more simple problems just to get more and more familiar with recursion.&lt;/p&gt;
 
 &lt;p&gt;Let’s start by writing a simple function to find the last element of a given list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;:&lt;/p&gt;
 
@@ -312,11 +312,11 @@
       
       <title type="html">An interesting podcast on education →</title>
       
-      <link href="https://quotidien.github.io/2017/08/16/interesting-podcast-on-education/" rel="alternate" type="text/html" title="An interesting podcast on education" />
+      <link href="https://dotkay.github.io/2017/08/16/interesting-podcast-on-education/" rel="alternate" type="text/html" title="An interesting podcast on education" />
       <published>2017-08-16T00:00:00+00:00</published>
       <updated>2017-08-16T00:00:00+00:00</updated>
-      <id>https://quotidien.github.io/2017/08/16/interesting-podcast-on-education</id>
-      <content type="html" xml:base="https://quotidien.github.io/2017/08/16/interesting-podcast-on-education/">&lt;p&gt;A break from recursions and algorithms for today! But still sticking to the broader goal of education and learning. I am a big fan of radio programs and in particular NPR. Over the weekend, I happened to listen to a very interesting program on education. Hosted by &lt;a href=&quot;http://www.npr.org/people/6597623/guy-raz&quot;&gt;Guy Raz&lt;/a&gt;, last week’s episode of &lt;a href=&quot;http://www.npr.org/programs/ted-radio-hour/&quot;&gt;TED Radio Hour&lt;/a&gt; focussed on education and learning - specifically how it is changing with technology. It was a very interesting podcast and I really encourage all of you to make some time to listen to it. Below is a link to the podcast.&lt;/p&gt;
+      <id>https://dotkay.github.io/2017/08/16/interesting-podcast-on-education</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/16/interesting-podcast-on-education/">&lt;p&gt;A break from recursions and algorithms for today! But still sticking to the broader goal of education and learning. I am a big fan of radio programs and in particular NPR. Over the weekend, I happened to listen to a very interesting program on education. Hosted by &lt;a href=&quot;http://www.npr.org/people/6597623/guy-raz&quot;&gt;Guy Raz&lt;/a&gt;, last week’s episode of &lt;a href=&quot;http://www.npr.org/programs/ted-radio-hour/&quot;&gt;TED Radio Hour&lt;/a&gt; focussed on education and learning - specifically how it is changing with technology. It was a very interesting podcast and I really encourage all of you to make some time to listen to it. Below is a link to the podcast.&lt;/p&gt;
 
 &lt;audio controls=&quot;&quot;&gt;
 &lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/08/20170811_ted_tedpod.mp3&quot; /&gt;
@@ -356,11 +356,11 @@ It is an added motivation for me to use more avenues to share my knowledge with 
       
       <title type="html">Some more recursion examples →</title>
       
-      <link href="https://quotidien.github.io/2017/08/15/more-simple-recursion-examples/" rel="alternate" type="text/html" title="Some more recursion examples" />
+      <link href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/" rel="alternate" type="text/html" title="Some more recursion examples" />
       <published>2017-08-15T00:00:00+00:00</published>
       <updated>2017-08-15T00:00:00+00:00</updated>
-      <id>https://quotidien.github.io/2017/08/15/more-simple-recursion-examples</id>
-      <content type="html" xml:base="https://quotidien.github.io/2017/08/15/more-simple-recursion-examples/">&lt;p&gt;Continuing with our &lt;a href=&quot;http://dotkay.github.io/2017/08/14/ocaml-recursion-simple/&quot;&gt;previous post&lt;/a&gt; on recursions, let’s play with a couple of more simple examples to get ourselves familiar. This is just to start thinking in terms of recursive functions for the problems we try to solve. This kind of thinking will become more useful when we learn about tail recursion in one of the future posts.&lt;/p&gt;
+      <id>https://dotkay.github.io/2017/08/15/more-simple-recursion-examples</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">&lt;p&gt;Continuing with our &lt;a href=&quot;http://dotkay.github.io/2017/08/14/ocaml-recursion-simple/&quot;&gt;previous post&lt;/a&gt; on recursions, let’s play with a couple of more simple examples to get ourselves familiar. This is just to start thinking in terms of recursive functions for the problems we try to solve. This kind of thinking will become more useful when we learn about tail recursion in one of the future posts.&lt;/p&gt;
 
 &lt;p&gt;Let’s write a small function, call it &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt;, to find if a given element belongs to a list. i.e., we are provided with an input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; of integers and an integer &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; and the function would return &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is one of the elements of &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; otherwise.&lt;/p&gt;
 
@@ -487,11 +487,11 @@ It is an added motivation for me to use more avenues to share my knowledge with 
       
       <title type="html">Let’s play with some simple recursion →</title>
       
-      <link href="https://quotidien.github.io/2017/08/14/ocaml-recursion-simple/" rel="alternate" type="text/html" title="Let's play with some simple recursion" />
+      <link href="https://dotkay.github.io/2017/08/14/ocaml-recursion-simple/" rel="alternate" type="text/html" title="Let's play with some simple recursion" />
       <published>2017-08-14T00:00:00+00:00</published>
       <updated>2017-08-14T00:00:00+00:00</updated>
-      <id>https://quotidien.github.io/2017/08/14/ocaml-recursion-simple</id>
-      <content type="html" xml:base="https://quotidien.github.io/2017/08/14/ocaml-recursion-simple/">&lt;p&gt;Recursion has been one of my favourite concepts for a very long time much like my fascination for mathematical induction. The subtle differences between the two would be a topic for a separate post.&lt;/p&gt;
+      <id>https://dotkay.github.io/2017/08/14/ocaml-recursion-simple</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/14/ocaml-recursion-simple/">&lt;p&gt;Recursion has been one of my favourite concepts for a very long time much like my fascination for mathematical induction. The subtle differences between the two would be a topic for a separate post.&lt;/p&gt;
 
 &lt;p&gt;Let’s do some simple recursive functions just to illustrate the beauty. I chose &lt;a href=&quot;http://www.ocaml.org&quot;&gt;OCaml&lt;/a&gt; for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive.&lt;/p&gt;
 
@@ -576,11 +576,11 @@ It is an added motivation for me to use more avenues to share my knowledge with 
       
       <title type="html">My First Post →</title>
       
-      <link href="https://quotidien.github.io/2017/08/10/my-first-post/" rel="alternate" type="text/html" title="My First Post" />
+      <link href="https://dotkay.github.io/2017/08/10/my-first-post/" rel="alternate" type="text/html" title="My First Post" />
       <published>2017-08-10T00:00:00+00:00</published>
       <updated>2017-08-10T00:00:00+00:00</updated>
-      <id>https://quotidien.github.io/2017/08/10/my-first-post</id>
-      <content type="html" xml:base="https://quotidien.github.io/2017/08/10/my-first-post/">&lt;p&gt;This is my first post. I will keep this a very short one - nothing interesting to read and learn. The internet is a wonderful place. I learnt a lot by browsing interesting blogs, tutorials, asking questions on the various sites, twitter, etc. and it imperative that I give back to the community that helps me learn continuously. I am hoping to be regular with this effort at learning by teaching the many subjects and topics that interest me. Let’s see how much I can keep up and how much I can learn.&lt;/p&gt;</content>
+      <id>https://dotkay.github.io/2017/08/10/my-first-post</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/10/my-first-post/">&lt;p&gt;This is my first post. I will keep this a very short one - nothing interesting to read and learn. The internet is a wonderful place. I learnt a lot by browsing interesting blogs, tutorials, asking questions on the various sites, twitter, etc. and it imperative that I give back to the community that helps me learn continuously. I am hoping to be regular with this effort at learning by teaching the many subjects and topics that interest me. Let’s see how much I can keep up and how much I can learn.&lt;/p&gt;</content>
 
       
       
