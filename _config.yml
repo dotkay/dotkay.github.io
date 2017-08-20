@@ -1,7 +1,7 @@
 theme: jekyll-whiteglass
 title: Quotidien
 description: Learning by teaching
-url: "https://quotidien.github.io"
+url: "https://dotkay.github.io"
 timezone: PDT
 lang: en
 exclude:
@@ -38,6 +38,7 @@ excerpt_separator: "<!-- more -->"
 
 # Markdown settings
 kramdown:
+  syntax_highlighter: rouge
   auto_ids: false
   enable_coderay: false
   entity_output: as_char
