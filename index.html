@@ -91,6 +91,100 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/20/recursions-just-dont-get-over/">Recursions just don&#39;t get over ... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 20, 2017 • 
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>I don’t know how my posts just happen to revolve around recursion, but we’re only one week into learning and I have grand plans to learn (through teaching) deep learning techniques, data analysis, hardware engineering concepts, etc., besides recursion and functional programming. So, just hang on and enjoy!</p>
+
+<p>Let’s do a quick example to work out more recursion. This time, we will implement selection sort. Selection sort implementation, again, is very intuitive if we are in this thought process - recursion and a terse and intuitive programming language. Let’s do it. We just need to traverse the list, select the minimum element and append it to the head of the list. And then, proceed by finding the next minimum element (from the rest-of-the-list which contains one element less than the original list as the minimum element has been moved to the head) and push it to the head, and so on. So we need two ingredients.</p>
+
+<ul>
+  <li>A function <code class="highlighter-rouge">rem</code> to remove an element <code class="highlighter-rouge">x</code> from a list <code class="highlighter-rouge">lst</code>. We will write it in recursive fashion</li>
+  <li>A function <code class="highlighter-rouge">find_min</code> to find the minimum element of a list (we already did this in one of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">previous posts</a>)</li>
+</ul>
+
+<p>Let’s implement the above ingredients that we need for selection sort recipe.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="p">=</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">rem</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">failwith</span><span class="p">(</span><span class="s2">"empty list"</span><span class="p">)</span>
+  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">x</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">min</span> <span class="n">h</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+
+<p>Now, let’s use the above two to implement selection sort. We will call the function <code class="highlighter-rouge">ssort</code>. Recollect that, we will find the minimum element <code class="highlighter-rouge">m</code> of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">ssort</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
+  <span class="p">|</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="k">let</span> <span class="n">m</span> <span class="p">=</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="k">in</span>
+         <span class="n">m</span><span class="o">::(</span><span class="n">ssort</span> <span class="p">(</span><span class="n">rem</span> <span class="n">m</span> <span class="n">lst</span><span class="o">));;</span></code></pre></figure>
+
+<p>That’s all folks! Have a great week ahead!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/19/some-more-recursion/">Some more recursion please... &rarr;</a>
           </h1>
 
@@ -536,163 +630,6 @@
 </audio>
 <p><br />
 It is an added motivation for me to use more avenues to share my knowledge with the many in this world, as much as I learn through the many channels and from the many wonderful people on this planet.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/15/more-simple-recursion-examples/">Some more recursion examples &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 15, 2017 • 
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Continuing with our <a href="http://dotkay.github.io/2017/08/14/ocaml-recursion-simple/">previous post</a> on recursions, let’s play with a couple of more simple examples to get ourselves familiar. This is just to start thinking in terms of recursive functions for the problems we try to solve. This kind of thinking will become more useful when we learn about tail recursion in one of the future posts.</p>
-
-<p>Let’s write a small function, call it <code class="highlighter-rouge">find</code>, to find if a given element belongs to a list. i.e., we are provided with an input list <code class="highlighter-rouge">lst</code> of integers and an integer <code class="highlighter-rouge">x</code> and the function would return <code class="highlighter-rouge">true</code> if <code class="highlighter-rouge">x</code> is one of the elements of <code class="highlighter-rouge">lst</code> and <code class="highlighter-rouge">false</code> otherwise.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">find</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">false</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="p">=</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="bp">true</span>
-     <span class="k">else</span> <span class="p">(</span><span class="n">find</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span>
-<span class="c">(* val find : 'a -&gt; 'a list -&gt; bool = &lt;fun&gt; *)</span></code></pre></figure>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">find</span> <span class="mi">2</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : bool = true *)</span>
-<span class="n">find</span> <span class="mi">0</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : bool = false *)</span></code></pre></figure>
-
-<p>As before, we think of the base case and the recursive step. We recursively call the function on a sub-list of the input list, till the problem reduces to the base case - the empty list.</p>
-
-<p>Let’s try another simple examples - to find the minimum integer in the given list of integers. We will call the function <code class="highlighter-rouge">find_min</code> and it takes an input list <code class="highlighter-rouge">lst</code>.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">exception</span> <span class="nc">Failure</span> <span class="k">of</span> <span class="kt">string</span>                   
-<span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">failwith</span><span class="p">(</span><span class="s2">"empty list"</span><span class="p">)</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">h</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">min</span> <span class="n">h</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">t</span><span class="o">);;</span>
-<span class="c">(* val find_min : 'a list -&gt; 'a = &lt;fun&gt; *)</span></code></pre></figure>
-
-<p>Let’s test it out:</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">find_min</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int = 1 *)</span>
-<span class="k">let</span> <span class="n">l2</span> <span class="p">=</span> <span class="o">[-</span><span class="mi">2</span><span class="p">;</span> <span class="p">-</span><span class="mi">10</span><span class="p">;</span> <span class="mi">1</span><span class="p">;</span> <span class="mi">9</span><span class="p">;</span> <span class="mi">11</span><span class="p">;</span> <span class="mi">7</span><span class="p">;</span> <span class="mi">17</span><span class="o">];;</span>
-<span class="n">find_min</span> <span class="n">l2</span><span class="p">;;</span>
-<span class="c">(* - : int = -10 *)</span></code></pre></figure>
-
-<p>Let’s now move away from having lists as input, and work on an example that produces an output list. This is a very familiar introductory CS example - converting an input decimal number to it’s base-2 (<code class="highlighter-rouge">binary</code>) representation. Humans naturally count in base-10 (also called <code class="highlighter-rouge">decimal</code>) number system, probably because most of us were born with 10 fingers. Computers, to be technically correct I should say digital circuits, work on base-2 number system - they know <code class="highlighter-rouge">0</code> and <code class="highlighter-rouge">1</code>. Just like how we count 0 .. 9 and then start counting 10 .. 19, followed by 20 .. 29, etc., digital circuits  count 0, 1 followed by 10, 11 and then follow that by 100, 101, and 110,  111, etc. You see the pattern. Probably, it is more apparent if I write it one after the other:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>  base-2    	   	  base-10
-     0  	  	     0
-     1  	  	     1
-    10 	 &lt;-- restart	     2
-    11 		 	     3
-   100   &lt;-- restart 	     4
-   101 	 	     	     5
-   110 	 	     	     6
-   111 	 	     	     7
-  1000 	 &lt;-- restart 	     8
-  1001 	 	     	     9
-  1010 	 	    	    10   &lt;-- restart
-  1011 	  	       	    11 
-  1100           	    12
-  1101           	    13
-  1110           	    14
-  1111           	    15
-</code></pre>
-</div>
-
-<p>The usual way we compute the binary representation of a decimal number is to repeatedly divide it and collect the remainders. For example, if we want to compute the binary equivalent of decimal 7:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>2 |_ 7 _          ^
-  2 |_ 3 _   - (1) |
-    2 |_ 1 _ - (1) |
-         ----------&gt;
-</code></pre>
-</div>
-
-<p>111 is the binary equivalent of decimal 7. Here, 3, 1 are quotients (<code class="highlighter-rouge">n/2</code> - n being the input number initally and then the quotient) and the ones on the right within parantheses are the remainders (<code class="highlighter-rouge">n mod 2</code>).</p>
-
-<p>Let’s work out one more example - the binary equivalent of 13:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>2 |_ 13 _               ^
-  2 |_ 6 _        - (1) |
-    2 |_ 3 _      - (0) |
-      2 |_ 1 _    - (1) |
-                --------&gt;
-</code></pre>
-</div>
-
-<p>If you observe carefully, what we are doing essentially is repeatedly dividing the input number <code class="highlighter-rouge">n</code> by the base we want to convert our number to - in this case base-2, and collect the remainders. Dividing a number is the expression <code class="highlighter-rouge">n/2</code> for algorithmic purposes and the remainder is the expression <code class="highlighter-rouge">n mod 2</code>. What we are going to do is to repeatedly (think “recursively”) divide <code class="highlighter-rouge">n</code> and collect the remainder in a list which we would eventually return as the output result. <code class="highlighter-rouge">@</code> is the OCaml syntax for list concatenation: for example <code class="highlighter-rouge">lst1 @ lst2</code> will concatenate <code class="highlighter-rouge">lst1</code> and <code class="highlighter-rouge">lst2</code>. Note the base case for our computation.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">bin_of_dec</span> <span class="n">n</span> <span class="p">=</span>
-  <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="k">then</span> <span class="bp">[]</span>
-  <span class="k">else</span> <span class="n">bin_of_dec</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">@</span>
-         <span class="p">(</span><span class="n">n</span> <span class="ow">mod</span> <span class="mi">2</span><span class="o">)::[];;</span>
-<span class="c">(* val bin_of_dec : int -&gt; int list = &lt;fun&gt; *)</span></code></pre></figure>
-
-<p>Let’s check if what we worked out for 7 and 13 are consistent with what this program computes:</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">bin_of_dec</span> <span class="mi">7</span><span class="p">;;</span>
-<span class="c">(* - : int list = [1; 1; 1] *)</span>
-<span class="n">bin_of_dec</span> <span class="mi">13</span><span class="p">;;</span>
-<span class="c">(* - : int list = [1; 1; 0; 1] *)</span></code></pre></figure>
-
-<p>I guess it became a longer post than what I intended it to be, but I hope you are getting a better hang of thinking recursively. We will see more examples in future posts - feel motivated to play around with some examples in the mean time!!</p>
 
         </div>
         

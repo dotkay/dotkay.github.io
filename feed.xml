@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-20T18:17:19+00:00</updated>
+  <updated>2017-08-21T06:10:46+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,74 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Recursions just don’t get over … →</title>
+      
+      <link href="https://dotkay.github.io/2017/08/20/recursions-just-dont-get-over/" rel="alternate" type="text/html" title="Recursions just don't get over ..." />
+      <published>2017-08-20T00:00:00+00:00</published>
+      <updated>2017-08-20T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/08/20/recursions-just-dont-get-over</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/20/recursions-just-dont-get-over/">&lt;p&gt;I don’t know how my posts just happen to revolve around recursion, but we’re only one week into learning and I have grand plans to learn (through teaching) deep learning techniques, data analysis, hardware engineering concepts, etc., besides recursion and functional programming. So, just hang on and enjoy!&lt;/p&gt;
+
+&lt;p&gt;Let’s do a quick example to work out more recursion. This time, we will implement selection sort. Selection sort implementation, again, is very intuitive if we are in this thought process - recursion and a terse and intuitive programming language. Let’s do it. We just need to traverse the list, select the minimum element and append it to the head of the list. And then, proceed by finding the next minimum element (from the rest-of-the-list which contains one element less than the original list as the minimum element has been moved to the head) and push it to the head, and so on. So we need two ingredients.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A function &lt;code class=&quot;highlighter-rouge&quot;&gt;rem&lt;/code&gt; to remove an element &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; from a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;. We will write it in recursive fashion&lt;/li&gt;
+  &lt;li&gt;A function &lt;code class=&quot;highlighter-rouge&quot;&gt;find_min&lt;/code&gt; to find the minimum element of a list (we already did this in one of our &lt;a href=&quot;https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/&quot;&gt;previous posts&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let’s implement the above ingredients that we need for selection sort recipe.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;empty list&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now, let’s use the above two to implement selection sort. We will call the function &lt;code class=&quot;highlighter-rouge&quot;&gt;ssort&lt;/code&gt;. Recollect that, we will find the minimum element &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ssort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+         &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssort&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;That’s all folks! Have a great week ahead!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="ocaml" />
+      
+        <category term="recursion" />
+      
+
+      
+
+      
+        <summary type="html">I don’t know how my posts just happen to revolve around recursion, but we’re only one week into learning and I have grand plans to learn (through teaching) deep learning techniques, data analysis, hardware engineering concepts, etc., besides recursion and functional programming. So, just hang on and enjoy! Let’s do a quick example to work out more recursion. This time, we will implement selection sort. Selection sort implementation, again, is very intuitive if we are in this thought process - recursion and a terse and intuitive programming language. Let’s do it. We just need to traverse the list, select the minimum element and append it to the head of the list. And then, proceed by finding the next minimum element (from the rest-of-the-list which contains one element less than the original list as the minimum element has been moved to the head) and push it to the head, and so on. So we need two ingredients. A function rem to remove an element x from a list lst. We will write it in recursive fashion A function find_min to find the minimum element of a list (we already did this in one of our previous posts) Let’s implement the above ingredients that we need for selection sort recipe. let rec rem x lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; if (h = x) then t else h::(rem x t);; let rec find_min lst = match lst with | [] -&amp;gt; failwith(&quot;empty list&quot;) | [x] -&amp;gt; x | h::t -&amp;gt; min h (find_min t);; Now, let’s use the above two to implement selection sort. We will call the function ssort. Recollect that, we will find the minimum element m of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it: let rec ssort lst = match lst with | [] -&amp;gt; [] | _ -&amp;gt; let m = find_min lst in m::(ssort (rem m lst));; That’s all folks! Have a great week ahead!</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
