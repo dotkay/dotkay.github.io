@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-21T06:10:46+00:00</updated>
+  <updated>2017-08-22T07:53:47+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,97 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Learning to count set bits →</title>
+      
+      <link href="https://dotkay.github.io/2017/08/21/learning-to-count-set-bits/" rel="alternate" type="text/html" title="Learning to count set bits" />
+      <published>2017-08-21T00:00:00+00:00</published>
+      <updated>2017-08-21T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/08/21/learning-to-count-set-bits</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/21/learning-to-count-set-bits/">&lt;p&gt;Let’s take a break from recursion and learn to count the number of bits set in an integer. For example, in an integer say &lt;code class=&quot;highlighter-rouge&quot;&gt;9&lt;/code&gt; there are two set bits. Of course, we will be dealing with unsigned integers and the number of bits set is in the binary representation (the language that our computers understand and speak). We already saw how to convert an integer to binary in one of our &lt;a href=&quot;https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/&quot;&gt;previous posts&lt;/a&gt;. You may want to refer to that in case you want to quickly refresh your memory.&lt;/p&gt;
+
+&lt;p&gt;Let’s work out the first technique we would use. Let’s take the integer &lt;code class=&quot;highlighter-rouge&quot;&gt;9&lt;/code&gt;. It’s binary representation is &lt;code class=&quot;highlighter-rouge&quot;&gt;1001&lt;/code&gt;. So, there are two set bits. Looks very intuitive - start from the right-most bit, have a counter and start counting the set bits, while right shifting our bit string. We just need a counter to keep track of the count and two operations - right shift and an operation to identify a set bit. Let’s see how to do that.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We initialize a counter, call it &lt;code class=&quot;highlighter-rouge&quot;&gt;count&lt;/code&gt; to 0.&lt;/li&gt;
+  &lt;li&gt;We do a bitwise &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;. This would identify if a bit is set. If it’s set, we would increment &lt;code class=&quot;highlighter-rouge&quot;&gt;count&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Right shift our original input and continue till we encounter 0.&lt;/p&gt;
+
+    &lt;p&gt;n           n&amp;amp;1                 count
+ 1001                                0
+            0001                  1
+ 0100          0000                  1
+ 0010          0000                  1
+ 0001          0001                  2
+ 0000       –terminate–            2&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;final result = 2&lt;/p&gt;
+
+&lt;p&gt;Let’s write a quick C function:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;count_set_bits&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;There’s a better way to do this, thanks to Brian Kernighan’s algorithm. He observed that subtracting a &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; toggles all the bits upto and including the right-most set bit. For example, if you subtract &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;1010&lt;/code&gt;, it results in &lt;code class=&quot;highlighter-rouge&quot;&gt;1001&lt;/code&gt; - the last two bits, &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; and the right-most set bit &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; got flipped. Now, if we perform a bitwise &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with &lt;code class=&quot;highlighter-rouge&quot;&gt;1001&lt;/code&gt; (9).&lt;/p&gt;
+
+&lt;p&gt;n       n-1    n&amp;amp;(n-1)      count
+1001     1000     1000          1
+1000     0111     0000          2
+0000    –terminate–           2&lt;/p&gt;
+
+&lt;p&gt;final result = 2&lt;/p&gt;
+
+&lt;p&gt;Let’s write a quick C function:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BK_count_set_bits&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;That’s all for now. Let me get my head around other bits and pieces before my next post.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C" />
+      
+
+      
+
+      
+        <summary type="html">Let’s take a break from recursion and learn to count the number of bits set in an integer. For example, in an integer say 9 there are two set bits. Of course, we will be dealing with unsigned integers and the number of bits set is in the binary representation (the language that our computers understand and speak). We already saw how to convert an integer to binary in one of our previous posts. You may want to refer to that in case you want to quickly refresh your memory. Let’s work out the first technique we would use. Let’s take the integer 9. It’s binary representation is 1001. So, there are two set bits. Looks very intuitive - start from the right-most bit, have a counter and start counting the set bits, while right shifting our bit string. We just need a counter to keep track of the count and two operations - right shift and an operation to identify a set bit. Let’s see how to do that. We initialize a counter, call it count to 0. We do a bitwise &amp;amp; with 1. This would identify if a bit is set. If it’s set, we would increment count. Right shift our original input and continue till we encounter 0. n n&amp;amp;1 count 1001 0 0001 1 0100 0000 1 0010 0000 1 0001 0001 2 0000 –terminate– 2 final result = 2 Let’s write a quick C function: unsigned int count_set_bits (unsigned int n) { unsigned int count = 0; while (n) { count += n &amp;amp; 1; n &amp;gt;&amp;gt;= 1; } return count; } There’s a better way to do this, thanks to Brian Kernighan’s algorithm. He observed that subtracting a 1 toggles all the bits upto and including the right-most set bit. For example, if you subtract 1 from 1010, it results in 1001 - the last two bits, 0 and the right-most set bit 1 got flipped. Now, if we perform a bitwise &amp;amp; of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with 1001 (9). n n-1 n&amp;amp;(n-1) count 1001 1000 1000 1 1000 0111 0000 2 0000 –terminate– 2 final result = 2 Let’s write a quick C function: unsigned int BK_count_set_bits (unsigned int n) { unsigned int count = 0; while (n) { n &amp;amp;= (n-1); count++; } return count; } That’s all for now. Let me get my head around other bits and pieces before my next post.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
