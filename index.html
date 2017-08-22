@@ -156,18 +156,18 @@
 <ol>
   <li>We initialize a counter, call it <code class="highlighter-rouge">count</code> to 0.</li>
   <li>We do a bitwise <code class="highlighter-rouge">&amp;</code> with <code class="highlighter-rouge">1</code>. This would identify if a bit is set. If it’s set, we would increment <code class="highlighter-rouge">count</code>.</li>
-  <li>
-    <p>Right shift our original input and continue till we encounter 0.</p>
-
-    <p>n           n&amp;1                 count
- 1001                                0
-            0001                  1
- 0100          0000                  1
- 0010          0000                  1
- 0001          0001                  2
- 0000       –terminate–            2</p>
-  </li>
+  <li>Right shift our original input and continue till we encounter 0 (terminating condition for our loop).</li>
 </ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
+   1001	       			  0
+               0001		  1
+   0100	       0000		  1
+   0010	       0000		  1
+   0001	       0001		  2
+   0000	        -		  2
+</code></pre>
+</div>
 
 <p>final result = 2</p>
 
@@ -183,14 +183,17 @@
     <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>There’s a better way to do this, thanks to Brian Kernighan’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
+<p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
 
-<p>n       n-1    n&amp;(n-1)      count
+<div class="highlighter-rouge"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
 1001     1000     1000          1
 1000     0111     0000          2
-0000    –terminate–           2</p>
+0000      --       --           2
 
-<p>final result = 2</p>
+</code></pre>
+</div>
+
+<p>final result = 2. Note that we loop only as many times as the number of set bits, unlike the previous case.</p>
 
 <p>Let’s write a quick C function:</p>
 
