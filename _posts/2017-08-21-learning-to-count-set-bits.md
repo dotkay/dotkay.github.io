@@ -2,7 +2,7 @@
 layout: post
 title: Learning to count set bits
 categories: [algorithms, C]
-keywords:
+keywords: [algorithms, C]
 external-url: https://dotkay.github.io/2017/08/21/learning-to-count-set-bits
 ---
 
