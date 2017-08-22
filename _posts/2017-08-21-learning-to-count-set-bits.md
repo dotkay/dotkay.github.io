@@ -12,15 +12,17 @@ Let's work out the first technique we would use. Let's take the integer `9`. It'
 
 1. We initialize a counter, call it `count` to 0. 
 2. We do a bitwise `&` with `1`. This would identify if a bit is set. If it's set, we would increment `count`.
-3. Right shift our original input and continue till we encounter 0.
+3. Right shift our original input and continue till we encounter 0 (terminating condition for our loop).
 
-   n           n&1                 count
- 1001                                0
-               0001                  1
- 0100          0000                  1
- 0010          0000                  1
- 0001          0001                  2
- 0000       --terminate--            2
+```
+   n  	       n&1 	    	  count
+   1001	       			  0
+               0001		  1
+   0100	       0000		  1
+   0010	       0000		  1
+   0001	       0001		  2
+   0000	        -		  2
+```
 
 final result = 2
 
@@ -38,14 +40,17 @@ unsigned int count_set_bits (unsigned int n)
 }
 {% endhighlight %}
 
-There's a better way to do this, thanks to Brian Kernighan's algorithm. He observed that subtracting a `1` toggles all the bits upto and including the right-most set bit. For example, if you subtract `1` from `1010`, it results in `1001` - the last two bits, `0` and the right-most set bit `1` got flipped. Now, if we perform a bitwise `&` of this result with the original number, effectively we would be unsetting the right-most set bit. Let's work out an example to understand it better. Let's start again with `1001` (9).
+There's a better way to do this, thanks to [Brian Kernighan](https://www.cs.princeton.edu/~bwk/)'s algorithm. He observed that subtracting a `1` toggles all the bits upto and including the right-most set bit. For example, if you subtract `1` from `1010`, it results in `1001` - the last two bits, `0` and the right-most set bit `1` got flipped. Now, if we perform a bitwise `&` of this result with the original number, effectively we would be unsetting the right-most set bit. Let's work out an example to understand it better. Let's start again with `1001` (9).
 
+```
   n       n-1    n&(n-1)      count
 1001     1000     1000          1
 1000     0111     0000          2
-0000    --terminate--           2
+0000      --       --           2
 
-final result = 2
+```
+
+final result = 2. Note that we loop only as many times as the number of set bits, unlike the previous case.
 
 Let's write a quick C function:
 
