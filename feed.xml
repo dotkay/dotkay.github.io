@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-24T05:14:00+00:00</updated>
+  <updated>2017-08-24T05:17:09+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -257,6 +257,8 @@
       
         <category term="recursion" />
       
+        <category term="algorithms" />
+      
 
       
 
@@ -348,9 +350,11 @@
       
 
       
+        <category term="ocaml" />
+      
         <category term="recursion" />
       
-        <category term="ocaml" />
+        <category term="algorithms" />
       
 
       
@@ -719,6 +723,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
         <category term="ocaml" />
       
         <category term="recursion" />
+      
+        <category term="algorithms" />
       
 
       
