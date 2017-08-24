@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Some more recursion examples
-categories: ocaml recursion
+categories: [ocaml, recursion, algorithms]
 keywords:
 external-url: https://dotkay.github.io/2017/08/15/more-simple-recursion-examples
 ---

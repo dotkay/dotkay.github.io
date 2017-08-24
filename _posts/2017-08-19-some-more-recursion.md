@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Some more recursion please...
-categories: [recursion, ocaml]
+categories: [ocaml, recursion, algorithms]
 keywords:
 external-url: https://dotkay.github.io/2017/08/19/some-more-recursion
 ---

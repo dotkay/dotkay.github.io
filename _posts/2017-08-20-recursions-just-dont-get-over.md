@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Recursions just don't get over ...
-categories: [ocaml, recursion]
+categories: [ocaml, recursion, algorithms]
 keywords:
 external-url: https://dotkay.github.io/2017/08/20/recursions-just-dont-get-over
 ---
