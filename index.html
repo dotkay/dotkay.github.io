@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -157,10 +157,10 @@
 
 <ol>
   <li><code class="highlighter-rouge">1</code> and <code class="highlighter-rouge">N</code> itself are always factors, of course.</li>
-  <li>Factors always occur in pairs. <code class="highlighter-rouge">(1, 12), (2, 6), (3, 4)</code> etc. If <code class="highlighter-rouge">N</code> is a perfect square, we also have <code class="highlighter-rouge">(\sqrt{N}, \sqrt{N})</code>.</li>
+  <li>Factors always occur in pairs. <code class="highlighter-rouge">(1, 12), (2, 6), (3, 4)</code> etc. If <code class="highlighter-rouge">N</code> is a perfect square, we also have <script type="math/tex">(\sqrt{N}, \sqrt{N})</script>.</li>
 </ol>
 
-<p>From the above we realize that we don’t need to iterate through the numbers all the way until <code class="highlighter-rouge">N</code>. We just need to do it until <code class="highlighter-rouge">\sqrt{N}</code>. Here’s the algorithm for computing all the factors:</p>
+<p>From the above we realize that we don’t need to iterate through the numbers all the way until <code class="highlighter-rouge">N</code>. We just need to do it until <script type="math/tex">\sqrt{N}</script>. Here’s the algorithm for computing all the factors:</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">all_factors</span> <span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
