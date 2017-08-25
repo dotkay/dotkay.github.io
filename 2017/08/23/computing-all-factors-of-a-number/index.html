@@ -10,7 +10,7 @@
   
   
   <title>Computing factors of a number</title>
-  <meta name="description" content="Let’s look at a quick algorithm to compute all factors of a number N. For example, if N is 12 we want all the factors [1, 2, 3, 4, 6, 12]. If N is say 36 we want [1, 2, 3, 4, 6, 9, 12, 18, 36]. We observe that: 1 and N itself are always factors, of course. Factors always occur in pairs. (1, 12), (2, 6), (3, 4) etc. If N is a perfect square, we also have . From the above we realize that we don’t need to iterate through the numbers all the way until N. We just need to do it until . Here’s the algorithm for computing all the factors: std::vector&amp;lt;int&amp;gt; all_factors (int N) { std::vector&amp;lt;int&amp;gt; result; result.push_back(1); result.push_back(N); for (int i = 2; i &amp;lt; (int)sqrt(N); i++) { if ((N % i) == 0) { result.push_back(i); if (i != (int)sqrt(N)) result.push_back(N/i); } } return result; } That was a super short post!">
+  <meta name="description" content="Let’s look at a quick algorithm to compute all factors of a number N. For example, if N is 12 we want all the factors [1, 2, 3, 4, 6, 12]. If N is say 36 we want [1, 2, 3, 4, 6, 9, 12, 18, 36]. We observe that: 1 and N itself are always factors, of course. Factors always occur in pairs. (1, 12), (2, 6), (3, 4) etc. If N is a perfect square, we also have (\sqrt(N), \sqrt(N)). From the above we realize that we don’t need to iterate through the numbers all the way until N. We just need to do it until \sqrt(N). Here’s the algorithm for computing all the factors: std::vector&amp;lt;int&amp;gt; all_factors (int N) { std::vector&amp;lt;int&amp;gt; result; result.push_back(1); result.push_back(N); for (int i = 2; i &amp;lt; (int)sqrt(N); i++) { if ((N % i) == 0) { result.push_back(i); if (i != (int)sqrt(N)) result.push_back(N/i); } } return result; } That was a super short post!">
   
     
     <meta name="keywords" content="algorithms,C++">
@@ -149,10 +149,10 @@
 
 <ol>
   <li><code class="highlighter-rouge">1</code> and <code class="highlighter-rouge">N</code> itself are always factors, of course.</li>
-  <li>Factors always occur in pairs. <code class="highlighter-rouge">(1, 12), (2, 6), (3, 4)</code> etc. If <code class="highlighter-rouge">N</code> is a perfect square, we also have <script type="math/tex">(\sqrt{N}, \sqrt{N})</script>.</li>
+  <li>Factors always occur in pairs. <code class="highlighter-rouge">(1, 12), (2, 6), (3, 4)</code> etc. If <code class="highlighter-rouge">N</code> is a perfect square, we also have <code class="highlighter-rouge">(\sqrt(N), \sqrt(N))</code>.</li>
 </ol>
 
-<p>From the above we realize that we don’t need to iterate through the numbers all the way until <code class="highlighter-rouge">N</code>. We just need to do it until <script type="math/tex">\sqrt{N}</script>. Here’s the algorithm for computing all the factors:</p>
+<p>From the above we realize that we don’t need to iterate through the numbers all the way until <code class="highlighter-rouge">N</code>. We just need to do it until <code class="highlighter-rouge">\sqrt(N)</code>. Here’s the algorithm for computing all the factors:</p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">all_factors</span> <span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
