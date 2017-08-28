@@ -20,7 +20,7 @@ twitter_username:
 twitter_image:
 facebook_app_id:
 facebook_image:
-google_analytics:
+google_analytics: UA-105390377-1
 comments: false
 
 plugins:
