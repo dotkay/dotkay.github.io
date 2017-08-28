@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Introducing tail recursions</title>
+  <meta name="description" content="Now that we are already thinking of recursive function calls whenever possible, it is a nice time to introduce tail recursions. Let’s consider this function lst_sum that we worked out in one of our earlier posts, repeated here for convenience: let rec lst_sum lst = match lst with | [] -&amp;gt; 0 | h::t -&amp;gt; h + lst_sum t;; When we call this function on this list l1 = [1; 2; 3; 4; 5], this is what would how the stack frame of the execution by the compiler would look like: lst_sum [1; 2; 3; 4; 5] = 1 + lst_sum [2; 3; 4; 5] = 1 + 2 + lst_sum [3; 4; 5] = 1 + 2 + 3 + lst_sum [4; 5] = 1 + 2 + 3 + 4 + lst_sum [5] = 1 + 2 + 3 + 4 + 5 + lst_sum [] = 1 + 2 + 3 + 4 + 5 + 0 = 15 Note that it performs the actual computation (or evaluates the intermediate results) only after all the recursive calls are completed. This means that we need to keep the function calls in the stack (which means spend storage for the function’s local variables, etc.) until all the recursive calls are returned. This is a lot of resources wasted. Let’s see a tail-recursive version of the same function. Let’s call it tr_lst_sum. let tr_lst_sum lst = let rec aux_lst_sum lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_sum t (acc + h) in aux_lst_sum lst 0;; We have an auxiliary recursive function aux_lst_sum and pass another parameter acc (for accumulator) to it. The idea is to accumulate intermediate results so that we can start computations as and when a step completes, and not have to save the recursive calls to the functions in the stack frame. This is how the execution of our tail-recursive version would look like: tr_lst_sum [1; 2; 3; 4; 5] = aux_lst_sum [1; 2; 3; 4; 5] 0 = aux_lst_sum [2; 3; 4; 5] 1 = aux_lst_sum [3; 4; 5] 3 = aux_lst_sum [4; 5] 6 = aux_lst_sum [5] 10 = aux_lst_sum [] 15 = 15 Note that the accumulator acc computes the intermediate results as and when they are available. We also store only one instance of the function call in the stack thereby saving a lot of space and more importantly, avoiding stack overflow. Hope you enjoyed this!">
+  
+    
+    <meta name="keywords" content="recursion,ocaml">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/08/24/introducing-tail-recursions/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Introducing tail recursions">
+  <meta name="twitter:description" content="Now that we are already thinking of recursive function calls whenever possible, it is a nice time to introduce tail recursions. Let’s consider this function lst_sum that we worked out in one of our...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/08/24/introducing-tail-recursions/">Introducing tail recursions &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-08-24T00:00:00+00:00" itemprop="datePublished">Aug 24, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Now that we are already thinking of recursive function calls whenever possible, it is a nice time to introduce tail recursions. Let’s consider this function <code class="highlighter-rouge">lst_sum</code> that we worked out in one of our <a href="https://dotkay.github.io/2017/08/14/ocaml-recursion-simple">earlier posts</a>, repeated here for convenience:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_sum</span> <span class="n">lst</span> <span class="p">=</span> 
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="mi">0</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">h</span> <span class="o">+</span> <span class="n">lst_sum</span> <span class="n">t</span><span class="p">;;</span></code></pre></figure>
+
+<p>When we call this function on this list <code class="highlighter-rouge">l1 = [1; 2; 3; 4; 5]</code>, this is what would how the stack frame of the execution by the compiler would look like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	lst_sum [1; 2; 3; 4; 5]
+=	1 + lst_sum [2; 3; 4; 5]
+=	1 + 2 + lst_sum [3; 4; 5]
+=	1 + 2 + 3 + lst_sum [4; 5]
+=	1 + 2 + 3 + 4 + lst_sum [5]
+=	1 + 2 + 3 + 4 + 5 + lst_sum []
+=	1 + 2 + 3 + 4 + 5 + 0
+=	15
+
+</code></pre>
+</div>
+
+<p>Note that it performs the actual computation (or evaluates the intermediate results) only after all the recursive calls are completed. This means that we need to keep the function calls in the stack (which means spend storage for the function’s local variables, etc.) until all the recursive calls are returned. This is a lot of resources wasted.</p>
+
+<p>Let’s see a tail-recursive version of the same function. Let’s call it <code class="highlighter-rouge">tr_lst_sum</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_sum</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
+  <span class="k">in</span>
+  <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre></figure>
+
+<p>We have an auxiliary recursive function <code class="highlighter-rouge">aux_lst_sum</code> and pass another parameter <code class="highlighter-rouge">acc</code> (for accumulator) to it. The idea is to accumulate intermediate results so that we can start computations as and when a step completes, and not have to save the recursive calls to the functions in the stack frame. This is how the execution of our tail-recursive version would look like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	tr_lst_sum [1; 2; 3; 4; 5]
+= 	aux_lst_sum [1; 2; 3; 4; 5] 0
+= 	aux_lst_sum [2; 3; 4; 5]    1
+= 	aux_lst_sum [3; 4; 5] 	    3
+= 	aux_lst_sum [4; 5] 	    6
+= 	aux_lst_sum [5] 	    10
+= 	aux_lst_sum [] 		    15
+=	15
+</code></pre>
+</div>
+
+<p>Note that the accumulator <code class="highlighter-rouge">acc</code> computes the intermediate results as and when they are available. We also store only one instance of the function call in the stack thereby saving a lot of space and more importantly, avoiding stack overflow.</p>
+
+<p>Hope you enjoyed this!</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
