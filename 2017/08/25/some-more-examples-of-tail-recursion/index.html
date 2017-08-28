@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>More examples of tail recursions</title>
+  <meta name="description" content="We introduced tail recursion in our previous post. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function lst_rev, introduced in one of our earlier posts which takes a list lst and returns the reversed list. Here’s it is for your reference: let rec lst_rev lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; (lst_rev t) @ [h];; Recollect that in Ocaml, @ is the operator for list concatenation. Let’s work out how the execution of this function on our list [1; 2; 3 4] would look like: lst_rev [1; 2; 3; 4] = lst_rev [2; 3; 4] @ [1] = lst_rev [3; 4] @ [2] @ [1] = lst_rev [4] @ [3] @ [2] @ [1] = lst_rev [] @ [4] @ [3] @ [2] @ [1] = [] @ [4] @ [3] @ [2] @ [1] = [4; 3; 2; 1] Here is our tail-recursive version of the same. Let’s call it tr_lst_rev. let tr_lst_rev lst = let rec aux_lst_rev lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_rev t (h::acc) in aux_lst_rev lst [];; Again, very similar to our previous example, we use an accumulator acc to collect the results of intermediate computations (results of each recursive step). tr_lst_rev [1; 2; 3; 4] = aux_lst_rev [2; 3; 4] 1::[] = aux_lst_rev [3; 4] 2::[1] = aux_lst_rev [4] 3::[2; 1] = aux_lst_rev [] 4::[3; 2; 1] = [4; 3; 2; 1]">
+  
+    
+    <meta name="keywords" content="recursion,ocaml">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="More examples of tail recursions">
+  <meta name="twitter:description" content="We introduced tail recursion in our previous post. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win tha...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/08/25/more-examples-of-tail-recursion/">More examples of tail recursions &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-08-25T00:00:00+00:00" itemprop="datePublished">Aug 25, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>We introduced tail recursion in our <a href="https://dotkay.github.io/2017/08/24/introducing-tail-recursions">previous post</a>. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function <code class="highlighter-rouge">lst_rev</code>, introduced in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples">earlier posts</a> which takes a list <code class="highlighter-rouge">lst</code> and returns the reversed list. Here’s it is for your reference:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
+     <span class="p">(</span><span class="n">lst_rev</span> <span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">h</span><span class="o">];;</span></code></pre></figure>
+
+<p>Recollect that in Ocaml, <code class="highlighter-rouge">@</code> is the operator for list concatenation. Let’s work out how the execution of this function on our list <code class="highlighter-rouge">[1; 2; 3 4]</code> would look like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	lst_rev [1; 2; 3; 4]
+= 	lst_rev [2; 3; 4] @ [1]
+= 	lst_rev [3; 4] @ [2] @ [1]
+= 	lst_rev [4] @ [3] @ [2] @ [1]
+= 	lst_rev [] @ [4] @ [3] @ [2] @ [1]
+=	[] @ [4] @ [3] @ [2] @ [1]
+= 	[4; 3; 2; 1]
+</code></pre>
+</div>
+
+<p>Here is our tail-recursive version of the same. Let’s call it <code class="highlighter-rouge">tr_lst_rev</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_rev</span> <span class="n">t</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">acc</span><span class="p">)</span>
+  <span class="k">in</span>
+  <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre></figure>
+
+<p>Again, very similar to our previous example, we use an accumulator <code class="highlighter-rouge">acc</code> to collect the results of intermediate computations (results of each recursive step).</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	tr_lst_rev [1; 2; 3; 4]
+=	aux_lst_rev [2; 3; 4]	1::[]
+=	aux_lst_rev [3; 4] 	2::[1]
+=	aux_lst_rev [4] 	3::[2; 1]
+=	aux_lst_rev [] 		4::[3; 2; 1]
+= 	[4; 3; 2; 1]
+
+</code></pre>
+</div>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-28T02:29:18+00:00</updated>
+  <updated>2017-08-28T02:51:54+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,82 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">More examples of tail recursions →</title>
+      
+      <link href="https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/" rel="alternate" type="text/html" title="More examples of tail recursions" />
+      <published>2017-08-25T00:00:00+00:00</published>
+      <updated>2017-08-25T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/">&lt;p&gt;We introduced tail recursion in our &lt;a href=&quot;https://dotkay.github.io/2017/08/24/introducing-tail-recursions&quot;&gt;previous post&lt;/a&gt;. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function &lt;code class=&quot;highlighter-rouge&quot;&gt;lst_rev&lt;/code&gt;, introduced in one of our &lt;a href=&quot;https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples&quot;&gt;earlier posts&lt;/a&gt; which takes a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; and returns the reversed list. Here’s it is for your reference:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Recollect that in Ocaml, &lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt; is the operator for list concatenation. Let’s work out how the execution of this function on our list &lt;code class=&quot;highlighter-rouge&quot;&gt;[1; 2; 3 4]&lt;/code&gt; would look like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	lst_rev [1; 2; 3; 4]
+= 	lst_rev [2; 3; 4] @ [1]
+= 	lst_rev [3; 4] @ [2] @ [1]
+= 	lst_rev [4] @ [3] @ [2] @ [1]
+= 	lst_rev [] @ [4] @ [3] @ [2] @ [1]
+=	[] @ [4] @ [3] @ [2] @ [1]
+= 	[4; 3; 2; 1]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here is our tail-recursive version of the same. Let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_rev&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Again, very similar to our previous example, we use an accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; to collect the results of intermediate computations (results of each recursive step).&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	tr_lst_rev [1; 2; 3; 4]
+=	aux_lst_rev [2; 3; 4]	1::[]
+=	aux_lst_rev [3; 4] 	2::[1]
+=	aux_lst_rev [4] 	3::[2; 1]
+=	aux_lst_rev [] 		4::[3; 2; 1]
+= 	[4; 3; 2; 1]
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="recursion" />
+      
+        <category term="ocaml" />
+      
+
+      
+
+      
+        <summary type="html">We introduced tail recursion in our previous post. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function lst_rev, introduced in one of our earlier posts which takes a list lst and returns the reversed list. Here’s it is for your reference: let rec lst_rev lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; (lst_rev t) @ [h];; Recollect that in Ocaml, @ is the operator for list concatenation. Let’s work out how the execution of this function on our list [1; 2; 3 4] would look like: lst_rev [1; 2; 3; 4] = lst_rev [2; 3; 4] @ [1] = lst_rev [3; 4] @ [2] @ [1] = lst_rev [4] @ [3] @ [2] @ [1] = lst_rev [] @ [4] @ [3] @ [2] @ [1] = [] @ [4] @ [3] @ [2] @ [1] = [4; 3; 2; 1] Here is our tail-recursive version of the same. Let’s call it tr_lst_rev. let tr_lst_rev lst = let rec aux_lst_rev lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_rev t (h::acc) in aux_lst_rev lst [];; Again, very similar to our previous example, we use an accumulator acc to collect the results of intermediate computations (results of each recursive step). tr_lst_rev [1; 2; 3; 4] = aux_lst_rev [2; 3; 4] 1::[] = aux_lst_rev [3; 4] 2::[1] = aux_lst_rev [4] 3::[2; 1] = aux_lst_rev [] 4::[3; 2; 1] = [4; 3; 2; 1]</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
