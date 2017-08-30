@@ -3,7 +3,7 @@ layout: post
 title: More examples of tail recursions
 categories: [recursion, ocaml]
 keywords: [recursion, ocaml]
-external-url: https://dotkay.github.io/2017/08/25/more-examples-of-tail-recursion/
+external-url: https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/
 ---
 
 We introduced tail recursion in our [previous post](https://dotkay.github.io/2017/08/24/introducing-tail-recursions). Let's see some more examples of tail recursion. Let's do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let's consider the function `lst_rev`, introduced in one of our [earlier posts](https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples) which takes a list `lst` and returns the reversed list. Here's it is for your reference:

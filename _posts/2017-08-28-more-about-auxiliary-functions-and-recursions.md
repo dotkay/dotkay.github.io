@@ -6,7 +6,7 @@ keywords: [recursion, ocaml]
 external-url: https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions
 ---
 
-In an [earlier posts](https://dotkay.github.io/2017/08/25/more-examples-of-tail-recursion/), tail recursions were introduced using two very simple functions `tr_lst_sum` and `tr_lst_rev`. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let's get started!
+In an [earlier posts](https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/), tail recursions were introduced using two very simple functions `tr_lst_sum` and `tr_lst_rev`. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let's get started!
 
 Here's the tail recursive version of `lst_sum` to sum an input list `lst` of elements.
 
