@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-30T07:28:17+00:00</updated>
+  <updated>2017-08-30T07:33:25+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -28,7 +28,7 @@
       <published>2017-08-28T00:00:00+00:00</published>
       <updated>2017-08-28T00:00:00+00:00</updated>
       <id>https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2017/08/25/more-examples-of-tail-recursion/&quot;&gt;earlier posts&lt;/a&gt;, tail recursions were introduced using two very simple functions &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_sum&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_rev&lt;/code&gt;. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let’s get started!&lt;/p&gt;
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/&quot;&gt;earlier posts&lt;/a&gt;, tail recursions were introduced using two very simple functions &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_sum&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_rev&lt;/code&gt;. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let’s get started!&lt;/p&gt;
 
 &lt;p&gt;Here’s the tail recursive version of &lt;code class=&quot;highlighter-rouge&quot;&gt;lst_sum&lt;/code&gt; to sum an input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; of elements.&lt;/p&gt;
 
