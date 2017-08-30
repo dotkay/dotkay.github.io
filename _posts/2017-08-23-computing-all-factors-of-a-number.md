@@ -14,7 +14,7 @@ Let's look at a quick algorithm to compute all factors of a number `N`. For exam
 From the above we realize that we don't need to iterate through the numbers all the way until `N`. We just need to do it until `\sqrt(N)`. Here's the algorithm for computing all the factors:
 
 {% highlight cpp %}
-std::vector<int> all_factors (int N) {
+vector<int> all_factors (int N) {
     std::vector<int> result;
     result.push_back(1);
     result.push_back(N);
