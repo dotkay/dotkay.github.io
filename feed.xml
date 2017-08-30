@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-30T07:21:04+00:00</updated>
+  <updated>2017-08-30T07:28:17+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -383,7 +383,7 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 
 &lt;p&gt;From the above we realize that we don’t need to iterate through the numbers all the way until &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;. We just need to do it until &lt;code class=&quot;highlighter-rouge&quot;&gt;\sqrt(N)&lt;/code&gt;. Here’s the algorithm for computing all the factors:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all_factors&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all_factors&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -416,7 +416,7 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
       
 
       
-        <summary type="html">Let’s look at a quick algorithm to compute all factors of a number N. For example, if N is 12 we want all the factors [1, 2, 3, 4, 6, 12]. If N is say 36 we want [1, 2, 3, 4, 6, 9, 12, 18, 36]. We observe that: 1 and N itself are always factors, of course. Factors always occur in pairs. (1, 12), (2, 6), (3, 4) etc. If N is a perfect square, we also have (\sqrt(N), \sqrt(N)). From the above we realize that we don’t need to iterate through the numbers all the way until N. We just need to do it until \sqrt(N). Here’s the algorithm for computing all the factors: std::vector&amp;lt;int&amp;gt; all_factors (int N) { std::vector&amp;lt;int&amp;gt; result; result.push_back(1); result.push_back(N); for (int i = 2; i &amp;lt; (int)sqrt(N); i++) { if ((N % i) == 0) { result.push_back(i); if (i != (int)sqrt(N)) result.push_back(N/i); } } return result; } That was a super short post!</summary>
+        <summary type="html">Let’s look at a quick algorithm to compute all factors of a number N. For example, if N is 12 we want all the factors [1, 2, 3, 4, 6, 12]. If N is say 36 we want [1, 2, 3, 4, 6, 9, 12, 18, 36]. We observe that: 1 and N itself are always factors, of course. Factors always occur in pairs. (1, 12), (2, 6), (3, 4) etc. If N is a perfect square, we also have (\sqrt(N), \sqrt(N)). From the above we realize that we don’t need to iterate through the numbers all the way until N. We just need to do it until \sqrt(N). Here’s the algorithm for computing all the factors: vector&amp;lt;int&amp;gt; all_factors (int N) { std::vector&amp;lt;int&amp;gt; result; result.push_back(1); result.push_back(N); for (int i = 2; i &amp;lt; (int)sqrt(N); i++) { if ((N % i) == 0) { result.push_back(i); if (i != (int)sqrt(N)) result.push_back(N/i); } } return result; } That was a super short post!</summary>
       
 
       
