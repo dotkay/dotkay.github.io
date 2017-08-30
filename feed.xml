@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-30T07:33:25+00:00</updated>
+  <updated>2017-08-30T07:46:11+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,58 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Tail recursions and reversing a list →</title>
+      
+      <link href="https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list/" rel="alternate" type="text/html" title="Tail recursions and reversing a list" />
+      <published>2017-08-29T00:00:00+00:00</published>
+      <updated>2017-08-29T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list/">&lt;p&gt;So, how about reversing a list using our &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee&lt;/code&gt; function from our &lt;a href=&quot;https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions&quot;&gt;previous post&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;Let’s work it out now. Here’s the original tail recursive function for your reference:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;All you need to observe is how the accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;leftee&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In most functional programming languages our &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee&lt;/code&gt; is actually called &lt;code class=&quot;highlighter-rouge&quot;&gt;fold_left&lt;/code&gt; and is tail recursive. There’s also a &lt;code class=&quot;highlighter-rouge&quot;&gt;fold_right&lt;/code&gt; (the accumulator appears to the right of the function), which is not tail recursive. The name is not actually because of the position of the accumulator (I lied in my previous post), but because of the way it applies the function to the list elements. More on this in a later post!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="recursion" />
+      
+        <category term="ocaml" />
+      
+
+      
+
+      
+        <summary type="html">So, how about reversing a list using our leftee function from our previous post? Let’s work it out now. Here’s the original tail recursive function for your reference: let tr_lst_rev lst = let rec aux_lst_rev lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_rev t (h::acc) in aux_lst_rev lst [];; All you need to observe is how the accumulator acc changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator acc. let tr_lst_rev lst = leftee [] (fun a x -&amp;gt; x::a) lst;; In most functional programming languages our leftee is actually called fold_left and is tail recursive. There’s also a fold_right (the accumulator appears to the right of the function), which is not tail recursive. The name is not actually because of the position of the accumulator (I lied in my previous post), but because of the way it applies the function to the list elements. More on this in a later post!</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
