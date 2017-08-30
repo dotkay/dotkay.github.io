@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-28T05:54:54+00:00</updated>
+  <updated>2017-08-30T07:21:04+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,91 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">More about auxiliary functions and recursions →</title>
+      
+      <link href="https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions/" rel="alternate" type="text/html" title="More about auxiliary functions and recursions" />
+      <published>2017-08-28T00:00:00+00:00</published>
+      <updated>2017-08-28T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2017/08/25/more-examples-of-tail-recursion/&quot;&gt;earlier posts&lt;/a&gt;, tail recursions were introduced using two very simple functions &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_sum&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_rev&lt;/code&gt;. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let’s get started!&lt;/p&gt;
+
+&lt;p&gt;Here’s the tail recursive version of &lt;code class=&quot;highlighter-rouge&quot;&gt;lst_sum&lt;/code&gt; to sum an input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; of elements.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;aux_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And here’s the tail recursive version of &lt;code class=&quot;highlighter-rouge&quot;&gt;lst_len&lt;/code&gt; to compute the length of an input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; of elements.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_len&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_len&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_len&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;aux_lst_len&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Let’s carefully observe the above two functions and try to understand the pattern - the recipe for such a computation. In both the functions,&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We have an initial accumulator (in this case the value is &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; but it could be anything in general)&lt;/li&gt;
+  &lt;li&gt;We traverse the list, apply the auxiliary function to the initial value of the accumulator and a list element and compute a new value for the accumulator.
+2.1. We do the above step to each element of the list (by calling the auxiliary function recursively/repeatedly on each element) and compute new values for the accumulator on the way&lt;/li&gt;
+  &lt;li&gt;When we are done with the entire list, we return the accumulator contents as the result&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now, if we just denote the auxiliary function by &lt;code class=&quot;highlighter-rouge&quot;&gt;faux&lt;/code&gt;, it has a general shape - &lt;code class=&quot;highlighter-rouge&quot;&gt;faux acc lst&lt;/code&gt; - we do traverse the list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;, but this is the general shape that we observe - call &lt;code class=&quot;highlighter-rouge&quot;&gt;faux&lt;/code&gt; on the initial value of the accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are &lt;code class=&quot;highlighter-rouge&quot;&gt;(acc + h)&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;(acc + 1)&lt;/code&gt;. Now, let’s try to wrap this all into a single function, which we would call a &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee&lt;/code&gt; - which would take three parameters - an accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt;, a function &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; to apply (to the accumulator and list element), and of course a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; to work on and will look like &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee acc f lst&lt;/code&gt;. Quick note: we call it &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee&lt;/code&gt; as the &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; appears to the left of &lt;code class=&quot;highlighter-rouge&quot;&gt;f&lt;/code&gt; (I think readers are already getting a hint as to where this is headed. Good!).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;leftee&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;leftee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* val leftee : 'a -&amp;gt; ('a -&amp;gt; 'b -&amp;gt; 'a) -&amp;gt; 'b list -&amp;gt; 'a = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As we see above the new value of the accumulator is the function applied to the current value of the accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; and a list element &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, let’s rewrite &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_sum&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_len&lt;/code&gt; using our &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;leftee&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Here &lt;code class=&quot;highlighter-rouge&quot;&gt;( + )&lt;/code&gt; is the function - just the addition operator. Isn’t it super concise? Aren’t you in love with this already?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_len&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;leftee&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Food for thought - how would you use &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee&lt;/code&gt; to reverse an input list?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="recursion" />
+      
+        <category term="ocaml" />
+      
+
+      
+
+      
+        <summary type="html">In an earlier posts, tail recursions were introduced using two very simple functions tr_lst_sum and tr_lst_rev. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let’s get started! Here’s the tail recursive version of lst_sum to sum an input list lst of elements. let tr_lst_sum lst = let rec aux_lst_sum lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_sum t (acc + h) in aux_lst_sum lst 0;; And here’s the tail recursive version of lst_len to compute the length of an input list lst of elements. let tr_lst_len lst = let rec aux_lst_len lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_len t (acc + 1) in aux_lst_len lst 0;; Let’s carefully observe the above two functions and try to understand the pattern - the recipe for such a computation. In both the functions, We have an initial accumulator (in this case the value is 0 but it could be anything in general) We traverse the list, apply the auxiliary function to the initial value of the accumulator and a list element and compute a new value for the accumulator. 2.1. We do the above step to each element of the list (by calling the auxiliary function recursively/repeatedly on each element) and compute new values for the accumulator on the way When we are done with the entire list, we return the accumulator contents as the result Now, if we just denote the auxiliary function by faux, it has a general shape - faux acc lst - we do traverse the list lst, but this is the general shape that we observe - call faux on the initial value of the accumulator acc and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are (acc + h) and (acc + 1). Now, let’s try to wrap this all into a single function, which we would call a leftee - which would take three parameters - an accumulator acc, a function f to apply (to the accumulator and list element), and of course a list lst to work on and will look like leftee acc f lst. Quick note: we call it leftee as the acc appears to the left of f (I think readers are already getting a hint as to where this is headed. Good!). let rec leftee acc f lst = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; leftee (f acc h) f t;; (* val leftee : 'a -&amp;gt; ('a -&amp;gt; 'b -&amp;gt; 'a) -&amp;gt; 'b list -&amp;gt; 'a = &amp;lt;fun&amp;gt; *) As we see above the new value of the accumulator is the function applied to the current value of the accumulator acc and a list element h. Now, let’s rewrite tr_lst_sum and tr_lst_len using our leftee: let tr_lst_sum lst = leftee 0 ( + ) lst;; Here ( + ) is the function - just the addition operator. Isn’t it super concise? Aren’t you in love with this already? let tr_lst_len lst = leftee 0 (fun x _ -&amp;gt; x + 1) lst;; Food for thought - how would you use leftee to reverse an input list?</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
