@@ -23,7 +23,7 @@ let tr_lst_rev lst =
 All you need to observe is how the accumulator `acc` changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator `acc`.
 
 {% highlight ocaml %}
-let tr_lst_rev lst = leftee [] (fun a x -> x::a) lst;; 
+let tr_lst_rev lst = leftee (fun a x -> x::a) [] lst;; 
 {% endhighlight %}
 
-In most functional programming languages our `leftee` is actually called `fold_left` and is tail recursive. There's also a `fold_right` (the accumulator appears to the right of the function), which is not tail recursive. The name is not actually because of the position of the accumulator (I lied in my previous post), but because of the way it applies the function to the list elements. More on this in a later post!
+In most functional programming languages our `leftee` is actually called `fold_left` and is tail recursive. There's also a `fold_right` which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!
