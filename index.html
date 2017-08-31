@@ -102,6 +102,138 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/30/some-more-tail-recursion/">Some more tail recursion... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 30, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s continue with tail recursion and folding (recollect our <a href="https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursions-and-reversing-a-list">previous post</a>. Let’s use those concepts to write insertion sort algorithm. In an <a href="https://dotkay.github.io/2017/08/19/some-more-recursion">earlier post</a> we wrote a recursive implementation of insertion sort algorithm as below:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="p">::</span><span class="n">h</span><span class="p">::</span><span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
+  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre></figure>
+
+<p>Now, let’s write a tail recursive version of insertion sort. Let’s just call it <code class="highlighter-rouge">tr_isort</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_isort</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux</span> <span class="n">t</span> <span class="p">(</span><span class="n">insert</span> <span class="n">h</span> <span class="n">acc</span><span class="p">)</span>
+  <span class="k">in</span>
+  <span class="n">aux</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre></figure>
+
+<p>Food for thought - is it possible to write a tail-recursive version of <code class="highlighter-rouge">insert</code> function that we used above? If yes, why don’t we try it. If no, why not?</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list/">Tail recursions and reversing a list &rarr;</a>
           </h1>
 
@@ -182,9 +314,9 @@
 
 <p>All you need to observe is how the accumulator <code class="highlighter-rouge">acc</code> changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator <code class="highlighter-rouge">acc</code>.</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="bp">[]</span> <span class="p">(</span><span class="k">fun</span> <span class="n">a</span> <span class="n">x</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">a</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span> </code></pre></figure>
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">a</span> <span class="n">x</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">a</span><span class="p">)</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span> </code></pre></figure>
 
-<p>In most functional programming languages our <code class="highlighter-rouge">leftee</code> is actually called <code class="highlighter-rouge">fold_left</code> and is tail recursive. There’s also a <code class="highlighter-rouge">fold_right</code> (the accumulator appears to the right of the function), which is not tail recursive. The name is not actually because of the position of the accumulator (I lied in my previous post), but because of the way it applies the function to the list elements. More on this in a later post!</p>
+<p>In most functional programming languages our <code class="highlighter-rouge">leftee</code> is actually called <code class="highlighter-rouge">fold_left</code> and is tail recursive. There’s also a <code class="highlighter-rouge">fold_right</code> which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!</p>
 
         </div>
         
@@ -293,23 +425,23 @@
   <li>When we are done with the entire list, we return the accumulator contents as the result</li>
 </ol>
 
-<p>Now, if we just denote the auxiliary function by <code class="highlighter-rouge">faux</code>, it has a general shape - <code class="highlighter-rouge">faux acc lst</code> - we do traverse the list <code class="highlighter-rouge">lst</code>, but this is the general shape that we observe - call <code class="highlighter-rouge">faux</code> on the initial value of the accumulator <code class="highlighter-rouge">acc</code> and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are <code class="highlighter-rouge">(acc + h)</code> and <code class="highlighter-rouge">(acc + 1)</code>. Now, let’s try to wrap this all into a single function, which we would call a <code class="highlighter-rouge">leftee</code> - which would take three parameters - an accumulator <code class="highlighter-rouge">acc</code>, a function <code class="highlighter-rouge">f</code> to apply (to the accumulator and list element), and of course a list <code class="highlighter-rouge">lst</code> to work on and will look like <code class="highlighter-rouge">leftee acc f lst</code>. Quick note: we call it <code class="highlighter-rouge">leftee</code> as the <code class="highlighter-rouge">acc</code> appears to the left of <code class="highlighter-rouge">f</code> (I think readers are already getting a hint as to where this is headed. Good!).</p>
+<p>Now, if we just denote the auxiliary function by <code class="highlighter-rouge">faux</code>, it has a general shape - <code class="highlighter-rouge">faux acc lst</code> - we do traverse the list <code class="highlighter-rouge">lst</code>, but this is the general shape that we observe - call <code class="highlighter-rouge">faux</code> on the initial value of the accumulator <code class="highlighter-rouge">acc</code> and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are <code class="highlighter-rouge">(acc + h)</code> and <code class="highlighter-rouge">(acc + 1)</code>. Now, let’s try to wrap this all into a single function, which we would call a <code class="highlighter-rouge">leftee</code> - which would take three parameters - an accumulator <code class="highlighter-rouge">acc</code>, a function <code class="highlighter-rouge">f</code> to apply (to the accumulator and list element), and of course a list <code class="highlighter-rouge">lst</code> to work on and will look like <code class="highlighter-rouge">leftee f acc lst</code>. We call it <code class="highlighter-rouge">leftee</code> for a reason… (I think readers are already getting a hint as to where this is headed. Good!).</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">leftee</span> <span class="n">acc</span> <span class="n">f</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">leftee</span> <span class="n">f</span> <span class="n">acc</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">leftee</span> <span class="p">(</span><span class="n">f</span> <span class="n">acc</span> <span class="n">h</span><span class="p">)</span> <span class="n">f</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* val leftee : 'a -&gt; ('a -&gt; 'b -&gt; 'a) -&gt; 'b list -&gt; 'a = &lt;fun&gt; *)</span></code></pre></figure>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">leftee</span> <span class="n">f</span> <span class="p">(</span><span class="n">f</span> <span class="n">acc</span> <span class="n">h</span><span class="p">)</span> <span class="n">t</span><span class="p">;;</span>
+<span class="c">(* ('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b list -&gt; 'a = &lt;fun&gt; *)</span></code></pre></figure>
 
 <p>As we see above the new value of the accumulator is the function applied to the current value of the accumulator <code class="highlighter-rouge">acc</code> and a list element <code class="highlighter-rouge">h</code>.</p>
 
 <p>Now, let’s rewrite <code class="highlighter-rouge">tr_lst_sum</code> and <code class="highlighter-rouge">tr_lst_len</code> using our <code class="highlighter-rouge">leftee</code>:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="mi">0</span> <span class="p">(</span> <span class="o">+</span> <span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="p">(</span> <span class="o">+</span> <span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
 
 <p>Here <code class="highlighter-rouge">( + )</code> is the function - just the addition operator. Isn’t it super concise? Aren’t you in love with this already?</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="mi">0</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
 
 <p>Food for thought - how would you use <code class="highlighter-rouge">leftee</code> to reverse an input list?</p>
 
@@ -525,125 +657,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
   <span class="n">aux_factors</span> <span class="mi">2</span> <span class="n">n</span><span class="p">;;</span></code></pre></figure>
 
 <p>That’s all for today! Hope it was enjoyable.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/25/some-more-examples-of-tail-recursion/">More examples of tail recursions &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 25, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>We introduced tail recursion in our <a href="https://dotkay.github.io/2017/08/24/introducing-tail-recursions">previous post</a>. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function <code class="highlighter-rouge">lst_rev</code>, introduced in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples">earlier posts</a> which takes a list <code class="highlighter-rouge">lst</code> and returns the reversed list. Here’s it is for your reference:</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="p">(</span><span class="n">lst_rev</span> <span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">h</span><span class="o">];;</span></code></pre></figure>
-
-<p>Recollect that in Ocaml, <code class="highlighter-rouge">@</code> is the operator for list concatenation. Let’s work out how the execution of this function on our list <code class="highlighter-rouge">[1; 2; 3 4]</code> would look like:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	lst_rev [1; 2; 3; 4]
-= 	lst_rev [2; 3; 4] @ [1]
-= 	lst_rev [3; 4] @ [2] @ [1]
-= 	lst_rev [4] @ [3] @ [2] @ [1]
-= 	lst_rev [] @ [4] @ [3] @ [2] @ [1]
-=	[] @ [4] @ [3] @ [2] @ [1]
-= 	[4; 3; 2; 1]
-</code></pre>
-</div>
-
-<p>Here is our tail-recursive version of the same. Let’s call it <code class="highlighter-rouge">tr_lst_rev</code>.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
-    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_rev</span> <span class="n">t</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">acc</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre></figure>
-
-<p>Again, very similar to our previous example, we use an accumulator <code class="highlighter-rouge">acc</code> to collect the results of intermediate computations (results of each recursive step).</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	tr_lst_rev [1; 2; 3; 4]
-=	aux_lst_rev [2; 3; 4]	1::[]
-=	aux_lst_rev [3; 4] 	2::[1]
-=	aux_lst_rev [4] 	3::[2; 1]
-=	aux_lst_rev [] 		4::[3; 2; 1]
-= 	[4; 3; 2; 1]
-
-</code></pre>
-</div>
-
 
         </div>
         
