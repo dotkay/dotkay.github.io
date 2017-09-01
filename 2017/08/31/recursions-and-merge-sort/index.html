@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Some more tail recursion...</title>
+  <meta name="description" content="By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe split function that would take a list and split it into two lists merge function that would merge a pair of sorted lists merge_sort function that would use the above two to build the sorted list recursively. Let’s prepare the above one by one. First, the split function that takes a list lst as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it a1 and a2. Next, we will think about the possible cases (patterns). The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use). If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result). If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list. So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward. let split lst = let rec aux a1 a2 l = match l with | [] -&amp;gt; a1, a2 | [x] -&amp;gt; x::a1, a2 | x1::(x2::x3) -&amp;gt; aux (x1::a1) (x2::a2) x3 in aux [] [] lst;; Now, let’s prepare the second item in our list - the merge function. This is just pattern matching and even simpler than our split function. let rec merge (lst1, lst2) = match lst1, lst2 with | [], l -&amp;gt; l | l, [] -&amp;gt; l | (h1::t1 as l1), (h2::t2 as l2) -&amp;gt; if (h1 &amp;lt; h2) then h1 :: merge (t1, l2) else h2 :: merge (l1, t2);; Finally, let’s prepare the merge_sort function that takes a list lst as input. First we would split the input list into two lists using our split function. Then, we would recursively call merge_sort on the two sub-lists (result of split function) and merge the results of these recursive calls using our merge function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward. let rec merge_sort lst = match lst with | [] -&amp;gt; [] | [x] -&amp;gt; [x] | l -&amp;gt; let l1, l2 = split l in merge (merge_sort l1, merge_sort l2);; That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!">
+  
+    
+    <meta name="keywords" content="recursion,ocaml">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Some more tail recursion...">
+  <meta name="twitter:description" content="By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the followin...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort">Some more tail recursion... &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-08-31T00:00:00+00:00" itemprop="datePublished">Aug 31, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe</p>
+
+<ul>
+  <li><code class="highlighter-rouge">split</code> function that would take a list and split it into two lists</li>
+  <li><code class="highlighter-rouge">merge</code> function that would merge a pair of sorted lists</li>
+  <li><code class="highlighter-rouge">merge_sort</code> function that would use the above two to build the sorted list recursively.</li>
+</ul>
+
+<p>Let’s prepare the above one by one. First, the <code class="highlighter-rouge">split</code> function that takes a list <code class="highlighter-rouge">lst</code> as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it <code class="highlighter-rouge">a1</code> and <code class="highlighter-rouge">a2</code>. Next, we will think about the possible cases (patterns).</p>
+
+<ol>
+  <li>The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use).</li>
+  <li>If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result).</li>
+  <li>If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list.</li>
+</ol>
+
+<p>So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">split</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">a1</span> <span class="n">a2</span> <span class="n">l</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span>
+    <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span>
+    <span class="p">|</span> <span class="n">x1</span><span class="o">::(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span><span class="p">)</span> <span class="p">-&gt;</span>
+       <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="p">::</span><span class="n">a1</span><span class="p">)</span> <span class="p">(</span><span class="n">x2</span><span class="p">::</span><span class="n">a2</span><span class="p">)</span> <span class="n">x3</span>
+  <span class="k">in</span>
+  <span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+
+<p>Now, let’s prepare the second item in our list - the <code class="highlighter-rouge">merge</code> function. This is just pattern matching and even simpler than our <code class="highlighter-rouge">split</code> function.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge</span> <span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">)</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span><span class="p">,</span> <span class="n">l</span> <span class="p">-&gt;</span> <span class="n">l</span>
+  <span class="p">|</span> <span class="n">l</span><span class="p">,</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">l</span>
+  <span class="p">|</span> <span class="p">(</span><span class="n">h1</span><span class="p">::</span><span class="n">t1</span> <span class="k">as</span> <span class="n">l1</span><span class="o">),</span> <span class="p">(</span><span class="n">h2</span><span class="p">::</span><span class="n">t2</span> <span class="k">as</span> <span class="n">l2</span><span class="p">)</span> <span class="p">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">h1</span> <span class="p">&lt;</span> <span class="n">h2</span><span class="p">)</span> <span class="k">then</span> <span class="n">h1</span> <span class="p">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">l2</span><span class="p">)</span>
+     <span class="k">else</span> <span class="n">h2</span> <span class="p">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">t2</span><span class="o">);;</span></code></pre></figure>
+
+<p>Finally, let’s prepare the merge_sort function that takes a list <code class="highlighter-rouge">lst</code> as input. First we would split the input list into two lists using our <code class="highlighter-rouge">split</code> function. Then, we would recursively call <code class="highlighter-rouge">merge_sort</code> on the two sub-lists (result of <code class="highlighter-rouge">split</code> function) and merge the results of these recursive calls using our <code class="highlighter-rouge">merge</code> function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge_sort</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
+  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="p">|</span> <span class="n">l</span> <span class="p">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="p">=</span> <span class="n">split</span> <span class="n">l</span> <span class="k">in</span>
+         <span class="n">merge</span> <span class="p">(</span><span class="n">merge_sort</span> <span class="n">l1</span><span class="p">,</span> <span class="n">merge_sort</span> <span class="n">l2</span><span class="o">);;</span></code></pre></figure>
+
+<p>That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

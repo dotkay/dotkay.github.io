@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-08-31T06:31:11+00:00</updated>
+  <updated>2017-09-01T04:35:40+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,91 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Some more tail recursion… →</title>
+      
+      <link href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort/" rel="alternate" type="text/html" title="Some more tail recursion..." />
+      <published>2017-08-31T00:00:00+00:00</published>
+      <updated>2017-08-31T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/08/31/recursions-and-merge-sort</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort/">&lt;p&gt;By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function that would take a list and split it into two lists&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; function that would merge a pair of sorted lists&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;merge_sort&lt;/code&gt; function that would use the above two to build the sorted list recursively.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let’s prepare the above one by one. First, the &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function that takes a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;a1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;a2&lt;/code&gt;. Next, we will think about the possible cases (patterns).&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use).&lt;/li&gt;
+  &lt;li&gt;If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result).&lt;/li&gt;
+  &lt;li&gt;If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;split&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x3&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now, let’s prepare the second item in our list - the &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; function. This is just pattern matching and even simpler than our &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lst1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Finally, let’s prepare the merge_sort function that takes a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; as input. First we would split the input list into two lists using our &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function. Then, we would recursively call &lt;code class=&quot;highlighter-rouge&quot;&gt;merge_sort&lt;/code&gt; on the two sub-lists (result of &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function) and merge the results of these recursive calls using our &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge_sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;split&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+         &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;merge_sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge_sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="recursion" />
+      
+        <category term="ocaml" />
+      
+
+      
+
+      
+        <summary type="html">By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe split function that would take a list and split it into two lists merge function that would merge a pair of sorted lists merge_sort function that would use the above two to build the sorted list recursively. Let’s prepare the above one by one. First, the split function that takes a list lst as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it a1 and a2. Next, we will think about the possible cases (patterns). The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use). If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result). If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list. So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward. let split lst = let rec aux a1 a2 l = match l with | [] -&amp;gt; a1, a2 | [x] -&amp;gt; x::a1, a2 | x1::(x2::x3) -&amp;gt; aux (x1::a1) (x2::a2) x3 in aux [] [] lst;; Now, let’s prepare the second item in our list - the merge function. This is just pattern matching and even simpler than our split function. let rec merge (lst1, lst2) = match lst1, lst2 with | [], l -&amp;gt; l | l, [] -&amp;gt; l | (h1::t1 as l1), (h2::t2 as l2) -&amp;gt; if (h1 &amp;lt; h2) then h1 :: merge (t1, l2) else h2 :: merge (l1, t2);; Finally, let’s prepare the merge_sort function that takes a list lst as input. First we would split the input list into two lists using our split function. Then, we would recursively call merge_sort on the two sub-lists (result of split function) and merge the results of these recursive calls using our merge function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward. let rec merge_sort lst = match lst with | [] -&amp;gt; [] | [x] -&amp;gt; [x] | l -&amp;gt; let l1, l2 = split l in merge (merge_sort l1, merge_sort l2);; That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
