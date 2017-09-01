@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-09-01T04:35:40+00:00</updated>
+  <updated>2017-09-01T05:25:00+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -22,9 +22,9 @@
   
     <entry>
       
-      <title type="html">Some more tail recursion… →</title>
+      <title type="html">Recursions and merge sort →</title>
       
-      <link href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort/" rel="alternate" type="text/html" title="Some more tail recursion..." />
+      <link href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort/" rel="alternate" type="text/html" title="Recursions and merge sort" />
       <published>2017-08-31T00:00:00+00:00</published>
       <updated>2017-08-31T00:00:00+00:00</updated>
       <id>https://dotkay.github.io/2017/08/31/recursions-and-merge-sort</id>
