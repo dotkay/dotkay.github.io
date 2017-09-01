@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Some more tail recursion...
+title: Recursions and merge sort
 categories: [algorithms, recursion, ocaml]
 keywords: [recursion, ocaml]
 external-url: https://dotkay.github.io/2017/08/31/recursions-and-merge-sort
