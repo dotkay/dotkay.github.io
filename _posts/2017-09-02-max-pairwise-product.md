@@ -16,17 +16,17 @@ The straigt-forward approach is to compute all possible pairwise products and id
 
 {% highlight cpp %}
 long long MaxPairwiseProduct(const vector<int>& numbers) {
-	long long result = 0; // result to hold the max pairwise product
-	int n = numbers.size();
-	long long product = 0;
-	for (int i = 0; i < n; i++) {
-		for (int j = i + 1; j < n; j++) {
-			product = (long long)numbers[i] * numbers[j]; 
-			if (product > result)
-				result = product;
-		}
+  long long result = 0; // result to hold the max pairwise product
+  int n = numbers.size();
+  long long product = 0;
+  for (int i = 0; i < n; i++) {
+	for (int j = i + 1; j < n; j++) {
+	  product = (long long)numbers[i] * numbers[j]; 
+	  if (product > result)
+		result = product;
+	  }
 	}
-	return result;
+  return result;
 }
 {% endhighlight %}
 
@@ -36,26 +36,26 @@ Can we do better? Yes, we can. The idea is to find the maximum and the second ma
 
 {% highlight cpp %}
 long long MaxPairwiseProductFast(const vector<int>& numbers) {
-	int n = numbers.size();
-	long long product = 0;
-	// find the max element in the collection 'numbers'
-	int max_index1 = -1;
-	for (int i = 0; i < n; i++) {
-		if ((max_index1 == -1) || (numbers[i] > max_index1)) {
-			max_index1 = i; // largest number in the list
-		}
-	}
+  int n = numbers.size();
+  long long product = 0;
+  // find the max element in the collection 'numbers'
+  int max_index1 = -1;
+  for (int i = 0; i < n; i++) {
+    if ((max_index1 == -1) || (numbers[i] > max_index1)) {
+	  max_index1 = i; // largest number in the list
+	  }
+  }
 	
-	int max_index2 = -1;
-	for (int j = 0; j < n; j++) {
-		if ((numbers[j] != numbers[max_index1]) && ((max_index2 == -1) ||
-			(numbers[j] > max_index2))) {
-			max_index2 = j; // second largest number in the list
-		}
-	}
+  int max_index2 = -1;
+  for (int j = 0; j < n; j++) {
+    if ((numbers[j] != numbers[max_index1]) && ((max_index2 == -1) ||
+	  (numbers[j] > max_index2))) {
+	    max_index2 = j; // second largest number in the list
+	  }
+  }
 	
-	product = numbers[max_index1] * numbers[max_index2];
-	return ((long long) product);
+  product = numbers[max_index1] * numbers[max_index2];
+  return ((long long) product);
 }
 {% endhighlight %}
 
