@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Maximum pairwise product</title>
+  <meta name="description" content="Let’s take a quick look at a simple problem: Given a list of numbers, how would you determine the maximum pairwise product of numbers in the list? For example, if we have the list [1; 3; 5; -2] the maximum pairwise product is 15, which is the product of 3 and 5. The straigt-forward approach is to compute all possible pairwise products and identify the maximum among the intermediate results: long long MaxPairwiseProduct(const vector&amp;lt;int&amp;gt;&amp;amp; numbers) { long long result = 0; // result to hold the max pairwise product int n = numbers.size(); long long product = 0; for (int i = 0; i &amp;lt; n; i++) { for (int j = i + 1; j &amp;lt; n; j++) { product = (long long)numbers[i] * numbers[j]; if (product &amp;gt; result) result = product; } } return result; } Since we have two loops that iterate over the list of numbers, the time complexity is O(n2). Can we do better? Yes, we can. The idea is to find the maximum and the second maximum elements in the list - and their product would be the maximum pairwise product. long long MaxPairwiseProductFast(const vector&amp;lt;int&amp;gt;&amp;amp; numbers) { int n = numbers.size(); long long product = 0; // find the max element in the collection &#39;numbers&#39; int max_index1 = -1; for (int i = 0; i &amp;lt; n; i++) { if ((max_index1 == -1) || (numbers[i] &amp;gt; max_index1)) { max_index1 = i; // largest number in the list } } int max_index2 = -1; for (int j = 0; j &amp;lt; n; j++) { if ((numbers[j] != numbers[max_index1]) &amp;amp;&amp;amp; ((max_index2 == -1) || (numbers[j] &amp;gt; max_index2))) { max_index2 = j; // second largest number in the list } } product = numbers[max_index1] * numbers[max_index2]; return ((long long) product); } Simple and sweet!">
+  
+    
+    <meta name="keywords" content="algorithms,C++">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/09/02/max-pairwise-product/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Maximum pairwise product">
+  <meta name="twitter:description" content="Let’s take a quick look at a simple problem: Given a list of numbers, how would you determine the maximum pairwise product of numbers in the list? For example, if we have the list [1; 3; 5; -2] the...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/09/02/max-pairwise-product">Maximum pairwise product &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-09-02T00:00:00+00:00" itemprop="datePublished">Sep 2, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Let’s take a quick look at a simple problem:</p>
+
+<p><em>Given a list of numbers, how would you determine the maximum pairwise product of numbers in the list?</em></p>
+
+<p>For example, if we have the list <code class="highlighter-rouge">[1; 3; 5; -2]</code> the maximum pairwise product is <code class="highlighter-rouge">15</code>, which is the product of <code class="highlighter-rouge">3</code> and <code class="highlighter-rouge">5</code>.</p>
+
+<p>The straigt-forward approach is to compute all possible pairwise products and identify the maximum among the intermediate results:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">MaxPairwiseProduct</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">long</span> <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// result to hold the max pairwise product
+</span>	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+	<span class="kt">long</span> <span class="kt">long</span> <span class="n">product</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">product</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> 
+			<span class="k">if</span> <span class="p">(</span><span class="n">product</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">)</span>
+				<span class="n">result</span> <span class="o">=</span> <span class="n">product</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Since we have two loops that iterate over the list of numbers, the time complexity is O(n<sup>2</sup>).</p>
+
+<p>Can we do better? Yes, we can. The idea is to find the maximum and the second maximum elements in the list - and their product would be the maximum pairwise product.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">MaxPairwiseProductFast</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+	<span class="kt">long</span> <span class="kt">long</span> <span class="n">product</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="c1">// find the max element in the collection 'numbers'
+</span>	<span class="kt">int</span> <span class="n">max_index1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">((</span><span class="n">max_index1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_index1</span><span class="p">))</span> <span class="p">{</span>
+			<span class="n">max_index1</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// largest number in the list
+</span>		<span class="p">}</span>
+	<span class="p">}</span>
+	
+	<span class="kt">int</span> <span class="n">max_index2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">((</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index1</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="n">max_index2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span>
+			<span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_index2</span><span class="p">)))</span> <span class="p">{</span>
+			<span class="n">max_index2</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span> <span class="c1">// second largest number in the list
+</span>		<span class="p">}</span>
+	<span class="p">}</span>
+	
+	<span class="n">product</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index1</span><span class="p">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index2</span><span class="p">];</span>
+	<span class="k">return</span> <span class="p">((</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span> <span class="n">product</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Simple and sweet!</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
