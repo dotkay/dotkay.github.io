@@ -8,7 +8,7 @@ external-url: https://dotkay.github.io/2017/09/04/prime-or-not
 
 Let's look at a simple problem if figuring out if a given number is a prime number or not? And how best we can compute it.
 
-> A prime number is a whole number greater than 1, that are *only* divisible by themselves and 1.
+> A prime number is a whole number greater than 1, that are *only* divisible by itself and 1.
 
 A naïve approach is to check if the number is divisble by all the numbers starting from 2 to itself. We start from `2` as it is our first prime number.
 
