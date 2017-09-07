@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-09-05T02:00:09+00:00</updated>
+  <updated>2017-09-07T03:49:08+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,134 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Prime or not? →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/04/prime-or-not/" rel="alternate" type="text/html" title="Prime or not?" />
+      <published>2017-09-04T00:00:00+00:00</published>
+      <updated>2017-09-04T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/04/prime-or-not</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/04/prime-or-not/">&lt;p&gt;Let’s look at a simple problem if figuring out if a given number is a prime number or not? And how best we can compute it.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A prime number is a whole number greater than 1, that are &lt;em&gt;only&lt;/em&gt; divisible by themselves and 1.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A naïve approach is to check if the number is divisble by all the numbers starting from 2 to itself. We start from &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; as it is our first prime number.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;is_prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;But, can we do better? Notice that we need to check for numbers only less than or equal to the square root, say &lt;code class=&quot;highlighter-rouge&quot;&gt;sq&lt;/code&gt; of the given number &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; to be tested. If there’s a number that divides &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; and which is greater than &lt;code class=&quot;highlighter-rouge&quot;&gt;sq&lt;/code&gt;, the result of that division would be a number less than &lt;code class=&quot;highlighter-rouge&quot;&gt;sq&lt;/code&gt;. For example let’s say &lt;code class=&quot;highlighter-rouge&quot;&gt;n = 26&lt;/code&gt; and we want to figure out if &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; is prime. We are claiming that we need to check only until the square root of &lt;code class=&quot;highlighter-rouge&quot;&gt;26&lt;/code&gt; - rounded down to &lt;code class=&quot;highlighter-rouge&quot;&gt;5&lt;/code&gt;. Let’s pick a number that divides &lt;code class=&quot;highlighter-rouge&quot;&gt;26&lt;/code&gt;, say &lt;code class=&quot;highlighter-rouge&quot;&gt;13&lt;/code&gt; and this number on dividing &lt;code class=&quot;highlighter-rouge&quot;&gt;26&lt;/code&gt; yields &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt;. So when we start to check from &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;5&lt;/code&gt;, we would have already figured out that it is divisible by &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; and is not a prime. We just ran into another beautiful fact:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;there are no even primes greater than 2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;That would let us optimize our loop further - if we initially checked whether &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; is not &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt;, we would check only every other (odd) number to see if it divides.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;is_prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Primes are beautiful. Hopefully, I will write more posts on them in future.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+
+      
+
+      
+        <summary type="html">Let’s look at a simple problem if figuring out if a given number is a prime number or not? And how best we can compute it. A prime number is a whole number greater than 1, that are only divisible by themselves and 1. A naïve approach is to check if the number is divisble by all the numbers starting from 2 to itself. We start from 2 as it is our first prime number. bool is_prime(int n) { for (int i = 2; i &amp;lt; n; i++) { if (n % i == 0) return false; } return true; } But, can we do better? Notice that we need to check for numbers only less than or equal to the square root, say sq of the given number n to be tested. If there’s a number that divides n and which is greater than sq, the result of that division would be a number less than sq. For example let’s say n = 26 and we want to figure out if n is prime. We are claiming that we need to check only until the square root of 26 - rounded down to 5. Let’s pick a number that divides 26, say 13 and this number on dividing 26 yields 2. So when we start to check from 2 to 5, we would have already figured out that it is divisible by 2 and is not a prime. We just ran into another beautiful fact: there are no even primes greater than 2 That would let us optimize our loop further - if we initially checked whether n is not 2, we would check only every other (odd) number to see if it divides. bool is_prime(int n) { if (n &amp;lt;= 1) return false; if (n == 2) return true; if (n % 2 == 0) return false; int m = (int)sqrt(n); for (int i = 3; i &amp;lt;= m; i+=2) { if (n % i == 0) return false; } return true; } Primes are beautiful. Hopefully, I will write more posts on them in future.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Computing many primes… →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/04/computing-many-primes/" rel="alternate" type="text/html" title="Computing many primes..." />
+      <published>2017-09-04T00:00:00+00:00</published>
+      <updated>2017-09-04T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/04/computing-many-primes</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/04/computing-many-primes/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/09/04/prime-or-not&quot;&gt;previous post&lt;/a&gt; we saw how to check if a given number is prime. Now, what if we want to find all the primes from &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;1000&lt;/code&gt;? Sure, we can call our &lt;code class=&quot;highlighter-rouge&quot;&gt;is_prime()&lt;/code&gt; function on every number from &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;1000&lt;/code&gt; and list out the ones that pass the test. Is there a better way? There absolutely is! And it turns out that it was invented by a Greek mathematician &lt;a href=&quot;https://en.wikipedia.org/wiki/Eratosthenes&quot;&gt;Etatosthenes&lt;/a&gt;, who by the way also happened to invent Geography. The algorithm is commonly referred to as &lt;em&gt;Sieve of Eratosthenes&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;We start by assuming that all the numbers, say &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; are primes. Assume we have an array of size &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; and we marked all the elements as prime. Now, we traverse the array and start marking out all the multiples, say &lt;code class=&quot;highlighter-rouge&quot;&gt;2, 4 ,6, 8, 10, ...&lt;/code&gt; as not prime, and similarly &lt;code class=&quot;highlighter-rouge&quot;&gt;3, 9, 15,...&lt;/code&gt;. Once we are done, we are left only with primes. I am still amazed at the simplicity of this algorithm given that it was invented more than a couple of thousand years ago.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eratosthenes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fast_is_prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;That’s all folks!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+
+      
+
+      
+        <summary type="html">In our previous post we saw how to check if a given number is prime. Now, what if we want to find all the primes from 1 to 1000? Sure, we can call our is_prime() function on every number from 1 to 1000 and list out the ones that pass the test. Is there a better way? There absolutely is! And it turns out that it was invented by a Greek mathematician Etatosthenes, who by the way also happened to invent Geography. The algorithm is commonly referred to as Sieve of Eratosthenes. We start by assuming that all the numbers, say 1 to n are primes. Assume we have an array of size n and we marked all the elements as prime. Now, we traverse the array and start marking out all the multiples, say 2, 4 ,6, 8, 10, ... as not prime, and similarly 3, 9, 15,.... Once we are done, we are left only with primes. I am still amazed at the simplicity of this algorithm given that it was invented more than a couple of thousand years ago. vector&amp;lt;int&amp;gt; eratosthenes(int n) { vector&amp;lt;int&amp;gt; result; vector&amp;lt;bool&amp;gt; prime(n+1, true); prime[0] = false; prime[1] = false; int m = (int)sqrt((double)n); for (int i = 2; i &amp;lt;= m; i++) { if (fast_is_prime(i)) result.push_back(i); for (int k = i*i; k &amp;lt;= n; k += i) { prime[k] = false; } } return result; } That’s all folks!</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1399,183 +1527,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 
       
         <summary type="html">Let’s continue from our earlier post and practice some more simple problems just to get more and more familiar with recursion. Let’s start by writing a simple function to find the last element of a given list lst: let rec last_elem lst = match lst with | [] -&amp;gt; None | [x] -&amp;gt; Some x | h::t -&amp;gt; last_elem t;; (* val last_elem : 'a list -&amp;gt; 'a option = &amp;lt;fun&amp;gt; *) This is also a nice way to introduce Some and None in OCaml. Just like how we have 'a list which can be an int list or a string list or char list, OCaml also has this wonderful 'a option type that can be nothing (None) or some type (Some). Note however that 'a option type is not the same as 'a. So, if the type is 'a you can ask the compiler to treat it as an int, for example. But you can’t do the same with 'a option type. For friends of Java, C programming languages, you can think of None as similar to null type. type 'a option = Some of 'a | None For those JavaScript fans wondering if they can use similar Some and None in JavaScript, I found an option type implementation here that provides this. I should admit that I have never used this implementation but it seems to serve the same purpose for JavaScript. Let’s test our last_elem function on an example. let l1 = [1;2;3;4];; last_elem l1;; (* - : int option = Some 4 *) Let’s move on and practice some more examples. Let’s now try and grab the last and the last-but-one elements from a list. let rec last_two lst = match lst with | [] | [_] -&amp;gt; None | [x; y] -&amp;gt; Some (x, y) | _::t -&amp;gt; last_two t;; (* val last_two : 'a list -&amp;gt; ('a * 'a) option = &amp;lt;fun&amp;gt; *) ('a * 'a) indicates a tuple - a pair in this case. For example, (3, 4) would be of type (int * int). Let’s check our implementation: last_two l1;; (* - : (int * int) option = Some (3, 4) *) Let’s now make it more generic and write a function to find the kth element of a list and let’s give our function a very creative name kth. let rec kth lst k = match lst with | [] -&amp;gt; None | h::t -&amp;gt; if (k=1) then (Some h) else kth t (k-1);; (* val kth : 'a list -&amp;gt; int -&amp;gt; 'a option = &amp;lt;fun&amp;gt; *) Let’s check our implementation on l1 again: kth l1 2;; (* - : int option = Some 2 *) kth l1 6;; (* - : int option = None *) When we try to find the 6th element of the list l1, we get None type as a result as the list contains only 4 elements. Let’s now try to reverse an input list. Relax! It just sounds complicated. It is actually super simple when you think in terms of recursion. let rec lst_rev lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; (lst_rev t) @ [h];; (* val lst_rev : 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *) Recall from our previous post that @ is the OCaml operator for list concatenation. It is a straight forward observation that after the first recursive call to rev_lst, the head element h is pushed to the last and in each recursive call the first element would keep getting pushed to the end of the result list. lst_rev l1;; (* - : int list = [4; 3; 2; 1] *) This post is getting long. Please don’t stop reading it! I promise, just one more example to finish this post! Let’s write a function to remove an element from kth position in a given list: let rec rem_kth k lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; if (k = 1) then t else h::(rem_kth (k-1) t);; (* val rem_kth : int -&amp;gt; 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *) rem_kth 1 l1;; (* - : int list = [2; 3; 4] *) rem_kth 6 l1;; (* - : int list = [1; 2; 3; 4] *) That’s all folks. If you have reached this line of this post (assuming you didn’t start reading from the last line), Congratulations for sticking around!</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">An interesting podcast on education →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/16/interesting-podcast-on-education/" rel="alternate" type="text/html" title="An interesting podcast on education" />
-      <published>2017-08-16T00:00:00+00:00</published>
-      <updated>2017-08-16T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/16/interesting-podcast-on-education</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/16/interesting-podcast-on-education/">&lt;p&gt;A break from recursions and algorithms for today! But still sticking to the broader goal of education and learning. I am a big fan of radio programs and in particular NPR. Over the weekend, I happened to listen to a very interesting program on education. Hosted by &lt;a href=&quot;http://www.npr.org/people/6597623/guy-raz&quot;&gt;Guy Raz&lt;/a&gt;, last week’s episode of &lt;a href=&quot;http://www.npr.org/programs/ted-radio-hour/&quot;&gt;TED Radio Hour&lt;/a&gt; focussed on education and learning - specifically how it is changing with technology. It was a very interesting podcast and I really encourage all of you to make some time to listen to it. Below is a link to the podcast.&lt;/p&gt;
-
-&lt;audio controls=&quot;&quot;&gt;
-&lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/08/20170811_ted_tedpod.mp3&quot; /&gt;
-&lt;/audio&gt;
-&lt;p&gt;&lt;br /&gt;
-It is an added motivation for me to use more avenues to share my knowledge with the many in this world, as much as I learn through the many channels and from the many wonderful people on this planet.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="education" />
-      
-        <category term="NPR" />
-      
-        <category term="TED" />
-      
-
-      
-
-      
-        <summary type="html">A break from recursions and algorithms for today! But still sticking to the broader goal of education and learning. I am a big fan of radio programs and in particular NPR. Over the weekend, I happened to listen to a very interesting program on education. Hosted by Guy Raz, last week’s episode of TED Radio Hour focussed on education and learning - specifically how it is changing with technology. It was a very interesting podcast and I really encourage all of you to make some time to listen to it. Below is a link to the podcast. It is an added motivation for me to use more avenues to share my knowledge with the many in this world, as much as I learn through the many channels and from the many wonderful people on this planet.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Some more recursion examples →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/" rel="alternate" type="text/html" title="Some more recursion examples" />
-      <published>2017-08-15T00:00:00+00:00</published>
-      <updated>2017-08-15T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/15/more-simple-recursion-examples</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">&lt;p&gt;Continuing with our &lt;a href=&quot;http://dotkay.github.io/2017/08/14/ocaml-recursion-simple/&quot;&gt;previous post&lt;/a&gt; on recursions, let’s play with a couple of more simple examples to get ourselves familiar. This is just to start thinking in terms of recursive functions for the problems we try to solve. This kind of thinking will become more useful when we learn about tail recursion in one of the future posts.&lt;/p&gt;
-
-&lt;p&gt;Let’s write a small function, call it &lt;code class=&quot;highlighter-rouge&quot;&gt;find&lt;/code&gt;, to find if a given element belongs to a list. i.e., we are provided with an input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; of integers and an integer &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; and the function would return &lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt; if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; is one of the elements of &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;false&lt;/code&gt; otherwise.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;false&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;true&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val find : 'a -&amp;gt; 'a list -&amp;gt; bool = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : bool = true *)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : bool = false *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;As before, we think of the base case and the recursive step. We recursively call the function on a sub-list of the input list, till the problem reduces to the base case - the empty list.&lt;/p&gt;
-
-&lt;p&gt;Let’s try another simple examples - to find the minimum integer in the given list of integers. We will call the function &lt;code class=&quot;highlighter-rouge&quot;&gt;find_min&lt;/code&gt; and it takes an input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Failure&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;                   
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;empty list&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val find_min : 'a list -&amp;gt; 'a = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s test it out:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int = 1 *)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int = -10 *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s now move away from having lists as input, and work on an example that produces an output list. This is a very familiar introductory CS example - converting an input decimal number to it’s base-2 (&lt;code class=&quot;highlighter-rouge&quot;&gt;binary&lt;/code&gt;) representation. Humans naturally count in base-10 (also called &lt;code class=&quot;highlighter-rouge&quot;&gt;decimal&lt;/code&gt;) number system, probably because most of us were born with 10 fingers. Computers, to be technically correct I should say digital circuits, work on base-2 number system - they know &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;. Just like how we count 0 .. 9 and then start counting 10 .. 19, followed by 20 .. 29, etc., digital circuits  count 0, 1 followed by 10, 11 and then follow that by 100, 101, and 110,  111, etc. You see the pattern. Probably, it is more apparent if I write it one after the other:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  base-2    	   	  base-10
-     0  	  	     0
-     1  	  	     1
-    10 	 &amp;lt;-- restart	     2
-    11 		 	     3
-   100   &amp;lt;-- restart 	     4
-   101 	 	     	     5
-   110 	 	     	     6
-   111 	 	     	     7
-  1000 	 &amp;lt;-- restart 	     8
-  1001 	 	     	     9
-  1010 	 	    	    10   &amp;lt;-- restart
-  1011 	  	       	    11 
-  1100           	    12
-  1101           	    13
-  1110           	    14
-  1111           	    15
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The usual way we compute the binary representation of a decimal number is to repeatedly divide it and collect the remainders. For example, if we want to compute the binary equivalent of decimal 7:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2 |_ 7 _          ^
-  2 |_ 3 _   - (1) |
-    2 |_ 1 _ - (1) |
-         ----------&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;111 is the binary equivalent of decimal 7. Here, 3, 1 are quotients (&lt;code class=&quot;highlighter-rouge&quot;&gt;n/2&lt;/code&gt; - n being the input number initally and then the quotient) and the ones on the right within parantheses are the remainders (&lt;code class=&quot;highlighter-rouge&quot;&gt;n mod 2&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;Let’s work out one more example - the binary equivalent of 13:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2 |_ 13 _               ^
-  2 |_ 6 _        - (1) |
-    2 |_ 3 _      - (0) |
-      2 |_ 1 _    - (1) |
-                --------&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;If you observe carefully, what we are doing essentially is repeatedly dividing the input number &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; by the base we want to convert our number to - in this case base-2, and collect the remainders. Dividing a number is the expression &lt;code class=&quot;highlighter-rouge&quot;&gt;n/2&lt;/code&gt; for algorithmic purposes and the remainder is the expression &lt;code class=&quot;highlighter-rouge&quot;&gt;n mod 2&lt;/code&gt;. What we are going to do is to repeatedly (think “recursively”) divide &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; and collect the remainder in a list which we would eventually return as the output result. &lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt; is the OCaml syntax for list concatenation: for example &lt;code class=&quot;highlighter-rouge&quot;&gt;lst1 @ lst2&lt;/code&gt; will concatenate &lt;code class=&quot;highlighter-rouge&quot;&gt;lst1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;lst2&lt;/code&gt;. Note the base case for our computation.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bin_of_dec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bin_of_dec&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;
-         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;mod&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)::[];;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val bin_of_dec : int -&amp;gt; int list = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s check if what we worked out for 7 and 13 are consistent with what this program computes:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;bin_of_dec&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list = [1; 1; 1] *)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;bin_of_dec&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list = [1; 1; 0; 1] *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;I guess it became a longer post than what I intended it to be, but I hope you are getting a better hang of thinking recursively. We will see more examples in future posts - feel motivated to play around with some examples in the mean time!!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="ocaml" />
-      
-        <category term="recursion" />
-      
-        <category term="algorithms" />
-      
-
-      
-
-      
-        <summary type="html">Continuing with our previous post on recursions, let’s play with a couple of more simple examples to get ourselves familiar. This is just to start thinking in terms of recursive functions for the problems we try to solve. This kind of thinking will become more useful when we learn about tail recursion in one of the future posts. Let’s write a small function, call it find, to find if a given element belongs to a list. i.e., we are provided with an input list lst of integers and an integer x and the function would return true if x is one of the elements of lst and false otherwise. let rec find x lst = match lst with | [] -&amp;gt; false | h::t -&amp;gt; if (h = x) then true else (find x t);; (* val find : 'a -&amp;gt; 'a list -&amp;gt; bool = &amp;lt;fun&amp;gt; *) find 2 l1;; (* - : bool = true *) find 0 l1;; (* - : bool = false *) As before, we think of the base case and the recursive step. We recursively call the function on a sub-list of the input list, till the problem reduces to the base case - the empty list. Let’s try another simple examples - to find the minimum integer in the given list of integers. We will call the function find_min and it takes an input list lst. exception Failure of string let rec find_min lst = match lst with | [] -&amp;gt; failwith(&quot;empty list&quot;) | [h] -&amp;gt; h | h::t -&amp;gt; min h (find_min t);; (* val find_min : 'a list -&amp;gt; 'a = &amp;lt;fun&amp;gt; *) Let’s test it out: find_min l1;; (* - : int = 1 *) let l2 = [-2; -10; 1; 9; 11; 7; 17];; find_min l2;; (* - : int = -10 *) Let’s now move away from having lists as input, and work on an example that produces an output list. This is a very familiar introductory CS example - converting an input decimal number to it’s base-2 (binary) representation. Humans naturally count in base-10 (also called decimal) number system, probably because most of us were born with 10 fingers. Computers, to be technically correct I should say digital circuits, work on base-2 number system - they know 0 and 1. Just like how we count 0 .. 9 and then start counting 10 .. 19, followed by 20 .. 29, etc., digital circuits count 0, 1 followed by 10, 11 and then follow that by 100, 101, and 110, 111, etc. You see the pattern. Probably, it is more apparent if I write it one after the other: base-2 base-10 0 0 1 1 10 &amp;lt;-- restart 2 11 3 100 &amp;lt;-- restart 4 101 5 110 6 111 7 1000 &amp;lt;-- restart 8 1001 9 1010 10 &amp;lt;-- restart 1011 11 1100 12 1101 13 1110 14 1111 15 The usual way we compute the binary representation of a decimal number is to repeatedly divide it and collect the remainders. For example, if we want to compute the binary equivalent of decimal 7: 2 |_ 7 _ ^ 2 |_ 3 _ - (1) | 2 |_ 1 _ - (1) | ----------&amp;gt; 111 is the binary equivalent of decimal 7. Here, 3, 1 are quotients (n/2 - n being the input number initally and then the quotient) and the ones on the right within parantheses are the remainders (n mod 2). Let’s work out one more example - the binary equivalent of 13: 2 |_ 13 _ ^ 2 |_ 6 _ - (1) | 2 |_ 3 _ - (0) | 2 |_ 1 _ - (1) | --------&amp;gt; If you observe carefully, what we are doing essentially is repeatedly dividing the input number n by the base we want to convert our number to - in this case base-2, and collect the remainders. Dividing a number is the expression n/2 for algorithmic purposes and the remainder is the expression n mod 2. What we are going to do is to repeatedly (think “recursively”) divide n and collect the remainder in a list which we would eventually return as the output result. @ is the OCaml syntax for list concatenation: for example lst1 @ lst2 will concatenate lst1 and lst2. Note the base case for our computation. let rec bin_of_dec n = if n &amp;lt;= 0 then [] else bin_of_dec (n/2) @ (n mod 2)::[];; (* val bin_of_dec : int -&amp;gt; int list = &amp;lt;fun&amp;gt; *) Let’s check if what we worked out for 7 and 13 are consistent with what this program computes: bin_of_dec 7;; (* - : int list = [1; 1; 1] *) bin_of_dec 13;; (* - : int list = [1; 1; 0; 1] *) I guess it became a longer post than what I intended it to be, but I hope you are getting a better hang of thinking recursively. We will see more examples in future posts - feel motivated to play around with some examples in the mean time!!</summary>
       
 
       
