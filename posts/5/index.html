@@ -102,6 +102,124 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/18/lets-play-with-some-pokemon-data-1/">Let&#39;s play with some Pokemon data - 1 &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 18, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-analysis/">data analysis</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s take a small break from OCaml and recursion and learn some data analysis. For this purpose, I am using python and a couple of libraries like <a href="http://pandas.pydata.org/">Pandas</a>, <a href="http://www.numpy.org/">Numpy</a> and <a href="https://matplotlib.org/">Matplotlib</a>, which will help us in preprocessing the data, some numerical data-types as well as plotting the data, respectively. In future posts, we will see more such awesome libraries.</p>
+
+<p>For this post, let’s just focus on a Pokemon dataset that I happened to come across in Kaggle. Although I have never played Pokemon and never knew the different Pokemon characters, this is a nice simple example to get us started.</p>
+
+<p>You may want to install python - I personally like <a href="https://www.continuum.io/downloads">Anaconda</a> because it offers a wonderful platform with code editor as well as a console for visualization, etc., which makes it easy to play around and learn. I installed Anaconda and use their development environment <a href="https://github.com/spyder-ide/spyder">Spyder</a>.</p>
+
+<p>Let’s get started right away. First, we import the libraries we will use for this short tutorial.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span></code></pre></figure>
+
+<p>We will use these libraries only very minimally for this short post, but they are very powerful and we will see more of their features in future posts. If you create a (free) account in Kaggle, you can download the Pokemon dataset. I have downloaded it and saved it in a file named <code class="highlighter-rouge">Pokemon.csv</code>. We will use Pandas <code class="highlighter-rouge">read_csv</code> function to read the downloaded csv file.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pokemon_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">)</span></code></pre></figure>
+
+<p>We will call it <code class="highlighter-rouge">pokemon_data</code>. Pandas refers to this type as a <code class="highlighter-rouge">dataframe</code>. If you look at the dataset the first column is just an index, so it’s useless for our analysis purposes. So we will go ahead and grab only the rest of the columns (and all the rows).</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pokemon_data</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span></code></pre></figure>
+
+<p>Here <code class="highlighter-rouge">[:, 1:13]</code> says that “grab all the rows (denoted by <code class="highlighter-rouge">:</code>) and columns <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">13</code>. Now, let’s explore the data a bit. It’s always a good idea to take a quick look at the dataset to see what are the different columns and what kinds of values or informations they indicate about the dataset. In this case, I see that there’s a column called <code class="highlighter-rouge">Generation</code> and it seems to take values between <code class="highlighter-rouge">1</code> and <code class="highlighter-rouge">6</code>. Probably there are six generations of Pokemons, at least to my understanding. Now, let’s try to see how many Pokemons are there in each generation. If it were a population dataset, this is analogous to finding out how many people are in each continent, or something like that. I will call the number of generations by the variable <code class="highlighter-rouge">no_gens</code>. We need to pick the column named <code class="highlighter-rouge">Generation</code> and count the number of unique entries. Since there are <code class="highlighter-rouge">800</code> Pokemons in all and they belong to one of the <code class="highlighter-rouge">6</code> generations, there will be multiple rows that contain the same value for <code class="highlighter-rouge">Generation</code> and hence we need to find the number of unique values (which after having a quick look at the dataset we know is <code class="highlighter-rouge">6</code>, but it is always better to confirm algorithmically and store in a variable). We achieve this by the function <code class="highlighter-rouge">unique()</code> applying it on the column. We extract the specific column by using the column label, in this case <code class="highlighter-rouge">Generation</code>. Similarly we count the number of values in each generation using the function <code class="highlighter-rouge">value_counts()</code></p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">no_gens</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">[</span><span class="s">'Generation'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">count_per_gen</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">[</span><span class="s">'Generation'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span></code></pre></figure>
+
+<p>Let’s try to plot the above values to have a better visual representation. I will use matplotlib’s pyplot library utilities for this purpose. It is very simple and intuitive to use. We will plot a bar chart - so we need to find out the values for <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> axes. Let’s first label the plot and the axes.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Generations'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Number of Pokemons'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Number of Pokemons of each generation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">no_gens</span><span class="p">,</span> <span class="n">count_per_gen</span><span class="p">)</span></code></pre></figure>
+
+<p>This would result in a plot as shown below:
+<br />
+<img src="/assets/images/data_science/pokemon_generations.png" alt="Pokemons of each generation" class="img=responsive" /></p>
+
+<p>That was pretty quick. Let me stop here and let you all digest the information presented. We will analyze the Pokemon dataset more in the coming posts.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/17/lets-practice-some-more-examples/">Let&#39;s practice some more recursion! &rarr;</a>
           </h1>
 
@@ -134,6 +252,8 @@
   
     
   
+    
+  
 
   
   
@@ -143,6 +263,8 @@
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
     
   
     
@@ -298,6 +420,8 @@
   
     
   
+    
+  
 
   
   
@@ -313,6 +437,8 @@
   
     
       <a href="/categories/npr/">NPR</a>,
+    
+  
     
   
     
@@ -344,6 +470,8 @@
   
     
       <a href="/categories/ted/">TED</a>
+    
+  
     
   
     
@@ -411,6 +539,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
   
+    
+  
 
   
   
@@ -420,6 +550,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
       <a href="/categories/recursion/">recursion</a>,
+    
+  
     
   
     
@@ -451,6 +583,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
       <a href="/categories/algorithms/">algorithms</a>
+    
+  
     
   
     
@@ -613,6 +747,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
   
+    
+  
 
   
   
@@ -622,6 +758,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
     
   
     
@@ -707,59 +845,12 @@ It is an added motivation for me to use more avenues to share my knowledge with 
         
       </li>
     
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/10/my-first-post/">My First Post &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 10, 2017 • 
-  
-  
-    
-      <a href="/categories/misc/">misc</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>This is my first post. I will keep this a very short one - nothing interesting to read and learn. The internet is a wonderful place. I learnt a lot by browsing interesting blogs, tutorials, asking questions on the various sites, twitter, etc. and it imperative that I give back to the community that helps me learn continuously. I am hoping to be regular with this effort at learning by teaching the many subjects and topics that interest me. Let’s see how much I can keep up and how much I can learn.</p>
-
-        </div>
-        
-      </li>
-    
   </ul>
 
   
   <div class="pagination">
+    
+      <a class="previous" href="/posts/6/">&laquo; Older</a>
     
 
     

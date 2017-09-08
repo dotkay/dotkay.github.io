@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-09-08T01:24:06+00:00</updated>
+  <updated>2017-09-08T01:45:55+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,48 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">A podcast on Success →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/07/podcast-on-success/" rel="alternate" type="text/html" title="A podcast on Success" />
+      <published>2017-09-07T00:00:00+00:00</published>
+      <updated>2017-09-07T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/07/podcast-on-success</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/07/podcast-on-success/">&lt;p&gt;Just happened to listen (again) to a TED Radio hour podcast on &lt;em&gt;success&lt;/em&gt;. Although I don’t quite agree with the fragment about dirty jobs, some part of the podcast is worth listening to. Most people end up doing dirty jobs because they were less fortunate to get the kind of life the many of us were fortunate enough to get - education, encouraging family, help, opportunities, etc. To some extent, some of them continue doing dirty jobs also because we let them down as a society. We should continuously look to empower the less fortunate around us, in whatever way we can - one of the easiest is to share information and knowledge. Here’s the full podcast:&lt;/p&gt;
+
+&lt;audio controls=&quot;&quot;&gt;
+&lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2013/11/20131101_ted_01.mp3&quot; /&gt;
+&lt;/audio&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="success" />
+      
+        <category term="NPR" />
+      
+        <category term="TED" />
+      
+
+      
+
+      
+        <summary type="html">Just happened to listen (again) to a TED Radio hour podcast on success. Although I don’t quite agree with the fragment about dirty jobs, some part of the podcast is worth listening to. Most people end up doing dirty jobs because they were less fortunate to get the kind of life the many of us were fortunate enough to get - education, encouraging family, help, opportunities, etc. To some extent, some of them continue doing dirty jobs also because we let them down as a society. We should continuously look to empower the less fortunate around us, in whatever way we can - one of the easiest is to share information and knowledge. Here’s the full podcast:</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1389,78 +1431,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 
       
         <summary type="html">Let’s put on our thinking-in-recursion hat and put to use all that we have learned from our examples. We will do this by working out only two (so this will be a short post) examples that will use the recursion concepts that are bread and butter for us now. As a first example, we will write a function to eliminate consecutive repetitions of elements in a list. For example, if we pass the list [1;1;2;2;3;3;3;4;5;5] to our function, it should return [1;2;3;4;5], after removing the repetitions. How do we go about doing this? The moment we see consecutive repetitions, we know that we can easily track this by observing any two consecutive elements in the list while traversing the list. We need to observe at least two consecutive elements in order to find out if they are repetitions. So far, in our previous examples, we have usually been observing one element, the first element of a list (or a sub-list) calling it the head and denoting it h. Remember the pattern-matchings of the form | h::t -&amp;gt; in our previous code snippets? We were observing an element h concatenated with a list t. Now, we need to observe two consecutive elements instead of one, to check if they are repetitions - something of this shape | h1 :: h2::t. Now, we can compare h1 and h2 and check if h2 is a repetition of h1. If they are not the same, we can always treat h2::t as the rest-of-the-list, which we called t (as in h::t) in our previous examples. Now, let’s jump in to the algorithm: Base case - if it’s an empty list, nothing to check so we will just return an empty list Otherwise - we think of the list to be made up of a head element x1 and the rest-of-the-list. The rest-of-the-list part we will further expand (in order to allow for checking repetitions). So, let’s say the rest-of-the-list is made up of x2::x3 - x2 is the head element of rest-of-the-list and x3 is the rest-of-the-list part of our original rest-of-the-list. Our pattern to match would look something of this shape: x1 :: (x2::x3 as t) - the as t just gives a name t to x2::x3. if x1 and x2 are the same, then we recursively call the function on x2::x3. But, we threw x1 away and that’s fine because it was meant to be eliminated. We still have x2 that has the same value. If x1 and x2 are not the same, we know that x1 does not have a doppelganger following it, and so we will include it in our result list that we will eventually return. We just append x1 to the result of the function call on rest-of-the-list. Any other pattern, we just return the same pattern. Why do we need this? Because we want the patterns we match to be exhaustive - to cover all the cases. Suppose we have a list with a single element, this pattern would match that. let rec compress lst = match lst with | [] -&amp;gt; [] | x1 :: (x2::x3 as t) -&amp;gt; if (x1 = x2) then compress t else x1 :: compress t | smth_else -&amp;gt; smth_else;; It turned out to be pretty simple, right? Now, let’s work out another example before our enthusiasm dies down. Let’s do insertion sort. We will write it out as two recursive functions. Wait, don’t run away. It’s going to be simple. First, let us write a function that inserts an element x to a list lst, and it will insert x in such a way that the element next to x in lst would be great than x and the element before it would be less than or equal to x. Why are we writing this function? This is not insertion sort. Wait, it will be clear in a minute. We will call this function insert, takes two arguments x and lst. Base case - if lst is empty, we just insert x into the empty list and return it Otherwise, we have to traverse the list and see where to insert x. If head element is greater than x, it is easy - we just insert x at the head of the input list lst and return it. If not, we look for a position in the rest-of-the-list t to insert our x. let rec insert x lst = match lst with | [] -&amp;gt; [x] | h::t -&amp;gt; if (x &amp;lt;= h) then x::h::t else h::(insert x t);; Now, we will use the above function to write our insertion sort function isort. Just think what would happen if lst was already sorted in the above case. In that case, we would be inserting x to lst to maintain sorted order (just because of the rules that we imposed for inserting x). Let’s write down the algorithm. Base case - if lst is empty, return the empty list If the list has just one element, it is trivially sorted, just return the input list If the list has two or more elements, pick elements one by one, starting from the head element h and use our insert function to insert it into the appropriate position. let rec isort lst = match lst with | [] -&amp;gt; [] | [x] -&amp;gt; [x] | h::t -&amp;gt; insert h (isort t) Let’s check if it works on a simple test example: let l1 = [1;7;9;3;11;2;10];; isort l1;; (* - : int list = [1; 2; 3; 7; 9; 10; 11] *) That’s too much for my head for today. Let’s do more interesting examples in future posts when we get into the concept of tail recursion.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Let’s play with some Pokemon data - 1 →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1/" rel="alternate" type="text/html" title="Let's play with some Pokemon data - 1" />
-      <published>2017-08-18T00:00:00+00:00</published>
-      <updated>2017-08-18T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1/">&lt;p&gt;Let’s take a small break from OCaml and recursion and learn some data analysis. For this purpose, I am using python and a couple of libraries like &lt;a href=&quot;http://pandas.pydata.org/&quot;&gt;Pandas&lt;/a&gt;, &lt;a href=&quot;http://www.numpy.org/&quot;&gt;Numpy&lt;/a&gt; and &lt;a href=&quot;https://matplotlib.org/&quot;&gt;Matplotlib&lt;/a&gt;, which will help us in preprocessing the data, some numerical data-types as well as plotting the data, respectively. In future posts, we will see more such awesome libraries.&lt;/p&gt;
-
-&lt;p&gt;For this post, let’s just focus on a Pokemon dataset that I happened to come across in Kaggle. Although I have never played Pokemon and never knew the different Pokemon characters, this is a nice simple example to get us started.&lt;/p&gt;
-
-&lt;p&gt;You may want to install python - I personally like &lt;a href=&quot;https://www.continuum.io/downloads&quot;&gt;Anaconda&lt;/a&gt; because it offers a wonderful platform with code editor as well as a console for visualization, etc., which makes it easy to play around and learn. I installed Anaconda and use their development environment &lt;a href=&quot;https://github.com/spyder-ide/spyder&quot;&gt;Spyder&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Let’s get started right away. First, we import the libraries we will use for this short tutorial.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;plt&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;We will use these libraries only very minimally for this short post, but they are very powerful and we will see more of their features in future posts. If you create a (free) account in Kaggle, you can download the Pokemon dataset. I have downloaded it and saved it in a file named &lt;code class=&quot;highlighter-rouge&quot;&gt;Pokemon.csv&lt;/code&gt;. We will use Pandas &lt;code class=&quot;highlighter-rouge&quot;&gt;read_csv&lt;/code&gt; function to read the downloaded csv file.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;pokemon_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Pokemon.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;We will call it &lt;code class=&quot;highlighter-rouge&quot;&gt;pokemon_data&lt;/code&gt;. Pandas refers to this type as a &lt;code class=&quot;highlighter-rouge&quot;&gt;dataframe&lt;/code&gt;. If you look at the dataset the first column is just an index, so it’s useless for our analysis purposes. So we will go ahead and grab only the rest of the columns (and all the rows).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;pokemon_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pokemon_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Here &lt;code class=&quot;highlighter-rouge&quot;&gt;[:, 1:13]&lt;/code&gt; says that “grab all the rows (denoted by &lt;code class=&quot;highlighter-rouge&quot;&gt;:&lt;/code&gt;) and columns &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;13&lt;/code&gt;. Now, let’s explore the data a bit. It’s always a good idea to take a quick look at the dataset to see what are the different columns and what kinds of values or informations they indicate about the dataset. In this case, I see that there’s a column called &lt;code class=&quot;highlighter-rouge&quot;&gt;Generation&lt;/code&gt; and it seems to take values between &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;6&lt;/code&gt;. Probably there are six generations of Pokemons, at least to my understanding. Now, let’s try to see how many Pokemons are there in each generation. If it were a population dataset, this is analogous to finding out how many people are in each continent, or something like that. I will call the number of generations by the variable &lt;code class=&quot;highlighter-rouge&quot;&gt;no_gens&lt;/code&gt;. We need to pick the column named &lt;code class=&quot;highlighter-rouge&quot;&gt;Generation&lt;/code&gt; and count the number of unique entries. Since there are &lt;code class=&quot;highlighter-rouge&quot;&gt;800&lt;/code&gt; Pokemons in all and they belong to one of the &lt;code class=&quot;highlighter-rouge&quot;&gt;6&lt;/code&gt; generations, there will be multiple rows that contain the same value for &lt;code class=&quot;highlighter-rouge&quot;&gt;Generation&lt;/code&gt; and hence we need to find the number of unique values (which after having a quick look at the dataset we know is &lt;code class=&quot;highlighter-rouge&quot;&gt;6&lt;/code&gt;, but it is always better to confirm algorithmically and store in a variable). We achieve this by the function &lt;code class=&quot;highlighter-rouge&quot;&gt;unique()&lt;/code&gt; applying it on the column. We extract the specific column by using the column label, in this case &lt;code class=&quot;highlighter-rouge&quot;&gt;Generation&lt;/code&gt;. Similarly we count the number of values in each generation using the function &lt;code class=&quot;highlighter-rouge&quot;&gt;value_counts()&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;no_gens&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pokemon_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Generation'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unique&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;count_per_gen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pokemon_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Generation'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value_counts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s try to plot the above values to have a better visual representation. I will use matplotlib’s pyplot library utilities for this purpose. It is very simple and intuitive to use. We will plot a bar chart - so we need to find out the values for &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; axes. Let’s first label the plot and the axes.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Generations'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Number of Pokemons'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Number of Pokemons of each generation'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;no_gens&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_per_gen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This would result in a plot as shown below:
-&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_science/pokemon_generations.png&quot; alt=&quot;Pokemons of each generation&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;That was pretty quick. Let me stop here and let you all digest the information presented. We will analyze the Pokemon dataset more in the coming posts.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="data analysis" />
-      
-        <category term="python" />
-      
-
-      
-
-      
-        <summary type="html">Let’s take a small break from OCaml and recursion and learn some data analysis. For this purpose, I am using python and a couple of libraries like Pandas, Numpy and Matplotlib, which will help us in preprocessing the data, some numerical data-types as well as plotting the data, respectively. In future posts, we will see more such awesome libraries. For this post, let’s just focus on a Pokemon dataset that I happened to come across in Kaggle. Although I have never played Pokemon and never knew the different Pokemon characters, this is a nice simple example to get us started. You may want to install python - I personally like Anaconda because it offers a wonderful platform with code editor as well as a console for visualization, etc., which makes it easy to play around and learn. I installed Anaconda and use their development environment Spyder. Let’s get started right away. First, we import the libraries we will use for this short tutorial. import pandas as pd import numpy as np import matplotlib.pyplot as plt We will use these libraries only very minimally for this short post, but they are very powerful and we will see more of their features in future posts. If you create a (free) account in Kaggle, you can download the Pokemon dataset. I have downloaded it and saved it in a file named Pokemon.csv. We will use Pandas read_csv function to read the downloaded csv file. pokemon_data = pd.read_csv('Pokemon.csv') We will call it pokemon_data. Pandas refers to this type as a dataframe. If you look at the dataset the first column is just an index, so it’s useless for our analysis purposes. So we will go ahead and grab only the rest of the columns (and all the rows). pokemon_data = pokemon_data.iloc[:, 1:13] Here [:, 1:13] says that “grab all the rows (denoted by :) and columns 1 to 13. Now, let’s explore the data a bit. It’s always a good idea to take a quick look at the dataset to see what are the different columns and what kinds of values or informations they indicate about the dataset. In this case, I see that there’s a column called Generation and it seems to take values between 1 and 6. Probably there are six generations of Pokemons, at least to my understanding. Now, let’s try to see how many Pokemons are there in each generation. If it were a population dataset, this is analogous to finding out how many people are in each continent, or something like that. I will call the number of generations by the variable no_gens. We need to pick the column named Generation and count the number of unique entries. Since there are 800 Pokemons in all and they belong to one of the 6 generations, there will be multiple rows that contain the same value for Generation and hence we need to find the number of unique values (which after having a quick look at the dataset we know is 6, but it is always better to confirm algorithmically and store in a variable). We achieve this by the function unique() applying it on the column. We extract the specific column by using the column label, in this case Generation. Similarly we count the number of values in each generation using the function value_counts() no_gens = pokemon_data['Generation'].unique() count_per_gen = pokemon_data['Generation'].value_counts() Let’s try to plot the above values to have a better visual representation. I will use matplotlib’s pyplot library utilities for this purpose. It is very simple and intuitive to use. We will plot a bar chart - so we need to find out the values for x and y axes. Let’s first label the plot and the axes. plt.xlabel('Generations') plt.ylabel('Number of Pokemons') plt.title('Number of Pokemons of each generation') plt.bar(no_gens, count_per_gen) This would result in a plot as shown below: That was pretty quick. Let me stop here and let you all digest the information presented. We will analyze the Pokemon dataset more in the coming posts.</summary>
       
 
       
