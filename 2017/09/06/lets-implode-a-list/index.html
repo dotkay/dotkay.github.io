@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Let&#39;s implode!</title>
+  <meta name="description" content="In one of the previous posts we looked at a recursive function explode to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll call this function implode that takes a list lst as input. We need an accumulator in order to collect the characters from the input list to prepare our output, so let’s create one acc whose length would be equal to the length of the input list lst (of characters). Base case - if the input list lst is an empty one, just return the accumulator. If the list is not empty, we pick the head element and push it into the accumulator. We start with index &#39;0&#39; of the (mutable) String and recursively call the function on the remaining part of the list, incrementing the index for each call. let implode lst = let acc = Bytes.create (List.length lst) in let rec aux i l = match l with | [] -&amp;gt; acc | h::t -&amp;gt; Bytes.set acc i h; aux (i + 1) t in aux 0 lst;; Note: The latest version of OCaml, my preferred programming language, has a mutable data-type Bytes while it made the String data-type immutable. Food for thought - how would be implement implode using the immutable String type, in a purely functional fashion?">
+  
+    
+    <meta name="keywords" content="recursion,ocaml">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/09/06/lets-implode-a-list/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Let&#39;s implode!">
+  <meta name="twitter:description" content="In one of the previous posts we looked at a recursive function explode to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll cal...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/09/06/lets-implode-a-list">Let&#39;s implode! &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-09-06T00:00:00+00:00" itemprop="datePublished">Sep 6, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In one of the <a href="https://dotkay.github.io/2017/08/26/more-examples-using-aux-functions/">previous posts</a> we looked at a recursive function <code class="highlighter-rouge">explode</code> to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll call this function <code class="highlighter-rouge">implode</code> that takes a list <code class="highlighter-rouge">lst</code> as input.</p>
+
+<p>We need an accumulator in order to collect the characters from the input list to prepare our output, so let’s create one <code class="highlighter-rouge">acc</code> whose length would be equal to the length of the input list <code class="highlighter-rouge">lst</code> (of characters).</p>
+
+<ol>
+  <li>Base case - if the input list <code class="highlighter-rouge">lst</code> is an empty one, just return the accumulator.</li>
+  <li>If the list is not empty, we pick the head element and push it into the accumulator. We start with index <code class="highlighter-rouge">'0'</code> of the (mutable) String and recursively call the function on the remaining part of the list, incrementing the index for each call.</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">implode</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="n">acc</span> <span class="p">=</span> <span class="nn">Bytes</span><span class="p">.</span><span class="n">create</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">length</span> <span class="n">lst</span><span class="p">)</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">i</span> <span class="n">l</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="nn">Bytes</span><span class="p">.</span><span class="n">set</span> <span class="n">acc</span> <span class="n">i</span> <span class="n">h</span><span class="p">;</span> <span class="n">aux</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="n">t</span> <span class="k">in</span>
+  <span class="n">aux</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+
+<p>Note: The latest version of OCaml, my preferred programming language, has a mutable data-type <code class="highlighter-rouge">Bytes</code> while it made the <code class="highlighter-rouge">String</code> data-type immutable.</p>
+
+<p>Food for thought - how would be implement <code class="highlighter-rouge">implode</code> using the immutable String type, in a purely functional fashion?</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-09-07T03:57:11+00:00</updated>
+  <updated>2017-09-08T01:24:06+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,61 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Let’s implode! →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/06/lets-implode-a-list/" rel="alternate" type="text/html" title="Let's implode!" />
+      <published>2017-09-06T00:00:00+00:00</published>
+      <updated>2017-09-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/06/lets-implode-a-list</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/06/lets-implode-a-list/">&lt;p&gt;In one of the &lt;a href=&quot;https://dotkay.github.io/2017/08/26/more-examples-using-aux-functions/&quot;&gt;previous posts&lt;/a&gt; we looked at a recursive function &lt;code class=&quot;highlighter-rouge&quot;&gt;explode&lt;/code&gt; to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll call this function &lt;code class=&quot;highlighter-rouge&quot;&gt;implode&lt;/code&gt; that takes a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; as input.&lt;/p&gt;
+
+&lt;p&gt;We need an accumulator in order to collect the characters from the input list to prepare our output, so let’s create one &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; whose length would be equal to the length of the input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; (of characters).&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Base case - if the input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; is an empty one, just return the accumulator.&lt;/li&gt;
+  &lt;li&gt;If the list is not empty, we pick the head element and push it into the accumulator. We start with index &lt;code class=&quot;highlighter-rouge&quot;&gt;'0'&lt;/code&gt; of the (mutable) String and recursively call the function on the remaining part of the list, incrementing the index for each call.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;implode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Note: The latest version of OCaml, my preferred programming language, has a mutable data-type &lt;code class=&quot;highlighter-rouge&quot;&gt;Bytes&lt;/code&gt; while it made the &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt; data-type immutable.&lt;/p&gt;
+
+&lt;p&gt;Food for thought - how would be implement &lt;code class=&quot;highlighter-rouge&quot;&gt;implode&lt;/code&gt; using the immutable String type, in a purely functional fashion?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="recursion" />
+      
+        <category term="ocaml" />
+      
+
+      
+
+      
+        <summary type="html">In one of the previous posts we looked at a recursive function explode to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll call this function implode that takes a list lst as input. We need an accumulator in order to collect the characters from the input list to prepare our output, so let’s create one acc whose length would be equal to the length of the input list lst (of characters). Base case - if the input list lst is an empty one, just return the accumulator. If the list is not empty, we pick the head element and push it into the accumulator. We start with index '0' of the (mutable) String and recursively call the function on the remaining part of the list, incrementing the index for each call. let implode lst = let acc = Bytes.create (List.length lst) in let rec aux i l = match l with | [] -&amp;gt; acc | h::t -&amp;gt; Bytes.set acc i h; aux (i + 1) t in aux 0 lst;; Note: The latest version of OCaml, my preferred programming language, has a mutable data-type Bytes while it made the String data-type immutable. Food for thought - how would be implement implode using the immutable String type, in a purely functional fashion?</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1406,127 +1461,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 
       
         <summary type="html">Let’s take a small break from OCaml and recursion and learn some data analysis. For this purpose, I am using python and a couple of libraries like Pandas, Numpy and Matplotlib, which will help us in preprocessing the data, some numerical data-types as well as plotting the data, respectively. In future posts, we will see more such awesome libraries. For this post, let’s just focus on a Pokemon dataset that I happened to come across in Kaggle. Although I have never played Pokemon and never knew the different Pokemon characters, this is a nice simple example to get us started. You may want to install python - I personally like Anaconda because it offers a wonderful platform with code editor as well as a console for visualization, etc., which makes it easy to play around and learn. I installed Anaconda and use their development environment Spyder. Let’s get started right away. First, we import the libraries we will use for this short tutorial. import pandas as pd import numpy as np import matplotlib.pyplot as plt We will use these libraries only very minimally for this short post, but they are very powerful and we will see more of their features in future posts. If you create a (free) account in Kaggle, you can download the Pokemon dataset. I have downloaded it and saved it in a file named Pokemon.csv. We will use Pandas read_csv function to read the downloaded csv file. pokemon_data = pd.read_csv('Pokemon.csv') We will call it pokemon_data. Pandas refers to this type as a dataframe. If you look at the dataset the first column is just an index, so it’s useless for our analysis purposes. So we will go ahead and grab only the rest of the columns (and all the rows). pokemon_data = pokemon_data.iloc[:, 1:13] Here [:, 1:13] says that “grab all the rows (denoted by :) and columns 1 to 13. Now, let’s explore the data a bit. It’s always a good idea to take a quick look at the dataset to see what are the different columns and what kinds of values or informations they indicate about the dataset. In this case, I see that there’s a column called Generation and it seems to take values between 1 and 6. Probably there are six generations of Pokemons, at least to my understanding. Now, let’s try to see how many Pokemons are there in each generation. If it were a population dataset, this is analogous to finding out how many people are in each continent, or something like that. I will call the number of generations by the variable no_gens. We need to pick the column named Generation and count the number of unique entries. Since there are 800 Pokemons in all and they belong to one of the 6 generations, there will be multiple rows that contain the same value for Generation and hence we need to find the number of unique values (which after having a quick look at the dataset we know is 6, but it is always better to confirm algorithmically and store in a variable). We achieve this by the function unique() applying it on the column. We extract the specific column by using the column label, in this case Generation. Similarly we count the number of values in each generation using the function value_counts() no_gens = pokemon_data['Generation'].unique() count_per_gen = pokemon_data['Generation'].value_counts() Let’s try to plot the above values to have a better visual representation. I will use matplotlib’s pyplot library utilities for this purpose. It is very simple and intuitive to use. We will plot a bar chart - so we need to find out the values for x and y axes. Let’s first label the plot and the axes. plt.xlabel('Generations') plt.ylabel('Number of Pokemons') plt.title('Number of Pokemons of each generation') plt.bar(no_gens, count_per_gen) This would result in a plot as shown below: That was pretty quick. Let me stop here and let you all digest the information presented. We will analyze the Pokemon dataset more in the coming posts.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Let’s practice some more recursion! →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/" rel="alternate" type="text/html" title="Let's practice some more recursion!" />
-      <published>2017-08-17T00:00:00+00:00</published>
-      <updated>2017-08-17T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/">&lt;p&gt;Let’s continue from our &lt;a href=&quot;https://dotkay.github.io/2017/08/15/more-simple-recursion-examples&quot;&gt;earlier post&lt;/a&gt; and practice some more simple problems just to get more and more familiar with recursion.&lt;/p&gt;
-
-&lt;p&gt;Let’s start by writing a simple function to find the last element of a given list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_elem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_elem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val last_elem : 'a list -&amp;gt; 'a option = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This is also a nice way to introduce &lt;code class=&quot;highlighter-rouge&quot;&gt;Some&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; in OCaml. Just like how we have &lt;code class=&quot;highlighter-rouge&quot;&gt;'a list&lt;/code&gt; which can be an &lt;code class=&quot;highlighter-rouge&quot;&gt;int list&lt;/code&gt; or a &lt;code class=&quot;highlighter-rouge&quot;&gt;string list&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;char list&lt;/code&gt;, OCaml also has this wonderful &lt;code class=&quot;highlighter-rouge&quot;&gt;'a option&lt;/code&gt; type that can be nothing (&lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt;) or some type (&lt;code class=&quot;highlighter-rouge&quot;&gt;Some&lt;/code&gt;). Note however that &lt;code class=&quot;highlighter-rouge&quot;&gt;'a option&lt;/code&gt; type is not the same as &lt;code class=&quot;highlighter-rouge&quot;&gt;'a&lt;/code&gt;. So, if the type is &lt;code class=&quot;highlighter-rouge&quot;&gt;'a&lt;/code&gt; you can ask the compiler to treat it as an &lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;, for example. But you can’t do the same with &lt;code class=&quot;highlighter-rouge&quot;&gt;'a option&lt;/code&gt; type. For friends of Java, C programming languages, you can think of &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; as similar to &lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt; type.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;For those JavaScript fans wondering if they can use similar &lt;code class=&quot;highlighter-rouge&quot;&gt;Some&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; in JavaScript, I found an &lt;a href=&quot;https://github.com/mwilliamson/node-options&quot;&gt;option type implementation here&lt;/a&gt; that provides this. I should admit that I have never used this implementation but it seems to serve the same purpose for JavaScript.&lt;/p&gt;
-
-&lt;p&gt;Let’s test our &lt;code class=&quot;highlighter-rouge&quot;&gt;last_elem&lt;/code&gt; function on an example.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;last_elem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int option = Some 4 *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s move on and practice some more examples. Let’s now try and grab the last and the last-but-one elements from a list.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_two&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[_]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_two&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val last_two : 'a list -&amp;gt; ('a * 'a) option = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;('a * 'a)&lt;/code&gt; indicates a tuple - a pair in this case. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;(3, 4)&lt;/code&gt; would be of type &lt;code class=&quot;highlighter-rouge&quot;&gt;(int * int)&lt;/code&gt;. Let’s check our implementation:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;last_two&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : (int * int) option = Some (3, 4) *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s now make it more generic and write a function to find the k&lt;sup&gt;th&lt;/sup&gt; element of a list and let’s give our function a very creative name &lt;code class=&quot;highlighter-rouge&quot;&gt;kth&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kth&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kth&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val kth : 'a list -&amp;gt; int -&amp;gt; 'a option = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s check our implementation on &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt; again:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;kth&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int option = Some 2 *)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;kth&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int option = None *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;When we try to find the 6&lt;sup&gt;th&lt;/sup&gt; element of the list &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt;, we get &lt;code class=&quot;highlighter-rouge&quot;&gt;None&lt;/code&gt; type as a result as the list contains only 4 elements.&lt;/p&gt;
-
-&lt;p&gt;Let’s now try to reverse an input list. Relax! It just sounds complicated. It is actually super simple when you think in terms of recursion.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val lst_rev : 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Recall from our previous post that &lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt; is the OCaml operator for list concatenation. It is a straight forward observation that after the first recursive call to &lt;code class=&quot;highlighter-rouge&quot;&gt;rev_lst&lt;/code&gt;, the head element &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt; is pushed to the last and in each recursive call the first element would keep getting pushed to the end of the result list.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list = [4; 3; 2; 1] *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This post is getting long. Please don’t stop reading it! I promise, just one more example to finish this post! Let’s write a function to remove an element from k&lt;sup&gt;th&lt;/sup&gt; position in a given list:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rem_kth&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rem_kth&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val rem_kth : int -&amp;gt; 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;rem_kth&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list = [2; 3; 4] *)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;rem_kth&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list = [1; 2; 3; 4] *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;That’s all folks. If you have reached this line of this post (assuming you didn’t start reading from the last line), Congratulations for sticking around!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="ocaml" />
-      
-        <category term="recursion" />
-      
-
-      
-
-      
-        <summary type="html">Let’s continue from our earlier post and practice some more simple problems just to get more and more familiar with recursion. Let’s start by writing a simple function to find the last element of a given list lst: let rec last_elem lst = match lst with | [] -&amp;gt; None | [x] -&amp;gt; Some x | h::t -&amp;gt; last_elem t;; (* val last_elem : 'a list -&amp;gt; 'a option = &amp;lt;fun&amp;gt; *) This is also a nice way to introduce Some and None in OCaml. Just like how we have 'a list which can be an int list or a string list or char list, OCaml also has this wonderful 'a option type that can be nothing (None) or some type (Some). Note however that 'a option type is not the same as 'a. So, if the type is 'a you can ask the compiler to treat it as an int, for example. But you can’t do the same with 'a option type. For friends of Java, C programming languages, you can think of None as similar to null type. type 'a option = Some of 'a | None For those JavaScript fans wondering if they can use similar Some and None in JavaScript, I found an option type implementation here that provides this. I should admit that I have never used this implementation but it seems to serve the same purpose for JavaScript. Let’s test our last_elem function on an example. let l1 = [1;2;3;4];; last_elem l1;; (* - : int option = Some 4 *) Let’s move on and practice some more examples. Let’s now try and grab the last and the last-but-one elements from a list. let rec last_two lst = match lst with | [] | [_] -&amp;gt; None | [x; y] -&amp;gt; Some (x, y) | _::t -&amp;gt; last_two t;; (* val last_two : 'a list -&amp;gt; ('a * 'a) option = &amp;lt;fun&amp;gt; *) ('a * 'a) indicates a tuple - a pair in this case. For example, (3, 4) would be of type (int * int). Let’s check our implementation: last_two l1;; (* - : (int * int) option = Some (3, 4) *) Let’s now make it more generic and write a function to find the kth element of a list and let’s give our function a very creative name kth. let rec kth lst k = match lst with | [] -&amp;gt; None | h::t -&amp;gt; if (k=1) then (Some h) else kth t (k-1);; (* val kth : 'a list -&amp;gt; int -&amp;gt; 'a option = &amp;lt;fun&amp;gt; *) Let’s check our implementation on l1 again: kth l1 2;; (* - : int option = Some 2 *) kth l1 6;; (* - : int option = None *) When we try to find the 6th element of the list l1, we get None type as a result as the list contains only 4 elements. Let’s now try to reverse an input list. Relax! It just sounds complicated. It is actually super simple when you think in terms of recursion. let rec lst_rev lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; (lst_rev t) @ [h];; (* val lst_rev : 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *) Recall from our previous post that @ is the OCaml operator for list concatenation. It is a straight forward observation that after the first recursive call to rev_lst, the head element h is pushed to the last and in each recursive call the first element would keep getting pushed to the end of the result list. lst_rev l1;; (* - : int list = [4; 3; 2; 1] *) This post is getting long. Please don’t stop reading it! I promise, just one more example to finish this post! Let’s write a function to remove an element from kth position in a given list: let rec rem_kth k lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; if (k = 1) then t else h::(rem_kth (k-1) t);; (* val rem_kth : int -&amp;gt; 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *) rem_kth 1 l1;; (* - : int list = [2; 3; 4] *) rem_kth 6 l1;; (* - : int list = [1; 2; 3; 4] *) That’s all folks. If you have reached this line of this post (assuming you didn’t start reading from the last line), Congratulations for sticking around!</summary>
       
 
       
