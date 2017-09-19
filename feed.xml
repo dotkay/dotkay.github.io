@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-09-08T01:45:55+00:00</updated>
+  <updated>2017-09-19T06:45:58+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,67 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Let’s find the minimum missing natural number… →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/18/minimum-missing-natural-number/" rel="alternate" type="text/html" title="Let's find the minimum missing natural number..." />
+      <published>2017-09-18T00:00:00+00:00</published>
+      <updated>2017-09-18T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/18/minimum-missing-natural-number</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/18/minimum-missing-natural-number/">&lt;p&gt;Let’s write a program to find the minimum missing natural number. We would be given an unsorted list of natural numbers, say &lt;code class=&quot;highlighter-rouge&quot;&gt;[0;3;2;9;1;7;5]&lt;/code&gt; and we need to return &lt;code class=&quot;highlighter-rouge&quot;&gt;4&lt;/code&gt;. Let’s assume that there are no duplicates. And if we provide a list that does not start with &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; (natural numbers start with &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; and we assume that we provide proper input), we just return &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; as it is the smallest natural number.&lt;/p&gt;
+
+&lt;p&gt;How do we go about solving this problem. Once we look at &lt;em&gt;unsorted&lt;/em&gt;, we can think of sorting the provided list first. Once we sort the list, we just need to go through the elements of the list one by one and find the missing number. As we have sorted the list already, the first missing number we encounter would be the minimum missing number.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min_missing_num&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sort_lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compare&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sort_lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sort_lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;_::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tl&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tl&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_lst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Here, we are using OCaml List module’s sort function that has the following signature:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* - : ('a -&amp;gt; 'a -&amp;gt; int) -&amp;gt; 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And &lt;code class=&quot;highlighter-rouge&quot;&gt;compare&lt;/code&gt; is a comparision function that has the following signature:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;c&quot;&gt;(* - : 'a -&amp;gt; 'a -&amp;gt; int = &amp;lt;fun&amp;gt; *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Essentially, &lt;code class=&quot;highlighter-rouge&quot;&gt;compare x y&lt;/code&gt; returns 0 if &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; are equal, &lt;code class=&quot;highlighter-rouge&quot;&gt;-1&lt;/code&gt; if &lt;code class=&quot;highlighter-rouge&quot;&gt;x &amp;lt; y&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; if &lt;code class=&quot;highlighter-rouge&quot;&gt;x &amp;gt; y&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Can we do better than this algorithm for finding the minimum missing natural number? Hint: sorting the input list is not very cheap - we could avoid that.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="ocaml" />
+      
+        <category term="recursion" />
+      
+
+      
+
+      
+        <summary type="html">Let’s write a program to find the minimum missing natural number. We would be given an unsorted list of natural numbers, say [0;3;2;9;1;7;5] and we need to return 4. Let’s assume that there are no duplicates. And if we provide a list that does not start with 0 (natural numbers start with 0 and we assume that we provide proper input), we just return 0 as it is the smallest natural number. How do we go about solving this problem. Once we look at unsorted, we can think of sorting the provided list first. Once we sort the list, we just need to go through the elements of the list one by one and find the missing number. As we have sorted the list already, the first missing number we encounter would be the minimum missing number. let min_missing_num lst = let sort_lst = List.sort compare lst in let rec find_min sort_lst = match sort_lst with | [] -&amp;gt; -1 | x::[] -&amp;gt; x+1 | x::y::_ when y - x &amp;gt; 1 -&amp;gt; x+1 | _::tl -&amp;gt; find_min tl in find_min ((-1)::sort_lst);; Here, we are using OCaml List module’s sort function that has the following signature: (* - : ('a -&amp;gt; 'a -&amp;gt; int) -&amp;gt; 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *) And compare is a comparision function that has the following signature: (* - : 'a -&amp;gt; 'a -&amp;gt; int = &amp;lt;fun&amp;gt; *) Essentially, compare x y returns 0 if x and y are equal, -1 if x &amp;lt; y and 1 if x &amp;gt; y. Can we do better than this algorithm for finding the minimum missing natural number? Hint: sorting the input list is not very cheap - we could avoid that.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1334,103 +1395,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 
       
         <summary type="html">I don’t know how my posts just happen to revolve around recursion, but we’re only one week into learning and I have grand plans to learn (through teaching) deep learning techniques, data analysis, hardware engineering concepts, etc., besides recursion and functional programming. So, just hang on and enjoy! Let’s do a quick example to work out more recursion. This time, we will implement selection sort. Selection sort implementation, again, is very intuitive if we are in this thought process - recursion and a terse and intuitive programming language. Let’s do it. We just need to traverse the list, select the minimum element and append it to the head of the list. And then, proceed by finding the next minimum element (from the rest-of-the-list which contains one element less than the original list as the minimum element has been moved to the head) and push it to the head, and so on. So we need two ingredients. A function rem to remove an element x from a list lst. We will write it in recursive fashion A function find_min to find the minimum element of a list (we already did this in one of our previous posts) Let’s implement the above ingredients that we need for selection sort recipe. let rec rem x lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; if (h = x) then t else h::(rem x t);; let rec find_min lst = match lst with | [] -&amp;gt; failwith(&quot;empty list&quot;) | [x] -&amp;gt; x | h::t -&amp;gt; min h (find_min t);; Now, let’s use the above two to implement selection sort. We will call the function ssort. Recollect that, we will find the minimum element m of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it: let rec ssort lst = match lst with | [] -&amp;gt; [] | _ -&amp;gt; let m = find_min lst in m::(ssort (rem m lst));; That’s all folks! Have a great week ahead!</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Some more recursion please… →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/19/some-more-recursion/" rel="alternate" type="text/html" title="Some more recursion please..." />
-      <published>2017-08-19T00:00:00+00:00</published>
-      <updated>2017-08-19T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/19/some-more-recursion</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/19/some-more-recursion/">&lt;p&gt;Let’s put on our thinking-in-recursion hat and put to use all that we have learned from our examples. We will do this by working out only two (so this will be a short post) examples that will use the recursion concepts that are bread and butter for us now.&lt;/p&gt;
-
-&lt;p&gt;As a first example, we will write a function to eliminate consecutive repetitions of elements in a list. For example, if we pass the list &lt;code class=&quot;highlighter-rouge&quot;&gt;[1;1;2;2;3;3;3;4;5;5]&lt;/code&gt; to our function, it should return &lt;code class=&quot;highlighter-rouge&quot;&gt;[1;2;3;4;5]&lt;/code&gt;, after removing the repetitions. How do we go about doing this? The moment we see consecutive repetitions, we know that we can easily track this by observing any two consecutive elements in the list while traversing the list. We need to observe at least two consecutive elements in order to find out if they are repetitions. So far, in our previous examples, we have usually been observing one element, the first element of a list (or a sub-list) calling it the &lt;code class=&quot;highlighter-rouge&quot;&gt;head&lt;/code&gt; and denoting it &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt;. Remember the pattern-matchings of the form &lt;code class=&quot;highlighter-rouge&quot;&gt;| h::t -&amp;gt; &lt;/code&gt; in our previous code snippets? We were observing an element &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt; concatenated with a list &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;. Now, we need to observe two consecutive elements instead of one, to check if they are repetitions - something of this shape &lt;code class=&quot;highlighter-rouge&quot;&gt;| h1 :: h2::t&lt;/code&gt;. Now, we can compare &lt;code class=&quot;highlighter-rouge&quot;&gt;h1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;h2&lt;/code&gt; and check if &lt;code class=&quot;highlighter-rouge&quot;&gt;h2&lt;/code&gt; is a repetition of &lt;code class=&quot;highlighter-rouge&quot;&gt;h1&lt;/code&gt;. If they are not the same, we can always treat &lt;code class=&quot;highlighter-rouge&quot;&gt;h2::t&lt;/code&gt; as the rest-of-the-list, which we called &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt; (as in &lt;code class=&quot;highlighter-rouge&quot;&gt;h::t&lt;/code&gt;) in our previous examples. Now, let’s jump in to the algorithm:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Base case - if it’s an empty list, nothing to check so we will just return an empty list&lt;/li&gt;
-  &lt;li&gt;Otherwise - we think of the list to be made up of a head element &lt;code class=&quot;highlighter-rouge&quot;&gt;x1&lt;/code&gt; and the rest-of-the-list. The rest-of-the-list part we will further expand (in order to allow for checking repetitions). So, let’s say the rest-of-the-list is made up of &lt;code class=&quot;highlighter-rouge&quot;&gt;x2::x3&lt;/code&gt; - &lt;code class=&quot;highlighter-rouge&quot;&gt;x2&lt;/code&gt; is the head element of rest-of-the-list and &lt;code class=&quot;highlighter-rouge&quot;&gt;x3&lt;/code&gt; is the rest-of-the-list part of our original rest-of-the-list. Our pattern to match would look something of this shape: &lt;code class=&quot;highlighter-rouge&quot;&gt;x1 :: (x2::x3 as t)&lt;/code&gt; - the &lt;code class=&quot;highlighter-rouge&quot;&gt;as t&lt;/code&gt; just gives a name &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;x2::x3&lt;/code&gt;.
-    &lt;ul&gt;
-      &lt;li&gt;if &lt;code class=&quot;highlighter-rouge&quot;&gt;x1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;x2&lt;/code&gt; are the same, then we recursively call the function on &lt;code class=&quot;highlighter-rouge&quot;&gt;x2::x3&lt;/code&gt;. But, we threw &lt;code class=&quot;highlighter-rouge&quot;&gt;x1&lt;/code&gt; away and that’s fine because it was meant to be eliminated. We still have &lt;code class=&quot;highlighter-rouge&quot;&gt;x2&lt;/code&gt; that has the same value.&lt;/li&gt;
-      &lt;li&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;x1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;x2&lt;/code&gt; are not the same, we know that &lt;code class=&quot;highlighter-rouge&quot;&gt;x1&lt;/code&gt; does not have a doppelganger following it, and so we will include it in our result list that we will eventually return. We just append &lt;code class=&quot;highlighter-rouge&quot;&gt;x1&lt;/code&gt; to the result of the function call on rest-of-the-list.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Any other pattern, we just return the same pattern. Why do we need this? Because we want the patterns we match to be exhaustive - to cover all the cases. Suppose we have a list with a single element, this pattern would match that.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compress&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compress&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compress&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;smth_else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;smth_else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;It turned out to be pretty simple, right?&lt;/p&gt;
-
-&lt;p&gt;Now, let’s work out another example before our enthusiasm dies down. Let’s do insertion sort. We will write it out as two recursive functions. Wait, don’t run away. It’s going to be simple. First, let us write a function that inserts an element &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;, and it will insert &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; in such a way that the element next to &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; would be great than &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; and the element before it would be less than or equal to &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;. Why are we writing this function? This is not insertion sort. Wait, it will be clear in a minute. We will call this function &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt;, takes two arguments &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Base case - if &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; is empty, we just insert &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; into the empty list and return it&lt;/li&gt;
-  &lt;li&gt;Otherwise, we have to traverse the list and see where to insert &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;. If head element is greater than &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;, it is easy - we just insert &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; at the head of the input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; and return it. If not, we look for a position in the rest-of-the-list &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt; to insert our &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Now, we will use the above function to write our insertion sort function &lt;code class=&quot;highlighter-rouge&quot;&gt;isort&lt;/code&gt;. Just think what would happen if &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; was already sorted in the above case. In that case, we would be inserting &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; to maintain sorted order (just because of the rules that we imposed for inserting &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;). Let’s write down the algorithm.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Base case - if &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; is empty, return the empty list&lt;/li&gt;
-  &lt;li&gt;If the list has just one element, it is trivially sorted, just return the input list&lt;/li&gt;
-  &lt;li&gt;If the list has two or more elements, pick elements one by one, starting from the head element &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt; and use our &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; function to insert it into the appropriate position.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s check if it works on a simple test example:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;isort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list = [1; 2; 3; 7; 9; 10; 11] *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;That’s too much for my head for today. Let’s do more interesting examples in future posts when we get into the concept of tail recursion.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="ocaml" />
-      
-        <category term="recursion" />
-      
-        <category term="algorithms" />
-      
-
-      
-
-      
-        <summary type="html">Let’s put on our thinking-in-recursion hat and put to use all that we have learned from our examples. We will do this by working out only two (so this will be a short post) examples that will use the recursion concepts that are bread and butter for us now. As a first example, we will write a function to eliminate consecutive repetitions of elements in a list. For example, if we pass the list [1;1;2;2;3;3;3;4;5;5] to our function, it should return [1;2;3;4;5], after removing the repetitions. How do we go about doing this? The moment we see consecutive repetitions, we know that we can easily track this by observing any two consecutive elements in the list while traversing the list. We need to observe at least two consecutive elements in order to find out if they are repetitions. So far, in our previous examples, we have usually been observing one element, the first element of a list (or a sub-list) calling it the head and denoting it h. Remember the pattern-matchings of the form | h::t -&amp;gt; in our previous code snippets? We were observing an element h concatenated with a list t. Now, we need to observe two consecutive elements instead of one, to check if they are repetitions - something of this shape | h1 :: h2::t. Now, we can compare h1 and h2 and check if h2 is a repetition of h1. If they are not the same, we can always treat h2::t as the rest-of-the-list, which we called t (as in h::t) in our previous examples. Now, let’s jump in to the algorithm: Base case - if it’s an empty list, nothing to check so we will just return an empty list Otherwise - we think of the list to be made up of a head element x1 and the rest-of-the-list. The rest-of-the-list part we will further expand (in order to allow for checking repetitions). So, let’s say the rest-of-the-list is made up of x2::x3 - x2 is the head element of rest-of-the-list and x3 is the rest-of-the-list part of our original rest-of-the-list. Our pattern to match would look something of this shape: x1 :: (x2::x3 as t) - the as t just gives a name t to x2::x3. if x1 and x2 are the same, then we recursively call the function on x2::x3. But, we threw x1 away and that’s fine because it was meant to be eliminated. We still have x2 that has the same value. If x1 and x2 are not the same, we know that x1 does not have a doppelganger following it, and so we will include it in our result list that we will eventually return. We just append x1 to the result of the function call on rest-of-the-list. Any other pattern, we just return the same pattern. Why do we need this? Because we want the patterns we match to be exhaustive - to cover all the cases. Suppose we have a list with a single element, this pattern would match that. let rec compress lst = match lst with | [] -&amp;gt; [] | x1 :: (x2::x3 as t) -&amp;gt; if (x1 = x2) then compress t else x1 :: compress t | smth_else -&amp;gt; smth_else;; It turned out to be pretty simple, right? Now, let’s work out another example before our enthusiasm dies down. Let’s do insertion sort. We will write it out as two recursive functions. Wait, don’t run away. It’s going to be simple. First, let us write a function that inserts an element x to a list lst, and it will insert x in such a way that the element next to x in lst would be great than x and the element before it would be less than or equal to x. Why are we writing this function? This is not insertion sort. Wait, it will be clear in a minute. We will call this function insert, takes two arguments x and lst. Base case - if lst is empty, we just insert x into the empty list and return it Otherwise, we have to traverse the list and see where to insert x. If head element is greater than x, it is easy - we just insert x at the head of the input list lst and return it. If not, we look for a position in the rest-of-the-list t to insert our x. let rec insert x lst = match lst with | [] -&amp;gt; [x] | h::t -&amp;gt; if (x &amp;lt;= h) then x::h::t else h::(insert x t);; Now, we will use the above function to write our insertion sort function isort. Just think what would happen if lst was already sorted in the above case. In that case, we would be inserting x to lst to maintain sorted order (just because of the rules that we imposed for inserting x). Let’s write down the algorithm. Base case - if lst is empty, return the empty list If the list has just one element, it is trivially sorted, just return the input list If the list has two or more elements, pick elements one by one, starting from the head element h and use our insert function to insert it into the appropriate position. let rec isort lst = match lst with | [] -&amp;gt; [] | [x] -&amp;gt; [x] | h::t -&amp;gt; insert h (isort t) Let’s check if it works on a simple test example: let l1 = [1;7;9;3;11;2;10];; isort l1;; (* - : int list = [1; 2; 3; 7; 9; 10; 11] *) That’s too much for my head for today. Let’s do more interesting examples in future posts when we get into the concept of tail recursion.</summary>
       
 
       

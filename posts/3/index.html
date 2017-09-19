@@ -102,6 +102,104 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list/">Tail recursions and reversing a list &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 29, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>So, how about reversing a list using our <code class="highlighter-rouge">leftee</code> function from our <a href="https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions">previous post</a>?</p>
+
+<p>Let’s work it out now. Here’s the original tail recursive function for your reference:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_rev</span> <span class="n">t</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">acc</span><span class="p">)</span>
+  <span class="k">in</span>
+  <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre></figure>
+
+<p>All you need to observe is how the accumulator <code class="highlighter-rouge">acc</code> changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator <code class="highlighter-rouge">acc</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">a</span> <span class="n">x</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">a</span><span class="p">)</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span> </code></pre></figure>
+
+<p>In most functional programming languages our <code class="highlighter-rouge">leftee</code> is actually called <code class="highlighter-rouge">fold_left</code> and is tail recursive. There’s also a <code class="highlighter-rouge">fold_right</code> which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/28/more-about-auxiliary-functions-and-recursions/">More about auxiliary functions and recursions &rarr;</a>
           </h1>
 
@@ -568,136 +666,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 </code></pre>
 </div>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/24/introducing-tail-recursions/">Introducing tail recursions &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 24, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Now that we are already thinking of recursive function calls whenever possible, it is a nice time to introduce tail recursions. Let’s consider this function <code class="highlighter-rouge">lst_sum</code> that we worked out in one of our <a href="https://dotkay.github.io/2017/08/14/ocaml-recursion-simple">earlier posts</a>, repeated here for convenience:</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_sum</span> <span class="n">lst</span> <span class="p">=</span> 
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="mi">0</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">h</span> <span class="o">+</span> <span class="n">lst_sum</span> <span class="n">t</span><span class="p">;;</span></code></pre></figure>
-
-<p>When we call this function on this list <code class="highlighter-rouge">l1 = [1; 2; 3; 4; 5]</code>, this is what would how the stack frame of the execution by the compiler would look like:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	lst_sum [1; 2; 3; 4; 5]
-=	1 + lst_sum [2; 3; 4; 5]
-=	1 + 2 + lst_sum [3; 4; 5]
-=	1 + 2 + 3 + lst_sum [4; 5]
-=	1 + 2 + 3 + 4 + lst_sum [5]
-=	1 + 2 + 3 + 4 + 5 + lst_sum []
-=	1 + 2 + 3 + 4 + 5 + 0
-=	15
-
-</code></pre>
-</div>
-
-<p>Note that it performs the actual computation (or evaluates the intermediate results) only after all the recursive calls are completed. This means that we need to keep the function calls in the stack (which means spend storage for the function’s local variables, etc.) until all the recursive calls are returned. This is a lot of resources wasted.</p>
-
-<p>Let’s see a tail-recursive version of the same function. Let’s call it <code class="highlighter-rouge">tr_lst_sum</code>.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
-    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_sum</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre></figure>
-
-<p>We have an auxiliary recursive function <code class="highlighter-rouge">aux_lst_sum</code> and pass another parameter <code class="highlighter-rouge">acc</code> (for accumulator) to it. The idea is to accumulate intermediate results so that we can start computations as and when a step completes, and not have to save the recursive calls to the functions in the stack frame. This is how the execution of our tail-recursive version would look like:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	tr_lst_sum [1; 2; 3; 4; 5]
-= 	aux_lst_sum [1; 2; 3; 4; 5] 0
-= 	aux_lst_sum [2; 3; 4; 5]    1
-= 	aux_lst_sum [3; 4; 5] 	    3
-= 	aux_lst_sum [4; 5] 	    6
-= 	aux_lst_sum [5] 	    10
-= 	aux_lst_sum [] 		    15
-=	15
-</code></pre>
-</div>
-
-<p>Note that the accumulator <code class="highlighter-rouge">acc</code> computes the intermediate results as and when they are available. We also store only one instance of the function call in the stack thereby saving a lot of space and more importantly, avoiding stack overflow.</p>
-
-<p>Hope you enjoyed this!</p>
 
         </div>
         
