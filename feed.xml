@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-09-19T06:45:58+00:00</updated>
+  <updated>2017-09-20T04:31:09+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,80 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">List Partitioning and Quicksort →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/19/list-partitioning-and-quick-sort/" rel="alternate" type="text/html" title="List Partitioning and Quicksort" />
+      <published>2017-09-19T00:00:00+00:00</published>
+      <updated>2017-09-19T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/19/list-partitioning-and-quick-sort</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/19/list-partitioning-and-quick-sort/">&lt;p&gt;Before we try to come up with a better solution for the problem in the &lt;a href=&quot;https://dotkay.github.io/2017/09/18/minimum-missing-natural-number&quot;&gt;previous post&lt;/a&gt;, let us look at another familiar problem - Quicksort. A quick refresher of mergesort from one of the &lt;a href=&quot;https://dotkay.github.io/2017/08/31/recursions-and-merge-sort&quot;&gt;earlier posts&lt;/a&gt; will make this exercise much simpler. In mergesort, we essentially wrote a &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function to split an input list into two lists and recursively called the mergesort algorithm on each of the sub-lists produced by &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; and eventually merged them using a &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; function that merges two lists by comparing the element at the head of the sub-lists.&lt;/p&gt;
+
+&lt;p&gt;The idea behind quicksort is similar. Instead of just splitting the list into two sub-lists, we are going to choose a &lt;em&gt;pivot&lt;/em&gt; element (a fancy name for &lt;em&gt;just an element&lt;/em&gt; from our input list) and split the list into two sub-lists in such a way that all the elements in the input list that are less than the pivot element would fall into one sub-list and the rest of the elements will fall into the other. Now that we are very much comfortable with writing recursive functions using accumulators, let us go ahead and write one for partitioning the list into a pair of lists (two sub-lists) given a pivot element. So, the inputs to our function are a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; (to split) and a &lt;code class=&quot;highlighter-rouge&quot;&gt;pivot&lt;/code&gt; element.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; 
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;([],&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Let’s go ahead and see what it does on a sample list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst1&lt;/code&gt; which contains &lt;code class=&quot;highlighter-rouge&quot;&gt;[1; 11; 9; 3; 6; 7; 2; 29]&lt;/code&gt;. Let’s pick &lt;code class=&quot;highlighter-rouge&quot;&gt;7&lt;/code&gt; to be our pivot element.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* - : int list * int list = ([2; 6; 3; 1], [29; 7; 9; 11]) *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As we see, all the elements less than our pivot element, &lt;code class=&quot;highlighter-rouge&quot;&gt;7&lt;/code&gt; in this case, are in one of the sub-lists generated by &lt;code class=&quot;highlighter-rouge&quot;&gt;partition&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;p&gt;Now, quicksort is just choosing the head element as the pivot, generating two sub-lists &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;l2&lt;/code&gt; and calling quicksort recursively on each of the sub-lists. Since each recursive call pushes the smaller element further towards the left, eventually when all recursive calls return, the list would be sorted in acsending order.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;quicksort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;quicksort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quicksort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And let us try it on &lt;code class=&quot;highlighter-rouge&quot;&gt;lst1&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;quicksort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* - : int list = [1; 2; 3; 6; 7; 9; 11; 29] *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This exercise will help us find a better solution to the problem of finding the minimum missing natural number from an unsorted list. Does this ring any bell?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="recursion" />
+      
+        <category term="ocaml" />
+      
+
+      
+
+      
+        <summary type="html">Before we try to come up with a better solution for the problem in the previous post, let us look at another familiar problem - Quicksort. A quick refresher of mergesort from one of the earlier posts will make this exercise much simpler. In mergesort, we essentially wrote a split function to split an input list into two lists and recursively called the mergesort algorithm on each of the sub-lists produced by split and eventually merged them using a merge function that merges two lists by comparing the element at the head of the sub-lists. The idea behind quicksort is similar. Instead of just splitting the list into two sub-lists, we are going to choose a pivot element (a fancy name for just an element from our input list) and split the list into two sub-lists in such a way that all the elements in the input list that are less than the pivot element would fall into one sub-list and the rest of the elements will fall into the other. Now that we are very much comfortable with writing recursive functions using accumulators, let us go ahead and write one for partitioning the list into a pair of lists (two sub-lists) given a pivot element. So, the inputs to our function are a list lst (to split) and a pivot element. let partition pivot lst = let rec aux (acc1, acc2) l = match l with | [] -&amp;gt; (acc1, acc2) | h::t -&amp;gt; if (h &amp;lt; pivot) then aux (h::acc1, acc2) t else aux (acc1, h::acc2) t in aux ([], []) lst;; Let’s go ahead and see what it does on a sample list lst1 which contains [1; 11; 9; 3; 6; 7; 2; 29]. Let’s pick 7 to be our pivot element. let lst1 = [1;11;9;3;6;7;2;29];; partition 7 lst1;; (* - : int list * int list = ([2; 6; 3; 1], [29; 7; 9; 11]) *) As we see, all the elements less than our pivot element, 7 in this case, are in one of the sub-lists generated by partition function. Now, quicksort is just choosing the head element as the pivot, generating two sub-lists l1 and l2 and calling quicksort recursively on each of the sub-lists. Since each recursive call pushes the smaller element further towards the left, eventually when all recursive calls return, the list would be sorted in acsending order. let rec quicksort lst = match lst with | [] -&amp;gt; [] | x::[] -&amp;gt; [x] | h::t -&amp;gt; let l1, l2 = partition h t in quicksort l1 @ (h::quicksort l2);; And let us try it on lst1: quicksort lst1;; (* - : int list = [1; 2; 3; 6; 7; 9; 11; 29] *) This exercise will help us find a better solution to the problem of finding the minimum missing natural number from an unsorted list. Does this ring any bell?</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1325,76 +1399,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 
       
         <summary type="html">Let’s take a break from recursion and learn to count the number of bits set in an integer. For example, in an integer say 9 there are two set bits. Of course, we will be dealing with unsigned integers and the number of bits set is in the binary representation (the language that our computers understand and speak). We already saw how to convert an integer to binary in one of our previous posts. You may want to refer to that in case you want to quickly refresh your memory. Let’s work out the first technique we would use. Let’s take the integer 9. It’s binary representation is 1001. So, there are two set bits. Looks very intuitive - start from the right-most bit, have a counter and start counting the set bits, while right shifting our bit string. We just need a counter to keep track of the count and two operations - right shift and an operation to identify a set bit. Let’s see how to do that. We initialize a counter, call it count to 0. We do a bitwise &amp;amp; with 1. This would identify if a bit is set. If it’s set, we would increment count. Right shift our original input and continue till we encounter 0 (terminating condition for our loop). n n&amp;amp;1 count 1001 0 0001 1 0100 0000 1 0010 0000 1 0001 0001 2 0000 - 2 final result = 2 Let’s write a quick C function: unsigned int count_set_bits (unsigned int n) { unsigned int count = 0; while (n) { count += n &amp;amp; 1; n &amp;gt;&amp;gt;= 1; } return count; } There’s a better way to do this, thanks to Brian Kernighan’s algorithm. He observed that subtracting a 1 toggles all the bits upto and including the right-most set bit. For example, if you subtract 1 from 1010, it results in 1001 - the last two bits, 0 and the right-most set bit 1 got flipped. Now, if we perform a bitwise &amp;amp; of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with 1001 (9). n n-1 n&amp;amp;(n-1) count 1001 1000 1000 1 1000 0111 0000 2 0000 -- -- 2 final result = 2. Note that we loop only as many times as the number of set bits, unlike the previous case. Let’s write a quick C function: unsigned int BK_count_set_bits (unsigned int n) { unsigned int count = 0; while (n) { n &amp;amp;= (n-1); count++; } return count; } That’s all for now. Let me get my head around other bits and pieces before my next post.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Recursions just don’t get over … →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/20/recursions-just-dont-get-over/" rel="alternate" type="text/html" title="Recursions just don't get over ..." />
-      <published>2017-08-20T00:00:00+00:00</published>
-      <updated>2017-08-20T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/20/recursions-just-dont-get-over</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/20/recursions-just-dont-get-over/">&lt;p&gt;I don’t know how my posts just happen to revolve around recursion, but we’re only one week into learning and I have grand plans to learn (through teaching) deep learning techniques, data analysis, hardware engineering concepts, etc., besides recursion and functional programming. So, just hang on and enjoy!&lt;/p&gt;
-
-&lt;p&gt;Let’s do a quick example to work out more recursion. This time, we will implement selection sort. Selection sort implementation, again, is very intuitive if we are in this thought process - recursion and a terse and intuitive programming language. Let’s do it. We just need to traverse the list, select the minimum element and append it to the head of the list. And then, proceed by finding the next minimum element (from the rest-of-the-list which contains one element less than the original list as the minimum element has been moved to the head) and push it to the head, and so on. So we need two ingredients.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A function &lt;code class=&quot;highlighter-rouge&quot;&gt;rem&lt;/code&gt; to remove an element &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; from a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;. We will write it in recursive fashion&lt;/li&gt;
-  &lt;li&gt;A function &lt;code class=&quot;highlighter-rouge&quot;&gt;find_min&lt;/code&gt; to find the minimum element of a list (we already did this in one of our &lt;a href=&quot;https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/&quot;&gt;previous posts&lt;/a&gt;)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Let’s implement the above ingredients that we need for selection sort recipe.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failwith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;empty list&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Now, let’s use the above two to implement selection sort. We will call the function &lt;code class=&quot;highlighter-rouge&quot;&gt;ssort&lt;/code&gt;. Recollect that, we will find the minimum element &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ssort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssort&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rem&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;That’s all folks! Have a great week ahead!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="ocaml" />
-      
-        <category term="recursion" />
-      
-        <category term="algorithms" />
-      
-
-      
-
-      
-        <summary type="html">I don’t know how my posts just happen to revolve around recursion, but we’re only one week into learning and I have grand plans to learn (through teaching) deep learning techniques, data analysis, hardware engineering concepts, etc., besides recursion and functional programming. So, just hang on and enjoy! Let’s do a quick example to work out more recursion. This time, we will implement selection sort. Selection sort implementation, again, is very intuitive if we are in this thought process - recursion and a terse and intuitive programming language. Let’s do it. We just need to traverse the list, select the minimum element and append it to the head of the list. And then, proceed by finding the next minimum element (from the rest-of-the-list which contains one element less than the original list as the minimum element has been moved to the head) and push it to the head, and so on. So we need two ingredients. A function rem to remove an element x from a list lst. We will write it in recursive fashion A function find_min to find the minimum element of a list (we already did this in one of our previous posts) Let’s implement the above ingredients that we need for selection sort recipe. let rec rem x lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; if (h = x) then t else h::(rem x t);; let rec find_min lst = match lst with | [] -&amp;gt; failwith(&quot;empty list&quot;) | [x] -&amp;gt; x | h::t -&amp;gt; min h (find_min t);; Now, let’s use the above two to implement selection sort. We will call the function ssort. Recollect that, we will find the minimum element m of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it: let rec ssort lst = match lst with | [] -&amp;gt; [] | _ -&amp;gt; let m = find_min lst in m::(ssort (rem m lst));; That’s all folks! Have a great week ahead!</summary>
       
 
       
