@@ -102,6 +102,122 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/20/minimum-missing-nat-number-2/">Finding the minimum missing natural number - a better way! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 20, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In one of the <a href="https://dotkay.github.io/2017/09/18/minimum-missing-natural-number">earlier posts</a> we saw a straight forward way to find the minimum missing natural number in a list. That solution, although very straight forward, required us to sort the list before finding the minimum missing number. The question was - can we get away without that expense of sorting that list?</p>
+
+<p>The answer seems to be <em>yes</em>. Since we know that we are not allowing any duplicates and we consider only natural numbers, we can use a very nice property:</p>
+
+<blockquote>
+  <p>In a perfectly consecutive sequence of natural numbers, any chosen number is also the number of natural numbers less than it.</p>
+</blockquote>
+
+<p>That is, if we consider the consecutive sequence of number <code class="highlighter-rouge">0 1 2 3 4 5</code> and choose <code class="highlighter-rouge">3</code>, we see that there are exactly three natural numbers before it - <code class="highlighter-rouge">0 1 2</code>. A curious mind would have noted that these three numbers actually need not be in order - they should just exist. For example <code class="highlighter-rouge">1 0 2 3 4 5</code> has three numbers before <code class="highlighter-rouge">3</code>, they are not in sequence, but the fact that there are three of them assures us that nothing less than three is missing in the sequence. This is the property we are going to use to come up with a simpler search. Just like how we <a href="https://dotkay.github.io/2017/09/19/list-partitioning-and-quicksort">partitioned a list of numbers around a pivot element for quicksort</a>, we will choose an element <code class="highlighter-rouge">x</code> and push all the numbers less than it (in any order) to the left of it and the rest to the right of it. We will also need to keep track of the number of elements <code class="highlighter-rouge">num</code> to the left of the chosen number (in order to check our fancy property mentioned above). Let’s write the partition function first:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">partition</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span> 
+  <span class="k">let</span> <span class="n">aux</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="n">y</span> <span class="p">=</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="p">&lt;</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">::</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span>
+    <span class="k">else</span> <span class="n">num</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">y</span><span class="p">::</span><span class="n">right</span>
+  <span class="k">in</span>
+  <span class="nn">List</span><span class="p">.</span><span class="n">fold_left</span> <span class="n">aux</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">[]</span><span class="p">,</span> <span class="bp">[]</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+
+<p>If the number of elements tracked is equal to the chosen number, it just means that there is no missing number in the left partition (just like the example above where the number of elements less than <code class="highlighter-rouge">3</code> is equal to three, and we don’t have any missing natural number to the left of <code class="highlighter-rouge">3</code>). Now, we will use this partition function to find the missing natural number:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">min_missing_num</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="c">(* m is the least nat number - 0 *)</span> 
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">m</span> <span class="n">l</span> <span class="p">=</span> 
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">m</span>  <span class="c">(* we return 0 as the missing num *)</span>
+               <span class="c">(* as it is the least nat num *)</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> 
+      <span class="k">let</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="p">=</span> <span class="n">partition</span> <span class="n">h</span> <span class="n">t</span> <span class="k">in</span>
+      <span class="c">(* if (num = h) left side is perfect *)</span>
+      <span class="c">(* search on the right partition *)</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="n">m</span> <span class="p">=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">find_min</span> <span class="p">(</span><span class="n">h</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">right</span>
+      <span class="k">else</span> <span class="n">find_min</span> <span class="n">m</span> <span class="n">left</span>
+    <span class="k">in</span>
+    <span class="n">find_min</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+
+<p>Think of <code class="highlighter-rouge">m</code> as the accumulator - we know that <code class="highlighter-rouge">0</code> is the first natural number, so in case our input list is an empty one (base case), we just return the first (minimum) natural number that is missing. Is there too much going on in this? If you could work this out in a sample input, say <code class="highlighter-rouge">[0; 3; 2; 9; 1]</code> it would help understand it better.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/19/list-partitioning-and-quick-sort/">List Partitioning and Quicksort &rarr;</a>
           </h1>
 
@@ -567,108 +683,6 @@
 <p>Note: The latest version of OCaml, my preferred programming language, has a mutable data-type <code class="highlighter-rouge">Bytes</code> while it made the <code class="highlighter-rouge">String</code> data-type immutable.</p>
 
 <p>Food for thought - how would be implement <code class="highlighter-rouge">implode</code> using the immutable String type, in a purely functional fashion?</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/05/computing-many-primes/">Computing many primes... &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 5, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In our <a href="https://dotkay.github.io/2017/09/04/prime-or-not">previous post</a> we saw how to check if a given number is prime. Now, what if we want to find all the primes from <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">1000</code>? Sure, we can call our <code class="highlighter-rouge">is_prime()</code> function on every number from <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">1000</code> and list out the ones that pass the test. Is there a better way? There absolutely is! And it turns out that it was invented by a Greek mathematician <a href="https://en.wikipedia.org/wiki/Eratosthenes">Etatosthenes</a>, who by the way also happened to invent Geography. The algorithm is commonly referred to as <em>Sieve of Eratosthenes</em>.</p>
-
-<p>We start by assuming that all the numbers, say <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">n</code> are primes. Assume we have an array of size <code class="highlighter-rouge">n</code> and we marked all the elements as prime. Now, we traverse the array and start marking out all the multiples, say <code class="highlighter-rouge">2, 4 ,6, 8, 10, ...</code> as not prime, and similarly <code class="highlighter-rouge">3, 9, 15,...</code>. Once we are done, we are left only with primes. I am still amazed at the simplicity of this algorithm given that it was invented more than a couple of thousand years ago.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">eratosthenes</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
-  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">prime</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
-  <span class="n">prime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="n">prime</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">sqrt</span><span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">n</span><span class="p">);</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fast_is_prime</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-      <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">k</span> <span class="o">+=</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-          <span class="n">prime</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>That’s all folks!</p>
 
         </div>
         
