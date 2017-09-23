@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>All permutations of a list</title>
+  <meta name="description" content="Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implemented very easily (refer to the end of this post for sample implementations). One of them is the map function, that accepts an input function and a list and applies that function to each element of the list. For example, if we want to square each element of an input list lst, call the function sq_lst: let sq_lst lst = List.map (fun x -&amp;gt; x * x) lst;; When we provide the function with a list [1;2;3], we would obtain [1;4;9] as the result. sq_lst [1;2;3];; (* - : int list = [1; 4; 9] *) Another built-in function from the List module we would use is flatten, which just flattens a list of lists into a list. For example, if we want to flatten [[1; 2]; [3; 4]; [5]] into a single list: List.flatten [[1; 2]; [3; 4]; [5]];; (* - : int list = [1; 2; 3; 4; 5] *) Let’s focus back at the problem at hand - generating permutations of a list. Permutation - all possible arrangements of a list of items, where order is important. For example, {a,b,c} {a,c,b} {b,a,c} {b,c,a} {c,a,b} {c,b,a} are permutations of {a,b,c}. Let’s approach this problem by first writing a function - let’s call it insert that would take two arguments - an element x to insert and a list lst to insert x into. And this function insert would insert x at all possible positions in lst. For example, if we have a list [1;2] and an element 0, we want to insert this 0 at all possible positions in the list [1;2], producing [[0; 1; 2], [1; 0; 2], [1; 2; 0]] - note that this is not the permutation, we are just inserting a given element into all possible positions in the list. let rec insert x lst = match lst with | [] -&amp;gt; [[x]] | h::t -&amp;gt; (x::lst) :: (List.map (fun el -&amp;gt; h::el) (insert x t));; Since we are producing a list of lists as output, for the base case we create a list of list containing a single element - the input element x. The second part just applies the function to each element of the list, besides adding the element to the list itself. So, x::lst produces [0; 1; 2], and the map part produces [1; 0; 2] (which is applying the function to the first element 1 of the list (h::el) - the function just adds the element 0 to the list head item 1 giving 1; 0) and similarly [1; 2; 0]. Now we will use this insert function to write our perm (for permutation) function, which is straight-forward given the insert function. We will just traverse the list and choose each item in the list and insert the item to all the positions of the rest of the list. let rec perm lst = match lst with | [] -&amp;gt; [lst] | h::t -&amp;gt; List.flatten (List.map (insert h) (perm t));; perm [0;1;2];; (* - : int list list = *) (* [[0; 1; 2]; [1; 0; 2]; [1; 2; 0]; [0; 2; 1]; [2; 0; 1]; [2; 1; 0]] *) Hope this was the most intuitive way to a permutation function. Here’s a sample implementation of map and flatten functions - I creatively named them mapp and flatn: let rec mapp f lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; f h :: (mapp f t);; let flatn lst = let rec aux acc l = match l with | [] -&amp;gt; acc | h::t -&amp;gt; aux (acc @ h) t in aux [] lst;;">
+  
+    
+    <meta name="keywords" content="recursion,ocaml">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/09/21/permutations-of-a-list/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="All permutations of a list">
+  <meta name="twitter:description" content="Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implement...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/09/21/permutations-of-a-list">All permutations of a list &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-09-21T00:00:00+00:00" itemprop="datePublished">Sep 21, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implemented very easily (refer to the end of this post for sample implementations). One of them is the <code class="highlighter-rouge">map</code> function, that accepts an input function and a list and applies that function to each element of the list. For example, if we want to square each element of an input list <code class="highlighter-rouge">lst</code>, call the function <code class="highlighter-rouge">sq_lst</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">sq_lst</span> <span class="n">lst</span> <span class="p">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="p">*</span> <span class="n">x</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+
+<p>When we provide the function with a list <code class="highlighter-rouge">[1;2;3]</code>, we would obtain <code class="highlighter-rouge">[1;4;9]</code> as the result.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">sq_lst</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="o">];;</span>
+<span class="c">(* - : int list = [1; 4; 9] *)</span></code></pre></figure>
+
+<p>Another built-in function from the List module we would use is <code class="highlighter-rouge">flatten</code>, which just flattens a list of lists into a list. For example, if we want to flatten <code class="highlighter-rouge">[[1; 2]; [3; 4]; [5]]</code> into a single list:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="nn">List</span><span class="p">.</span><span class="n">flatten</span> <span class="o">[[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="o">];</span> <span class="p">[</span><span class="mi">3</span><span class="p">;</span> <span class="mi">4</span><span class="o">];</span> <span class="p">[</span><span class="mi">5</span><span class="o">]];;</span>
+<span class="c">(* - : int list = [1; 2; 3; 4; 5] *)</span></code></pre></figure>
+
+<p>Let’s focus back at the problem at hand - generating permutations of a list.</p>
+
+<blockquote>
+  <p>Permutation - all possible arrangements of a list of items, where order is important.</p>
+</blockquote>
+
+<p>For example, <code class="highlighter-rouge"><span class="p">{</span><span class="err">a,b,c</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">a,c,b</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">b,a,c</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">b,c,a</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">c,a,b</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">c,b,a</span><span class="p">}</span></code> are permutations of <code class="highlighter-rouge"><span class="p">{</span><span class="err">a,b,c</span><span class="p">}</span></code>. Let’s approach this problem by first writing a function - let’s call it <code class="highlighter-rouge">insert</code> that would take two arguments - an element <code class="highlighter-rouge">x</code> to insert and a list <code class="highlighter-rouge">lst</code> to insert <code class="highlighter-rouge">x</code> into. And this function <code class="highlighter-rouge">insert</code> would insert <code class="highlighter-rouge">x</code> at all possible positions in <code class="highlighter-rouge">lst</code>. For example, if we have a list <code class="highlighter-rouge">[1;2]</code> and an element <code class="highlighter-rouge">0</code>, we want to insert this <code class="highlighter-rouge">0</code> at all possible positions in the list <code class="highlighter-rouge">[1;2]</code>, producing <code class="highlighter-rouge">[[0; 1; 2], [1; 0; 2], [1; 2; 0]]</code> - note that this is not the permutation, we are just inserting a given element into all possible positions in the list.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="o">[[</span><span class="n">x</span><span class="o">]]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> 
+    <span class="p">(</span><span class="n">x</span><span class="p">::</span><span class="n">lst</span><span class="p">)</span> <span class="p">::</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">el</span> <span class="p">-&gt;</span> <span class="n">h</span><span class="p">::</span><span class="n">el</span><span class="p">)</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">));;</span></code></pre></figure>
+
+<p>Since we are producing a list of lists as output, for the base case we create a list of list containing a single element - the input element <code class="highlighter-rouge">x</code>. The second part just applies the function to each element of the list, besides adding the element to the list itself. So, <code class="highlighter-rouge">x::lst</code> produces <code class="highlighter-rouge">[0; 1; 2]</code>, and the <code class="highlighter-rouge">map</code> part produces <code class="highlighter-rouge">[1; 0; 2]</code> (which is applying the function to the first element <code class="highlighter-rouge">1</code> of the list (<code class="highlighter-rouge">h::el</code>) - the function just adds the element <code class="highlighter-rouge">0</code> to the list head item <code class="highlighter-rouge">1</code> giving <code class="highlighter-rouge">1; 0</code>) and similarly <code class="highlighter-rouge">[1; 2; 0]</code>.</p>
+
+<p>Now we will use this <code class="highlighter-rouge">insert</code> function to write our <code class="highlighter-rouge">perm</code> (for permutation) function, which is straight-forward given the <code class="highlighter-rouge">insert</code> function. We will just traverse the list and choose each item in the list and insert the item to all the positions of the rest of the list.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">perm</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">lst</span><span class="p">]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> 
+    <span class="nn">List</span><span class="p">.</span><span class="n">flatten</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="n">insert</span> <span class="n">h</span><span class="p">)</span> <span class="p">(</span><span class="n">perm</span> <span class="n">t</span><span class="o">));;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">perm</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="o">];;</span>
+<span class="c">(* - : int list list = *)</span>
+<span class="c">(* [[0; 1; 2]; [1; 0; 2]; [1; 2; 0]; [0; 2; 1]; [2; 0; 1]; [2; 1; 0]] *)</span></code></pre></figure>
+
+<p>Hope this was the most intuitive way to a permutation function.</p>
+
+<p>Here’s a sample implementation of map and flatten functions - I creatively named them <code class="highlighter-rouge">mapp</code> and <code class="highlighter-rouge">flatn</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">mapp</span> <span class="n">f</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">f</span> <span class="n">h</span> <span class="p">::</span> <span class="p">(</span><span class="n">mapp</span> <span class="n">f</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">flatn</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">l</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux</span> <span class="p">(</span><span class="n">acc</span> <span class="o">@</span> <span class="n">h</span><span class="p">)</span> <span class="n">t</span>
+  <span class="k">in</span>
+  <span class="n">aux</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
