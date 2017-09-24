@@ -121,6 +121,14 @@
 <lastmod>2017-09-21T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://dotkay.github.io/2017/09/22/binary-trees/</loc>
+<lastmod>2017-09-22T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>https://dotkay.github.io/2017/09/23/binary-trees-2/</loc>
+<lastmod>2017-09-23T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://dotkay.github.io/about/</loc>
 </url>
 <url>
@@ -169,6 +177,9 @@
 <loc>https://dotkay.github.io/categories/success/</loc>
 </url>
 <url>
+<loc>https://dotkay.github.io/categories/data-structures/</loc>
+</url>
+<url>
 <loc>https://dotkay.github.io/posts/2/</loc>
 </url>
 <url>
@@ -182,5 +193,8 @@
 </url>
 <url>
 <loc>https://dotkay.github.io/posts/6/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/posts/7/</loc>
 </url>
 </urlset>

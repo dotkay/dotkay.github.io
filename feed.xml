@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-09-23T06:38:59+00:00</updated>
+  <updated>2017-09-24T00:13:37+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,165 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Binary Trees again →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/23/binary-trees-2/" rel="alternate" type="text/html" title="Binary Trees again" />
+      <published>2017-09-23T00:00:00+00:00</published>
+      <updated>2017-09-23T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/23/binary-trees-2</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/23/binary-trees-2/">&lt;p&gt;In the &lt;a href=&quot;https://dotkay.github.io/2017/09/22/binary-trees&quot;&gt;previous post&lt;/a&gt;, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; function to do that:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If we want to insert an element &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; into an empty tree, we just do the following:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* val empty : 'a tree = Leaf *)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* - : int tree = Node (Leaf, 0, Leaf) *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function &lt;code class=&quot;highlighter-rouge&quot;&gt;make_tree&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_tree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_tree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Let us use our new function to create a tree from the list &lt;code class=&quot;highlighter-rouge&quot;&gt;[0; 1; 2]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;make_tree&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Wasn’t that super easy?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="data structures" />
+      
+        <category term="recursion" />
+      
+        <category term="ocaml" />
+      
+
+      
+
+      
+        <summary type="html">In the previous post, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an insert function to do that: let insert x tree = Node (Leaf, x, tree);; If we want to insert an element 0 into an empty tree, we just do the following: let empty = Leaf;; (* val empty : 'a tree = Leaf *) insert 0 empty;; (* - : int tree = Node (Leaf, 0, Leaf) *) Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function make_tree. let rec make_tree lst = let empty = Leaf in match lst with | [] -&amp;gt; empty | h::t -&amp;gt; insert h (make_tree t);; Let us use our new function to create a tree from the list [0; 1; 2]. make_tree [0;1;2];; (* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *) Wasn’t that super easy?</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Binary Trees →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/22/binary-trees/" rel="alternate" type="text/html" title="Binary Trees" />
+      <published>2017-09-22T00:00:00+00:00</published>
+      <updated>2017-09-22T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/22/binary-trees</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/22/binary-trees/">&lt;p&gt;Let’s talk about &lt;em&gt;Binary Trees&lt;/em&gt; - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but to get started, let’s understand what they are and how to create a simple one. Again, I am going to be using OCaml as I find it intuitive and concise. Probably, I will post the equivalent C/C++ code in later posts.&lt;/p&gt;
+
+&lt;p&gt;A binary search tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example,&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;             node-0
+	      /  \
+ 	     /    \
+	 node-1  node-2
+	  / \      / \
+         /   \    /   \
+       leaf leaf leaf leaf	 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;is how they generally look. Here, &lt;code class=&quot;highlighter-rouge&quot;&gt;node-0&lt;/code&gt; has &lt;code class=&quot;highlighter-rouge&quot;&gt;node-1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;node-2&lt;/code&gt; as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;            Mother
+	     /  \
+            /    \
+       daughter  Son
+                 / \
+                _  daughter  
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Let’s first define the type &lt;em&gt;binary tree&lt;/em&gt; - we would call it just &lt;code class=&quot;highlighter-rouge&quot;&gt;tree&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This just defines the type &lt;code class=&quot;highlighter-rouge&quot;&gt;'a tree&lt;/code&gt; - as noted in one of our &lt;a href=&quot;https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/&quot;&gt;earlier posts&lt;/a&gt; ‘a is like &lt;em&gt;any&lt;/em&gt; - we could have integer trees, string trees, etc. that would take different type values. So, a &lt;code class=&quot;highlighter-rouge&quot;&gt;tree&lt;/code&gt; could either be a &lt;code class=&quot;highlighter-rouge&quot;&gt;Leaf&lt;/code&gt; or another &lt;code class=&quot;highlighter-rouge&quot;&gt;tree&lt;/code&gt; composed of two child trees and a root node (&lt;code class=&quot;highlighter-rouge&quot;&gt;'a&lt;/code&gt;). Now we can create a new empty tree with just a Leaf:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* val t : 'a tree = Leaf *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Or we could create a tree with a root node and two child nodes, which themselves are trees with children:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;(* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;I know it looks awkward, but let’s decompose it and understand. &lt;code class=&quot;highlighter-rouge&quot;&gt;Node (Leaf, 3, Leaf)&lt;/code&gt; is one tree. Let’s call it C. &lt;code class=&quot;highlighter-rouge&quot;&gt;Node (Leaf, 2, C)&lt;/code&gt; is the next tree - Let’s call this guy B. &lt;code class=&quot;highlighter-rouge&quot;&gt;Node (Leaf, 1, B)&lt;/code&gt; is the other one. So, we have something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;             1
+	    / \          
+           /   \
+	 leaf   2                  |
+	       / \                 |
+              /   \                | -&amp;gt; B
+	    leaf   3       |       |
+                  / \      |-&amp;gt; C   |
+		 /   \     |       |
+	       leaf leaf   |       |
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In the following post, we will write a functions to interact with this structure.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="data structures" />
+      
+        <category term="recursion" />
+      
+        <category term="ocaml" />
+      
+
+      
+
+      
+        <summary type="html">Let’s talk about Binary Trees - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but to get started, let’s understand what they are and how to create a simple one. Again, I am going to be using OCaml as I find it intuitive and concise. Probably, I will post the equivalent C/C++ code in later posts. A binary search tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example, node-0 / \ / \ node-1 node-2 / \ / \ / \ / \ leaf leaf leaf leaf is how they generally look. Here, node-0 has node-1 and node-2 as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree: Mother / \ / \ daughter Son / \ _ daughter Let’s first define the type binary tree - we would call it just tree. type 'a tree = | Leaf | Node of 'a tree * 'a * 'a tree;; This just defines the type 'a tree - as noted in one of our earlier posts ‘a is like any - we could have integer trees, string trees, etc. that would take different type values. So, a tree could either be a Leaf or another tree composed of two child trees and a root node ('a). Now we can create a new empty tree with just a Leaf: let t = Leaf;; (* val t : 'a tree = Leaf *) Or we could create a tree with a root node and two child nodes, which themselves are trees with children: let t2 = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf)));; (* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *) I know it looks awkward, but let’s decompose it and understand. Node (Leaf, 3, Leaf) is one tree. Let’s call it C. Node (Leaf, 2, C) is the next tree - Let’s call this guy B. Node (Leaf, 1, B) is the other one. So, we have something like this: 1 / \ / \ leaf 2 | / \ | / \ | -&amp;gt; B leaf 3 | | / \ |-&amp;gt; C | / \ | | leaf leaf | | In the following post, we will write a functions to interact with this structure.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1237,149 +1396,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 
       
         <summary type="html">We introduced tail recursion in our previous post. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function lst_rev, introduced in one of our earlier posts which takes a list lst and returns the reversed list. Here’s it is for your reference: let rec lst_rev lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; (lst_rev t) @ [h];; Recollect that in Ocaml, @ is the operator for list concatenation. Let’s work out how the execution of this function on our list [1; 2; 3 4] would look like: lst_rev [1; 2; 3; 4] = lst_rev [2; 3; 4] @ [1] = lst_rev [3; 4] @ [2] @ [1] = lst_rev [4] @ [3] @ [2] @ [1] = lst_rev [] @ [4] @ [3] @ [2] @ [1] = [] @ [4] @ [3] @ [2] @ [1] = [4; 3; 2; 1] Here is our tail-recursive version of the same. Let’s call it tr_lst_rev. let tr_lst_rev lst = let rec aux_lst_rev lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_rev t (h::acc) in aux_lst_rev lst [];; Again, very similar to our previous example, we use an accumulator acc to collect the results of intermediate computations (results of each recursive step). tr_lst_rev [1; 2; 3; 4] = aux_lst_rev [2; 3; 4] 1::[] = aux_lst_rev [3; 4] 2::[1] = aux_lst_rev [4] 3::[2; 1] = aux_lst_rev [] 4::[3; 2; 1] = [4; 3; 2; 1]</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Introducing tail recursions →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/24/introducing-tail-recursions/" rel="alternate" type="text/html" title="Introducing tail recursions" />
-      <published>2017-08-24T00:00:00+00:00</published>
-      <updated>2017-08-24T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/24/introducing-tail-recursions</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/24/introducing-tail-recursions/">&lt;p&gt;Now that we are already thinking of recursive function calls whenever possible, it is a nice time to introduce tail recursions. Let’s consider this function &lt;code class=&quot;highlighter-rouge&quot;&gt;lst_sum&lt;/code&gt; that we worked out in one of our &lt;a href=&quot;https://dotkay.github.io/2017/08/14/ocaml-recursion-simple&quot;&gt;earlier posts&lt;/a&gt;, repeated here for convenience:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;When we call this function on this list &lt;code class=&quot;highlighter-rouge&quot;&gt;l1 = [1; 2; 3; 4; 5]&lt;/code&gt;, this is what would how the stack frame of the execution by the compiler would look like:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	lst_sum [1; 2; 3; 4; 5]
-=	1 + lst_sum [2; 3; 4; 5]
-=	1 + 2 + lst_sum [3; 4; 5]
-=	1 + 2 + 3 + lst_sum [4; 5]
-=	1 + 2 + 3 + 4 + lst_sum [5]
-=	1 + 2 + 3 + 4 + 5 + lst_sum []
-=	1 + 2 + 3 + 4 + 5 + 0
-=	15
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Note that it performs the actual computation (or evaluates the intermediate results) only after all the recursive calls are completed. This means that we need to keep the function calls in the stack (which means spend storage for the function’s local variables, etc.) until all the recursive calls are returned. This is a lot of resources wasted.&lt;/p&gt;
-
-&lt;p&gt;Let’s see a tail-recursive version of the same function. Let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_sum&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;aux_lst_sum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;We have an auxiliary recursive function &lt;code class=&quot;highlighter-rouge&quot;&gt;aux_lst_sum&lt;/code&gt; and pass another parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; (for accumulator) to it. The idea is to accumulate intermediate results so that we can start computations as and when a step completes, and not have to save the recursive calls to the functions in the stack frame. This is how the execution of our tail-recursive version would look like:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	tr_lst_sum [1; 2; 3; 4; 5]
-= 	aux_lst_sum [1; 2; 3; 4; 5] 0
-= 	aux_lst_sum [2; 3; 4; 5]    1
-= 	aux_lst_sum [3; 4; 5] 	    3
-= 	aux_lst_sum [4; 5] 	    6
-= 	aux_lst_sum [5] 	    10
-= 	aux_lst_sum [] 		    15
-=	15
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Note that the accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; computes the intermediate results as and when they are available. We also store only one instance of the function call in the stack thereby saving a lot of space and more importantly, avoiding stack overflow.&lt;/p&gt;
-
-&lt;p&gt;Hope you enjoyed this!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">Now that we are already thinking of recursive function calls whenever possible, it is a nice time to introduce tail recursions. Let’s consider this function lst_sum that we worked out in one of our earlier posts, repeated here for convenience: let rec lst_sum lst = match lst with | [] -&amp;gt; 0 | h::t -&amp;gt; h + lst_sum t;; When we call this function on this list l1 = [1; 2; 3; 4; 5], this is what would how the stack frame of the execution by the compiler would look like: lst_sum [1; 2; 3; 4; 5] = 1 + lst_sum [2; 3; 4; 5] = 1 + 2 + lst_sum [3; 4; 5] = 1 + 2 + 3 + lst_sum [4; 5] = 1 + 2 + 3 + 4 + lst_sum [5] = 1 + 2 + 3 + 4 + 5 + lst_sum [] = 1 + 2 + 3 + 4 + 5 + 0 = 15 Note that it performs the actual computation (or evaluates the intermediate results) only after all the recursive calls are completed. This means that we need to keep the function calls in the stack (which means spend storage for the function’s local variables, etc.) until all the recursive calls are returned. This is a lot of resources wasted. Let’s see a tail-recursive version of the same function. Let’s call it tr_lst_sum. let tr_lst_sum lst = let rec aux_lst_sum lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_sum t (acc + h) in aux_lst_sum lst 0;; We have an auxiliary recursive function aux_lst_sum and pass another parameter acc (for accumulator) to it. The idea is to accumulate intermediate results so that we can start computations as and when a step completes, and not have to save the recursive calls to the functions in the stack frame. This is how the execution of our tail-recursive version would look like: tr_lst_sum [1; 2; 3; 4; 5] = aux_lst_sum [1; 2; 3; 4; 5] 0 = aux_lst_sum [2; 3; 4; 5] 1 = aux_lst_sum [3; 4; 5] 3 = aux_lst_sum [4; 5] 6 = aux_lst_sum [5] 10 = aux_lst_sum [] 15 = 15 Note that the accumulator acc computes the intermediate results as and when they are available. We also store only one instance of the function call in the stack thereby saving a lot of space and more importantly, avoiding stack overflow. Hope you enjoyed this!</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Computing factors of a number →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/23/computing-all-factors-of-a-number/" rel="alternate" type="text/html" title="Computing factors of a number" />
-      <published>2017-08-23T00:00:00+00:00</published>
-      <updated>2017-08-23T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/23/computing-all-factors-of-a-number</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/23/computing-all-factors-of-a-number/">&lt;p&gt;Let’s look at a quick algorithm to compute all factors of a number &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;. For example, if &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;12&lt;/code&gt; we want all the factors &lt;code class=&quot;highlighter-rouge&quot;&gt;[1, 2, 3, 4, 6, 12]&lt;/code&gt;. If &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; is say &lt;code class=&quot;highlighter-rouge&quot;&gt;36&lt;/code&gt; we want &lt;code class=&quot;highlighter-rouge&quot;&gt;[1, 2, 3, 4, 6, 9, 12, 18, 36]&lt;/code&gt;. We observe that:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; itself are always factors, of course.&lt;/li&gt;
-  &lt;li&gt;Factors always occur in pairs. &lt;code class=&quot;highlighter-rouge&quot;&gt;(1, 12), (2, 6), (3, 4)&lt;/code&gt; etc. If &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt; is a perfect square, we also have &lt;code class=&quot;highlighter-rouge&quot;&gt;(\sqrt(N), \sqrt(N))&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;From the above we realize that we don’t need to iterate through the numbers all the way until &lt;code class=&quot;highlighter-rouge&quot;&gt;N&lt;/code&gt;. We just need to do it until &lt;code class=&quot;highlighter-rouge&quot;&gt;\sqrt(N)&lt;/code&gt;. Here’s the algorithm for computing all the factors:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all_factors&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;That was a super short post!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-
-      
-
-      
-        <summary type="html">Let’s look at a quick algorithm to compute all factors of a number N. For example, if N is 12 we want all the factors [1, 2, 3, 4, 6, 12]. If N is say 36 we want [1, 2, 3, 4, 6, 9, 12, 18, 36]. We observe that: 1 and N itself are always factors, of course. Factors always occur in pairs. (1, 12), (2, 6), (3, 4) etc. If N is a perfect square, we also have (\sqrt(N), \sqrt(N)). From the above we realize that we don’t need to iterate through the numbers all the way until N. We just need to do it until \sqrt(N). Here’s the algorithm for computing all the factors: vector&amp;lt;int&amp;gt; all_factors (int N) { std::vector&amp;lt;int&amp;gt; result; result.push_back(1); result.push_back(N); for (int i = 2; i &amp;lt; (int)sqrt(N); i++) { if ((N % i) == 0) { result.push_back(i); if (i != (int)sqrt(N)) result.push_back(N/i); } } return result; } That was a super short post!</summary>
       
 
       

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Binary Trees</title>
+  <meta name="description" content="Let’s talk about Binary Trees - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but to get started, let’s understand what they are and how to create a simple one. Again, I am going to be using OCaml as I find it intuitive and concise. Probably, I will post the equivalent C/C++ code in later posts. A binary search tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example, node-0 / \ / \ node-1 node-2 / \ / \ / \ / \ leaf leaf leaf leaf is how they generally look. Here, node-0 has node-1 and node-2 as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree: Mother / \ / \ daughter Son / \ _ daughter Let’s first define the type binary tree - we would call it just tree. type &#39;a tree = | Leaf | Node of &#39;a tree * &#39;a * &#39;a tree;; This just defines the type &#39;a tree - as noted in one of our earlier posts ‘a is like any - we could have integer trees, string trees, etc. that would take different type values. So, a tree could either be a Leaf or another tree composed of two child trees and a root node (&#39;a). Now we can create a new empty tree with just a Leaf: let t = Leaf;; (* val t : &#39;a tree = Leaf *) Or we could create a tree with a root node and two child nodes, which themselves are trees with children: let t2 = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf)));; (* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *) I know it looks awkward, but let’s decompose it and understand. Node (Leaf, 3, Leaf) is one tree. Let’s call it C. Node (Leaf, 2, C) is the next tree - Let’s call this guy B. Node (Leaf, 1, B) is the other one. So, we have something like this: 1 / \ / \ leaf 2 | / \ | / \ | -&amp;gt; B leaf 3 | | / \ |-&amp;gt; C | / \ | | leaf leaf | | In the following post, we will write a functions to interact with this structure.">
+  
+    
+    <meta name="keywords" content="data structures,recursion,ocaml">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/09/22/binary-trees/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Binary Trees">
+  <meta name="twitter:description" content="Let’s talk about Binary Trees - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/09/22/binary-trees">Binary Trees &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-09-22T00:00:00+00:00" itemprop="datePublished">Sep 22, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Let’s talk about <em>Binary Trees</em> - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but to get started, let’s understand what they are and how to create a simple one. Again, I am going to be using OCaml as I find it intuitive and concise. Probably, I will post the equivalent C/C++ code in later posts.</p>
+
+<p>A binary search tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example,</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>             node-0
+	      /  \
+ 	     /    \
+	 node-1  node-2
+	  / \      / \
+         /   \    /   \
+       leaf leaf leaf leaf	 
+
+</code></pre>
+</div>
+
+<p>is how they generally look. Here, <code class="highlighter-rouge">node-0</code> has <code class="highlighter-rouge">node-1</code> and <code class="highlighter-rouge">node-2</code> as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>            Mother
+	     /  \
+            /    \
+       daughter  Son
+                 / \
+                _  daughter  
+
+</code></pre>
+</div>
+
+<p>Let’s first define the type <em>binary tree</em> - we would call it just <code class="highlighter-rouge">tree</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">=</span>
+  <span class="p">|</span> <span class="nc">Leaf</span>
+  <span class="p">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre></figure>
+
+<p>This just defines the type <code class="highlighter-rouge">'a tree</code> - as noted in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/">earlier posts</a> ‘a is like <em>any</em> - we could have integer trees, string trees, etc. that would take different type values. So, a <code class="highlighter-rouge">tree</code> could either be a <code class="highlighter-rouge">Leaf</code> or another <code class="highlighter-rouge">tree</code> composed of two child trees and a root node (<code class="highlighter-rouge">'a</code>). Now we can create a new empty tree with just a Leaf:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t</span> <span class="p">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
+<span class="c">(* val t : 'a tree = Leaf *)</span></code></pre></figure>
+
+<p>Or we could create a tree with a root node and two child nodes, which themselves are trees with children:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t2</span> <span class="p">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="nc">Leaf</span><span class="o">)));;</span>
+<span class="c">(* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *)</span></code></pre></figure>
+
+<p>I know it looks awkward, but let’s decompose it and understand. <code class="highlighter-rouge">Node (Leaf, 3, Leaf)</code> is one tree. Let’s call it C. <code class="highlighter-rouge">Node (Leaf, 2, C)</code> is the next tree - Let’s call this guy B. <code class="highlighter-rouge">Node (Leaf, 1, B)</code> is the other one. So, we have something like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>             1
+	    / \          
+           /   \
+	 leaf   2                  |
+	       / \                 |
+              /   \                | -&gt; B
+	    leaf   3       |       |
+                  / \      |-&gt; C   |
+		 /   \     |       |
+	       leaf leaf   |       |
+
+</code></pre>
+</div>
+
+<p>In the following post, we will write a functions to interact with this structure.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

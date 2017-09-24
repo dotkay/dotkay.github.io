@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Binary Trees again</title>
+  <meta name="description" content="In the previous post, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an insert function to do that: let insert x tree = Node (Leaf, x, tree);; If we want to insert an element 0 into an empty tree, we just do the following: let empty = Leaf;; (* val empty : &#39;a tree = Leaf *) insert 0 empty;; (* - : int tree = Node (Leaf, 0, Leaf) *) Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function make_tree. let rec make_tree lst = let empty = Leaf in match lst with | [] -&amp;gt; empty | h::t -&amp;gt; insert h (make_tree t);; Let us use our new function to create a tree from the list [0; 1; 2]. make_tree [0;1;2];; (* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *) Wasn’t that super easy?">
+  
+    
+    <meta name="keywords" content="data structures,recursion,ocaml">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/09/23/binary-trees-2/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Binary Trees again">
+  <meta name="twitter:description" content="In the previous post, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an insert function to do that: let insert x ...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/09/23/binary-trees-2">Binary Trees again &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-09-23T00:00:00+00:00" itemprop="datePublished">Sep 23, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In the <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an <code class="highlighter-rouge">insert</code> function to do that:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">tree</span> <span class="p">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tree</span><span class="o">);;</span></code></pre></figure>
+
+<p>If we want to insert an element <code class="highlighter-rouge">0</code> into an empty tree, we just do the following:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
+<span class="c">(* val empty : 'a tree = Leaf *)</span>
+<span class="n">insert</span> <span class="mi">0</span> <span class="n">empty</span><span class="p">;;</span>
+<span class="c">(* - : int tree = Node (Leaf, 0, Leaf) *)</span></code></pre></figure>
+
+<p>Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function <code class="highlighter-rouge">make_tree</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_tree</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">empty</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_tree</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+
+<p>Let us use our new function to create a tree from the list <code class="highlighter-rouge">[0; 1; 2]</code>.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">make_tree</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="o">];;</span>
+<span class="c">(* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *)</span></code></pre></figure>
+
+<p>Wasn’t that super easy?</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
