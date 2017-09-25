@@ -8,6 +8,8 @@ external-url: https://dotkay.github.io/2017/09/22/binary-trees
 
 Let's talk about *Binary Trees* - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but to get started, let's understand what they are and how to create a simple one. Again, I am going to be using OCaml as I find it intuitive and concise. Probably, I will post the equivalent C/C++ code in later posts.
 
+> A Binary Tree is a tree in which each node can have at most two children
+
 A binary search tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example,
 
 ```
