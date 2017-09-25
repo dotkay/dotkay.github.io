@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-09-25T00:58:06+00:00</updated>
+  <updated>2017-09-25T05:54:02+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,52 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">An interesting podcast on failure! →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/24/interesting-podcast-on-failure/" rel="alternate" type="text/html" title="An interesting podcast on failure!" />
+      <published>2017-09-24T00:00:00+00:00</published>
+      <updated>2017-09-24T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/24/interesting-podcast-on-failure</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/24/interesting-podcast-on-failure/">&lt;p&gt;Just as I am introspecting whether there’s anything I have done that I can call ‘success’, I happened to listen to this interesting podcast on &lt;em&gt;Failure&lt;/em&gt; in TED Radio hour. There is a lot to think about - &lt;em&gt;success&lt;/em&gt;, &lt;em&gt;impact&lt;/em&gt;, &lt;em&gt;power&lt;/em&gt; - we know these attractive words and we probably have been measuring each of this using a completely wrong yard-stick. If we start thinking about the times we have failed and failed miserably, and how we have overcome some of the disastrous failures (that’s actually our &lt;em&gt;success&lt;/em&gt; but we fail to realize it that way…), that is what prepares us for success and makes us powerful.&lt;/p&gt;
+
+&lt;p&gt;For those interested, below is a link to the podcast:&lt;/p&gt;
+
+&lt;audio controls=&quot;&quot;&gt;
+&lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/09/20170921_ted_failure.mp3&quot; /&gt; &lt;/audio&gt;
+&lt;p&gt;\&lt;/p&gt;
+
+&lt;p&gt;Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Failure" />
+      
+        <category term="NPR" />
+      
+        <category term="TED" />
+      
+
+      
+
+      
+        <summary type="html">Just as I am introspecting whether there’s anything I have done that I can call ‘success’, I happened to listen to this interesting podcast on Failure in TED Radio hour. There is a lot to think about - success, impact, power - we know these attractive words and we probably have been measuring each of this using a completely wrong yard-stick. If we start thinking about the times we have failed and failed miserably, and how we have overcome some of the disastrous failures (that’s actually our success but we fail to realize it that way…), that is what prepares us for success and makes us powerful. For those interested, below is a link to the podcast: \ Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1324,82 +1370,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 
       
         <summary type="html">Let’s look at a couple of more examples in order to get us thinking towards using auxiliary functions and accumulators while writing recursive functions. This would help us write tail-recursive functions which are safer and always a good practice. Note that some of the language compilers do not optimize tail recursions and so be aware of this fact in order not to be surprised when you do not see performance improvements while using tail recursive functions. Let’s write the standard explode function explode that explodes a string into a list of characters. i.e., if you pass the string &quot;hello&quot;, it would explode it and return the list ['h'; 'e'; 'l'; 'l'; 'o']. let explode s = let rec aux_expl n acc = if n &amp;lt; 0 then acc else aux_expl (n-1) (s.[n]::acc) in aux_expl (String.length s - 1) [];; Let’s write another function prime_factors that would return all the prime factors of an input number n. Again, we shall use an auxiliary function to do the intermediate computations. let prime_factors n = let rec aux_factors d n = if n &amp;lt;= 1 then [] else if (n mod d = 0) then d::(aux_factors d (n/d)) else aux_factors (d+1) n in aux_factors 2 n;; That’s all for today! Hope it was enjoyable.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">More examples of tail recursions →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/" rel="alternate" type="text/html" title="More examples of tail recursions" />
-      <published>2017-08-25T00:00:00+00:00</published>
-      <updated>2017-08-25T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/">&lt;p&gt;We introduced tail recursion in our &lt;a href=&quot;https://dotkay.github.io/2017/08/24/introducing-tail-recursions&quot;&gt;previous post&lt;/a&gt;. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function &lt;code class=&quot;highlighter-rouge&quot;&gt;lst_rev&lt;/code&gt;, introduced in one of our &lt;a href=&quot;https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples&quot;&gt;earlier posts&lt;/a&gt; which takes a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; and returns the reversed list. Here’s it is for your reference:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Recollect that in Ocaml, &lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt; is the operator for list concatenation. Let’s work out how the execution of this function on our list &lt;code class=&quot;highlighter-rouge&quot;&gt;[1; 2; 3 4]&lt;/code&gt; would look like:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	lst_rev [1; 2; 3; 4]
-= 	lst_rev [2; 3; 4] @ [1]
-= 	lst_rev [3; 4] @ [2] @ [1]
-= 	lst_rev [4] @ [3] @ [2] @ [1]
-= 	lst_rev [] @ [4] @ [3] @ [2] @ [1]
-=	[] @ [4] @ [3] @ [2] @ [1]
-= 	[4; 3; 2; 1]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Here is our tail-recursive version of the same. Let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_lst_rev&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Again, very similar to our previous example, we use an accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; to collect the results of intermediate computations (results of each recursive step).&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	tr_lst_rev [1; 2; 3; 4]
-=	aux_lst_rev [2; 3; 4]	1::[]
-=	aux_lst_rev [3; 4] 	2::[1]
-=	aux_lst_rev [4] 	3::[2; 1]
-=	aux_lst_rev [] 		4::[3; 2; 1]
-= 	[4; 3; 2; 1]
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">We introduced tail recursion in our previous post. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function lst_rev, introduced in one of our earlier posts which takes a list lst and returns the reversed list. Here’s it is for your reference: let rec lst_rev lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; (lst_rev t) @ [h];; Recollect that in Ocaml, @ is the operator for list concatenation. Let’s work out how the execution of this function on our list [1; 2; 3 4] would look like: lst_rev [1; 2; 3; 4] = lst_rev [2; 3; 4] @ [1] = lst_rev [3; 4] @ [2] @ [1] = lst_rev [4] @ [3] @ [2] @ [1] = lst_rev [] @ [4] @ [3] @ [2] @ [1] = [] @ [4] @ [3] @ [2] @ [1] = [4; 3; 2; 1] Here is our tail-recursive version of the same. Let’s call it tr_lst_rev. let tr_lst_rev lst = let rec aux_lst_rev lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_rev t (h::acc) in aux_lst_rev lst [];; Again, very similar to our previous example, we use an accumulator acc to collect the results of intermediate computations (results of each recursive step). tr_lst_rev [1; 2; 3; 4] = aux_lst_rev [2; 3; 4] 1::[] = aux_lst_rev [3; 4] 2::[1] = aux_lst_rev [4] 3::[2; 1] = aux_lst_rev [] 4::[3; 2; 1] = [4; 3; 2; 1]</summary>
       
 
       
