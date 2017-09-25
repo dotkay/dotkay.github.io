@@ -10,7 +10,7 @@ Let's talk about *Binary Trees* - we cannot afford to ignore binary trees after 
 
 > A Binary Tree is a tree in which each node can have at most two children
 
-A binary search tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example,
+A binary tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example,
 
 ```
              node-0
