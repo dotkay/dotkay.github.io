@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-11-20T03:58:02+00:00</updated>
+  <updated>2017-11-20T04:06:25+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -28,7 +28,7 @@
       <published>2017-09-26T00:00:00+00:00</published>
       <updated>2017-09-26T00:00:00+00:00</updated>
       <id>https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis/">&lt;p&gt;Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in &lt;a href=&quot;https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1&quot;&gt;this post&lt;/a&gt;. Today, along with the other libraries, we will also use [seaborn] (https://seaborn.pydata.org/) to make fancy plots very quickly.&lt;/p&gt;
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis/">&lt;p&gt;Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in &lt;a href=&quot;https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1&quot;&gt;this post&lt;/a&gt;. Today, along with the other libraries, we will also use &lt;a href=&quot;https://seaborn.pydata.org/&quot;&gt;seaborn&lt;/a&gt; to make fancy plots very quickly.&lt;/p&gt;
 
 &lt;p&gt;Let’s do the initial imports as before, this time also importing &lt;code class=&quot;highlighter-rouge&quot;&gt;seaborn&lt;/code&gt;&lt;/p&gt;
 
@@ -70,7 +70,7 @@
       
 
       
-        <summary type="html">Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in this post. Today, along with the other libraries, we will also use [seaborn] (https://seaborn.pydata.org/) to make fancy plots very quickly. Let’s do the initial imports as before, this time also importing seaborn import pandas as pd import matplotlib.pyplot as plt import seaborn as sns Let’s grab the data-set and try to see the Attack and Defense scores of the different generations of Pokemons. # read the dataset df = pd.read_csv('Pokemon.csv', index_col=0) sns.lmplot(x='Attack', y='Defense', data=df, fit_reg=False, hue='Generation') # specify the axes limits plt.ylim(0,250) plt.xlim(0,200) Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set fit_reg to False in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</summary>
+        <summary type="html">Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in this post. Today, along with the other libraries, we will also use seaborn to make fancy plots very quickly. Let’s do the initial imports as before, this time also importing seaborn import pandas as pd import matplotlib.pyplot as plt import seaborn as sns Let’s grab the data-set and try to see the Attack and Defense scores of the different generations of Pokemons. # read the dataset df = pd.read_csv('Pokemon.csv', index_col=0) sns.lmplot(x='Attack', y='Defense', data=df, fit_reg=False, hue='Generation') # specify the axes limits plt.ylim(0,250) plt.xlim(0,200) Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set fit_reg to False in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</summary>
       
 
       

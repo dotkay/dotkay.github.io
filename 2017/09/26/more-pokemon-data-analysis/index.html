@@ -9,7 +9,7 @@
   
   
   <title>Playing with some more Pokemon data</title>
-  <meta name="description" content="Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in this post. Today, along with the other libraries, we will also use [seaborn] (https://seaborn.pydata.org/) to make fancy plots very quickly. Let’s do the initial imports as before, this time also importing seaborn import pandas as pd import matplotlib.pyplot as plt import seaborn as sns Let’s grab the data-set and try to see the Attack and Defense scores of the different generations of Pokemons. # read the dataset df = pd.read_csv(&#39;Pokemon.csv&#39;, index_col=0) sns.lmplot(x=&#39;Attack&#39;, y=&#39;Defense&#39;, data=df, fit_reg=False, hue=&#39;Generation&#39;) # specify the axes limits plt.ylim(0,250) plt.xlim(0,200) Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set fit_reg to False in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:">
+  <meta name="description" content="Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in this post. Today, along with the other libraries, we will also use seaborn to make fancy plots very quickly. Let’s do the initial imports as before, this time also importing seaborn import pandas as pd import matplotlib.pyplot as plt import seaborn as sns Let’s grab the data-set and try to see the Attack and Defense scores of the different generations of Pokemons. # read the dataset df = pd.read_csv(&#39;Pokemon.csv&#39;, index_col=0) sns.lmplot(x=&#39;Attack&#39;, y=&#39;Defense&#39;, data=df, fit_reg=False, hue=&#39;Generation&#39;) # specify the axes limits plt.ylim(0,250) plt.xlim(0,200) Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set fit_reg to False in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:">
   
     
     <meta name="keywords" content="data analysis,python">
@@ -27,7 +27,7 @@
   <meta name="twitter:card" content="summary">
   
   <meta name="twitter:title" content="Playing with some more Pokemon data">
-  <meta name="twitter:description" content="Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in this post. Today, along with the other libraries, we will also use [seaborn] (https://seaborn...">
+  <meta name="twitter:description" content="Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in this post. Today, along with the other libraries, we will also use seaborn to make fancy plot...">
   
   
 
@@ -172,7 +172,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in <a href="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1">this post</a>. Today, along with the other libraries, we will also use [seaborn] (https://seaborn.pydata.org/) to make fancy plots very quickly.</p>
+    <p>Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in <a href="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1">this post</a>. Today, along with the other libraries, we will also use <a href="https://seaborn.pydata.org/">seaborn</a> to make fancy plots very quickly.</p>
 
 <p>Let’s do the initial imports as before, this time also importing <code class="highlighter-rouge">seaborn</code></p>
 
