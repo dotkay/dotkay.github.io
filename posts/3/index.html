@@ -102,6 +102,136 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/07/podcast-on-success/">A podcast on Success &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 7, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/success/">success</a>,
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/npr/">NPR</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/ted/">TED</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Just happened to listen (again) to a TED Radio hour podcast on <em>success</em>. Although I don’t quite agree with the fragment about dirty jobs, some part of the podcast is worth listening to. Most people end up doing dirty jobs because they were less fortunate to get the kind of life the many of us were fortunate enough to get - education, encouraging family, help, opportunities, etc. To some extent, some of them continue doing dirty jobs also because we let them down as a society. We should continuously look to empower the less fortunate around us, in whatever way we can - one of the easiest is to share information and knowledge. Here’s the full podcast:</p>
+
+<audio controls="">
+<source src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2013/11/20131101_ted_01.mp3" />
+</audio>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/06/lets-implode-a-list/">Let&#39;s implode! &rarr;</a>
           </h1>
 
@@ -560,145 +690,6 @@
 <span class="p">}</span></code></pre></figure>
 
 <p>Isn’t it interesting? That’s all for now!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/02/max-pairwise-product/">Maximum pairwise product &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 2, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s take a quick look at a simple problem:</p>
-
-<p><em>Given a list of numbers, how would you determine the maximum pairwise product of numbers in the list?</em></p>
-
-<p>For example, if we have the list <code class="highlighter-rouge">[1; 3; 5; -2]</code> the maximum pairwise product is <code class="highlighter-rouge">15</code>, which is the product of <code class="highlighter-rouge">3</code> and <code class="highlighter-rouge">5</code>.</p>
-
-<p>The straigt-forward approach is to compute all possible pairwise products and identify the maximum among the intermediate results:</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">MaxPairwiseProduct</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">long</span> <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// result to hold the max pairwise product
-</span>  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-  <span class="kt">long</span> <span class="kt">long</span> <span class="n">product</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-	  <span class="n">product</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> 
-	  <span class="k">if</span> <span class="p">(</span><span class="n">product</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">)</span>
-		<span class="n">result</span> <span class="o">=</span> <span class="n">product</span><span class="p">;</span>
-	  <span class="p">}</span>
-	<span class="p">}</span>
-  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>Since we have two loops that iterate over the list of numbers, the time complexity is O(n<sup>2</sup>).</p>
-
-<p>Can we do better? Yes, we can. The idea is to find the maximum and the second maximum elements in the list - and their product would be the maximum pairwise product.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">MaxPairwiseProductFast</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-  <span class="kt">long</span> <span class="kt">long</span> <span class="n">product</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="c1">// find the max element in the collection 'numbers'
-</span>  <span class="kt">int</span> <span class="n">max_index1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">((</span><span class="n">max_index1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_index1</span><span class="p">))</span> <span class="p">{</span>
-	  <span class="n">max_index1</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// largest number in the list
-</span>	  <span class="p">}</span>
-  <span class="p">}</span>
-	
-  <span class="kt">int</span> <span class="n">max_index2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">((</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index1</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="n">max_index2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span>
-	  <span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_index2</span><span class="p">)))</span> <span class="p">{</span>
-	    <span class="n">max_index2</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span> <span class="c1">// second largest number in the list
-</span>	  <span class="p">}</span>
-  <span class="p">}</span>
-	
-  <span class="n">product</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index1</span><span class="p">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index2</span><span class="p">];</span>
-  <span class="k">return</span> <span class="p">((</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span> <span class="n">product</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>Simple and sweet!</p>
 
         </div>
         

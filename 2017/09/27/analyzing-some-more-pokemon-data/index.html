@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Analyzing some more Pokemon data</title>
+  <meta name="description" content="Let’s continue with our data from previous post and try to look at one more fancy function from the seaborn library. In particular, we will use seaborn’s swarmplot function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. pokemon_colors is just an array of colours for different pokemon classes. sns.swarmplot(x=&#39;Type 1&#39;, y=&#39;Attack&#39;, data=df, palette=pokemon_colors) And here’s the result:">
+  
+    
+    <meta name="keywords" content="data analysis,python">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/09/27/analyzing-some-more-pokemon-data/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Analyzing some more Pokemon data">
+  <meta name="twitter:description" content="Let’s continue with our data from previous post and try to look at one more fancy function from the seaborn library. In particular, we will use seaborn’s swarmplot function to see how the Attack sc...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/09/27/analyzing-some-more-pokemon-data">Analyzing some more Pokemon data &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-09-27T00:00:00+00:00" itemprop="datePublished">Sep 27, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-analysis/">data analysis</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Let’s continue with our data from <a href="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis">previous post</a> and try to look at one more fancy function from the <a href="https://seaborn.pydata.org/">seaborn</a> library. In particular, we will use seaborn’s <code class="highlighter-rouge">swarmplot</code> function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. <code class="highlighter-rouge">pokemon_colors</code> is just an array of colours for different pokemon classes.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Type 1'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+              <span class="n">palette</span><span class="o">=</span><span class="n">pokemon_colors</span><span class="p">)</span></code></pre></figure>
+
+<p>And here’s the result:</p>
+
+<p><br />
+<img src="/assets/images/data_science/type1_pokemon_attack_scores.png" alt="Attack and Defense Scores of Generations of Pokemons" class="img=responsive" /></p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
