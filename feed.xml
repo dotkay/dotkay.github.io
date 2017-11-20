@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-10-06T05:16:39+00:00</updated>
+  <updated>2017-11-20T03:57:18+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,65 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Playing with some more Pokemon data →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis/" rel="alternate" type="text/html" title="Playing with some more Pokemon data" />
+      <published>2017-09-26T00:00:00+00:00</published>
+      <updated>2017-09-26T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis/">&lt;p&gt;Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in &lt;a href=&quot;https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1&quot;&gt;this post&lt;/a&gt;. Today, along with the other libraries, we will also use [seaborn] (https://seaborn.pydata.org/) to make fancy plots very quickly.&lt;/p&gt;
+
+&lt;p&gt;Let’s do the initial imports as before, this time also importing &lt;code class=&quot;highlighter-rouge&quot;&gt;seaborn&lt;/code&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;seaborn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sns&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Let’s grab the data-set and try to see the &lt;code class=&quot;highlighter-rouge&quot;&gt;Attack&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Defense&lt;/code&gt; scores of the different generations of Pokemons.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# read the dataset&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Pokemon.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index_col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lmplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Attack'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Defense'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+           &lt;span class=&quot;n&quot;&gt;fit_reg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+           &lt;span class=&quot;n&quot;&gt;hue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Generation'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# specify the axes limits&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set &lt;code class=&quot;highlighter-rouge&quot;&gt;fit_reg&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_science/attack_defense_pokemons.png&quot; alt=&quot;Attack and Defense Scores of Generations of Pokemons&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="data analysis" />
+      
+        <category term="python" />
+      
+
+      
+
+      
+        <summary type="html">Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in this post. Today, along with the other libraries, we will also use [seaborn] (https://seaborn.pydata.org/) to make fancy plots very quickly. Let’s do the initial imports as before, this time also importing seaborn import pandas as pd import matplotlib.pyplot as plt import seaborn as sns Let’s grab the data-set and try to see the Attack and Defense scores of the different generations of Pokemons. # read the dataset df = pd.read_csv('Pokemon.csv', index_col=0) sns.lmplot(x='Attack', y='Defense', data=df, fit_reg=False, hue='Generation') # specify the axes limits plt.ylim(0,250) plt.xlim(0,200) Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set fit_reg to False in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -94,7 +153,8 @@
 &lt;p&gt;For those interested, below is a link to the podcast:&lt;/p&gt;
 
 &lt;audio controls=&quot;&quot;&gt;
-&lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/09/20170921_ted_failure.mp3&quot; /&gt; &lt;/audio&gt;
+&lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/09/20170921_ted_failure.mp3&quot; /&gt; 
+&lt;/audio&gt;
 &lt;p&gt;&lt;br /&gt;
 Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.&lt;/p&gt;</content>
 
@@ -1329,50 +1389,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">In an earlier posts, tail recursions were introduced using two very simple functions tr_lst_sum and tr_lst_rev. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let’s get started! Here’s the tail recursive version of lst_sum to sum an input list lst of elements. let tr_lst_sum lst = let rec aux_lst_sum lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_sum t (acc + h) in aux_lst_sum lst 0;; And here’s the tail recursive version of lst_len to compute the length of an input list lst of elements. let tr_lst_len lst = let rec aux_lst_len lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_len t (acc + 1) in aux_lst_len lst 0;; Let’s carefully observe the above two functions and try to understand the pattern - the recipe for such a computation. In both the functions, We have an initial accumulator (in this case the value is 0 but it could be anything in general) We traverse the list, apply the auxiliary function to the initial value of the accumulator and a list element and compute a new value for the accumulator. 2.1. We do the above step to each element of the list (by calling the auxiliary function recursively/repeatedly on each element) and compute new values for the accumulator on the way When we are done with the entire list, we return the accumulator contents as the result Now, if we just denote the auxiliary function by faux, it has a general shape - faux acc lst - we do traverse the list lst, but this is the general shape that we observe - call faux on the initial value of the accumulator acc and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are (acc + h) and (acc + 1). Now, let’s try to wrap this all into a single function, which we would call a leftee - which would take three parameters - an accumulator acc, a function f to apply (to the accumulator and list element), and of course a list lst to work on and will look like leftee f acc lst. We call it leftee for a reason… (I think readers are already getting a hint as to where this is headed. Good!). let rec leftee f acc lst = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; leftee f (f acc h) t;; (* ('a -&amp;gt; 'b -&amp;gt; 'a) -&amp;gt; 'a -&amp;gt; 'b list -&amp;gt; 'a = &amp;lt;fun&amp;gt; *) As we see above the new value of the accumulator is the function applied to the current value of the accumulator acc and a list element h. Now, let’s rewrite tr_lst_sum and tr_lst_len using our leftee: let tr_lst_sum lst = leftee ( + ) 0 lst;; Here ( + ) is the function - just the addition operator. Isn’t it super concise? Aren’t you in love with this already? let tr_lst_len lst = leftee (fun x _ -&amp;gt; x + 1) 0 lst;; Food for thought - how would you use leftee to reverse an input list?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">An interesting podcast on work →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/27/interesting-podcast-on-work/" rel="alternate" type="text/html" title="An interesting podcast on work" />
-      <published>2017-08-27T00:00:00+00:00</published>
-      <updated>2017-08-27T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/27/interesting-podcast-on-work</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/27/interesting-podcast-on-work/">&lt;p&gt;Lately, I have been thinking a lot about my work - my daily job. Most of us have one, where we slog every day, working late into the night or all night. We may have complaints, dissatisfactions, pleasant and unpleasant experiences, awesome career growths or non-existence of such a thing, lots of learning or nothing at all, great colleagues, teams, workplace issues, and the list goes on. I listened to an interesting podcast on “Meaning of work” from &lt;a href=&quot;http://www.npr.org/programs/ted-radio-hour/&quot;&gt;TED Radio Hour&lt;/a&gt; several months ago and listened to it once again over this weekend.&lt;/p&gt;
-
-&lt;audio controls=&quot;&quot;&gt;
-&lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2015/10/20151002_ted_tedpod.mp3&quot; /&gt;
-&lt;/audio&gt;
-&lt;p&gt;&lt;br /&gt;
-Whatever your situation is, this is a great podcast to listen to. And if you’re a manager, there are important lessons for you too, if you are someone willing to listen and learn.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="work" />
-      
-        <category term="NPR" />
-      
-        <category term="TED" />
-      
-
-      
-
-      
-        <summary type="html">Lately, I have been thinking a lot about my work - my daily job. Most of us have one, where we slog every day, working late into the night or all night. We may have complaints, dissatisfactions, pleasant and unpleasant experiences, awesome career growths or non-existence of such a thing, lots of learning or nothing at all, great colleagues, teams, workplace issues, and the list goes on. I listened to an interesting podcast on “Meaning of work” from TED Radio Hour several months ago and listened to it once again over this weekend. Whatever your situation is, this is a great podcast to listen to. And if you’re a manager, there are important lessons for you too, if you are someone willing to listen and learn.</summary>
       
 
       

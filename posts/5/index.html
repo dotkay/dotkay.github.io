@@ -102,6 +102,137 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/27/interesting-podcast-on-work/">An interesting podcast on work &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 27, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/work/">work</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/npr/">NPR</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/ted/">TED</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Lately, I have been thinking a lot about my work - my daily job. Most of us have one, where we slog every day, working late into the night or all night. We may have complaints, dissatisfactions, pleasant and unpleasant experiences, awesome career growths or non-existence of such a thing, lots of learning or nothing at all, great colleagues, teams, workplace issues, and the list goes on. I listened to an interesting podcast on “Meaning of work” from <a href="http://www.npr.org/programs/ted-radio-hour/">TED Radio Hour</a> several months ago and listened to it once again over this weekend.</p>
+
+<audio controls="">
+<source src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2015/10/20151002_ted_tedpod.mp3" />
+</audio>
+<p><br />
+Whatever your situation is, this is a great podcast to listen to. And if you’re a manager, there are important lessons for you too, if you are someone willing to listen and learn.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/26/more-examples-using-aux-functions/">More examples using auxiliary functions &rarr;</a>
           </h1>
 
@@ -584,149 +715,6 @@
 <span class="p">}</span></code></pre></figure>
 
 <p>That was a super short post!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/22/computing-maxium-subarray-sum/">Computing maximum subarray sum &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 22, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s look at one of my favourite algorithm problems from my younger days - Computing the maximum subarray sum of a given array. That is, if you are given an array, find the maximum sum formed by the subarrays of the array. For example, if the array is <code class="highlighter-rouge">[-1; 2; 6; 4; 2]</code>, the maximum subarray sum is <code class="highlighter-rouge">12</code> contributed by the subarray <code class="highlighter-rouge">[2; 6; 4]</code>. Let’s look at how to solve this.</p>
-
-<p>The straight-forward approach is to go through all possible subarrays, compute their sum and pick the maximum of those.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_On3</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">b</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">;</span> <span class="n">c</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">c</span><span class="p">];</span>
-            <span class="p">}</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>Here, <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> denote the window of the subarray. We use the loop with the index <code class="highlighter-rouge">c</code> to compute the sum in the subarray defined by the window between <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code>. We then compute the max of the accumulated sum <code class="highlighter-rouge">sum</code> from this window and the saved result <code class="highlighter-rouge">res</code>. The time complexity of this algorithm is O(n<sup>3</sup>).</p>
-
-<p>Let’s do it a little better. What if we compute the sum at the same time as we extend the window to the right - i.e., move <code class="highlighter-rouge">b</code> to the right (the second for loop that increments <code class="highlighter-rouge">b</code>)? Let’s try that.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_On2</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">b</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">b</span><span class="p">];</span>
-            <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>We initialize <code class="highlighter-rouge">sum</code> before entering the loop and compute the <code class="highlighter-rouge">sum</code> and the max of <code class="highlighter-rouge">sum</code> and the saved result (max-so-far) within this loop. The time complexity of this algorithm is O(n<sup>2</sup>).</p>
-
-<p>Can we do better? I initially thought ‘No’. And it was too hard to convince myself the simple and elegant algorithm by <a href="http://tepper.cmu.edu/our-faculty-and-research/about-our-faculty/faculty-profiles/kadane/kadane-joseph">Joseph Kadene</a>.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_3</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">sum</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">a</span><span class="p">]);</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>The idea is to look at the first loop (indexed by <code class="highlighter-rouge">a</code>) as a subarray consisting of elements upto <code class="highlighter-rouge">a-1</code> followed by element at <code class="highlighter-rouge">a</code>. As we traverse the array, we keep computing the max of the element we are currently at <code class="highlighter-rouge">arr[a]</code> and (the sum-so-far + the element we are currently at - which is actually the boundary of the subarray, meaning max-until-this-point) - <code class="highlighter-rouge">sum + arr[a]</code>. <code class="highlighter-rouge">res</code> indicates the maximum value seen so far and we update it after comparing against the max-until-this-point (the max we computed after moving the window one element to the right, which is now in <code class="highlighter-rouge">sum</code>). Since we iterate over the array only once (one for loop), the time complexity of this algorithm is O(n). Isn’t it awesome?</p>
-
-<p>I don’t know how clearly I managed to explain it. Someday, I will add intuitive images working out the above three and see if it is any more intuitive.</p>
-
 
         </div>
         
