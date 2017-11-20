@@ -6,7 +6,7 @@ keywords: [data analysis, python]
 external-url: https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis
 ---
 
-Let's play with some more Pokemon data. Just to recollect, we played with the same data-set way back in [this post](https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1). Today, along with the other libraries, we will also use [seaborn] (https://seaborn.pydata.org/) to make fancy plots very quickly.
+Let's play with some more Pokemon data. Just to recollect, we played with the same data-set way back in [this post](https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1). Today, along with the other libraries, we will also use [seaborn](https://seaborn.pydata.org/) to make fancy plots very quickly.
 
 Let's do the initial imports as before, this time also importing `seaborn` 
 
