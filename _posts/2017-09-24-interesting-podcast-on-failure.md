@@ -12,7 +12,8 @@ For those interested, below is a link to the podcast:
 
 <audio controls>
 <source
- src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/09/20170921_ted_failure.mp3" /> </audio>  
+ src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/09/20170921_ted_failure.mp3" /> 
+</audio>  
 \\
 Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.
 
