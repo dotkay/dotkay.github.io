@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-11-20T04:19:58+00:00</updated>
+  <updated>2017-11-26T03:48:02+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,66 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Thinking about Happiness… →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/28/analyzing-happiness-data/" rel="alternate" type="text/html" title="Thinking about Happiness..." />
+      <published>2017-09-28T00:00:00+00:00</published>
+      <updated>2017-09-28T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/28/analyzing-happiness-data</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/28/analyzing-happiness-data/">&lt;p&gt;Lately, I have been pondering a lot about &lt;a href=&quot;https://www.ted.com/talks/matthieu_ricard_on_the_habits_of_happiness&quot;&gt;happiness&lt;/a&gt; and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from [Kaggle] (https://www.kaggle.com/) that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let’s start with 2015 data, as that’s what I analyzed first. Again, we will use &lt;a href=&quot;https://pandas.pydata.org/&quot;&gt;Pandas&lt;/a&gt; library for data analysis and &lt;a href=&quot;https://seaborn.pydata.org/&quot;&gt;seaborn&lt;/a&gt; library to plot the data and make our inference from the plots.&lt;/p&gt;
+
+&lt;p&gt;Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;df_2015&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'2015.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;swarmplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Region'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Happiness Score'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_2015&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Region of the World'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontweight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bold'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Happiness Score'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontweight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bold'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And here is what we see:
+&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_science/happiness_world_regions.png&quot; alt=&quot;Happiness Scores - Regions of the World (2015)&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lmplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Health (Life Expectancy)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Happiness Score'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+           &lt;span class=&quot;n&quot;&gt;fit_reg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_2015&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Region'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Life Expectancy'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontweight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bold'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Happiness Score'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fontsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fontweight&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bold'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And here’s the result: 
+&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_science/happiness_vs_life_expectancy.png&quot; alt=&quot;Happiness Scores and Life Expectancy (2015)&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;More on individual countries in a later post.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="data analysis" />
+      
+        <category term="python" />
+      
+
+      
+
+      
+        <summary type="html">Lately, I have been pondering a lot about happiness and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from [Kaggle] (https://www.kaggle.com/) that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let’s start with 2015 data, as that’s what I analyzed first. Again, we will use Pandas library for data analysis and seaborn library to plot the data and make our inference from the plots. Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation. df_2015 = pd.read_csv('2015.csv') sns.swarmplot(y='Region', x='Happiness Score', data=df_2015) plt.ylabel('Region of the World', fontsize=14, fontweight='bold') plt.xlabel('Happiness Score',fontsize=14, fontweight='bold') And here is what we see: Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know). sns.lmplot(y='Health (Life Expectancy)', x='Happiness Score', fit_reg=False, data=df_2015, hue='Region') plt.ylabel('Life Expectancy', fontsize=14, fontweight='bold') plt.xlabel('Happiness Score',fontsize=14, fontweight='bold') And here’s the result: More on individual countries in a later post.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1296,58 +1356,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">Let’s continue with tail recursion and folding (recollect our previous post. Let’s use those concepts to write insertion sort algorithm. In an earlier post we wrote a recursive implementation of insertion sort algorithm as below: let rec insert x lst = match lst with | [] -&amp;gt; [x] | h::t -&amp;gt; if (x &amp;lt;= h) then x::h::t else h::(insert x t);; let rec isort lst = match lst with | [] -&amp;gt; [] | [x] -&amp;gt; [x] | h::t -&amp;gt; insert h (isort t) Now, let’s write a tail recursive version of insertion sort. Let’s just call it tr_isort. let tr_isort lst = let rec aux lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux t (insert h acc) in aux lst [];; Food for thought - is it possible to write a tail-recursive version of insert function that we used above? If yes, why don’t we try it. If no, why not?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Tail recursions and reversing a list →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list/" rel="alternate" type="text/html" title="Tail recursions and reversing a list" />
-      <published>2017-08-29T00:00:00+00:00</published>
-      <updated>2017-08-29T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list/">&lt;p&gt;So, how about reversing a list using our &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee&lt;/code&gt; function from our &lt;a href=&quot;https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions&quot;&gt;previous post&lt;/a&gt;?&lt;/p&gt;
-
-&lt;p&gt;Let’s work it out now. Here’s the original tail recursive function for your reference:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;aux_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;All you need to observe is how the accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_lst_rev&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;leftee&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt; &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;In most functional programming languages our &lt;code class=&quot;highlighter-rouge&quot;&gt;leftee&lt;/code&gt; is actually called &lt;code class=&quot;highlighter-rouge&quot;&gt;fold_left&lt;/code&gt; and is tail recursive. There’s also a &lt;code class=&quot;highlighter-rouge&quot;&gt;fold_right&lt;/code&gt; which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">So, how about reversing a list using our leftee function from our previous post? Let’s work it out now. Here’s the original tail recursive function for your reference: let tr_lst_rev lst = let rec aux_lst_rev lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux_lst_rev t (h::acc) in aux_lst_rev lst [];; All you need to observe is how the accumulator acc changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator acc. let tr_lst_rev lst = leftee (fun a x -&amp;gt; x::a) [] lst;; In most functional programming languages our leftee is actually called fold_left and is tail recursive. There’s also a fold_right which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!</summary>
       
 
       

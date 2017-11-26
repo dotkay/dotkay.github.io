@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Thinking about Happiness...</title>
+  <meta name="description" content="Lately, I have been pondering a lot about happiness and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from [Kaggle] (https://www.kaggle.com/) that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let’s start with 2015 data, as that’s what I analyzed first. Again, we will use Pandas library for data analysis and seaborn library to plot the data and make our inference from the plots. Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation. df_2015 = pd.read_csv(&#39;2015.csv&#39;) sns.swarmplot(y=&#39;Region&#39;, x=&#39;Happiness Score&#39;, data=df_2015) plt.ylabel(&#39;Region of the World&#39;, fontsize=14, fontweight=&#39;bold&#39;) plt.xlabel(&#39;Happiness Score&#39;,fontsize=14, fontweight=&#39;bold&#39;) And here is what we see: Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know). sns.lmplot(y=&#39;Health (Life Expectancy)&#39;, x=&#39;Happiness Score&#39;, fit_reg=False, data=df_2015, hue=&#39;Region&#39;) plt.ylabel(&#39;Life Expectancy&#39;, fontsize=14, fontweight=&#39;bold&#39;) plt.xlabel(&#39;Happiness Score&#39;,fontsize=14, fontweight=&#39;bold&#39;) And here’s the result: More on individual countries in a later post.">
+  
+    
+    <meta name="keywords" content="data analysis,python">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/09/28/analyzing-happiness-data/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Thinking about Happiness...">
+  <meta name="twitter:description" content="Lately, I have been pondering a lot about happiness and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from [Kaggle] (https:...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/09/28/analyzing-happiness-data">Thinking about Happiness... &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-09-28T00:00:00+00:00" itemprop="datePublished">Sep 28, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-analysis/">data analysis</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Lately, I have been pondering a lot about <a href="https://www.ted.com/talks/matthieu_ricard_on_the_habits_of_happiness">happiness</a> and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from [Kaggle] (https://www.kaggle.com/) that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let’s start with 2015 data, as that’s what I analyzed first. Again, we will use <a href="https://pandas.pydata.org/">Pandas</a> library for data analysis and <a href="https://seaborn.pydata.org/">seaborn</a> library to plot the data and make our inference from the plots.</p>
+
+<p>Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">df_2015</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'2015.csv'</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Region'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Region of the World'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre></figure>
+
+<p>And here is what we see:
+<br />
+<img src="/assets/images/data_science/happiness_world_regions.png" alt="Happiness Scores - Regions of the World (2015)" class="img=responsive" /></p>
+
+<p>Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know).</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Health (Life Expectancy)'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> 
+           <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'Region'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life Expectancy'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre></figure>
+
+<p>And here’s the result: 
+<br />
+<img src="/assets/images/data_science/happiness_vs_life_expectancy.png" alt="Happiness Scores and Life Expectancy (2015)" class="img=responsive" /></p>
+
+<p>More on individual countries in a later post.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
