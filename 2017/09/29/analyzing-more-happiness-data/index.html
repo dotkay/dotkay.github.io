@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>More about Happiness...</title>
+  <meta name="description" content="In our previous post we analyzed some happiness data. As I mentioned I got statistical figures for world regions on several parameters from Kaggle, for the years 2015, 2016 and 2017. We analyzed 2015 data in the last post. What confuses me now is how did they even come up with 2017 data (the year is not yet over). Or is this calendar also a confused one like tax calendars ;-) In any case, let’s look at whatever was called 2017 data. I had to clean up the data-set as it had different names for some of the parameters, it had some differences in the countries (for example, South Sudan is the newest country and it appears in 2017 data-set, etc.). I renamed some of those fields, added the Region parameter comparing the countries against 2015 data-set, etc. There were still some discrepancies as data about some of the countries just does not exist in the 2017 data-set. The results we plotted in our previous post look more or less similar with the 2017 data as well. But I wanted to dig deeper and plot the happiness rankings of individual countries and here’s how it looked: Not that I don’t want some of the countries to be unhappier, but some of the data points are counter-intuitive to my (perceived) knowledge of world regions. This is also a demonstration of my perceptions of different parts of the world and how many things can not just be captured in data. Some day, I would really want to dig into how this Happiness Score is computed and to check if it is meaningful at all.">
+  
+    
+    <meta name="keywords" content="data analysis,python">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/09/29/analyzing-more-happiness-data/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="More about Happiness...">
+  <meta name="twitter:description" content="In our previous post we analyzed some happiness data. As I mentioned I got statistical figures for world regions on several parameters from Kaggle, for the years 2015, 2016 and 2017. We analyzed 20...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/09/29/analyzing-more-happiness-data">More about Happiness... &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-09-29T00:00:00+00:00" itemprop="datePublished">Sep 29, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-analysis/">data analysis</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In our <a href="https://dotkay.github.io/2017/09/28/analyzing-happiness-data">previous post</a> we analyzed some happiness data. As I mentioned I got statistical figures for world regions on several parameters from Kaggle, for the years 2015, 2016 and 2017. We analyzed 2015 data in the last post. What confuses me now is how did they even come up with 2017 data (the year is not yet over). Or is this calendar also a confused one like tax calendars ;-)</p>
+
+<p>In any case, let’s look at whatever was called 2017 data. I had to clean up the data-set as it had different names for some of the parameters, it had some differences in the countries (for example, South Sudan is the newest country and it appears in 2017 data-set, etc.). I renamed some of those fields, added the <code class="highlighter-rouge">Region</code> parameter comparing the countries against 2015 data-set, etc. There were still some discrepancies as data about some of the countries just does not exist in the 2017 data-set. The results we plotted in our previous post look more or less similar with the 2017 data as well. But I wanted to dig deeper and plot the happiness rankings of individual countries and here’s how it looked:</p>
+
+<p><br />
+<img src="/assets/images/data_science/happiness_world_countries_2017.png" alt="Happiness Rankings - Countries of the World" class="img=responsive" /></p>
+
+<p>Not that I don’t want some of the countries to be unhappier, but some of the data points are counter-intuitive to my (perceived) knowledge of world regions. This is also a demonstration of my perceptions of different parts of the world and how many things can not just be captured in data. Some day, I would really want to dig into how this <code class="highlighter-rouge">Happiness Score</code> is computed and to check if it is meaningful at all.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

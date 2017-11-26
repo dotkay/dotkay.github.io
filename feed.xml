@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2017-11-26T03:52:53+00:00</updated>
+  <updated>2017-11-26T18:58:29+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,49 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">More about Happiness… →</title>
+      
+      <link href="https://dotkay.github.io/2017/09/29/analyzing-more-happiness-data/" rel="alternate" type="text/html" title="More about Happiness..." />
+      <published>2017-09-29T00:00:00+00:00</published>
+      <updated>2017-09-29T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/29/analyzing-more-happiness-data</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/29/analyzing-more-happiness-data/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/09/28/analyzing-happiness-data&quot;&gt;previous post&lt;/a&gt; we analyzed some happiness data. As I mentioned I got statistical figures for world regions on several parameters from Kaggle, for the years 2015, 2016 and 2017. We analyzed 2015 data in the last post. What confuses me now is how did they even come up with 2017 data (the year is not yet over). Or is this calendar also a confused one like tax calendars ;-)&lt;/p&gt;
+
+&lt;p&gt;In any case, let’s look at whatever was called 2017 data. I had to clean up the data-set as it had different names for some of the parameters, it had some differences in the countries (for example, South Sudan is the newest country and it appears in 2017 data-set, etc.). I renamed some of those fields, added the &lt;code class=&quot;highlighter-rouge&quot;&gt;Region&lt;/code&gt; parameter comparing the countries against 2015 data-set, etc. There were still some discrepancies as data about some of the countries just does not exist in the 2017 data-set. The results we plotted in our previous post look more or less similar with the 2017 data as well. But I wanted to dig deeper and plot the happiness rankings of individual countries and here’s how it looked:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_science/happiness_world_countries_2017.png&quot; alt=&quot;Happiness Rankings - Countries of the World&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Not that I don’t want some of the countries to be unhappier, but some of the data points are counter-intuitive to my (perceived) knowledge of world regions. This is also a demonstration of my perceptions of different parts of the world and how many things can not just be captured in data. Some day, I would really want to dig into how this &lt;code class=&quot;highlighter-rouge&quot;&gt;Happiness Score&lt;/code&gt; is computed and to check if it is meaningful at all.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="data analysis" />
+      
+        <category term="python" />
+      
+
+      
+
+      
+        <summary type="html">In our previous post we analyzed some happiness data. As I mentioned I got statistical figures for world regions on several parameters from Kaggle, for the years 2015, 2016 and 2017. We analyzed 2015 data in the last post. What confuses me now is how did they even come up with 2017 data (the year is not yet over). Or is this calendar also a confused one like tax calendars ;-) In any case, let’s look at whatever was called 2017 data. I had to clean up the data-set as it had different names for some of the parameters, it had some differences in the countries (for example, South Sudan is the newest country and it appears in 2017 data-set, etc.). I renamed some of those fields, added the Region parameter comparing the countries against 2015 data-set, etc. There were still some discrepancies as data about some of the countries just does not exist in the 2017 data-set. The results we plotted in our previous post look more or less similar with the 2017 data as well. But I wanted to dig deeper and plot the happiness rankings of individual countries and here’s how it looked: Not that I don’t want some of the countries to be unhappier, but some of the data points are counter-intuitive to my (perceived) knowledge of world regions. This is also a demonstration of my perceptions of different parts of the world and how many things can not just be captured in data. Some day, I would really want to dig into how this Happiness Score is computed and to check if it is meaningful at all.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1293,69 +1336,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe split function that would take a list and split it into two lists merge function that would merge a pair of sorted lists merge_sort function that would use the above two to build the sorted list recursively. Let’s prepare the above one by one. First, the split function that takes a list lst as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it a1 and a2. Next, we will think about the possible cases (patterns). The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use). If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result). If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list. So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward. let split lst = let rec aux a1 a2 l = match l with | [] -&amp;gt; a1, a2 | [x] -&amp;gt; x::a1, a2 | x1::(x2::x3) -&amp;gt; aux (x1::a1) (x2::a2) x3 in aux [] [] lst;; Now, let’s prepare the second item in our list - the merge function. This is just pattern matching and even simpler than our split function. let rec merge (lst1, lst2) = match lst1, lst2 with | [], l -&amp;gt; l | l, [] -&amp;gt; l | (h1::t1 as l1), (h2::t2 as l2) -&amp;gt; if (h1 &amp;lt; h2) then h1 :: merge (t1, l2) else h2 :: merge (l1, t2);; Finally, let’s prepare the merge_sort function that takes a list lst as input. First we would split the input list into two lists using our split function. Then, we would recursively call merge_sort on the two sub-lists (result of split function) and merge the results of these recursive calls using our merge function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward. let rec merge_sort lst = match lst with | [] -&amp;gt; [] | [x] -&amp;gt; [x] | l -&amp;gt; let l1, l2 = split l in merge (merge_sort l1, merge_sort l2);; That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Some more tail recursion… →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/30/some-more-tail-recursion/" rel="alternate" type="text/html" title="Some more tail recursion..." />
-      <published>2017-08-30T00:00:00+00:00</published>
-      <updated>2017-08-30T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/30/some-more-tail-recursion</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/30/some-more-tail-recursion/">&lt;p&gt;Let’s continue with tail recursion and folding (recollect our &lt;a href=&quot;https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursions-and-reversing-a-list&quot;&gt;previous post&lt;/a&gt;. Let’s use those concepts to write insertion sort algorithm. In an &lt;a href=&quot;https://dotkay.github.io/2017/08/19/some-more-recursion&quot;&gt;earlier post&lt;/a&gt; we wrote a recursive implementation of insertion sort algorithm as below:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Now, let’s write a tail recursive version of insertion sort. Let’s just call it &lt;code class=&quot;highlighter-rouge&quot;&gt;tr_isort&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr_isort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Food for thought - is it possible to write a tail-recursive version of &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; function that we used above? If yes, why don’t we try it. If no, why not?&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">Let’s continue with tail recursion and folding (recollect our previous post. Let’s use those concepts to write insertion sort algorithm. In an earlier post we wrote a recursive implementation of insertion sort algorithm as below: let rec insert x lst = match lst with | [] -&amp;gt; [x] | h::t -&amp;gt; if (x &amp;lt;= h) then x::h::t else h::(insert x t);; let rec isort lst = match lst with | [] -&amp;gt; [] | [x] -&amp;gt; [x] | h::t -&amp;gt; insert h (isort t) Now, let’s write a tail recursive version of insertion sort. Let’s just call it tr_isort. let tr_isort lst = let rec aux lst acc = match lst with | [] -&amp;gt; acc | h::t -&amp;gt; aux t (insert h acc) in aux lst [];; Food for thought - is it possible to write a tail-recursive version of insert function that we used above? If yes, why don’t we try it. If no, why not?</summary>
       
 
       
