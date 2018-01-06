@@ -6,7 +6,7 @@ keywords: [data analysis, python]
 external-url: https://dotkay.github.io/2017/09/28/analyzing-happiness-data
 ---
 
-Lately, I have been pondering a lot about [happiness](https://www.ted.com/talks/matthieu_ricard_on_the_habits_of_happiness) and satisfaction and so, let's talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from [Kaggle] (https://www.kaggle.com/) that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let's start with 2015 data, as that's what I analyzed first. Again, we will use [Pandas](https://pandas.pydata.org/) library for data analysis and [seaborn](https://seaborn.pydata.org/) library to plot the data and make our inference from the plots.
+Lately, I have been pondering a lot about [happiness](https://www.ted.com/talks/matthieu_ricard_on_the_habits_of_happiness) and satisfaction and so, let's talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from [Kaggle](https://www.kaggle.com/) that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let's start with 2015 data, as that's what I analyzed first. Again, we will use [Pandas](https://pandas.pydata.org/) library for data analysis and [seaborn](https://seaborn.pydata.org/) library to plot the data and make our inference from the plots.
 
 Let's first plot the "Happiness Score" of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation.
 
