@@ -8,7 +8,7 @@ external-url: https://dotkay.github.io/2017/08/15/more-simple-recursion-examples
 
 Continuing with our [previous post](http://dotkay.github.io/2017/08/14/ocaml-recursion-simple/) on recursions, let's play with a couple of more simple examples to get ourselves familiar. This is just to start thinking in terms of recursive functions for the problems we try to solve. This kind of thinking will become more useful when we learn about tail recursion in one of the future posts.
 
-Let's write a small function, call it `find`, to find if a given element belongs to a list. i.e., we are provided with an input list `lst` of integers and an integer `x` and the function would return `true` if `x` is one of the elements of `lst` and `false` otherwise.
+Let's write a small function, call it `find`, to find if a given element exists in a list. i.e., we are provided with an input list `lst` of integers and an integer `x` and the function would return `true` if `x` exists as one of the elements of `lst` and `false` otherwise.
 
 {% highlight ocaml %}
 let rec find x lst =
