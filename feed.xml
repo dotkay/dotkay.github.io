@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-07-08T17:11:07+00:00</updated>
+  <updated>2018-07-13T15:59:13+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,74 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Array Query Sum &amp;rarr;</title>
+      
+      <link href="https://dotkay.github.io/2017/09/30/array-query-sum/" rel="alternate" type="text/html" title="Array Query Sum" />
+      <published>2017-09-30T00:00:00+00:00</published>
+      <updated>2017-09-30T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/09/30/array-query-sum</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/09/30/array-query-sum/">&lt;p&gt;Let us discuss an interesting algorithm problem - finding sub-array sums in an array.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Given an array &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; and a set of queries &lt;code class=&quot;highlighter-rouge&quot;&gt;q&lt;/code&gt; indicating ranges in an array, say sub-array indicies, how to compute the sum of the sub-array elements in the ranges specified in the query.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In this post, we will discuss a very straightforward solution that traverses the array and the set of queries and computes the sum of each of the sub-arrays specified by the query bounds.&lt;/p&gt;
+
+&lt;p&gt;A query is just modelled as a &lt;code class=&quot;highlighter-rouge&quot;&gt;struct&lt;/code&gt; specifying the left and right sub-array bounds by integers &lt;code class=&quot;highlighter-rouge&quot;&gt;L&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt;. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; would mean &lt;em&gt;sum the elements in the indicies 3, 4, 5 - i.e. a[3] + a[4] + a[5]&lt;/em&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Query&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now, let us walk through the queries one by one, and for each query, we shall traverse the array and pick up the elements in the indices specified by the query and sum them up. We initialize an accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;sum&lt;/code&gt; and keep updating it for this purpose. Again, &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; is the input array of size &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;q&lt;/code&gt; is an array of queries and there are &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; queries in all.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// walk through the queries one by one and 
+// get the query bounds
+// Complexity: O(m)
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// accumulator to collect the sum
+&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// traverse the array and sum up the elements
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// within the query bounds
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// Complexity: O(n)
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Total&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Complexity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;O&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As you can see we have two loops - one within another and hence the total complexity is &lt;em&gt;O(mn)&lt;/em&gt;. How can we make this naïve algorithm better? What do we look for? Hint: If I have queries one of which is a subset of another, we would end up computing the sum twice. For example, if two of our queries are &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;, by walking through all the queries and traversing the array for each query as above, we are not utilizing the fact that we could reuse the sub-array sum within &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; in the query &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; instead of recomputing them independently.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+
+      
+
+      
+        <summary type="html">Let us discuss an interesting algorithm problem - finding sub-array sums in an array. Given an array a and a set of queries q indicating ranges in an array, say sub-array indicies, how to compute the sum of the sub-array elements in the ranges specified in the query. In this post, we will discuss a very straightforward solution that traverses the array and the set of queries and computes the sum of each of the sub-arrays specified by the query bounds. A query is just modelled as a struct specifying the left and right sub-array bounds by integers L and R. For example, {3, 5} would mean sum the elements in the indicies 3, 4, 5 - i.e. a[3] + a[4] + a[5] struct Query { int L, R; }; Now, let us walk through the queries one by one, and for each query, we shall traverse the array and pick up the elements in the indices specified by the query and sum them up. We initialize an accumulator sum and keep updating it for this purpose. Again, a is the input array of size n, and q is an array of queries and there are m queries in all. // walk through the queries one by one and // get the query bounds // Complexity: O(m) for (int i=0; i &amp;lt; m; i++) { int L = q[i].L, R = q[i].R; // accumulator to collect the sum int sum = 0; // traverse the array and sum up the elements // within the query bounds // Complexity: O(n) for (int j=L; j&amp;lt;=R; j++) { sum += a[j]; } } // Total Complexity: O(nm) As you can see we have two loops - one within another and hence the total complexity is O(mn). How can we make this naïve algorithm better? What do we look for? Hint: If I have queries one of which is a subset of another, we would end up computing the sum twice. For example, if two of our queries are {0,4} and {1,3}, by walking through all the queries and traversing the array for each query as above, we are not utilizing the fact that we could reuse the sub-array sum within {1,3} in the query {0,4} instead of recomputing them independently.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1251,91 +1319,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">In one of our [earlier posts] we saw how to eliminate consecutive repetitions in a list. Let’s refresh our memory and take a look at the compress function we saw earlier: let rec compress lst = match lst with | [] -&amp;gt; [] | x1 :: (x2::x3 as t) -&amp;gt; if (x1 = x2) then compress t else x1 :: compress t | smth_else -&amp;gt; smth_else;; This is a straight forward recursive function. Let’s first rewrite it using auxiliary function. let compress lst = let rec aux acc l = match l with | [] -&amp;gt; acc | x::[] -&amp;gt; x::acc | x1::(x2::x3 as t) -&amp;gt; if (x1 = x2) then aux acc t else aux (x1::acc) t in List.rev(aux [] lst);; I think it is pretty straight forward - if we see repetition (x1 = x2) we ignore the element and call the auxiliary function on the remaining part of the list. (Note that we do not eliminate x2 as we want to retain a copy of each repeating element). Today, we shall not eliminate, but collect the consecutive repeating elements into sublists. For example, if we have the list [1;1;1;2;2;3;4;5;5;6;1] we want to make it into this list [[1; 1; 1];[2; 2];[3];[4];[5; 5];[6];[1]] We will again use recursive calls to auxiliary function, very creatively called aux. Apart from keeping track of repetitions, we also need to collect them into sublists. So, in this case, as we traverse the input list and process element by element, we will collect the repeating ones in a sublist and collect the ones that are not consecutive repetitions in another (as this will also be a part of our final result). We know that we usually return the accumulator as the result - so in this case, we may want to maintain two accumulators - one cur to collect the consecutive repeating elements, and another acc to collect the remaining. When we encounter repetitions, we will push the repeating entries into cur sublist When there are no repetitions, we will keep merging cur with acc and eventually return acc as the result. let pack lst = let rec aux cur acc l = match l with | [] -&amp;gt; acc | [x] -&amp;gt; (x::cur)::acc | x1::(x2::x3 as t) -&amp;gt; if (x1 = x2) then aux (x1::cur) acc t else aux [] ((x1::cur)::acc) t in List.rev(aux [] [] lst);; In both the compress and pack functions that use auxiliary function, we reverse the result using OCaml List module’s built-in rev function. Food for thought - why is the result getting reversed? If you work out a small example, it would become apparent. That’s all for today. Enjoy your weekend!</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Recursions and merge sort →</title>
-      
-      <link href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort/" rel="alternate" type="text/html" title="Recursions and merge sort" />
-      <published>2017-08-31T00:00:00+00:00</published>
-      <updated>2017-08-31T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/08/31/recursions-and-merge-sort</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort/">&lt;p&gt;By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function that would take a list and split it into two lists&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; function that would merge a pair of sorted lists&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;merge_sort&lt;/code&gt; function that would use the above two to build the sorted list recursively.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Let’s prepare the above one by one. First, the &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function that takes a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;a1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;a2&lt;/code&gt;. Next, we will think about the possible cases (patterns).&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use).&lt;/li&gt;
-  &lt;li&gt;If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result).&lt;/li&gt;
-  &lt;li&gt;If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;split&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-       &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x3&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Now, let’s prepare the second item in our list - the &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; function. This is just pattern matching and even simpler than our &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lst1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Finally, let’s prepare the merge_sort function that takes a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; as input. First we would split the input list into two lists using our &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function. Then, we would recursively call &lt;code class=&quot;highlighter-rouge&quot;&gt;merge_sort&lt;/code&gt; on the two sub-lists (result of &lt;code class=&quot;highlighter-rouge&quot;&gt;split&lt;/code&gt; function) and merge the results of these recursive calls using our &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge_sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;split&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-         &lt;span class=&quot;n&quot;&gt;merge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;merge_sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;merge_sort&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe split function that would take a list and split it into two lists merge function that would merge a pair of sorted lists merge_sort function that would use the above two to build the sorted list recursively. Let’s prepare the above one by one. First, the split function that takes a list lst as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it a1 and a2. Next, we will think about the possible cases (patterns). The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use). If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result). If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list. So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward. let split lst = let rec aux a1 a2 l = match l with | [] -&amp;gt; a1, a2 | [x] -&amp;gt; x::a1, a2 | x1::(x2::x3) -&amp;gt; aux (x1::a1) (x2::a2) x3 in aux [] [] lst;; Now, let’s prepare the second item in our list - the merge function. This is just pattern matching and even simpler than our split function. let rec merge (lst1, lst2) = match lst1, lst2 with | [], l -&amp;gt; l | l, [] -&amp;gt; l | (h1::t1 as l1), (h2::t2 as l2) -&amp;gt; if (h1 &amp;lt; h2) then h1 :: merge (t1, l2) else h2 :: merge (l1, t2);; Finally, let’s prepare the merge_sort function that takes a list lst as input. First we would split the input list into two lists using our split function. Then, we would recursively call merge_sort on the two sub-lists (result of split function) and merge the results of these recursive calls using our merge function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward. let rec merge_sort lst = match lst with | [] -&amp;gt; [] | [x] -&amp;gt; [x] | l -&amp;gt; let l1, l2 = split l in merge (merge_sort l1, merge_sort l2);; That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</summary>
       
 
       
