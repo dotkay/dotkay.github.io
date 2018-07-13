@@ -23,8 +23,6 @@ struct Query {
 Now, let us walk through the queries one by one, and for each query, we shall traverse the array and pick up the elements in the indices specified by the query and sum them up. We initialize an accumulator `sum` and keep updating it for this purpose. Again, `a` is the input array of size `n`, and `q` is an array of queries and there are `m` queries in all.
 
 {% highlight cpp %}
-
-{% endhighlight %}
 // walk through the queries one by one and 
 // get the query bounds
 // Complexity: O(m)
@@ -40,6 +38,7 @@ for (int i=0; i < m; i++) {
   }
 }
 // Total Complexity: O(nm)
-{% highlight cpp %}
+{% endhighlight %}
+
 
 As you can see we have two loops - one within another and hence the total complexity is *O(mn)*. How can we make this naïve algorithm better? What do we look for? Hint: If I have queries one of which is a subset of another, we would end up computing the sum twice. For example, if two of our queries are `{0,4}` and `{1,3}`, by walking through all the queries and traversing the array for each query as above, we are not utilizing the fact that we could reuse the sub-array sum within `{1,3}` in the query `{0,4}` instead of recomputing them independently.
