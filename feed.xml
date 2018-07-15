@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-07-14T19:22:58+00:00</updated>
+  <updated>2018-07-15T20:13:59+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -22,9 +22,9 @@
   
     <entry>
       
-      <title type="html">Array Query Sum Mo &amp;rarr;</title>
+      <title type="html">Computing sub-array sum given a set of queries on sub-array indices - Mo’s Algorithm →</title>
       
-      <link href="https://dotkay.github.io/2017/10/01/array-query-sum-mo/" rel="alternate" type="text/html" title="Array Query Sum Mo" />
+      <link href="https://dotkay.github.io/2017/10/01/array-query-sum-mo/" rel="alternate" type="text/html" title="Computing sub-array sum given a set of queries on sub-array indices - Mo's Algorithm" />
       <published>2017-10-01T00:00:00+00:00</published>
       <updated>2017-10-01T00:00:00+00:00</updated>
       <id>https://dotkay.github.io/2017/10/01/array-query-sum-mo</id>
@@ -116,9 +116,9 @@
   
     <entry>
       
-      <title type="html">Array Query Sum &amp;rarr;</title>
+      <title type="html">Computing sub-array sum given a set of queries on sub-array indices →</title>
       
-      <link href="https://dotkay.github.io/2017/09/30/array-query-sum/" rel="alternate" type="text/html" title="Array Query Sum" />
+      <link href="https://dotkay.github.io/2017/09/30/array-query-sum/" rel="alternate" type="text/html" title="Computing sub-array sum given a set of queries on sub-array indices" />
       <published>2017-09-30T00:00:00+00:00</published>
       <updated>2017-09-30T00:00:00+00:00</updated>
       <id>https://dotkay.github.io/2017/09/30/array-query-sum</id>
