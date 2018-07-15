@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 
+title: Computing sub-array sum given a set of queries on sub-array indices
 categories: [algorithms, C++]
 keywords:
 external-url: https://dotkay.github.io/2017/09/30/array-query-sum
