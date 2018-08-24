@@ -8,7 +8,7 @@ external-url: https://dotkay.github.io/2017/10/02/array-inversions-naive
 
 Let us think about computing the number of inversions in an array. Let us also assume that our array has unique elements.
 
-> Two elements in an array `arr` form an inversion if `arr[i] > arr[j]` for `i < j`. 
+> Two elements in an array _arr_ form an inversion if _arr[i] > arr[j]_ for _i < j_. 
 
 For example, if `{2, 4, 1, 3, 5}` is our input array, it has 3 inversions `(2, 1), (4,1)` and `(4, 3)`. Let us look for a naïve straight-forward algorithm to solve this problem - i.e., traverse the array comparing the elements and checking if there is an inversion.
 
