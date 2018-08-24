@@ -102,6 +102,152 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/24/interesting-podcast-on-failure/">An interesting podcast on failure! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 24, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/failure/">Failure</a>,
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/npr/">NPR</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/ted/">TED</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Just as I am introspecting whether there’s anything I have done that I can call ‘success’, I happened to listen to this interesting podcast on <em>Failure</em> in TED Radio hour. There is a lot to think about - <em>success</em>, <em>impact</em>, <em>power</em> - we know these attractive words and we probably have been measuring each of this using a completely wrong yard-stick. If we start thinking about the times we have failed and failed miserably, and how we have overcome some of the disastrous failures (that’s actually our <em>success</em> but we fail to realize it that way…), that is what prepares us for success and makes us powerful.</p>
+
+<p>For those interested, below is a link to the podcast:</p>
+
+<audio controls="">
+<source src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/09/20170921_ted_failure.mp3" /> 
+</audio>
+<p><br />
+Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/23/binary-trees-2/">Binary Trees again &rarr;</a>
           </h1>
 
@@ -740,180 +886,6 @@
     <span class="n">find_min</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
 
 <p>Think of <code class="highlighter-rouge">m</code> as the accumulator - we know that <code class="highlighter-rouge">0</code> is the first natural number, so in case our input list is an empty one (base case), we just return the first (minimum) natural number that is missing. Is there too much going on in this? If you could work this out in a sample input, say <code class="highlighter-rouge">[0; 3; 2; 9; 1]</code> it would help understand it better.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/19/list-partitioning-and-quick-sort/">List Partitioning and Quicksort &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 19, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Before we try to come up with a better solution for the problem in the <a href="https://dotkay.github.io/2017/09/18/minimum-missing-natural-number">previous post</a>, let us look at another familiar problem - Quicksort. A quick refresher of mergesort from one of the <a href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort">earlier posts</a> will make this exercise much simpler. In mergesort, we essentially wrote a <code class="highlighter-rouge">split</code> function to split an input list into two lists and recursively called the mergesort algorithm on each of the sub-lists produced by <code class="highlighter-rouge">split</code> and eventually merged them using a <code class="highlighter-rouge">merge</code> function that merges two lists by comparing the element at the head of the sub-lists.</p>
-
-<p>The idea behind quicksort is similar. Instead of just splitting the list into two sub-lists, we are going to choose a <em>pivot</em> element (a fancy name for <em>just an element</em> from our input list) and split the list into two sub-lists in such a way that all the elements in the input list that are less than the pivot element would fall into one sub-list and the rest of the elements will fall into the other. Now that we are very much comfortable with writing recursive functions using accumulators, let us go ahead and write one for partitioning the list into a pair of lists (two sub-lists) given a pivot element. So, the inputs to our function are a list <code class="highlighter-rouge">lst</code> (to split) and a <code class="highlighter-rouge">pivot</code> element.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">partition</span> <span class="n">pivot</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="p">(</span><span class="n">acc1</span><span class="p">,</span> <span class="n">acc2</span><span class="p">)</span> <span class="n">l</span> <span class="p">=</span>
-    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">(</span><span class="n">acc1</span><span class="p">,</span> <span class="n">acc2</span><span class="p">)</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> 
-      <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="p">&lt;</span> <span class="n">pivot</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">acc1</span><span class="p">,</span> <span class="n">acc2</span><span class="p">)</span> <span class="n">t</span>
-      <span class="k">else</span> <span class="n">aux</span> <span class="p">(</span><span class="n">acc1</span><span class="p">,</span> <span class="n">h</span><span class="p">::</span><span class="n">acc2</span><span class="p">)</span> <span class="n">t</span>
-  <span class="k">in</span>
-  <span class="n">aux</span> <span class="o">([],</span> <span class="bp">[]</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
-
-<p>Let’s go ahead and see what it does on a sample list <code class="highlighter-rouge">lst1</code> which contains <code class="highlighter-rouge">[1; 11; 9; 3; 6; 7; 2; 29]</code>. Let’s pick <code class="highlighter-rouge">7</code> to be our pivot element.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">lst1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">6</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">29</span><span class="o">];;</span>
-<span class="n">partition</span> <span class="mi">7</span> <span class="n">lst1</span><span class="p">;;</span>
-<span class="c">(* - : int list * int list = ([2; 6; 3; 1], [29; 7; 9; 11]) *)</span></code></pre></figure>
-
-<p>As we see, all the elements less than our pivot element, <code class="highlighter-rouge">7</code> in this case, are in one of the sub-lists generated by <code class="highlighter-rouge">partition</code> function.</p>
-
-<p>Now, quicksort is just choosing the head element as the pivot, generating two sub-lists <code class="highlighter-rouge">l1</code> and <code class="highlighter-rouge">l2</code> and calling quicksort recursively on each of the sub-lists. Since each recursive call pushes the smaller element further towards the left, eventually when all recursive calls return, the list would be sorted in acsending order.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">quicksort</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-   <span class="p">|</span> <span class="n">x</span><span class="o">::[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-   <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="p">=</span> <span class="n">partition</span> <span class="n">h</span> <span class="n">t</span> <span class="k">in</span>
-     <span class="n">quicksort</span> <span class="n">l1</span> <span class="o">@</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">quicksort</span> <span class="n">l2</span><span class="o">);;</span></code></pre></figure>
-
-<p>And let us try it on <code class="highlighter-rouge">lst1</code>:</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">quicksort</span> <span class="n">lst1</span><span class="p">;;</span>
-<span class="c">(* - : int list = [1; 2; 3; 6; 7; 9; 11; 29] *)</span></code></pre></figure>
-
-<p>This exercise will help us find a better solution to the problem of finding the minimum missing natural number from an unsorted list. Does this ring any bell?</p>
-
 
         </div>
         
