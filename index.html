@@ -246,6 +246,124 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/10/02/array-inversions-naive/">Computing the number of inversions in an array - naïve method &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Oct 2, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let us think about computing the number of inversions in an array. Let us also assume that our array has unique elements.</p>
+
+<blockquote>
+  <p>Two elements in an array <code class="highlighter-rouge">arr</code> form an inversion if <code class="highlighter-rouge">arr[i] &gt; arr[j]</code> for <code class="highlighter-rouge">i &lt; j</code>.</p>
+</blockquote>
+
+<p>For example, if <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">4,</span><span class="w"> </span><span class="err">1,</span><span class="w"> </span><span class="err">3,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code> is our input array, it has 3 inversions <code class="highlighter-rouge">(2, 1), (4,1)</code> and <code class="highlighter-rouge">(4, 3)</code>. Let us look for a naïve straight-forward algorithm to solve this problem - i.e., traverse the array comparing the elements and checking if there is an inversion.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">inv_count</span> <span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">inv_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">inv_count</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">inv_count</span><span class="p">;</span>
+  <span class="c1">// Time complexity: O(n^2) (two for loops)
+</span><span class="p">}</span></code></pre></figure>
+
+<p>Inversion tells us how far the array is from being sorted. For a sorted array, the number of inversions is <code class="highlighter-rouge">0</code> and if the array is sorted in the other order it has maximum number of inversions.</p>
+
+<p>But can we do better than <code class="highlighter-rouge">O(n^2</code>?</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/10/01/array-query-sum-mo/">Computing sub-array sum given a set of queries on sub-array indices - Mo&#39;s Algorithm &rarr;</a>
           </h1>
 
@@ -626,128 +744,6 @@
 <img src="/assets/images/data_science/happiness_world_countries_2017.png" alt="Happiness Rankings - Countries of the World" class="img=responsive" /></p>
 
 <p>Not that I don’t want some of the countries to be unhappier, but some of the data points are counter-intuitive to my (perceived) knowledge of world regions. This is also a demonstration of my perceptions of different parts of the world and how many things can not just be captured in data. Some day, I would really want to dig into how this <code class="highlighter-rouge">Happiness Score</code> is computed and to check if it is meaningful at all.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/28/analyzing-happiness-data/">Thinking about Happiness... &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 28, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-analysis/">data analysis</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/python/">python</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Lately, I have been pondering a lot about <a href="https://www.ted.com/talks/matthieu_ricard_on_the_habits_of_happiness">happiness</a> and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from <a href="https://www.kaggle.com/">Kaggle</a> that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let’s start with 2015 data, as that’s what I analyzed first. Again, we will use <a href="https://pandas.pydata.org/">Pandas</a> library for data analysis and <a href="https://seaborn.pydata.org/">seaborn</a> library to plot the data and make our inference from the plots.</p>
-
-<p>Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation.</p>
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">df_2015</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'2015.csv'</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Region'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Region of the World'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre></figure>
-
-<p>And here is what we see:
-<br />
-<img src="/assets/images/data_science/happiness_world_regions.png" alt="Happiness Scores - Regions of the World (2015)" class="img=responsive" /></p>
-
-<p>Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know).</p>
-
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Health (Life Expectancy)'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> 
-           <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'Region'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life Expectancy'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre></figure>
-
-<p>And here’s the result: 
-<br />
-<img src="/assets/images/data_science/happiness_vs_life_expectancy.png" alt="Happiness Scores and Life Expectancy (2015)" class="img=responsive" /></p>
-
-<p>More on individual countries in a later post.</p>
 
         </div>
         
