@@ -20,6 +20,7 @@ CAB
 ```
 We shall do it by going through the string of characters and iteratively swapping each character with the neighbouring character to get the permutation. For example, for the string "ABC":
 
+<br>
 ![Permutations of "ABC"]
 (/assets/images/algorithms/cpp/perm_1.png){:class="img=responsive"}
 
