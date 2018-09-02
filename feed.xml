@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-08-29T15:43:54+00:00</updated>
+  <updated>2018-09-02T01:54:42+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -57,6 +57,87 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Computing permutations - divide and conquer →</title>
+      
+      <link href="https://dotkay.github.io/2017/10/06/computing-permutations/" rel="alternate" type="text/html" title="Computing permutations - divide and conquer" />
+      <published>2017-10-06T00:00:00+00:00</published>
+      <updated>2017-10-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/10/06/computing-permutations</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/10/06/computing-permutations/">&lt;p&gt;In one of the &lt;a href=&quot;https://dotkay.github.io/2017/09/21/permutations-of-a-list/&quot;&gt;previous posts&lt;/a&gt; we saw how to compute all permutations of a list recursively. Let us attempt the same, but this time with C++, in what is called divide and conquer approach - essentially divide the input into smaller chunks and recursively call the function on each of the smaller chunk.&lt;/p&gt;
+
+&lt;p&gt;Let us compute the permutations of say characters in a string. A string of &lt;em&gt;n&lt;/em&gt; characters would have &lt;em&gt;n!&lt;/em&gt; permutations. For example, if we have the string “ABC”, the permutations (6 in all) are:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ABC
+ACB
+BAC
+BCA
+CBA
+CAB
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;We shall do it by going through the string of characters and iteratively swapping each character with the neighbouring character to get the permutation. For example, for the string “ABC”:&lt;/p&gt;
+
+&lt;p&gt;![Permutations of “ABC”]
+(/assets/images/algorithms/cpp/perm_1.png){:class=”img=responsive”}&lt;/p&gt;
+
+&lt;p&gt;Here is a function &lt;code class=&quot;highlighter-rouge&quot;&gt;permute()&lt;/code&gt; implementing the traversal: We are given a string &lt;em&gt;s&lt;/em&gt; with starting index &lt;em&gt;start&lt;/em&gt; and ending index &lt;em&gt;end&lt;/em&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AAB
+ABA
+AAB  (*)
+ABA  (*)
+BAA
+BAA  (*)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As you can see, we are computing the same permutation more than once (marked with *). How can we modify the above function to handle duplicates?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+        <category term="recursion" />
+      
+
+      
+
+      
+        <summary type="html">In one of the previous posts we saw how to compute all permutations of a list recursively. Let us attempt the same, but this time with C++, in what is called divide and conquer approach - essentially divide the input into smaller chunks and recursively call the function on each of the smaller chunk. Let us compute the permutations of say characters in a string. A string of n characters would have n! permutations. For example, if we have the string “ABC”, the permutations (6 in all) are: ABC ACB BAC BCA CBA CAB We shall do it by going through the string of characters and iteratively swapping each character with the neighbouring character to get the permutation. For example, for the string “ABC”: ![Permutations of “ABC”] (/assets/images/algorithms/cpp/perm_1.png){:class=”img=responsive”} Here is a function permute() implementing the traversal: We are given a string s with starting index start and ending index end. void permute(string s, int start, int end) { int i; if (start == end) cout &amp;lt;&amp;lt; s &amp;lt;&amp;lt; endl; else { for (i=start; i&amp;lt;=end; i++) { swap(s[start], s[i]); permute(s, start+1, end); swap(s[start], s[i]); } } } What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce: AAB ABA AAB (*) ABA (*) BAA BAA (*) As you can see, we are computing the same permutation more than once (marked with *). How can we modify the above function to handle duplicates?</summary>
       
 
       
@@ -1240,61 +1321,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">Just happened to listen (again) to a TED Radio hour podcast on success. Although I don’t quite agree with the fragment about dirty jobs, some part of the podcast is worth listening to. Most people end up doing dirty jobs because they were less fortunate to get the kind of life the many of us were fortunate enough to get - education, encouraging family, help, opportunities, etc. To some extent, some of them continue doing dirty jobs also because we let them down as a society. We should continuously look to empower the less fortunate around us, in whatever way we can - one of the easiest is to share information and knowledge. Here’s the full podcast:</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Let’s implode! →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/06/lets-implode-a-list/" rel="alternate" type="text/html" title="Let's implode!" />
-      <published>2017-09-06T00:00:00+00:00</published>
-      <updated>2017-09-06T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/06/lets-implode-a-list</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/06/lets-implode-a-list/">&lt;p&gt;In one of the &lt;a href=&quot;https://dotkay.github.io/2017/08/26/more-examples-using-aux-functions/&quot;&gt;previous posts&lt;/a&gt; we looked at a recursive function &lt;code class=&quot;highlighter-rouge&quot;&gt;explode&lt;/code&gt; to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll call this function &lt;code class=&quot;highlighter-rouge&quot;&gt;implode&lt;/code&gt; that takes a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; as input.&lt;/p&gt;
-
-&lt;p&gt;We need an accumulator in order to collect the characters from the input list to prepare our output, so let’s create one &lt;code class=&quot;highlighter-rouge&quot;&gt;acc&lt;/code&gt; whose length would be equal to the length of the input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; (of characters).&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Base case - if the input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; is an empty one, just return the accumulator.&lt;/li&gt;
-  &lt;li&gt;If the list is not empty, we pick the head element and push it into the accumulator. We start with index &lt;code class=&quot;highlighter-rouge&quot;&gt;'0'&lt;/code&gt; of the (mutable) String and recursively call the function on the remaining part of the list, incrementing the index for each call.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;implode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Bytes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Note: The latest version of OCaml, my preferred programming language, has a mutable data-type &lt;code class=&quot;highlighter-rouge&quot;&gt;Bytes&lt;/code&gt; while it made the &lt;code class=&quot;highlighter-rouge&quot;&gt;String&lt;/code&gt; data-type immutable.&lt;/p&gt;
-
-&lt;p&gt;Food for thought - how would be implement &lt;code class=&quot;highlighter-rouge&quot;&gt;implode&lt;/code&gt; using the immutable String type, in a purely functional fashion?&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">In one of the previous posts we looked at a recursive function explode to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll call this function implode that takes a list lst as input. We need an accumulator in order to collect the characters from the input list to prepare our output, so let’s create one acc whose length would be equal to the length of the input list lst (of characters). Base case - if the input list lst is an empty one, just return the accumulator. If the list is not empty, we pick the head element and push it into the accumulator. We start with index '0' of the (mutable) String and recursively call the function on the remaining part of the list, incrementing the index for each call. let implode lst = let acc = Bytes.create (List.length lst) in let rec aux i l = match l with | [] -&amp;gt; acc | h::t -&amp;gt; Bytes.set acc i h; aux (i + 1) t in aux 0 lst;; Note: The latest version of OCaml, my preferred programming language, has a mutable data-type Bytes while it made the String data-type immutable. Food for thought - how would be implement implode using the immutable String type, in a purely functional fashion?</summary>
       
 
       
