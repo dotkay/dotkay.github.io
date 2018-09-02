@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Computing permutations (with duplicates) - divide and conquer</title>
+  <meta name="description" content="In a previous post we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated characters, as in the input string “AAB”. What could we do to avoid the redundant computations? Intuitively we need to avoid some recursive calls that we know will lead to redundant computations. The sub-trees corresponding to this redundant computation are marked red in the sketch below: What it indicates is that when we have the substring that we are processing (by walking through the characters in the substring) we look at the characters we process and decide if we want to go down that recursive path. Let’s go through a couple of paths in the recursion tree above and try to figure this out: (start:0, i:0): The string we are staring with is AAB, substring starting at start is AAB and substring starting at i is also AAB (as i is start to begin with). Now we swap s[start] and s[i] which are both A. Now we call the _permute() with start incremented by 1. a. (start:1, i:1..2): Now the substring starting at start is AB (as start is 1) and substring starting at i is AB. Further s[start] is A and s[i] is also A. We hence perform a swap producing AAB and backtrack. Now, i:2 and so s[start] is A and s[i] is B. We swap A and B and get ABA. (start:0, i:1): The string we are staring with is AAB, substring starting at start is AAB and substring starting at i is also AB (as i is 1 now). We have substring_from_start different from substring_from_i but s[start] is the same as s[i] which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this i. So we avoid going down this path and start working through start:0, i:2. So the condition we are looking for traversing is that substring(start) and substring(i) are same and further the starting character at start and i are the same. Further, if substring(start) and substring(i) are different and the starting characters are different, we go ahead with the traversal (as in start:0, i:2). Here is the modified permute() function with the condition incorporated: void permute(string s, int start, int end) { int i; if (start == end) cout &amp;lt;&amp;lt; s &amp;lt;&amp;lt; endl; else { for (i=start; i&amp;lt;=end; i++) { // handle duplicates if ((s.at(start) != s.at(i)) || ((s.substr(start, end-start+1) == s.substr(start, end-i+1)) &amp;amp;&amp;amp; (s.at(start) == s.at(i)))) { swap(s[start], s[i]); permute(s, start+1, end); swap(s[start], s[i]); } } } } Hope you can refer to the sketch above, work through the example and feel convinced.">
+  
+    
+    <meta name="keywords" content="Permutations, Divide and Conquer, C++">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/10/07/computing-permutations-with-duplicates/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Computing permutations (with duplicates) - divide and conquer">
+  <meta name="twitter:description" content="In a previous post we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated char...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/10/07/computing-permutations-with-duplicates">Computing permutations (with duplicates) - divide and conquer &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-10-07T00:00:00+00:00" itemprop="datePublished">Oct 7, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2017/10/06/computing-permutations">previous post</a> we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated characters, as in the input string “AAB”. What could we do to avoid the redundant computations?</p>
+
+<p>Intuitively we need to avoid some recursive calls that we know will lead to redundant computations. The sub-trees corresponding to this redundant computation are marked red in the sketch below:
+<br />
+<img src="/assets/images/algorithms/cpp/perm_2.png" alt="Permutations of &quot;ABC&quot;" class="img=responsive" /></p>
+
+<p>What it indicates is that when we have the substring that we are processing (by walking through the characters in the substring) we look at the characters we process and decide if we want to go down that recursive path.</p>
+
+<p>Let’s go through a couple of paths in the recursion tree above and try to figure this out:</p>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">(start:0, i:0)</code>: The string we are staring with is <code class="highlighter-rouge">AAB</code>, substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AAB</code> and substring starting at <code class="highlighter-rouge">i</code> is also <code class="highlighter-rouge">AAB</code> (as <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">start</code> to begin with). Now we swap <code class="highlighter-rouge">s[start]</code> and <code class="highlighter-rouge">s[i]</code> which are both <code class="highlighter-rouge">A</code>. Now we call the _<code class="highlighter-rouge">permute()</code> with <code class="highlighter-rouge">start</code> incremented by <code class="highlighter-rouge">1</code>.
+  a. <code class="highlighter-rouge">(start:1, i:1..2)</code>: Now the substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AB</code> (as <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">1</code>) and substring starting at <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">AB</code>. Further <code class="highlighter-rouge">s[start]</code> is <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">s[i]</code> is also <code class="highlighter-rouge">A</code>. We hence perform a swap producing <code class="highlighter-rouge">AAB</code> and backtrack. Now, <code class="highlighter-rouge">i:2</code> and so <code class="highlighter-rouge">s[start]</code> is <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">s[i]</code> is <code class="highlighter-rouge">B</code>. We swap <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">B</code> and get <code class="highlighter-rouge">ABA</code>.</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">(start:0, i:1)</code>: The string we are staring with is <code class="highlighter-rouge">AAB</code>, substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AAB</code> and substring starting at <code class="highlighter-rouge">i</code> is also <code class="highlighter-rouge">AB</code> (as <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">1</code> now). We have <code class="highlighter-rouge">substring_from_start</code> different from <code class="highlighter-rouge">substring_from_i</code> but <code class="highlighter-rouge">s[start]</code> is the same as <code class="highlighter-rouge">s[i]</code> which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this <code class="highlighter-rouge">i</code>. So we avoid going down this path and start working through <code class="highlighter-rouge">start:0, i:2</code>.</p>
+  </li>
+</ol>
+
+<p>So the condition we are looking for traversing is that <code class="highlighter-rouge">substring(start)</code> and <code class="highlighter-rouge">substring(i)</code> are same and further the starting character at <code class="highlighter-rouge">start</code> and <code class="highlighter-rouge">i</code> are the same. Further, if <code class="highlighter-rouge">substring(start)</code> and <code class="highlighter-rouge">substring(i)</code> are different and the starting characters are different, we go ahead with the traversal (as in <code class="highlighter-rouge">start:0, i:2</code>).</p>
+
+<p>Here is the modified <code class="highlighter-rouge">permute()</code> function with the condition incorporated:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">start</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">end</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// handle duplicates
+</span>      <span class="k">if</span> <span class="p">((</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">||</span> 
+          <span class="p">((</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">&amp;&amp;</span> 
+           <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))))</span> <span class="p">{</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="n">permute</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Hope you can refer to the sketch above, work through the example and feel convinced.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

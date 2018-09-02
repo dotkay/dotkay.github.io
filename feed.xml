@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-09-02T02:03:34+00:00</updated>
+  <updated>2018-09-02T04:14:06+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -57,6 +57,86 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Computing permutations (with duplicates) - divide and conquer →</title>
+      
+      <link href="https://dotkay.github.io/2017/10/07/computing-permutations-with-duplicates/" rel="alternate" type="text/html" title="Computing permutations (with duplicates) - divide and conquer" />
+      <published>2017-10-07T00:00:00+00:00</published>
+      <updated>2017-10-07T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/10/07/computing-permutations-with-duplicates</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/10/07/computing-permutations-with-duplicates/">&lt;p&gt;In a &lt;a href=&quot;https://dotkay.github.io/2017/10/06/computing-permutations&quot;&gt;previous post&lt;/a&gt; we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated characters, as in the input string “AAB”. What could we do to avoid the redundant computations?&lt;/p&gt;
+
+&lt;p&gt;Intuitively we need to avoid some recursive calls that we know will lead to redundant computations. The sub-trees corresponding to this redundant computation are marked red in the sketch below:
+&lt;br /&gt;
+&lt;img src=&quot;/assets/images/algorithms/cpp/perm_2.png&quot; alt=&quot;Permutations of &amp;quot;ABC&amp;quot;&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What it indicates is that when we have the substring that we are processing (by walking through the characters in the substring) we look at the characters we process and decide if we want to go down that recursive path.&lt;/p&gt;
+
+&lt;p&gt;Let’s go through a couple of paths in the recursion tree above and try to figure this out:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(start:0, i:0)&lt;/code&gt;: The string we are staring with is &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt;, substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt; and substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is also &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt; (as &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; to begin with). Now we swap &lt;code class=&quot;highlighter-rouge&quot;&gt;s[start]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;s[i]&lt;/code&gt; which are both &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt;. Now we call the _&lt;code class=&quot;highlighter-rouge&quot;&gt;permute()&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; incremented by &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;.
+  a. &lt;code class=&quot;highlighter-rouge&quot;&gt;(start:1, i:1..2)&lt;/code&gt;: Now the substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;AB&lt;/code&gt; (as &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;) and substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;AB&lt;/code&gt;. Further &lt;code class=&quot;highlighter-rouge&quot;&gt;s[start]&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;s[i]&lt;/code&gt; is also &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt;. We hence perform a swap producing &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt; and backtrack. Now, &lt;code class=&quot;highlighter-rouge&quot;&gt;i:2&lt;/code&gt; and so &lt;code class=&quot;highlighter-rouge&quot;&gt;s[start]&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;s[i]&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt;. We swap &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt; and get &lt;code class=&quot;highlighter-rouge&quot;&gt;ABA&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(start:0, i:1)&lt;/code&gt;: The string we are staring with is &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt;, substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt; and substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is also &lt;code class=&quot;highlighter-rouge&quot;&gt;AB&lt;/code&gt; (as &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; now). We have &lt;code class=&quot;highlighter-rouge&quot;&gt;substring_from_start&lt;/code&gt; different from &lt;code class=&quot;highlighter-rouge&quot;&gt;substring_from_i&lt;/code&gt; but &lt;code class=&quot;highlighter-rouge&quot;&gt;s[start]&lt;/code&gt; is the same as &lt;code class=&quot;highlighter-rouge&quot;&gt;s[i]&lt;/code&gt; which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;. So we avoid going down this path and start working through &lt;code class=&quot;highlighter-rouge&quot;&gt;start:0, i:2&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So the condition we are looking for traversing is that &lt;code class=&quot;highlighter-rouge&quot;&gt;substring(start)&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;substring(i)&lt;/code&gt; are same and further the starting character at &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; are the same. Further, if &lt;code class=&quot;highlighter-rouge&quot;&gt;substring(start)&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;substring(i)&lt;/code&gt; are different and the starting characters are different, we go ahead with the traversal (as in &lt;code class=&quot;highlighter-rouge&quot;&gt;start:0, i:2&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Here is the modified &lt;code class=&quot;highlighter-rouge&quot;&gt;permute()&lt;/code&gt; function with the condition incorporated:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// handle duplicates
+&lt;/span&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; 
+          &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; 
+           &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Hope you can refer to the sketch above, work through the example and feel convinced.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+        <category term="recursion" />
+      
+
+      
+
+      
+        <summary type="html">In a previous post we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated characters, as in the input string “AAB”. What could we do to avoid the redundant computations? Intuitively we need to avoid some recursive calls that we know will lead to redundant computations. The sub-trees corresponding to this redundant computation are marked red in the sketch below: What it indicates is that when we have the substring that we are processing (by walking through the characters in the substring) we look at the characters we process and decide if we want to go down that recursive path. Let’s go through a couple of paths in the recursion tree above and try to figure this out: (start:0, i:0): The string we are staring with is AAB, substring starting at start is AAB and substring starting at i is also AAB (as i is start to begin with). Now we swap s[start] and s[i] which are both A. Now we call the _permute() with start incremented by 1. a. (start:1, i:1..2): Now the substring starting at start is AB (as start is 1) and substring starting at i is AB. Further s[start] is A and s[i] is also A. We hence perform a swap producing AAB and backtrack. Now, i:2 and so s[start] is A and s[i] is B. We swap A and B and get ABA. (start:0, i:1): The string we are staring with is AAB, substring starting at start is AAB and substring starting at i is also AB (as i is 1 now). We have substring_from_start different from substring_from_i but s[start] is the same as s[i] which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this i. So we avoid going down this path and start working through start:0, i:2. So the condition we are looking for traversing is that substring(start) and substring(i) are same and further the starting character at start and i are the same. Further, if substring(start) and substring(i) are different and the starting characters are different, we go ahead with the traversal (as in start:0, i:2). Here is the modified permute() function with the condition incorporated: void permute(string s, int start, int end) { int i; if (start == end) cout &amp;lt;&amp;lt; s &amp;lt;&amp;lt; endl; else { for (i=start; i&amp;lt;=end; i++) { // handle duplicates if ((s.at(start) != s.at(i)) || ((s.substr(start, end-start+1) == s.substr(start, end-i+1)) &amp;amp;&amp;amp; (s.at(start) == s.at(i)))) { swap(s[start], s[i]); permute(s, start+1, end); swap(s[start], s[i]); } } } } Hope you can refer to the sketch above, work through the example and feel convinced.</summary>
       
 
       
@@ -1279,48 +1359,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">Let’s write a program to find the minimum missing natural number. We would be given an unsorted list of natural numbers, say [0;3;2;9;1;7;5] and we need to return 4. Let’s assume that there are no duplicates. And if we provide a list that does not start with 0 (natural numbers start with 0 and we assume that we provide proper input), we just return 0 as it is the smallest natural number. How do we go about solving this problem. Once we look at unsorted, we can think of sorting the provided list first. Once we sort the list, we just need to go through the elements of the list one by one and find the missing number. As we have sorted the list already, the first missing number we encounter would be the minimum missing number. let min_missing_num lst = let sort_lst = List.sort compare lst in let rec find_min sort_lst = match sort_lst with | [] -&amp;gt; -1 | x::[] -&amp;gt; x+1 | x::y::_ when y - x &amp;gt; 1 -&amp;gt; x+1 | _::tl -&amp;gt; find_min tl in find_min ((-1)::sort_lst);; Here, we are using OCaml List module’s sort function that has the following signature: (* - : ('a -&amp;gt; 'a -&amp;gt; int) -&amp;gt; 'a list -&amp;gt; 'a list = &amp;lt;fun&amp;gt; *) And compare is a comparision function that has the following signature: (* - : 'a -&amp;gt; 'a -&amp;gt; int = &amp;lt;fun&amp;gt; *) Essentially, compare x y returns 0 if x and y are equal, -1 if x &amp;lt; y and 1 if x &amp;gt; y. Can we do better than this algorithm for finding the minimum missing natural number? Hint: sorting the input list is not very cheap - we could avoid that.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">A podcast on Success →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/07/podcast-on-success/" rel="alternate" type="text/html" title="A podcast on Success" />
-      <published>2017-09-07T00:00:00+00:00</published>
-      <updated>2017-09-07T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/07/podcast-on-success</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/07/podcast-on-success/">&lt;p&gt;Just happened to listen (again) to a TED Radio hour podcast on &lt;em&gt;success&lt;/em&gt;. Although I don’t quite agree with the fragment about dirty jobs, some part of the podcast is worth listening to. Most people end up doing dirty jobs because they were less fortunate to get the kind of life the many of us were fortunate enough to get - education, encouraging family, help, opportunities, etc. To some extent, some of them continue doing dirty jobs also because we let them down as a society. We should continuously look to empower the less fortunate around us, in whatever way we can - one of the easiest is to share information and knowledge. Here’s the full podcast:&lt;/p&gt;
-
-&lt;audio controls=&quot;&quot;&gt;
-&lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2013/11/20131101_ted_01.mp3&quot; /&gt;
-&lt;/audio&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="success" />
-      
-        <category term="NPR" />
-      
-        <category term="TED" />
-      
-
-      
-
-      
-        <summary type="html">Just happened to listen (again) to a TED Radio hour podcast on success. Although I don’t quite agree with the fragment about dirty jobs, some part of the podcast is worth listening to. Most people end up doing dirty jobs because they were less fortunate to get the kind of life the many of us were fortunate enough to get - education, encouraging family, help, opportunities, etc. To some extent, some of them continue doing dirty jobs also because we let them down as a society. We should continuously look to empower the less fortunate around us, in whatever way we can - one of the easiest is to share information and knowledge. Here’s the full podcast:</summary>
       
 
       
