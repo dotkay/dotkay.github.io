@@ -143,6 +143,8 @@
     
   
     
+  
+    
       <a href="/categories/technology/">technology</a>,
     
   
@@ -150,6 +152,8 @@
   
 
   
+  
+    
   
     
   
@@ -245,6 +249,8 @@
     
   
     
+  
+    
       <a href="/categories/psychology/">psychology</a>,
     
   
@@ -256,6 +262,8 @@
   
 
   
+  
+    
   
     
   
@@ -340,6 +348,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -353,6 +363,124 @@
 <audio controls="">
 <source src="https://play.podtrac.com/npr-510308/ondemand.npr.org/anon.npr-mp3/npr/hiddenbrain/2018/07/20180712_hiddenbrain_hb_rad_-_watch_your_mouth__-_final_full_for_web.mp3" />
 </audio>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/10/08/mod-arith/">Modular Arithmetic &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Oct 8, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/modular-arithmetic/">modular arithmetic</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let us chat about <em>Modular Arithmetic</em> - let’s start with a fun question that I actually happened to read in one of my textbooks on Algorithms.</p>
+
+<blockquote>
+  <p>Suppose you binge watch an entire season of some television show in one sitting, starting at midnight and suppose there are 25 episodes of the show, each lasting 3 hours. At what time of the day will you be done?</p>
+</blockquote>
+
+<p>So, you start at midnight and watch for $$ 25 x 3 = 75 <script type="math/tex">hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute _modulo 24_ and \$\$ 75 mod 24  = 3</script> and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range $$ { 0, 1, \cdots, N-1} $$.</p>
+
+<p>Modular arithmetic has some beautiful properties that are very useful in several application domains, especially cryptography. We will get to learn about them in future posts.</p>
 
         </div>
         
@@ -378,6 +506,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -453,6 +583,8 @@
   
     
   
+    
+  
 
   
   
@@ -462,6 +594,8 @@
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
     
   
     
@@ -601,6 +735,8 @@
   
     
   
+    
+  
 
   
   
@@ -644,6 +780,8 @@
   
     
   
+    
+  
 
   
   
@@ -653,6 +791,8 @@
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
     
   
     
@@ -736,137 +876,6 @@ BAA  (*)
 </div>
 
 <p>As you can see, we are computing the same permutation more than once (marked with *). How can we modify the above function to handle duplicates?</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/10/04/closest-pair-naive/">Computing the closest pair of points - Naïve approach &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Oct 4, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Given a set of points (say provided to us as <em>(x, y)</em> coordinates) on a plane, let us find the closest pair among the set. The straight forward approach would be to compute the distance of each point with every other point in the given set and store the minimum distance.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REP(i, n) for (int i=0; i&lt;n; i++)
-#define REPK(i, k, n) for (int i=k; i&lt;n; i++)
-</span>
-<span class="k">class</span> <span class="nc">Point</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span> 
-    <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">y</span><span class="p">;</span>
-  <span class="k">public</span><span class="o">:</span>
-    <span class="n">Point</span> <span class="p">()</span> <span class="p">{};</span>
-    <span class="n">Point</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">);</span>
-    <span class="k">static</span> <span class="kt">float</span> <span class="n">dist</span><span class="p">(</span><span class="n">Point</span> <span class="n">p</span><span class="p">,</span> <span class="n">Point</span> <span class="n">q</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="kt">float</span> <span class="nf">min_distance</span> <span class="p">(</span><span class="n">Point</span> <span class="n">p</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">float</span> <span class="n">min</span> <span class="o">=</span> <span class="n">MAX_DIST</span><span class="p">;</span>
-  <span class="n">REP</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-    <span class="n">REPK</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">min</span><span class="p">)</span> 
-        <span class="n">min</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
-  <span class="k">return</span> <span class="n">min</span><span class="p">;</span>
-  <span class="c1">// Time Complexity: O(n^2) - nested for loops (2)
-</span><span class="p">}</span></code></pre></figure>
-
-<p>As you can see this is a <em>O(n^2)</em> algorithm. Can we do better than this? It turns out we can - a topic for a future post.</p>
 
         </div>
         
