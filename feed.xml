@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-12T00:46:43+00:00</updated>
+  <updated>2018-11-12T00:50:07+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -115,7 +115,7 @@
   &lt;p&gt;Suppose you binge watch an entire season of some television show in one sitting, starting at midnight and suppose there are 25 episodes of the show, each lasting 3 hours. At what time of the day will you be done?&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;So, you start at midnight and watch for &lt;script type=&quot;math/tex&quot;&gt;25 x 3 = 75&lt;/script&gt; hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute &lt;em&gt;modulo 24&lt;/em&gt; and &lt;script type=&quot;math/tex&quot;&gt;75 mod 24  = 3&lt;/script&gt; and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range &lt;script type=&quot;math/tex&quot;&gt;{ 0, 1, \cdots, N-1}&lt;/script&gt;.&lt;/p&gt;
+&lt;p&gt;So, you start at midnight and watch for &lt;code class=&quot;highlighter-rouge&quot;&gt;25 x 3 = 75&lt;/code&gt; hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute &lt;em&gt;modulo 24&lt;/em&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;75 mod 24  = 3&lt;/code&gt; and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;...,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;N-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Modular arithmetic has some beautiful properties that are very useful in several application domains, especially cryptography. We will get to learn about them in future posts.&lt;/p&gt;</content>
 
@@ -136,7 +136,7 @@
       
 
       
-        <summary type="html">Let us chat about Modular Arithmetic - let’s start with a fun question that I actually happened to read in one of my textbooks on Algorithms. Suppose you binge watch an entire season of some television show in one sitting, starting at midnight and suppose there are 25 episodes of the show, each lasting 3 hours. At what time of the day will you be done? So, you start at midnight and watch for hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute modulo 24 and and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range . Modular arithmetic has some beautiful properties that are very useful in several application domains, especially cryptography. We will get to learn about them in future posts.</summary>
+        <summary type="html">Let us chat about Modular Arithmetic - let’s start with a fun question that I actually happened to read in one of my textbooks on Algorithms. Suppose you binge watch an entire season of some television show in one sitting, starting at midnight and suppose there are 25 episodes of the show, each lasting 3 hours. At what time of the day will you be done? So, you start at midnight and watch for 25 x 3 = 75 hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute modulo 24 and 75 mod 24 = 3 and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range {0, 1, ..., N-1}. Modular arithmetic has some beautiful properties that are very useful in several application domains, especially cryptography. We will get to learn about them in future posts.</summary>
       
 
       
