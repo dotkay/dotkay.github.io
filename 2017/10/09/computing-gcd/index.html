@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Computing GCD (greatest common divisor) of two given integers</title>
+  <meta name="description" content="Today, let us see how to compute the greatest common divisor (GCD) of two given input numbers. Although it is a very easy problem with a relatively straight-forward implementation, the beauty of the problem is that the algorithm was discovered more than 2000 years ago by a Greek mathematician Euclid, after whom the algorithm is named. It uses the concept of modular arithmetic as discussed in the previous post. Put simply, the gcd of two given integers x and y is just the greatest number that divides both x and y. For example, the greatest common divisor of both 6 and 9 is 3. The obvious approach to compute the gcd if two given numbers is to factor both the numbers, pick out the common factors and multiply them. For example, 6 = 1 x 2 x 3 and 9 = 1 x 3 x 3, and the common factors being 1 and 3. Euclid’s algorithm uses the following formula: If x &amp;gt;= y, gcd(x, y) = gcd(x mod y, y). As you see, the recursion is built in the description itself. Here’s an implementation: int euclid_gcd (int x, int y) { // base case if (y == 0) return x; else return euclid_gcd(y, x % y); } One has to note that in the recursive call, the first argument became y and the second x mod y. This is because of the following lemma: If x &amp;gt;= y, then x mod y &amp;lt; x/2. So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.">
+  
+    
+    <meta name="keywords" content="C++, recursion, GCD">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/10/09/computing-gcd/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Computing GCD (greatest common divisor) of two given integers">
+  <meta name="twitter:description" content="Today, let us see how to compute the greatest common divisor (GCD) of two given input numbers. Although it is a very easy problem with a relatively straight-forward implementation, the beauty of th...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/10/09/computing-gcd">Computing GCD (greatest common divisor) of two given integers &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-10-09T00:00:00+00:00" itemprop="datePublished">Oct 9, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Today, let us see how to compute the greatest common divisor (GCD) of two given input numbers. Although it is a very easy problem with a relatively straight-forward implementation, the beauty of the problem is that the algorithm was discovered more than 2000 years ago by a Greek mathematician Euclid, after whom the algorithm is named.</p>
+
+<p>It uses the concept of modular arithmetic as discussed in the <a href="https://dotkay.github.io/2017/10/08/mod-arith">previous post</a>. Put simply, the <em>gcd</em> of two given integers x and y is just the greatest number that divides both x and y. For example, the greatest common divisor of both 6 and 9 is 3. The obvious approach to compute the <em>gcd</em> if two given numbers is to factor both the numbers, pick out the common factors and multiply them. For example, 6 = 1 x 2 x 3 and 9 = 1 x 3 x 3, and the common factors being 1 and 3. Euclid’s algorithm uses the following formula:</p>
+
+<p>If <code class="highlighter-rouge">x &gt;= y</code>, <code class="highlighter-rouge">gcd(x, y) = gcd(x mod y, y)</code>. As you see, the recursion is built in the description itself. Here’s an implementation:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">euclid_gcd</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// base case
+</span>  <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+  <span class="k">else</span>
+    <span class="k">return</span> <span class="n">euclid_gcd</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">%</span> <span class="n">y</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>One has to note that in the recursive call, the first argument became <code class="highlighter-rouge">y</code> and the second <code class="highlighter-rouge">x mod y</code>. This is because of the following lemma:</p>
+
+<blockquote>
+  <p>If <code class="highlighter-rouge">x &gt;= y</code>, then <code class="highlighter-rouge">x mod y &lt; x/2</code>.</p>
+</blockquote>
+
+<p>So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

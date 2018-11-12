@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-12T00:50:07+00:00</updated>
+  <updated>2018-11-12T00:54:09+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,64 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Computing GCD (greatest common divisor) of two given integers →</title>
+      
+      <link href="https://dotkay.github.io/2017/10/09/computing-gcd/" rel="alternate" type="text/html" title="Computing GCD (greatest common divisor) of two given integers" />
+      <published>2017-10-09T00:00:00+00:00</published>
+      <updated>2017-10-09T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/10/09/computing-gcd</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/10/09/computing-gcd/">&lt;p&gt;Today, let us see how to compute the greatest common divisor (GCD) of two given input numbers. Although it is a very easy problem with a relatively straight-forward implementation, the beauty of the problem is that the algorithm was discovered more than 2000 years ago by a Greek mathematician Euclid, after whom the algorithm is named.&lt;/p&gt;
+
+&lt;p&gt;It uses the concept of modular arithmetic as discussed in the &lt;a href=&quot;https://dotkay.github.io/2017/10/08/mod-arith&quot;&gt;previous post&lt;/a&gt;. Put simply, the &lt;em&gt;gcd&lt;/em&gt; of two given integers x and y is just the greatest number that divides both x and y. For example, the greatest common divisor of both 6 and 9 is 3. The obvious approach to compute the &lt;em&gt;gcd&lt;/em&gt; if two given numbers is to factor both the numbers, pick out the common factors and multiply them. For example, 6 = 1 x 2 x 3 and 9 = 1 x 3 x 3, and the common factors being 1 and 3. Euclid’s algorithm uses the following formula:&lt;/p&gt;
+
+&lt;p&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;x &amp;gt;= y&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;gcd(x, y) = gcd(x mod y, y)&lt;/code&gt;. As you see, the recursion is built in the description itself. Here’s an implementation:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;euclid_gcd&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// base case
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;euclid_gcd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;One has to note that in the recursive call, the first argument became &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; and the second &lt;code class=&quot;highlighter-rouge&quot;&gt;x mod y&lt;/code&gt;. This is because of the following lemma:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;x &amp;gt;= y&lt;/code&gt;, then &lt;code class=&quot;highlighter-rouge&quot;&gt;x mod y &amp;lt; x/2&lt;/code&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+        <category term="recursion" />
+      
+
+      
+
+      
+        <summary type="html">Today, let us see how to compute the greatest common divisor (GCD) of two given input numbers. Although it is a very easy problem with a relatively straight-forward implementation, the beauty of the problem is that the algorithm was discovered more than 2000 years ago by a Greek mathematician Euclid, after whom the algorithm is named. It uses the concept of modular arithmetic as discussed in the previous post. Put simply, the gcd of two given integers x and y is just the greatest number that divides both x and y. For example, the greatest common divisor of both 6 and 9 is 3. The obvious approach to compute the gcd if two given numbers is to factor both the numbers, pick out the common factors and multiply them. For example, 6 = 1 x 2 x 3 and 9 = 1 x 3 x 3, and the common factors being 1 and 3. Euclid’s algorithm uses the following formula: If x &amp;gt;= y, gcd(x, y) = gcd(x mod y, y). As you see, the recursion is built in the description itself. Here’s an implementation: int euclid_gcd (int x, int y) { // base case if (y == 0) return x; else return euclid_gcd(y, x % y); } One has to note that in the recursive call, the first argument became y and the second x mod y. This is because of the following lemma: If x &amp;gt;= y, then x mod y &amp;lt; x/2. So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.</summary>
       
 
       
@@ -1234,76 +1292,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implemented very easily (refer to the end of this post for sample implementations). One of them is the map function, that accepts an input function and a list and applies that function to each element of the list. For example, if we want to square each element of an input list lst, call the function sq_lst: let sq_lst lst = List.map (fun x -&amp;gt; x * x) lst;; When we provide the function with a list [1;2;3], we would obtain [1;4;9] as the result. sq_lst [1;2;3];; (* - : int list = [1; 4; 9] *) Another built-in function from the List module we would use is flatten, which just flattens a list of lists into a list. For example, if we want to flatten [[1; 2]; [3; 4]; [5]] into a single list: List.flatten [[1; 2]; [3; 4]; [5]];; (* - : int list = [1; 2; 3; 4; 5] *) Let’s focus back at the problem at hand - generating permutations of a list. Permutation - all possible arrangements of a list of items, where order is important. For example, {a,b,c} {a,c,b} {b,a,c} {b,c,a} {c,a,b} {c,b,a} are permutations of {a,b,c}. Let’s approach this problem by first writing a function - let’s call it insert that would take two arguments - an element x to insert and a list lst to insert x into. And this function insert would insert x at all possible positions in lst. For example, if we have a list [1;2] and an element 0, we want to insert this 0 at all possible positions in the list [1;2], producing [[0; 1; 2], [1; 0; 2], [1; 2; 0]] - note that this is not the permutation, we are just inserting a given element into all possible positions in the list. let rec insert x lst = match lst with | [] -&amp;gt; [[x]] | h::t -&amp;gt; (x::lst) :: (List.map (fun el -&amp;gt; h::el) (insert x t));; Since we are producing a list of lists as output, for the base case we create a list of list containing a single element - the input element x. The second part just applies the function to each element of the list, besides adding the element to the list itself. So, x::lst produces [0; 1; 2], and the map part produces [1; 0; 2] (which is applying the function to the first element 1 of the list (h::el) - the function just adds the element 0 to the list head item 1 giving 1; 0) and similarly [1; 2; 0]. Now we will use this insert function to write our perm (for permutation) function, which is straight-forward given the insert function. We will just traverse the list and choose each item in the list and insert the item to all the positions of the rest of the list. let rec perm lst = match lst with | [] -&amp;gt; [lst] | h::t -&amp;gt; List.flatten (List.map (insert h) (perm t));; perm [0;1;2];; (* - : int list list = *) (* [[0; 1; 2]; [1; 0; 2]; [1; 2; 0]; [0; 2; 1]; [2; 0; 1]; [2; 1; 0]] *) Hope this was the most intuitive way to a permutation function. Here’s a sample implementation of map and flatten functions - I creatively named them mapp and flatn: let rec mapp f lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; f h :: (mapp f t);; let flatn lst = let rec aux acc l = match l with | [] -&amp;gt; acc | h::t -&amp;gt; aux (acc @ h) t in aux [] lst;;</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Finding the minimum missing natural number - a better way! →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/20/minimum-missing-nat-number-2/" rel="alternate" type="text/html" title="Finding the minimum missing natural number - a better way!" />
-      <published>2017-09-20T00:00:00+00:00</published>
-      <updated>2017-09-20T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/20/minimum-missing-nat-number-2</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/20/minimum-missing-nat-number-2/">&lt;p&gt;In one of the &lt;a href=&quot;https://dotkay.github.io/2017/09/18/minimum-missing-natural-number&quot;&gt;earlier posts&lt;/a&gt; we saw a straight forward way to find the minimum missing natural number in a list. That solution, although very straight forward, required us to sort the list before finding the minimum missing number. The question was - can we get away without that expense of sorting that list?&lt;/p&gt;
-
-&lt;p&gt;The answer seems to be &lt;em&gt;yes&lt;/em&gt;. Since we know that we are not allowing any duplicates and we consider only natural numbers, we can use a very nice property:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;In a perfectly consecutive sequence of natural numbers, any chosen number is also the number of natural numbers less than it.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;That is, if we consider the consecutive sequence of number &lt;code class=&quot;highlighter-rouge&quot;&gt;0 1 2 3 4 5&lt;/code&gt; and choose &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt;, we see that there are exactly three natural numbers before it - &lt;code class=&quot;highlighter-rouge&quot;&gt;0 1 2&lt;/code&gt;. A curious mind would have noted that these three numbers actually need not be in order - they should just exist. For example &lt;code class=&quot;highlighter-rouge&quot;&gt;1 0 2 3 4 5&lt;/code&gt; has three numbers before &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt;, they are not in sequence, but the fact that there are three of them assures us that nothing less than three is missing in the sequence. This is the property we are going to use to come up with a simpler search. Just like how we &lt;a href=&quot;https://dotkay.github.io/2017/09/19/list-partitioning-and-quicksort&quot;&gt;partitioned a list of numbers around a pivot element for quicksort&lt;/a&gt;, we will choose an element &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; and push all the numbers less than it (in any order) to the left of it and the rest to the right of it. We will also need to keep track of the number of elements &lt;code class=&quot;highlighter-rouge&quot;&gt;num&lt;/code&gt; to the left of the chosen number (in order to check our fancy property mentioned above). Let’s write the partition function first:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fold_left&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;If the number of elements tracked is equal to the chosen number, it just means that there is no missing number in the left partition (just like the example above where the number of elements less than &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; is equal to three, and we don’t have any missing natural number to the left of &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt;). Now, we will use this partition function to find the missing natural number:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min_missing_num&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;c&quot;&gt;(* m is the least nat number - 0 *)&lt;/span&gt; 
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; 
-    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;(* we return 0 as the missing num *)&lt;/span&gt;
-               &lt;span class=&quot;c&quot;&gt;(* as it is the least nat num *)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; 
-      &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-      &lt;span class=&quot;c&quot;&gt;(* if (num = h) left side is perfect *)&lt;/span&gt;
-      &lt;span class=&quot;c&quot;&gt;(* search on the right partition *)&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;find_min&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Think of &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; as the accumulator - we know that &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; is the first natural number, so in case our input list is an empty one (base case), we just return the first (minimum) natural number that is missing. Is there too much going on in this? If you could work this out in a sample input, say &lt;code class=&quot;highlighter-rouge&quot;&gt;[0; 3; 2; 9; 1]&lt;/code&gt; it would help understand it better.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">In one of the earlier posts we saw a straight forward way to find the minimum missing natural number in a list. That solution, although very straight forward, required us to sort the list before finding the minimum missing number. The question was - can we get away without that expense of sorting that list? The answer seems to be yes. Since we know that we are not allowing any duplicates and we consider only natural numbers, we can use a very nice property: In a perfectly consecutive sequence of natural numbers, any chosen number is also the number of natural numbers less than it. That is, if we consider the consecutive sequence of number 0 1 2 3 4 5 and choose 3, we see that there are exactly three natural numbers before it - 0 1 2. A curious mind would have noted that these three numbers actually need not be in order - they should just exist. For example 1 0 2 3 4 5 has three numbers before 3, they are not in sequence, but the fact that there are three of them assures us that nothing less than three is missing in the sequence. This is the property we are going to use to come up with a simpler search. Just like how we partitioned a list of numbers around a pivot element for quicksort, we will choose an element x and push all the numbers less than it (in any order) to the left of it and the rest to the right of it. We will also need to keep track of the number of elements num to the left of the chosen number (in order to check our fancy property mentioned above). Let’s write the partition function first: let partition x lst = let aux (num, left, right) y = if (y &amp;lt; x) then num+1, y::left, right else num, left, y::right in List.fold_left aux (0, [], []) lst;; If the number of elements tracked is equal to the chosen number, it just means that there is no missing number in the left partition (just like the example above where the number of elements less than 3 is equal to three, and we don’t have any missing natural number to the left of 3). Now, we will use this partition function to find the missing natural number: let min_missing_num lst = (* m is the least nat number - 0 *) let rec find_min m l = match l with | [] -&amp;gt; m (* we return 0 as the missing num *) (* as it is the least nat num *) | h::t -&amp;gt; let (num, left, right) = partition h t in (* if (num = h) left side is perfect *) (* search on the right partition *) if (num + m = h) then find_min (h+1) right else find_min m left in find_min 0 lst;; Think of m as the accumulator - we know that 0 is the first natural number, so in case our input list is an empty one (base case), we just return the first (minimum) natural number that is missing. Is there too much going on in this? If you could work this out in a sample input, say [0; 3; 2; 9; 1] it would help understand it better.</summary>
       
 
       
