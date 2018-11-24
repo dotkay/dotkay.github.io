@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-24T14:57:53+00:00</updated>
+  <updated>2018-11-24T15:06:34+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -114,7 +114,7 @@
 &lt;p&gt;Here, we are interested in &lt;em&gt;Linked Lists&lt;/em&gt; which are just a collection (&lt;em&gt;list&lt;/em&gt;) made by linking together some data-types (&lt;em&gt;node&lt;/em&gt;). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a &lt;em&gt;node&lt;/em&gt; and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_structures/linked_lists_intro.png&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/images/data_structures/linked_lists_intro.png =200px&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Here is how you would describe a node and a linked list as C++ classes:&lt;/p&gt;
 
