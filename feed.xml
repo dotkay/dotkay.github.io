@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-24T14:52:31+00:00</updated>
+  <updated>2018-11-24T14:53:37+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,71 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Linked Lists →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/01/linked-lists-intro/" rel="alternate" type="text/html" title="Linked Lists" />
+      <published>2017-11-01T00:00:00+00:00</published>
+      <updated>2017-11-01T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/01/linked-lists-intro</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/01/linked-lists-intro/">&lt;p&gt;Let us look at some fundamental data structures which are just a collection of primitive data types. For example, an array of integers is a collection of integers, a string is a collection of characters, etc.&lt;/p&gt;
+
+&lt;p&gt;Here, we are interested in &lt;em&gt;Linked Lists&lt;/em&gt; which are just a collection (&lt;em&gt;list&lt;/em&gt;) made by linking together some data-types (&lt;em&gt;node&lt;/em&gt;). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a &lt;em&gt;node&lt;/em&gt; and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_structures/linked_lists_intro.png&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here is how you would describe a node and a linked list as C++ classes:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; 
+    &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LinkedList&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// constructors and member functions
+&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_structures/linked_lists_intro2.png&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="linked lists" />
+      
+
+      
+
+      
+        <summary type="html">Let us look at some fundamental data structures which are just a collection of primitive data types. For example, an array of integers is a collection of integers, a string is a collection of characters, etc. Here, we are interested in Linked Lists which are just a collection (list) made by linking together some data-types (node). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a node and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better. Here is how you would describe a node and a linked list as C++ classes: class Node { public: int data; Node *next; public: Node (int item); }; We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below. class LinkedList { private: Node *head; int length; // constructors and member functions ...</summary>
       
 
       
@@ -1199,99 +1264,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">Let’s talk about Binary Trees - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but to get started, let’s understand what they are and how to create a simple one. Again, I am going to be using OCaml as I find it intuitive and concise. Probably, I will post the equivalent C/C++ code in later posts. A Binary Tree is a tree in which each node can have at most two children A binary tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example, node-0 / \ / \ node-1 node-2 / \ / \ / \ / \ leaf leaf leaf leaf is how they generally look. Here, node-0 has node-1 and node-2 as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree: Mother / \ / \ daughter Son / \ _ daughter Let’s first define the type binary tree - we would call it just tree. type 'a tree = | Leaf | Node of 'a tree * 'a * 'a tree;; This just defines the type 'a tree - as noted in one of our earlier posts ‘a is like any - we could have integer trees, string trees, etc. that would take different type values. So, a tree could either be a Leaf or another tree composed of two child trees and a root node ('a). Now we can create a new empty tree with just a Leaf: let t = Leaf;; (* val t : 'a tree = Leaf *) Or we could create a tree with a root node and two child nodes, which themselves are trees with children: let t2 = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf)));; (* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *) I know it looks awkward, but let’s decompose it and understand. Node (Leaf, 3, Leaf) is one tree. Let’s call it C. Node (Leaf, 2, C) is the next tree - Let’s call this guy B. Node (Leaf, 1, B) is the other one. So, we have something like this: 1 / \ / \ leaf 2 | / \ | / \ | -&amp;gt; B leaf 3 | | / \ |-&amp;gt; C | / \ | | leaf leaf | | In the following post, we will write a functions to interact with this structure.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">All permutations of a list →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/21/permutations-of-a-list/" rel="alternate" type="text/html" title="All permutations of a list" />
-      <published>2017-09-21T00:00:00+00:00</published>
-      <updated>2017-09-21T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/21/permutations-of-a-list</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/21/permutations-of-a-list/">&lt;p&gt;Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implemented very easily (refer to the end of this post for sample implementations). One of them is the &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; function, that accepts an input function and a list and applies that function to each element of the list. For example, if we want to square each element of an input list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;, call the function &lt;code class=&quot;highlighter-rouge&quot;&gt;sq_lst&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sq_lst&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;When we provide the function with a list &lt;code class=&quot;highlighter-rouge&quot;&gt;[1;2;3]&lt;/code&gt;, we would obtain &lt;code class=&quot;highlighter-rouge&quot;&gt;[1;4;9]&lt;/code&gt; as the result.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;sq_lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list = [1; 4; 9] *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Another built-in function from the List module we would use is &lt;code class=&quot;highlighter-rouge&quot;&gt;flatten&lt;/code&gt;, which just flattens a list of lists into a list. For example, if we want to flatten &lt;code class=&quot;highlighter-rouge&quot;&gt;[[1; 2]; [3; 4]; [5]]&lt;/code&gt; into a single list:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatten&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]];;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list = [1; 2; 3; 4; 5] *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s focus back at the problem at hand - generating permutations of a list.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Permutation - all possible arrangements of a list of items, where order is important.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a,b,c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a,c,b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;b,a,c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;b,c,a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;c,a,b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;c,b,a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; are permutations of &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;a,b,c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;. Let’s approach this problem by first writing a function - let’s call it &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; that would take two arguments - an element &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; to insert and a list &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt; to insert &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; into. And this function &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; would insert &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt; at all possible positions in &lt;code class=&quot;highlighter-rouge&quot;&gt;lst&lt;/code&gt;. For example, if we have a list &lt;code class=&quot;highlighter-rouge&quot;&gt;[1;2]&lt;/code&gt; and an element &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;, we want to insert this &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; at all possible positions in the list &lt;code class=&quot;highlighter-rouge&quot;&gt;[1;2]&lt;/code&gt;, producing &lt;code class=&quot;highlighter-rouge&quot;&gt;[[0; 1; 2], [1; 0; 2], [1; 2; 0]]&lt;/code&gt; - note that this is not the permutation, we are just inserting a given element into all possible positions in the list.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; 
-    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;el&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Since we are producing a list of lists as output, for the base case we create a list of list containing a single element - the input element &lt;code class=&quot;highlighter-rouge&quot;&gt;x&lt;/code&gt;. The second part just applies the function to each element of the list, besides adding the element to the list itself. So, &lt;code class=&quot;highlighter-rouge&quot;&gt;x::lst&lt;/code&gt; produces &lt;code class=&quot;highlighter-rouge&quot;&gt;[0; 1; 2]&lt;/code&gt;, and the &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; part produces &lt;code class=&quot;highlighter-rouge&quot;&gt;[1; 0; 2]&lt;/code&gt; (which is applying the function to the first element &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; of the list (&lt;code class=&quot;highlighter-rouge&quot;&gt;h::el&lt;/code&gt;) - the function just adds the element &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; to the list head item &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; giving &lt;code class=&quot;highlighter-rouge&quot;&gt;1; 0&lt;/code&gt;) and similarly &lt;code class=&quot;highlighter-rouge&quot;&gt;[1; 2; 0]&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Now we will use this &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; function to write our &lt;code class=&quot;highlighter-rouge&quot;&gt;perm&lt;/code&gt; (for permutation) function, which is straight-forward given the &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; function. We will just traverse the list and choose each item in the list and insert the item to all the positions of the rest of the list.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; 
-    &lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;flatten&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;perm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;perm&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int list list = *)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* [[0; 1; 2]; [1; 0; 2]; [1; 2; 0]; [0; 2; 1]; [2; 0; 1]; [2; 1; 0]] *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Hope this was the most intuitive way to a permutation function.&lt;/p&gt;
-
-&lt;p&gt;Here’s a sample implementation of map and flatten functions - I creatively named them &lt;code class=&quot;highlighter-rouge&quot;&gt;mapp&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;flatn&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mapp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;::&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mapp&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flatn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;aux&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implemented very easily (refer to the end of this post for sample implementations). One of them is the map function, that accepts an input function and a list and applies that function to each element of the list. For example, if we want to square each element of an input list lst, call the function sq_lst: let sq_lst lst = List.map (fun x -&amp;gt; x * x) lst;; When we provide the function with a list [1;2;3], we would obtain [1;4;9] as the result. sq_lst [1;2;3];; (* - : int list = [1; 4; 9] *) Another built-in function from the List module we would use is flatten, which just flattens a list of lists into a list. For example, if we want to flatten [[1; 2]; [3; 4]; [5]] into a single list: List.flatten [[1; 2]; [3; 4]; [5]];; (* - : int list = [1; 2; 3; 4; 5] *) Let’s focus back at the problem at hand - generating permutations of a list. Permutation - all possible arrangements of a list of items, where order is important. For example, {a,b,c} {a,c,b} {b,a,c} {b,c,a} {c,a,b} {c,b,a} are permutations of {a,b,c}. Let’s approach this problem by first writing a function - let’s call it insert that would take two arguments - an element x to insert and a list lst to insert x into. And this function insert would insert x at all possible positions in lst. For example, if we have a list [1;2] and an element 0, we want to insert this 0 at all possible positions in the list [1;2], producing [[0; 1; 2], [1; 0; 2], [1; 2; 0]] - note that this is not the permutation, we are just inserting a given element into all possible positions in the list. let rec insert x lst = match lst with | [] -&amp;gt; [[x]] | h::t -&amp;gt; (x::lst) :: (List.map (fun el -&amp;gt; h::el) (insert x t));; Since we are producing a list of lists as output, for the base case we create a list of list containing a single element - the input element x. The second part just applies the function to each element of the list, besides adding the element to the list itself. So, x::lst produces [0; 1; 2], and the map part produces [1; 0; 2] (which is applying the function to the first element 1 of the list (h::el) - the function just adds the element 0 to the list head item 1 giving 1; 0) and similarly [1; 2; 0]. Now we will use this insert function to write our perm (for permutation) function, which is straight-forward given the insert function. We will just traverse the list and choose each item in the list and insert the item to all the positions of the rest of the list. let rec perm lst = match lst with | [] -&amp;gt; [lst] | h::t -&amp;gt; List.flatten (List.map (insert h) (perm t));; perm [0;1;2];; (* - : int list list = *) (* [[0; 1; 2]; [1; 0; 2]; [1; 2; 0]; [0; 2; 1]; [2; 0; 1]; [2; 1; 0]] *) Hope this was the most intuitive way to a permutation function. Here’s a sample implementation of map and flatten functions - I creatively named them mapp and flatn: let rec mapp f lst = match lst with | [] -&amp;gt; [] | h::t -&amp;gt; f h :: (mapp f t);; let flatn lst = let rec aux acc l = match l with | [] -&amp;gt; acc | h::t -&amp;gt; aux (acc @ h) t in aux [] lst;;</summary>
       
 
       
