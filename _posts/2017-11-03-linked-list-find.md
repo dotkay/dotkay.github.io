@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists
+title: Linked Lists - Find me!
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/03/linked-list-find
