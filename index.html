@@ -384,6 +384,178 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/11/03/linked-list-find/">Linked Lists &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 3, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In this post, let us see how to find if a given item exists in the linked list. Conceptually, it is very simple - just go through the nodes one by one and see if the data matches the item given as input. But, where do we start the traversal from? This is what we use the <em>head</em> pointer for. And when do we stop? Obviously, if we find the item we are looking for, we stop. We might also not find the item at all, in which case we traverse all of the list until we hit the <em>NULL</em> node (that indicates the end of the list).</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">find</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/11/02/linked-list-insertion/">Linked Lists &rarr;</a>
           </h1>
 
@@ -731,187 +903,6 @@ let us look at some operations on such a data structure. Specifically, let us lo
 
 <p><br />
 <img src="/assets/images/data_structures/linked_lists_intro2.png" alt="Linked List" class="img=responsive" /></p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/10/09/computing-gcd/">Computing GCD (greatest common divisor) of two given integers &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Oct 9, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Today, let us see how to compute the greatest common divisor (GCD) of two given input numbers. Although it is a very easy problem with a relatively straight-forward implementation, the beauty of the problem is that the algorithm was discovered more than 2000 years ago by a Greek mathematician Euclid, after whom the algorithm is named.</p>
-
-<p>It uses the concept of modular arithmetic as discussed in the <a href="https://dotkay.github.io/2017/10/08/mod-arith">previous post</a>. Put simply, the <em>gcd</em> of two given integers x and y is just the greatest number that divides both x and y. For example, the greatest common divisor of both 6 and 9 is 3. The obvious approach to compute the <em>gcd</em> if two given numbers is to factor both the numbers, pick out the common factors and multiply them. For example, 6 = 1 x 2 x 3 and 9 = 1 x 3 x 3, and the common factors being 1 and 3. Euclid’s algorithm uses the following formula:</p>
-
-<p>If <code class="highlighter-rouge">x &gt;= y</code>, <code class="highlighter-rouge">gcd(x, y) = gcd(x mod y, y)</code>. As you see, the recursion is built in the description itself. Here’s an implementation:</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">euclid_gcd</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// base case
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
-  <span class="k">else</span>
-    <span class="k">return</span> <span class="n">euclid_gcd</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">%</span> <span class="n">y</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>One has to note that in the recursive call, the first argument became <code class="highlighter-rouge">y</code> and the second <code class="highlighter-rouge">x mod y</code>. This is because of the following lemma:</p>
-
-<blockquote>
-  <p>If <code class="highlighter-rouge">x &gt;= y</code>, then <code class="highlighter-rouge">x mod y &lt; x/2</code>.</p>
-</blockquote>
-
-<p>So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.</p>
 
         </div>
         

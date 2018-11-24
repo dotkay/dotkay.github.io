@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-24T15:08:22+00:00</updated>
+  <updated>2018-11-24T15:15:26+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,55 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Linked Lists →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/03/linked-list-find/" rel="alternate" type="text/html" title="Linked Lists" />
+      <published>2017-11-03T00:00:00+00:00</published>
+      <updated>2017-11-03T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/03/linked-list-find</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/03/linked-list-find/">&lt;p&gt;In this post, let us see how to find if a given item exists in the linked list. Conceptually, it is very simple - just go through the nodes one by one and see if the data matches the item given as input. But, where do we start the traversal from? This is what we use the &lt;em&gt;head&lt;/em&gt; pointer for. And when do we stop? Obviously, if we find the item we are looking for, we stop. We might also not find the item at all, in which case we traverse all of the list until we hit the &lt;em&gt;NULL&lt;/em&gt; node (that indicates the end of the list).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="linked lists" />
+      
+
+      
+
+      
+        <summary type="html">In this post, let us see how to find if a given item exists in the linked list. Conceptually, it is very simple - just go through the nodes one by one and see if the data matches the item given as input. But, where do we start the traversal from? This is what we use the head pointer for. And when do we stop? Obviously, if we find the item we are looking for, we stop. We might also not find the item at all, in which case we traverse all of the list until we hit the NULL node (that indicates the end of the list). Node *LinkedList::find (int item) { Node *it = this-&amp;gt;head; while (it != NULL) { it = it-&amp;gt;next; if (it-&amp;gt;data == item) { return it; } } return it; }</summary>
       
 
       
@@ -1147,68 +1196,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">Just as I am introspecting whether there’s anything I have done that I can call ‘success’, I happened to listen to this interesting podcast on Failure in TED Radio hour. There is a lot to think about - success, impact, power - we know these attractive words and we probably have been measuring each of this using a completely wrong yard-stick. If we start thinking about the times we have failed and failed miserably, and how we have overcome some of the disastrous failures (that’s actually our success but we fail to realize it that way…), that is what prepares us for success and makes us powerful. For those interested, below is a link to the podcast: Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Binary Trees again →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/23/binary-trees-2/" rel="alternate" type="text/html" title="Binary Trees again" />
-      <published>2017-09-23T00:00:00+00:00</published>
-      <updated>2017-09-23T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/23/binary-trees-2</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/23/binary-trees-2/">&lt;p&gt;In the &lt;a href=&quot;https://dotkay.github.io/2017/09/22/binary-trees&quot;&gt;previous post&lt;/a&gt;, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an &lt;code class=&quot;highlighter-rouge&quot;&gt;insert&lt;/code&gt; function to do that:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;If we want to insert an element &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; into an empty tree, we just do the following:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val empty : 'a tree = Leaf *)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int tree = Node (Leaf, 0, Leaf) *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function &lt;code class=&quot;highlighter-rouge&quot;&gt;make_tree&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make_tree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lst&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_tree&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let us use our new function to create a tree from the list &lt;code class=&quot;highlighter-rouge&quot;&gt;[0; 1; 2]&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;n&quot;&gt;make_tree&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;];;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Wasn’t that super easy?&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="data structures" />
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">In the previous post, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an insert function to do that: let insert x tree = Node (Leaf, x, tree);; If we want to insert an element 0 into an empty tree, we just do the following: let empty = Leaf;; (* val empty : 'a tree = Leaf *) insert 0 empty;; (* - : int tree = Node (Leaf, 0, Leaf) *) Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function make_tree. let rec make_tree lst = let empty = Leaf in match lst with | [] -&amp;gt; empty | h::t -&amp;gt; insert h (make_tree t);; Let us use our new function to create a tree from the list [0; 1; 2]. make_tree [0;1;2];; (* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *) Wasn’t that super easy?</summary>
       
 
       
