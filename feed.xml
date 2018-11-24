@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-24T15:06:34+00:00</updated>
+  <updated>2018-11-24T15:08:22+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,52 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Linked Lists →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/02/linked-list-insertion/" rel="alternate" type="text/html" title="Linked Lists" />
+      <published>2017-11-02T00:00:00+00:00</published>
+      <updated>2017-11-02T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/02/linked-list-insertion</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/02/linked-list-insertion/">&lt;p&gt;Having introduced linked lists in our &lt;a href=&quot;https://dotkay.github.io/2017/11/01/linked-lists-intro&quot;&gt;previous post&lt;/a&gt;, 
+let us look at some operations on such a data structure. Specifically, let us look at how to insert a new item (a new &lt;em&gt;node&lt;/em&gt;) to a linked list. Typically, we start with an empty linked list (denoted by just one node, the NULL node) and grow it by adding more and more items. The usual approach to adding a new item is to form a node (the building block) for the new item and then attach the item to a position in the linked list - by default we choose to add it to the head.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert_item&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// form the building block
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;new_node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// set the next pointer
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// make new node the head
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                  &lt;span class=&quot;c1&quot;&gt;// update the length
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="linked lists" />
+      
+
+      
+
+      
+        <summary type="html">Having introduced linked lists in our previous post, let us look at some operations on such a data structure. Specifically, let us look at how to insert a new item (a new node) to a linked list. Typically, we start with an empty linked list (denoted by just one node, the NULL node) and grow it by adding more and more items. The usual approach to adding a new item is to form a node (the building block) for the new item and then attach the item to a position in the linked list - by default we choose to add it to the head. Node *LinkedList::insert_item (int item) { Node *new_node = new Node(item); // form the building block new_node-&amp;gt;next = this-&amp;gt;head; // set the next pointer this-&amp;gt;head = new_node; // make new node the head this-&amp;gt;length++; // update the length }</summary>
       
 
       
@@ -1163,107 +1209,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
       
         <summary type="html">In the previous post, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an insert function to do that: let insert x tree = Node (Leaf, x, tree);; If we want to insert an element 0 into an empty tree, we just do the following: let empty = Leaf;; (* val empty : 'a tree = Leaf *) insert 0 empty;; (* - : int tree = Node (Leaf, 0, Leaf) *) Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function make_tree. let rec make_tree lst = let empty = Leaf in match lst with | [] -&amp;gt; empty | h::t -&amp;gt; insert h (make_tree t);; Let us use our new function to create a tree from the list [0; 1; 2]. make_tree [0;1;2];; (* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *) Wasn’t that super easy?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Binary Trees →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/22/binary-trees/" rel="alternate" type="text/html" title="Binary Trees" />
-      <published>2017-09-22T00:00:00+00:00</published>
-      <updated>2017-09-22T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/22/binary-trees</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/22/binary-trees/">&lt;p&gt;Let’s talk about &lt;em&gt;Binary Trees&lt;/em&gt; - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but to get started, let’s understand what they are and how to create a simple one. Again, I am going to be using OCaml as I find it intuitive and concise. Probably, I will post the equivalent C/C++ code in later posts.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;A Binary Tree is a tree in which each node can have at most two children&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;A binary tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example,&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;             node-0
-	      /  \
- 	     /    \
-	 node-1  node-2
-	  / \      / \
-         /   \    /   \
-       leaf leaf leaf leaf	 
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;is how they generally look. Here, &lt;code class=&quot;highlighter-rouge&quot;&gt;node-0&lt;/code&gt; has &lt;code class=&quot;highlighter-rouge&quot;&gt;node-1&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;node-2&lt;/code&gt; as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;            Mother
-	     /  \
-            /    \
-       daughter  Son
-                 / \
-                _  daughter  
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Let’s first define the type &lt;em&gt;binary tree&lt;/em&gt; - we would call it just &lt;code class=&quot;highlighter-rouge&quot;&gt;tree&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;This just defines the type &lt;code class=&quot;highlighter-rouge&quot;&gt;'a tree&lt;/code&gt; - as noted in one of our &lt;a href=&quot;https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/&quot;&gt;earlier posts&lt;/a&gt; ‘a is like &lt;em&gt;any&lt;/em&gt; - we could have integer trees, string trees, etc. that would take different type values. So, a &lt;code class=&quot;highlighter-rouge&quot;&gt;tree&lt;/code&gt; could either be a &lt;code class=&quot;highlighter-rouge&quot;&gt;Leaf&lt;/code&gt; or another &lt;code class=&quot;highlighter-rouge&quot;&gt;tree&lt;/code&gt; composed of two child trees and a root node (&lt;code class=&quot;highlighter-rouge&quot;&gt;'a&lt;/code&gt;). Now we can create a new empty tree with just a Leaf:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val t : 'a tree = Leaf *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Or we could create a tree with a root node and two child nodes, which themselves are trees with children:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Leaf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)));;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;(* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;I know it looks awkward, but let’s decompose it and understand. &lt;code class=&quot;highlighter-rouge&quot;&gt;Node (Leaf, 3, Leaf)&lt;/code&gt; is one tree. Let’s call it C. &lt;code class=&quot;highlighter-rouge&quot;&gt;Node (Leaf, 2, C)&lt;/code&gt; is the next tree - Let’s call this guy B. &lt;code class=&quot;highlighter-rouge&quot;&gt;Node (Leaf, 1, B)&lt;/code&gt; is the other one. So, we have something like this:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;             1
-	    / \          
-           /   \
-	 leaf   2                  |
-	       / \                 |
-              /   \                | -&amp;gt; B
-	    leaf   3       |       |
-                  / \      |-&amp;gt; C   |
-		 /   \     |       |
-	       leaf leaf   |       |
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;In the following post, we will write a functions to interact with this structure.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="data structures" />
-      
-        <category term="recursion" />
-      
-        <category term="ocaml" />
-      
-
-      
-
-      
-        <summary type="html">Let’s talk about Binary Trees - we cannot afford to ignore binary trees after having talked about several search algorithms. We will see many more applications of this wonderful data structure, but to get started, let’s understand what they are and how to create a simple one. Again, I am going to be using OCaml as I find it intuitive and concise. Probably, I will post the equivalent C/C++ code in later posts. A Binary Tree is a tree in which each node can have at most two children A binary tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example, node-0 / \ / \ node-1 node-2 / \ / \ / \ / \ leaf leaf leaf leaf is how they generally look. Here, node-0 has node-1 and node-2 as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree: Mother / \ / \ daughter Son / \ _ daughter Let’s first define the type binary tree - we would call it just tree. type 'a tree = | Leaf | Node of 'a tree * 'a * 'a tree;; This just defines the type 'a tree - as noted in one of our earlier posts ‘a is like any - we could have integer trees, string trees, etc. that would take different type values. So, a tree could either be a Leaf or another tree composed of two child trees and a root node ('a). Now we can create a new empty tree with just a Leaf: let t = Leaf;; (* val t : 'a tree = Leaf *) Or we could create a tree with a root node and two child nodes, which themselves are trees with children: let t2 = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf)));; (* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *) I know it looks awkward, but let’s decompose it and understand. Node (Leaf, 3, Leaf) is one tree. Let’s call it C. Node (Leaf, 2, C) is the next tree - Let’s call this guy B. Node (Leaf, 1, B) is the other one. So, we have something like this: 1 / \ / \ leaf 2 | / \ | / \ | -&amp;gt; B leaf 3 | | / \ |-&amp;gt; C | / \ | | leaf leaf | | In the following post, we will write a functions to interact with this structure.</summary>
       
 
       

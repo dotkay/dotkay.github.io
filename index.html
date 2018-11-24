@@ -384,6 +384,176 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/11/02/linked-list-insertion/">Linked Lists &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 2, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Having introduced linked lists in our <a href="https://dotkay.github.io/2017/11/01/linked-lists-intro">previous post</a>, 
+let us look at some operations on such a data structure. Specifically, let us look at how to insert a new item (a new <em>node</em>) to a linked list. Typically, we start with an empty linked list (denoted by just one node, the NULL node) and grow it by adding more and more items. The usual approach to adding a new item is to form a node (the building block) for the new item and then attach the item to a position in the linked list - by default we choose to add it to the head.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">insert_item</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">item</span><span class="p">);</span> <span class="c1">// form the building block
+</span>  <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>     <span class="c1">// set the next pointer
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>           <span class="c1">// make new node the head
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span><span class="o">++</span><span class="p">;</span>                  <span class="c1">// update the length
+</span><span class="p">}</span></code></pre></figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/11/01/linked-lists-intro/">Linked Lists &rarr;</a>
           </h1>
 
@@ -742,128 +912,6 @@
 </blockquote>
 
 <p>So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/10/08/mod-arith/">Modular Arithmetic &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Oct 8, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/modular-arithmetic/">modular arithmetic</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let us chat about <em>Modular Arithmetic</em> - let’s start with a fun question that I actually happened to read in one of my textbooks on Algorithms.</p>
-
-<blockquote>
-  <p>Suppose you binge watch an entire season of some television show in one sitting, starting at midnight and suppose there are 25 episodes of the show, each lasting 3 hours. At what time of the day will you be done?</p>
-</blockquote>
-
-<p>So, you start at midnight and watch for <code class="highlighter-rouge">25 x 3 = 75</code> hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute <em>modulo 24</em> and <code class="highlighter-rouge">75 mod 24  = 3</code> and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range <code class="highlighter-rouge"><span class="p">{</span><span class="err">0,</span><span class="w"> </span><span class="err">1,</span><span class="w"> </span><span class="err">...,</span><span class="w"> </span><span class="err">N-1</span><span class="p">}</span></code>.</p>
-
-<p>Modular arithmetic has some beautiful properties that are very useful in several application domains, especially cryptography. We will get to learn about them in future posts.</p>
 
         </div>
         
