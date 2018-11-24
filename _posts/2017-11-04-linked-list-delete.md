@@ -23,7 +23,7 @@ and we are asked to delete the element at index 2 (its data being 21). We not on
 In order to do this algorithmically, we keep track of two nodes, the current one (iterator denoted _it_ in code below) and the previous node (denoted _prev_ in code fragment below). As we traverse the list looking for the item at index, we decrement the index and once we find it, we rearrange the pointers - in particular, we set delete the node and attach _prev_ to the rest of the linked list that followed the deleted node (i.e., the list pointed to by the deleted node's next). Besides, we also need to handle cases when the index is '0', i.e. we are trying to delete the first node or if the given index does not exist at all. A visual sketch is given below, followed by the method to perform the deletion.
 
 <br>
-![Linked List](/assets/images/data_structures/linked_list_delte.png){:class="img=responsive"}
+![Linked List](/assets/images/data_structures/linked_list_delete.png){:class="img=responsive"}
 
 {% highlight cpp %}
 void LinkedList::delete_at_index (int index) {
