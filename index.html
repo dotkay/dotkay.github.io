@@ -550,7 +550,7 @@
 <p>In order to do this algorithmically, we keep track of two nodes, the current one (iterator denoted <em>it</em> in code below) and the previous node (denoted <em>prev</em> in code fragment below). As we traverse the list looking for the item at index, we decrement the index and once we find it, we rearrange the pointers - in particular, we set delete the node and attach <em>prev</em> to the rest of the linked list that followed the deleted node (i.e., the list pointed to by the deleted node’s next). Besides, we also need to handle cases when the index is ‘0’, i.e. we are trying to delete the first node or if the given index does not exist at all. A visual sketch is given below, followed by the method to perform the deletion.</p>
 
 <p><br />
-<img src="/assets/images/data_structures/linked_list_delte.png" alt="Linked List" class="img=responsive" /></p>
+<img src="/assets/images/data_structures/linked_list_delete.png" alt="Linked List" class="img=responsive" /></p>
 
 <figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">delete_at_index</span> <span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
