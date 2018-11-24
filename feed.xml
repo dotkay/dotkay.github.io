@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-24T19:19:30+00:00</updated>
+  <updated>2018-11-24T19:48:58+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,65 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Linked Lists - Print me (R)! →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/06/linked-list-print-rec/" rel="alternate" type="text/html" title="Linked Lists - Print me (R)!" />
+      <published>2017-11-06T00:00:00+00:00</published>
+      <updated>2017-11-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/06/linked-list-print-rec</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/06/linked-list-print-rec/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/11/05/linked-list-print&quot;&gt;previous post&lt;/a&gt; we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do it in a fancy recursive way. This should remind you of our &lt;a href=&quot;https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/&quot;&gt;earlier posts&lt;/a&gt; on recursion, just that now we are in C++ world.&lt;/p&gt;
+
+&lt;p&gt;As we saw when we taught ourselves recursion using a more intuitive programming paradigm (functional programming using OCaml programming language), in any recursive function, we need to take care of:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Base case&lt;/li&gt;
+  &lt;li&gt;Recursive step&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In this example, the base case is just an empty list (&lt;em&gt;NULL&lt;/em&gt;) and the recursive step is to just print the item as long as the list doesn’t fall into the base case.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_list_r&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;// base case
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;NULL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// move forward
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_list_r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// recursive call
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &amp;lt;- &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// print 
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It is very important to understand this and our &lt;a href=&quot;https://dotkay.github.io/2017/11/05/linked-list-print&quot;&gt;previous post&lt;/a&gt; as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="linked lists" />
+      
+
+      
+
+      
+        <summary type="html">In our previous post we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do it in a fancy recursive way. This should remind you of our earlier posts on recursion, just that now we are in C++ world. As we saw when we taught ourselves recursion using a more intuitive programming paradigm (functional programming using OCaml programming language), in any recursive function, we need to take care of: Base case Recursive step In this example, the base case is just an empty list (NULL) and the recursive step is to just print the item as long as the list doesn’t fall into the base case. void LinkedList::print_list_r () { Node *it = this-&amp;gt;head; if (it == NULL) { // base case cout &amp;lt;&amp;lt; &quot;NULL&quot;; return; } this-&amp;gt;head = it-&amp;gt;next; // move forward this-&amp;gt;print_list_r(); // recursive call cout &amp;lt;&amp;lt; &quot; &amp;lt;- &quot; &amp;lt;&amp;lt; it-&amp;gt;data; // print } It is very important to understand this and our previous post as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!</summary>
       
 
       
@@ -1163,65 +1222,6 @@ BAA  (*)
 
       
         <summary type="html">Let’s continue with our data from previous post and try to look at one more fancy function from the seaborn library. In particular, we will use seaborn’s swarmplot function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. pokemon_colors is just an array of colours for different pokemon classes. sns.swarmplot(x='Type 1', y='Attack', data=df, palette=pokemon_colors) And here’s the result:</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Playing with some more Pokemon data →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis/" rel="alternate" type="text/html" title="Playing with some more Pokemon data" />
-      <published>2017-09-26T00:00:00+00:00</published>
-      <updated>2017-09-26T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis/">&lt;p&gt;Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in &lt;a href=&quot;https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1&quot;&gt;this post&lt;/a&gt;. Today, along with the other libraries, we will also use &lt;a href=&quot;https://seaborn.pydata.org/&quot;&gt;seaborn&lt;/a&gt; to make fancy plots very quickly.&lt;/p&gt;
-
-&lt;p&gt;Let’s do the initial imports as before, this time also importing &lt;code class=&quot;highlighter-rouge&quot;&gt;seaborn&lt;/code&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;plt&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;seaborn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sns&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let’s grab the data-set and try to see the &lt;code class=&quot;highlighter-rouge&quot;&gt;Attack&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;Defense&lt;/code&gt; scores of the different generations of Pokemons.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# read the dataset&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Pokemon.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index_col&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lmplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Attack'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Defense'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-           &lt;span class=&quot;n&quot;&gt;fit_reg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-           &lt;span class=&quot;n&quot;&gt;hue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Generation'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# specify the axes limits&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set &lt;code class=&quot;highlighter-rouge&quot;&gt;fit_reg&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt; in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_science/attack_defense_pokemons.png&quot; alt=&quot;Attack and Defense Scores of Generations of Pokemons&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="data analysis" />
-      
-        <category term="python" />
-      
-
-      
-
-      
-        <summary type="html">Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in this post. Today, along with the other libraries, we will also use seaborn to make fancy plots very quickly. Let’s do the initial imports as before, this time also importing seaborn import pandas as pd import matplotlib.pyplot as plt import seaborn as sns Let’s grab the data-set and try to see the Attack and Defense scores of the different generations of Pokemons. # read the dataset df = pd.read_csv('Pokemon.csv', index_col=0) sns.lmplot(x='Attack', y='Defense', data=df, fit_reg=False, hue='Generation') # specify the axes limits plt.ylim(0,250) plt.xlim(0,200) Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set fit_reg to False in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</summary>
       
 
       

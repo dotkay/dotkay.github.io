@@ -384,6 +384,188 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/11/06/linked-list-print-rec/">Linked Lists - Print me (R)! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 6, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In our <a href="https://dotkay.github.io/2017/11/05/linked-list-print">previous post</a> we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do it in a fancy recursive way. This should remind you of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">earlier posts</a> on recursion, just that now we are in C++ world.</p>
+
+<p>As we saw when we taught ourselves recursion using a more intuitive programming paradigm (functional programming using OCaml programming language), in any recursive function, we need to take care of:</p>
+<ol>
+  <li>Base case</li>
+  <li>Recursive step</li>
+</ol>
+
+<p>In this example, the base case is just an empty list (<em>NULL</em>) and the recursive step is to just print the item as long as the list doesn’t fall into the base case.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list_r</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// base case
+</span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NULL"</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>       <span class="c1">// move forward
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">print_list_r</span><span class="p">();</span>        <span class="c1">// recursive call
+</span>  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>  <span class="c1">// print 
+</span><span class="p">}</span></code></pre></figure>
+
+<p>It is very important to understand this and our <a href="https://dotkay.github.io/2017/11/05/linked-list-print">previous post</a> as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/11/05/linked-list-print/">Linked Lists - Print me! &rarr;</a>
           </h1>
 
@@ -751,178 +933,6 @@
     <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="k">delete</span> <span class="n">it</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/03/linked-list-find/">Linked Lists - Find me! &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 3, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/linked-lists/">linked lists</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In this post, let us see how to find if a given item exists in the linked list. Conceptually, it is very simple - just go through the nodes one by one and see if the data matches the item given as input. But, where do we start the traversal from? This is what we use the <em>head</em> pointer for. And when do we stop? Obviously, if we find the item we are looking for, we stop. We might also not find the item at all, in which case we traverse all of the list until we hit the <em>NULL</em> node (that indicates the end of the list).</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">find</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
 <span class="p">}</span></code></pre></figure>
 
         </div>
