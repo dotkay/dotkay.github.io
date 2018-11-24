@@ -11,7 +11,7 @@ Let us look at some fundamental data structures which are just a collection of p
 Here, we are interested in _Linked Lists_ which are just a collection (_list_) made by linking together some data-types (_node_). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a _node_ and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better.
 
 <br>
-![Linked List](/assets/images/data_structures/linked_lists_intro.png){:class="img=responsive"}
+![Linked List](/assets/images/data_structures/linked_lists_intro.png =200px){:class="img=responsive"}
 
 Here is how you would describe a node and a linked list as C++ classes:
 
