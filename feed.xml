@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-24T15:16:58+00:00</updated>
+  <updated>2018-11-24T15:24:15+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -103,9 +103,9 @@
   
     <entry>
       
-      <title type="html">Linked Lists →</title>
+      <title type="html">Linked Lists - Find me! →</title>
       
-      <link href="https://dotkay.github.io/2017/11/03/linked-list-find/" rel="alternate" type="text/html" title="Linked Lists" />
+      <link href="https://dotkay.github.io/2017/11/03/linked-list-find/" rel="alternate" type="text/html" title="Linked Lists - Find me!" />
       <published>2017-11-03T00:00:00+00:00</published>
       <updated>2017-11-03T00:00:00+00:00</updated>
       <id>https://dotkay.github.io/2017/11/03/linked-list-find</id>
@@ -152,9 +152,9 @@
   
     <entry>
       
-      <title type="html">Linked Lists →</title>
+      <title type="html">Linked Lists - Add me! →</title>
       
-      <link href="https://dotkay.github.io/2017/11/02/linked-list-insertion/" rel="alternate" type="text/html" title="Linked Lists" />
+      <link href="https://dotkay.github.io/2017/11/02/linked-list-insertion/" rel="alternate" type="text/html" title="Linked Lists - Add me!" />
       <published>2017-11-02T00:00:00+00:00</published>
       <updated>2017-11-02T00:00:00+00:00</updated>
       <id>https://dotkay.github.io/2017/11/02/linked-list-insertion</id>
