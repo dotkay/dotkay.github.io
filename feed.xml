@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-24T16:05:30+00:00</updated>
+  <updated>2018-11-24T16:06:27+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,85 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Linked Lists - Delete me! →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/04/linked-list-delete/" rel="alternate" type="text/html" title="Linked Lists - Delete me!" />
+      <published>2017-11-04T00:00:00+00:00</published>
+      <updated>2017-11-04T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/04/linked-list-delete</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/04/linked-list-delete/">&lt;p&gt;Now, let us progress with looking at slightly more complicated operations. In our &lt;a href=&quot;&quot;&gt;previous post&lt;/a&gt;, we saw &lt;em&gt;find&lt;/em&gt; operation that required us to traverse the list, but we needed to keep track of only one element while traversing - just match the element with the item we are trying to find and see if we found. But in some cases, we may have to keep track of more than one element - this is because we need to rearrange the pointers. Suppose, we have the following linked list with 4 elements:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;19  -&amp;gt;  49  -&amp;gt;  21  -&amp;gt;  17  -&amp;gt;  NULL
+(0)     (1)     (2)     (3)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;and we are asked to delete the element at index 2 (its data being 21). We not only need to keep track of the current element to be deleted, we need to remember the previous element (in this case the one at index 1 with value 49) because this would point to 17 after deleting the one at index 2. Specifically, after the deletion, the linked list would look like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;19  -&amp;gt;  49  -&amp;gt;  17  -&amp;gt;  NULL
+(0)     (1)     (2)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In order to do this algorithmically, we keep track of two nodes, the current one (iterator denoted &lt;em&gt;it&lt;/em&gt; in code below) and the previous node (denoted &lt;em&gt;prev&lt;/em&gt; in code fragment below). As we traverse the list looking for the item at index, we decrement the index and once we find it, we rearrange the pointers - in particular, we set delete the node and attach &lt;em&gt;prev&lt;/em&gt; to the rest of the linked list that followed the deleted node (i.e., the list pointed to by the deleted node’s next). Besides, we also need to handle cases when the index is ‘0’, i.e. we are trying to delete the first node or if the given index does not exist at all. A visual sketch is given below, followed by the method to perform the deletion.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_structures/linked_list_delte.png&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete_at_index&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Index out of range for the linkedlist&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;:: index: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;:&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; (prev-&amp;gt;data, it-&amp;gt;data) : &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="linked lists" />
+      
+
+      
+
+      
+        <summary type="html">Now, let us progress with looking at slightly more complicated operations. In our previous post, we saw find operation that required us to traverse the list, but we needed to keep track of only one element while traversing - just match the element with the item we are trying to find and see if we found. But in some cases, we may have to keep track of more than one element - this is because we need to rearrange the pointers. Suppose, we have the following linked list with 4 elements: 19 -&amp;gt; 49 -&amp;gt; 21 -&amp;gt; 17 -&amp;gt; NULL (0) (1) (2) (3) and we are asked to delete the element at index 2 (its data being 21). We not only need to keep track of the current element to be deleted, we need to remember the previous element (in this case the one at index 1 with value 49) because this would point to 17 after deleting the one at index 2. Specifically, after the deletion, the linked list would look like this: 19 -&amp;gt; 49 -&amp;gt; 17 -&amp;gt; NULL (0) (1) (2) In order to do this algorithmically, we keep track of two nodes, the current one (iterator denoted it in code below) and the previous node (denoted prev in code fragment below). As we traverse the list looking for the item at index, we decrement the index and once we find it, we rearrange the pointers - in particular, we set delete the node and attach prev to the rest of the linked list that followed the deleted node (i.e., the list pointed to by the deleted node’s next). Besides, we also need to handle cases when the index is ‘0’, i.e. we are trying to delete the first node or if the given index does not exist at all. A visual sketch is given below, followed by the method to perform the deletion. void LinkedList::delete_at_index (int index) { if (index &amp;gt;= this-&amp;gt;length || index &amp;lt; 0) throw out_of_range(&quot;Index out of range for the linkedlist&quot;); Node *it = this-&amp;gt;head; Node *prev = NULL; while (it != NULL) { cout &amp;lt;&amp;lt; &quot;:: index: &quot; &amp;lt;&amp;lt; index &amp;lt;&amp;lt; &quot;:&quot;; if (index == 0) break; index--; prev = it; it = it-&amp;gt;next; cout &amp;lt;&amp;lt; &quot; (prev-&amp;gt;data, it-&amp;gt;data) : &quot; &amp;lt;&amp;lt; prev-&amp;gt;data &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; it-&amp;gt;data &amp;lt;&amp;lt; endl; } if (prev == NULL) { this-&amp;gt;head = it-&amp;gt;next; delete it; } else { prev-&amp;gt;next = it-&amp;gt;next; delete it; } }</summary>
       
 
       
@@ -1150,52 +1229,6 @@ BAA  (*)
 
       
         <summary type="html">In a previous post, we saw binary trees. Today, we will see Binary Search Trees (BST). The key difference is that when we insert nodes into our tree, we make sure the items whose values are less than that of the root are added to the left sub-tree and the ones whose values are greater than that of the root are added to the right sub-tree. Let’s start by defining our data structure. The definition is the same as our earlier tree definition. Just for the sake of clarity let’s call our type bst. type 'a bst = | Leaf | Node of 'a tree * 'a * 'a tree;; Now, for inserting an element into our tree, we wouldn’t just insert the element as we did earlier, but we shall compare the element to the root and decide which of the sub-trees (left or right) we want to insert our new item to. This looks like a very small difference - but it has huge implications for search. let rec insert x bst = match bst with | Leaf -&amp;gt; Node (Leaf, x, Leaf) | Node (left, n, right) -&amp;gt; if (x &amp;lt; n) then Node (insert x left, n, right) else Node (left, n, insert x right);; Let’s also write the function to create a bst from an input list, which again is the same as before: let rec make_bst lst = let empty = Leaf in match lst with | [] -&amp;gt; empty | h::t -&amp;gt; insert h (make_bst t);; In future posts, we will see the different ways we can traverse this tree.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">An interesting podcast on failure! →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/24/interesting-podcast-on-failure/" rel="alternate" type="text/html" title="An interesting podcast on failure!" />
-      <published>2017-09-24T00:00:00+00:00</published>
-      <updated>2017-09-24T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/24/interesting-podcast-on-failure</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/24/interesting-podcast-on-failure/">&lt;p&gt;Just as I am introspecting whether there’s anything I have done that I can call ‘success’, I happened to listen to this interesting podcast on &lt;em&gt;Failure&lt;/em&gt; in TED Radio hour. There is a lot to think about - &lt;em&gt;success&lt;/em&gt;, &lt;em&gt;impact&lt;/em&gt;, &lt;em&gt;power&lt;/em&gt; - we know these attractive words and we probably have been measuring each of this using a completely wrong yard-stick. If we start thinking about the times we have failed and failed miserably, and how we have overcome some of the disastrous failures (that’s actually our &lt;em&gt;success&lt;/em&gt; but we fail to realize it that way…), that is what prepares us for success and makes us powerful.&lt;/p&gt;
-
-&lt;p&gt;For those interested, below is a link to the podcast:&lt;/p&gt;
-
-&lt;audio controls=&quot;&quot;&gt;
-&lt;source src=&quot;https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/09/20170921_ted_failure.mp3&quot; /&gt; 
-&lt;/audio&gt;
-&lt;p&gt;&lt;br /&gt;
-Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="Failure" />
-      
-        <category term="NPR" />
-      
-        <category term="TED" />
-      
-
-      
-
-      
-        <summary type="html">Just as I am introspecting whether there’s anything I have done that I can call ‘success’, I happened to listen to this interesting podcast on Failure in TED Radio hour. There is a lot to think about - success, impact, power - we know these attractive words and we probably have been measuring each of this using a completely wrong yard-stick. If we start thinking about the times we have failed and failed miserably, and how we have overcome some of the disastrous failures (that’s actually our success but we fail to realize it that way…), that is what prepares us for success and makes us powerful. For those interested, below is a link to the podcast: Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.</summary>
       
 
       

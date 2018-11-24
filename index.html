@@ -384,6 +384,208 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/11/04/linked-list-delete/">Linked Lists - Delete me! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 4, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Now, let us progress with looking at slightly more complicated operations. In our <a href="">previous post</a>, we saw <em>find</em> operation that required us to traverse the list, but we needed to keep track of only one element while traversing - just match the element with the item we are trying to find and see if we found. But in some cases, we may have to keep track of more than one element - this is because we need to rearrange the pointers. Suppose, we have the following linked list with 4 elements:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>19  -&gt;  49  -&gt;  21  -&gt;  17  -&gt;  NULL
+(0)     (1)     (2)     (3)
+</code></pre>
+</div>
+
+<p>and we are asked to delete the element at index 2 (its data being 21). We not only need to keep track of the current element to be deleted, we need to remember the previous element (in this case the one at index 1 with value 49) because this would point to 17 after deleting the one at index 2. Specifically, after the deletion, the linked list would look like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>19  -&gt;  49  -&gt;  17  -&gt;  NULL
+(0)     (1)     (2)
+</code></pre>
+</div>
+
+<p>In order to do this algorithmically, we keep track of two nodes, the current one (iterator denoted <em>it</em> in code below) and the previous node (denoted <em>prev</em> in code fragment below). As we traverse the list looking for the item at index, we decrement the index and once we find it, we rearrange the pointers - in particular, we set delete the node and attach <em>prev</em> to the rest of the linked list that followed the deleted node (i.e., the list pointed to by the deleted node’s next). Besides, we also need to handle cases when the index is ‘0’, i.e. we are trying to delete the first node or if the given index does not exist at all. A visual sketch is given below, followed by the method to perform the deletion.</p>
+
+<p><br />
+<img src="/assets/images/data_structures/linked_list_delte.png" alt="Linked List" class="img=responsive" /></p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">delete_at_index</span> <span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Index out of range for the linkedlist"</span><span class="p">);</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">prev</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">":: index: "</span> <span class="o">&lt;&lt;</span> <span class="n">index</span> <span class="o">&lt;&lt;</span> <span class="s">":"</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="n">index</span><span class="o">--</span><span class="p">;</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="n">it</span><span class="p">;</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" (prev-&gt;data, it-&gt;data) : "</span> <span class="o">&lt;&lt;</span> <span class="n">prev</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">prev</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="n">it</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="n">it</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/11/03/linked-list-find/">Linked Lists - Find me! &rarr;</a>
           </h1>
 
@@ -715,194 +917,6 @@ let us look at some operations on such a data structure. Specifically, let us lo
 </span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span><span class="o">++</span><span class="p">;</span>                  <span class="c1">// update the length
 </span><span class="p">}</span></code></pre></figure>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/01/linked-lists-intro/">Linked Lists &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 1, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/linked-lists/">linked lists</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let us look at some fundamental data structures which are just a collection of primitive data types. For example, an array of integers is a collection of integers, a string is a collection of characters, etc.</p>
-
-<p>Here, we are interested in <em>Linked Lists</em> which are just a collection (<em>list</em>) made by linking together some data-types (<em>node</em>). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a <em>node</em> and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better.</p>
-
-<p><br />
-<img src="/assets/images/data_structures/linked_lists_intro.png" alt="Linked List" class="img=responsive" /></p>
-
-<p>Here is how you would describe a node and a linked list as C++ classes:</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
-    <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
-  <span class="k">public</span><span class="o">:</span> 
-    <span class="n">Node</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-<span class="p">};</span></code></pre></figure>
-
-<p>We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">LinkedList</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
-    <span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>
-  <span class="c1">// constructors and member functions
-</span>  <span class="p">...</span></code></pre></figure>
-
-<p><br />
-<img src="/assets/images/data_structures/linked_lists_intro2.png" alt="Linked List" class="img=responsive" /></p>
 
         </div>
         
