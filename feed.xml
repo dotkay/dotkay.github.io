@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-24T19:48:58+00:00</updated>
+  <updated>2018-11-25T02:24:34+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,79 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Linked Lists - Reverse me! →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/07/linked-list-print-reverse/" rel="alternate" type="text/html" title="Linked Lists - Reverse me!" />
+      <published>2017-11-07T00:00:00+00:00</published>
+      <updated>2017-11-07T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/07/linked-list-print-reverse</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/07/linked-list-print-reverse/">&lt;p&gt;In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an &lt;em&gt;iterative&lt;/em&gt; fashion. Suppose we start with the following input list:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1  --&amp;gt;  2  --&amp;gt;  3  --&amp;gt;  NULL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;After performing a reversal we should end up with the following result:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3  --&amp;gt;  2  --&amp;gt;  1  --&amp;gt;  NULL
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Conceptually, we are reversing the pointers (turing around the arrows). In our data structure, these are denoted by the &lt;em&gt;next&lt;/em&gt; pointer of each node. So, it is actually just setting the &lt;em&gt;next&lt;/em&gt; pointer of the current node to point to the previous node in the list. For example, if our current node is &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; and its &lt;em&gt;next&lt;/em&gt; pointer is pointing to node &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; originally, we want our function to make the next pointer of &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; to point to &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;. We are remembering the previous node just as in our &lt;a href=&quot;https://dotkay.github.io/2017/11/04/linked-list-delete&quot;&gt;previous example&lt;/a&gt; to delete a node. It looks like that’s all to it:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curr-&amp;gt;next = prev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But as soon as we set the &lt;em&gt;next&lt;/em&gt; pointer of &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; to point to &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;, we lost the connection to the rest of the list following &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;3  --&amp;gt;  NULL&lt;/code&gt;). Intuitively, to get over this, we need to remember more than just the previous node in the list - we also need to keep track of the next node (a handle to the next node so that we do not lose the rest of the list after we turn the current node’s &lt;em&gt;next&lt;/em&gt; pointer). Once you have a grasp of this intuition the coding it up is straight-forward. For better clarity, let us also work through a simple example (with 3 elements as above) following the function definition below:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reverse_list&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// get the next element
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// link in reverse direction 
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// move ahead - set new prev, curr  
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_structures/linked_list_reverse_iter.png&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, you get it!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="linked lists" />
+      
+
+      
+
+      
+        <summary type="html">In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an iterative fashion. Suppose we start with the following input list: 1 --&amp;gt; 2 --&amp;gt; 3 --&amp;gt; NULL After performing a reversal we should end up with the following result: 3 --&amp;gt; 2 --&amp;gt; 1 --&amp;gt; NULL Conceptually, we are reversing the pointers (turing around the arrows). In our data structure, these are denoted by the next pointer of each node. So, it is actually just setting the next pointer of the current node to point to the previous node in the list. For example, if our current node is 2 and its next pointer is pointing to node 3 originally, we want our function to make the next pointer of 2 to point to 1. We are remembering the previous node just as in our previous example to delete a node. It looks like that’s all to it: curr-&amp;gt;next = prev But as soon as we set the next pointer of 2 to point to 1, we lost the connection to the rest of the list following 2 (3 --&amp;gt; NULL). Intuitively, to get over this, we need to remember more than just the previous node in the list - we also need to keep track of the next node (a handle to the next node so that we do not lose the rest of the list after we turn the current node’s next pointer). Once you have a grasp of this intuition the coding it up is straight-forward. For better clarity, let us also work through a simple example (with 3 elements as above) following the function definition below: void LinkedList::reverse_list () { Node *prev = NULL; Node *next; Node *curr = this-&amp;gt;head; while (curr != NULL) { next = curr-&amp;gt;next; // get the next element curr-&amp;gt;next = prev; // link in reverse direction prev = curr; // move ahead - set new prev, curr curr = next; } this-&amp;gt;head = prev; } Now, you get it!</summary>
       
 
       
@@ -1178,50 +1251,6 @@ BAA  (*)
 
       
         <summary type="html">Lately, I have been pondering a lot about happiness and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from Kaggle that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let’s start with 2015 data, as that’s what I analyzed first. Again, we will use Pandas library for data analysis and seaborn library to plot the data and make our inference from the plots. Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation. df_2015 = pd.read_csv('2015.csv') sns.swarmplot(y='Region', x='Happiness Score', data=df_2015) plt.ylabel('Region of the World', fontsize=14, fontweight='bold') plt.xlabel('Happiness Score',fontsize=14, fontweight='bold') And here is what we see: Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know). sns.lmplot(y='Health (Life Expectancy)', x='Happiness Score', fit_reg=False, data=df_2015, hue='Region') plt.ylabel('Life Expectancy', fontsize=14, fontweight='bold') plt.xlabel('Happiness Score',fontsize=14, fontweight='bold') And here’s the result: More on individual countries in a later post.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Analyzing some more Pokemon data →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/27/analyzing-some-more-pokemon-data/" rel="alternate" type="text/html" title="Analyzing some more Pokemon data" />
-      <published>2017-09-27T00:00:00+00:00</published>
-      <updated>2017-09-27T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/27/analyzing-some-more-pokemon-data</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/27/analyzing-some-more-pokemon-data/">&lt;p&gt;Let’s continue with our data from &lt;a href=&quot;https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis&quot;&gt;previous post&lt;/a&gt; and try to look at one more fancy function from the &lt;a href=&quot;https://seaborn.pydata.org/&quot;&gt;seaborn&lt;/a&gt; library. In particular, we will use seaborn’s &lt;code class=&quot;highlighter-rouge&quot;&gt;swarmplot&lt;/code&gt; function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. &lt;code class=&quot;highlighter-rouge&quot;&gt;pokemon_colors&lt;/code&gt; is just an array of colours for different pokemon classes.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;swarmplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Type 1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Attack'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-              &lt;span class=&quot;n&quot;&gt;palette&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pokemon_colors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;And here’s the result:&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_science/type1_pokemon_attack_scores.png&quot; alt=&quot;Attack and Defense Scores of Generations of Pokemons&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="data analysis" />
-      
-        <category term="python" />
-      
-
-      
-
-      
-        <summary type="html">Let’s continue with our data from previous post and try to look at one more fancy function from the seaborn library. In particular, we will use seaborn’s swarmplot function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. pokemon_colors is just an array of colours for different pokemon classes. sns.swarmplot(x='Type 1', y='Attack', data=df, palette=pokemon_colors) And here’s the result:</summary>
       
 
       

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Linked Lists - Reverse me!</title>
+  <meta name="description" content="In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an iterative fashion. Suppose we start with the following input list: 1 --&amp;gt; 2 --&amp;gt; 3 --&amp;gt; NULL After performing a reversal we should end up with the following result: 3 --&amp;gt; 2 --&amp;gt; 1 --&amp;gt; NULL Conceptually, we are reversing the pointers (turing around the arrows). In our data structure, these are denoted by the next pointer of each node. So, it is actually just setting the next pointer of the current node to point to the previous node in the list. For example, if our current node is 2 and its next pointer is pointing to node 3 originally, we want our function to make the next pointer of 2 to point to 1. We are remembering the previous node just as in our previous example to delete a node. It looks like that’s all to it: curr-&amp;gt;next = prev But as soon as we set the next pointer of 2 to point to 1, we lost the connection to the rest of the list following 2 (3 --&amp;gt; NULL). Intuitively, to get over this, we need to remember more than just the previous node in the list - we also need to keep track of the next node (a handle to the next node so that we do not lose the rest of the list after we turn the current node’s next pointer). Once you have a grasp of this intuition the coding it up is straight-forward. For better clarity, let us also work through a simple example (with 3 elements as above) following the function definition below: void LinkedList::reverse_list () { Node *prev = NULL; Node *next; Node *curr = this-&amp;gt;head; while (curr != NULL) { next = curr-&amp;gt;next; // get the next element curr-&amp;gt;next = prev; // link in reverse direction prev = curr; // move ahead - set new prev, curr curr = next; } this-&amp;gt;head = prev; } Now, you get it!">
+  
+    
+    <meta name="keywords" content="C++, data structures, linked lists">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/11/07/linked-list-print-reverse/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Linked Lists - Reverse me!">
+  <meta name="twitter:description" content="In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an iterative fashion. Suppose we start with the following input list: 1 --&amp;gt; 2 --&amp;...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/11/07/linked-list-reverse">Linked Lists - Reverse me! &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-11-07T00:00:00+00:00" itemprop="datePublished">Nov 7, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an <em>iterative</em> fashion. Suppose we start with the following input list:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1  --&gt;  2  --&gt;  3  --&gt;  NULL
+</code></pre>
+</div>
+<p>After performing a reversal we should end up with the following result:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>3  --&gt;  2  --&gt;  1  --&gt;  NULL
+</code></pre>
+</div>
+
+<p>Conceptually, we are reversing the pointers (turing around the arrows). In our data structure, these are denoted by the <em>next</em> pointer of each node. So, it is actually just setting the <em>next</em> pointer of the current node to point to the previous node in the list. For example, if our current node is <code class="highlighter-rouge">2</code> and its <em>next</em> pointer is pointing to node <code class="highlighter-rouge">3</code> originally, we want our function to make the next pointer of <code class="highlighter-rouge">2</code> to point to <code class="highlighter-rouge">1</code>. We are remembering the previous node just as in our <a href="https://dotkay.github.io/2017/11/04/linked-list-delete">previous example</a> to delete a node. It looks like that’s all to it:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curr-&gt;next = prev
+</code></pre>
+</div>
+
+<p>But as soon as we set the <em>next</em> pointer of <code class="highlighter-rouge">2</code> to point to <code class="highlighter-rouge">1</code>, we lost the connection to the rest of the list following <code class="highlighter-rouge">2</code> (<code class="highlighter-rouge">3  --&gt;  NULL</code>). Intuitively, to get over this, we need to remember more than just the previous node in the list - we also need to keep track of the next node (a handle to the next node so that we do not lose the rest of the list after we turn the current node’s <em>next</em> pointer). Once you have a grasp of this intuition the coding it up is straight-forward. For better clarity, let us also work through a simple example (with 3 elements as above) following the function definition below:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">reverse_list</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">prev</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">curr</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">curr</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">next</span> <span class="o">=</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// get the next element
+</span>    <span class="n">curr</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">prev</span><span class="p">;</span> <span class="c1">// link in reverse direction 
+</span>    <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span><span class="p">;</span>       <span class="c1">// move ahead - set new prev, curr  
+</span>    <span class="n">curr</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">prev</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><br />
+<img src="/assets/images/data_structures/linked_list_reverse_iter.png" alt="Linked List" class="img=responsive" /></p>
+
+<p>Now, you get it!</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
