@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Linked Lists - Reverse me (R)!</title>
+  <meta name="description" content="In our previous post, we looked at an iterative function to reverse a linked list. I believe it was a lot of fun. Now, we shall look at a recursive function to do the same. As before, whenever you hear recursion, you should just think of the base case and the recursive steps (i.e. what is to be done in each recursive step - like printing the node’s data in our recursive print function) - once this is clear, the rest would be straight forward. For reversing a linked list, at each recursive step, we need to update the pointer directions - if there is a pointer C --&amp;gt; D, after the recursive call it would be C &amp;lt;-- D. We keep track of two pointers, head and rest (everything following head) - and recursively call the function. void LinkedList::reverse_list_r () { Node *rest = NULL; Node *first = NULL; first = this-&amp;gt;head; rest = first-&amp;gt;next; if (first == NULL || rest == NULL) return; // base case this-&amp;gt;head = rest; // move forward this-&amp;gt;reverse_list_r (); // recursive call rest-&amp;gt;next = first; // update pointers first-&amp;gt;next = NULL; } I will leave it as an (interesting) exercise for the reader to work out this function as we did for the iterative case.">
+  
+    
+    <meta name="keywords" content="C++, data structures, linked lists">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/11/08/linked-list-print-reverse-rec/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Linked Lists - Reverse me (R)!">
+  <meta name="twitter:description" content="In our previous post, we looked at an iterative function to reverse a linked list. I believe it was a lot of fun. Now, we shall look at a recursive function to do the same. As before, whenever you ...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/11/08/linked-list-reverse-rec">Linked Lists - Reverse me (R)! &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-11-08T00:00:00+00:00" itemprop="datePublished">Nov 8, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In our <a href="https://dotkay.github.io/2017/11/07/linked-list-reverse">previous post</a>, we looked at an iterative function to reverse a linked list. I believe it was a lot of fun. Now, we shall look at a recursive function to do the same. As before, whenever you hear recursion, you should just think of the base case and the recursive steps (i.e. what is to be done in each recursive step - like printing the node’s data in our <a href="https://dotkay.github.io/2017/11/06/linked-list-print-rec">recursive print function</a>) - once this is clear, the rest would be straight forward. For reversing a linked list, at each recursive step, we need to update the pointer directions - if there is a pointer <code class="highlighter-rouge">C  --&gt;  D</code>, after the recursive call it would be <code class="highlighter-rouge">C  &lt;--  D</code>. We keep track of two pointers, <code class="highlighter-rouge">head</code> and <code class="highlighter-rouge">rest</code> (everything following <code class="highlighter-rouge">head</code>) - and recursively call the function.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">reverse_list_r</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">first</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">first</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+  <span class="n">rest</span> <span class="o">=</span> <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">rest</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>                   <span class="c1">// base case
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">rest</span><span class="p">;</span>          <span class="c1">// move forward
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">reverse_list_r</span> <span class="p">();</span>    <span class="c1">// recursive call  
+</span>  <span class="n">rest</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>         <span class="c1">// update pointers
+</span>  <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>I will leave it as an (interesting) exercise for the reader to work out this function as we did for the iterative case.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
