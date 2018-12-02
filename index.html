@@ -561,7 +561,12 @@
     <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
     <span class="kt">int</span> <span class="n">dequeue</span> <span class="p">();</span>
     <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
-<span class="p">};</span></code></pre></figure>
+<span class="p">};</span>
+
+<span class="n">Queue</span><span class="o">::</span><span class="n">Queue</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">front</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">rear</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>We have two private members - <em>front</em> and <em>rear</em> - <em>front</em> gets served first. Objects get added to the container using the <em>enqueue()</em> method and they get processed in FIFO order using <em>dequeue()</em> method. We will look at these operations in future posts.</p>
 

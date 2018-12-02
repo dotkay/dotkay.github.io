@@ -9,7 +9,7 @@
   
   
   <title>Queues</title>
-  <meta name="description" content="Let’s look at another important data structure - the Queue. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called FIFO (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array: #define MAXSIZE 100 class Queue { private: int front, rear; int arr[MAXSIZE]; public: Queue (); void enqueue (int item); int dequeue (); bool is_empty (); }; We have two private members - front and rear - front gets served first. Objects get added to the container using the enqueue() method and they get processed in FIFO order using dequeue() method. We will look at these operations in future posts.">
+  <meta name="description" content="Let’s look at another important data structure - the Queue. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called FIFO (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array: #define MAXSIZE 100 class Queue { private: int front, rear; int arr[MAXSIZE]; public: Queue (); void enqueue (int item); int dequeue (); bool is_empty (); }; Queue::Queue () { front = 0; rear = -1; } We have two private members - front and rear - front gets served first. Objects get added to the container using the enqueue() method and they get processed in FIFO order using dequeue() method. We will look at these operations in future posts.">
   
     
     <meta name="keywords" content="C++, data structures, queues">
@@ -261,7 +261,12 @@
     <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
     <span class="kt">int</span> <span class="n">dequeue</span> <span class="p">();</span>
     <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
-<span class="p">};</span></code></pre></figure>
+<span class="p">};</span>
+
+<span class="n">Queue</span><span class="o">::</span><span class="n">Queue</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">front</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">rear</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>We have two private members - <em>front</em> and <em>rear</em> - <em>front</em> gets served first. Objects get added to the container using the <em>enqueue()</em> method and they get processed in FIFO order using <em>dequeue()</em> method. We will look at these operations in future posts.</p>
 
