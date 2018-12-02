@@ -262,7 +262,8 @@
 
 <p>Again, as with queues, we can use an <em>array</em> or a <em>linked list</em> to store our elements. Let use see how to define a Stack class using an array implementation.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
 </span><span class="k">class</span> <span class="nc">Stack</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">top</span><span class="p">;</span>           <span class="c1">// top of the stack
 </span>  <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>  <span class="c1">// array that implements the stack
@@ -278,7 +279,8 @@
 
 <span class="n">Stack</span><span class="o">::</span><span class="n">Stack</span> <span class="p">()</span> <span class="p">{</span>
   <span class="n">top</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>We add elements to our stack using the <em>push()</em> method, remove elements from the stack (actually from the top of our stack) using <em>pop()</em> method, and we also keep track of the top of the stack because that’s where interesting actions happen.</p>
 

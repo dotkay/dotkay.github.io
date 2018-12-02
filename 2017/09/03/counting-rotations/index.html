@@ -218,7 +218,8 @@
 
 <p>So, our goal is to find the pivot element. We already know that the array has been sorted - so we can use binary search to look for the pivot element. We compute the middle element of the array, call it <code class="highlighter-rouge">mid</code> and search in the left and right halves of the middle element. Let’s call the lower index <code class="highlighter-rouge">low</code> and higher index <code class="highlighter-rouge">high</code> for the purposes of computation. So, we compute the middle element as <code class="highlighter-rouge">mid = (high - low) / 2</code>. The neighbours of this middle element, called <code class="highlighter-rouge">prev</code> and <code class="highlighter-rouge">next</code> are computed as <code class="highlighter-rouge">prev = (mid + 1) % n</code> where <code class="highlighter-rouge">n</code> is the size of the array (since it is circularly sorted we need to wrap around and hence we do this <code class="highlighter-rouge">modulo n</code> operation) and <code class="highlighter-rouge">next = (mid + n -1) % n</code>. Now, if <code class="highlighter-rouge">mid</code> turns out to be our pivot element, i.e. we check for pivot property, we are done - we just return <code class="highlighter-rouge">mid</code> as the result. Otherwise, we keep moving <code class="highlighter-rouge">low</code> and <code class="highlighter-rouge">high</code> to decide which half of the array we want to search for the pivot element. Recollect that we know the array is (circularly) sorted and this makes our job easier. For example, if the element at <code class="highlighter-rouge">mid</code> is less than the one at <code class="highlighter-rouge">high</code> we can deduce that the right half of the array is sorted, and so we adjust <code class="highlighter-rouge">high</code> to be <code class="highlighter-rouge">mid - 1</code> (i.e. make left half our focus of pivot element search).</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rotation_count</span><span class="p">(</span><span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rotation_count</span><span class="p">(</span><span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">high</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
@@ -236,7 +237,8 @@
     <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">low</span><span class="p">])</span>
         <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Isn’t it interesting? That’s all for now!</p>
 

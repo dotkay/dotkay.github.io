@@ -208,21 +208,27 @@
 
 <p>Let’s do the initial imports as before, this time also importing <code class="highlighter-rouge">seaborn</code></p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span></code></pre></figure>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span></code></pre>
+</figure>
 
 <p>Let’s grab the data-set and try to see the <code class="highlighter-rouge">Attack</code> and <code class="highlighter-rouge">Defense</code> scores of the different generations of Pokemons.</p>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># read the dataset</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="c"># read the dataset</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre>
+</figure>
 
-<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Defense'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Defense'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
            <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
            <span class="n">hue</span><span class="o">=</span><span class="s">'Generation'</span><span class="p">)</span>
 <span class="c"># specify the axes limits</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span></code></pre></figure>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span></code></pre>
+</figure>
 
 <p>Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set <code class="highlighter-rouge">fit_reg</code> to <code class="highlighter-rouge">False</code> in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</p>
 

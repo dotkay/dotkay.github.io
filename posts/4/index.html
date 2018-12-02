@@ -269,13 +269,15 @@
 
 <p>If <code class="highlighter-rouge">x &gt;= y</code>, <code class="highlighter-rouge">gcd(x, y) = gcd(x mod y, y)</code>. As you see, the recursion is built in the description itself. Here’s an implementation:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">euclid_gcd</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">euclid_gcd</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// base case
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
   <span class="k">else</span>
     <span class="k">return</span> <span class="n">euclid_gcd</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">%</span> <span class="n">y</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>One has to note that in the recursive call, the first argument became <code class="highlighter-rouge">y</code> and the second <code class="highlighter-rouge">x mod y</code>. This is because of the following lemma:</p>
 
@@ -610,7 +612,8 @@
 
 <p>Here is the modified <code class="highlighter-rouge">permute()</code> function with the condition incorporated:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span>
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -626,7 +629,8 @@
         <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Hope you can refer to the sketch above, work through the example and feel convinced.</p>
 
@@ -820,7 +824,8 @@ CAB
 
 <p>Here is a function <code class="highlighter-rouge">permute()</code> implementing the traversal: We are given a string <em>s</em> with starting index <em>start</em> and ending index <em>end</em>.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span>
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
@@ -831,7 +836,8 @@ CAB
       <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
     <span class="p">}</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce:</p>
 
@@ -968,7 +974,8 @@ BAA  (*)
         <div class="post-content">
           <p>Given a set of points (say provided to us as <em>(x, y)</em> coordinates) on a plane, let us find the closest pair among the set. The straight forward approach would be to compute the distance of each point with every other point in the given set and store the minimum distance.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REP(i, n) for (int i=0; i&lt;n; i++)
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REP(i, n) for (int i=0; i&lt;n; i++)
 #define REPK(i, k, n) for (int i=k; i&lt;n; i++)
 </span>
 <span class="k">class</span> <span class="nc">Point</span> <span class="p">{</span>
@@ -989,7 +996,8 @@ BAA  (*)
         <span class="n">min</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
   <span class="k">return</span> <span class="n">min</span><span class="p">;</span>
   <span class="c1">// Time Complexity: O(n^2) - nested for loops (2)
-</span><span class="p">}</span></code></pre></figure>
+</span><span class="p">}</span></code></pre>
+</figure>
 
 <p>As you can see this is a <em>O(n^2)</em> algorithm. Can we do better than this? It turns out we can - a topic for a future post.</p>
 

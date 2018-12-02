@@ -263,7 +263,8 @@
   <p>A <em>friend class</em> F is a C++ class that can access private and protected members of another class A in which F is declared as friend. Here, a <em>Queue</em> class (F) may be allowed to access private members of a Node class (A).</p>
 </blockquote>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
   <span class="k">private</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
@@ -283,7 +284,8 @@
 <span class="n">Queue</span><span class="o">::</span><span class="n">Queue</span> <span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">front</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">rear</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>There is also a notion of <em>friend function</em>, very similar to <em>friend class</em>:</p>
 <blockquote>

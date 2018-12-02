@@ -288,19 +288,25 @@
 
 <p>Let’s first define the type <em>binary tree</em> - we would call it just <code class="highlighter-rouge">tree</code>.</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">=</span>
   <span class="p">|</span> <span class="nc">Leaf</span>
-  <span class="p">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre></figure>
+  <span class="p">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
+</figure>
 
 <p>This just defines the type <code class="highlighter-rouge">'a tree</code> - as noted in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/">earlier posts</a> ‘a is like <em>any</em> - we could have integer trees, string trees, etc. that would take different type values. So, a <code class="highlighter-rouge">tree</code> could either be a <code class="highlighter-rouge">Leaf</code> or another <code class="highlighter-rouge">tree</code> composed of two child trees and a root node (<code class="highlighter-rouge">'a</code>). Now we can create a new empty tree with just a Leaf:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t</span> <span class="p">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
-<span class="c">(* val t : 'a tree = Leaf *)</span></code></pre></figure>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t</span> <span class="p">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
+<span class="c">(* val t : 'a tree = Leaf *)</span></code></pre>
+</figure>
 
 <p>Or we could create a tree with a root node and two child nodes, which themselves are trees with children:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t2</span> <span class="p">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="nc">Leaf</span><span class="o">)));;</span>
-<span class="c">(* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *)</span></code></pre></figure>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t2</span> <span class="p">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="nc">Leaf</span><span class="o">)));;</span>
+<span class="c">(* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *)</span></code></pre>
+</figure>
 
 <p>I know it looks awkward, but let’s decompose it and understand. <code class="highlighter-rouge">Node (Leaf, 3, Leaf)</code> is one tree. Let’s call it C. <code class="highlighter-rouge">Node (Leaf, 2, C)</code> is the next tree - Let’s call this guy B. <code class="highlighter-rouge">Node (Leaf, 1, B)</code> is the other one. So, we have something like this:</p>
 

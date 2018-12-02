@@ -267,13 +267,15 @@
   <li>Any other pattern, we just return the same pattern. Why do we need this? Because we want the patterns we match to be exhaustive - to cover all the cases. Suppose we have a list with a single element, this pattern would match that.</li>
 </ol>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
   <span class="p">|</span> <span class="n">x1</span> <span class="p">::</span> <span class="p">(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
      <span class="k">else</span> <span class="n">x1</span> <span class="p">::</span> <span class="n">compress</span> <span class="n">t</span>
-  <span class="p">|</span> <span class="n">smth_else</span> <span class="p">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre></figure>
+  <span class="p">|</span> <span class="n">smth_else</span> <span class="p">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
+</figure>
 
 <p>It turned out to be pretty simple, right?</p>
 
@@ -284,12 +286,14 @@
   <li>Otherwise, we have to traverse the list and see where to insert <code class="highlighter-rouge">x</code>. If head element is greater than <code class="highlighter-rouge">x</code>, it is easy - we just insert <code class="highlighter-rouge">x</code> at the head of the input list <code class="highlighter-rouge">lst</code> and return it. If not, we look for a position in the rest-of-the-list <code class="highlighter-rouge">t</code> to insert our <code class="highlighter-rouge">x</code>.</li>
 </ol>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
   <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="p">::</span><span class="n">h</span><span class="p">::</span><span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+</figure>
 
 <p>Now, we will use the above function to write our insertion sort function <code class="highlighter-rouge">isort</code>. Just think what would happen if <code class="highlighter-rouge">lst</code> was already sorted in the above case. In that case, we would be inserting <code class="highlighter-rouge">x</code> to <code class="highlighter-rouge">lst</code> to maintain sorted order (just because of the rules that we imposed for inserting <code class="highlighter-rouge">x</code>). Let’s write down the algorithm.</p>
 
@@ -299,17 +303,21 @@
   <li>If the list has two or more elements, pick elements one by one, starting from the head element <code class="highlighter-rouge">h</code> and use our <code class="highlighter-rouge">insert</code> function to insert it into the appropriate position.</li>
 </ol>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
   <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre></figure>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
+</figure>
 
 <p>Let’s check if it works on a simple test example:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">10</span><span class="o">];;</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">10</span><span class="o">];;</span>
 <span class="n">isort</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int list = [1; 2; 3; 7; 9; 10; 11] *)</span></code></pre></figure>
+<span class="c">(* - : int list = [1; 2; 3; 7; 9; 10; 11] *)</span></code></pre>
+</figure>
 
 <p>That’s too much for my head for today. Let’s do more interesting examples in future posts when we get into the concept of tail recursion.</p>
 

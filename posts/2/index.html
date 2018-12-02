@@ -268,7 +268,8 @@
 <p><br />
 <img src="/assets/images/data_structures/queue_arr.png" alt="Queue Operations" class="img=responsive" /></p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">rear</span> <span class="o">&gt;=</span> <span class="n">MAXSIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Queue is full. Nothing can be enqueued now."</span><span class="p">);</span>
   <span class="k">else</span> <span class="p">{</span>
@@ -280,13 +281,16 @@
   <span class="k">if</span> <span class="p">(</span><span class="n">rear</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Can not dequeue from empty queue"</span><span class="p">);</span>
   <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">front</span><span class="o">++</span><span class="p">];</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>So, when <em>front = rear</em> there is only one element and if <em>front &gt; rear</em>, the queue is empty (recollect that the <code class="highlighter-rouge">front</code> is initialized to 0 and <code class="highlighter-rouge">rear</code> is initialized to -1).</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Queue</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Queue</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">(</span><span class="n">front</span> <span class="o">&gt;</span> <span class="n">rear</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Although pretty straight-forward, Queues have a variety of applications. We will soon see some applications when we discuss Graph data structures.</p>
 
@@ -463,7 +467,8 @@
         <div class="post-content">
           <p>Let’s look at another important data structure - the <em>Queue</em>. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called <em>FIFO</em> (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
 </span><span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
   <span class="k">private</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="n">rear</span><span class="p">;</span>
@@ -478,7 +483,8 @@
 <span class="n">Queue</span><span class="o">::</span><span class="n">Queue</span> <span class="p">()</span> <span class="p">{</span>
   <span class="n">front</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="n">rear</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>We have two private members - <em>front</em> and <em>rear</em> - <em>front</em> gets served first. Objects get added to the container using the <em>enqueue()</em> method and they get processed in FIFO order using <em>dequeue()</em> method. We will look at these operations in future posts.</p>
 
@@ -655,7 +661,8 @@
         <div class="post-content">
           <p>In our <a href="https://dotkay.github.io/2017/11/07/linked-list-reverse">previous post</a>, we looked at an iterative function to reverse a linked list. I believe it was a lot of fun. Now, we shall look at a recursive function to do the same. As before, whenever you hear recursion, you should just think of the base case and the recursive steps (i.e. what is to be done in each recursive step - like printing the node’s data in our <a href="https://dotkay.github.io/2017/11/06/linked-list-print-rec">recursive print function</a>) - once this is clear, the rest would be straight forward. For reversing a linked list, at each recursive step, we need to update the pointer directions - if there is a pointer <code class="highlighter-rouge">C  --&gt;  D</code>, after the recursive call it would be <code class="highlighter-rouge">C  &lt;--  D</code>. We keep track of two pointers, <code class="highlighter-rouge">head</code> and <code class="highlighter-rouge">rest</code> (everything following <code class="highlighter-rouge">head</code>) - and recursively call the function.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">reverse_list_r</span> <span class="p">()</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">reverse_list_r</span> <span class="p">()</span> <span class="p">{</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">first</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="n">first</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
@@ -666,7 +673,8 @@
 </span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">reverse_list_r</span> <span class="p">();</span>    <span class="c1">// recursive call  
 </span>  <span class="n">rest</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>         <span class="c1">// update pointers
 </span>  <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>I will leave it as an (interesting) exercise for the reader to work out this function as we did for the iterative case.</p>
 
@@ -860,7 +868,8 @@
 
 <p>But as soon as we set the <em>next</em> pointer of <code class="highlighter-rouge">2</code> to point to <code class="highlighter-rouge">1</code>, we lost the connection to the rest of the list following <code class="highlighter-rouge">2</code> (<code class="highlighter-rouge">3  --&gt;  NULL</code>). Intuitively, to get over this, we need to remember more than just the previous node in the list - we also need to keep track of the next node (a handle to the next node so that we do not lose the rest of the list after we turn the current node’s <em>next</em> pointer). Once you have a grasp of this intuition the coding it up is straight-forward. For better clarity, let us also work through a simple example (with 3 elements as above) following the function definition below:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">reverse_list</span> <span class="p">()</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">reverse_list</span> <span class="p">()</span> <span class="p">{</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">prev</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">curr</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
@@ -871,7 +880,8 @@
 </span>    <span class="n">curr</span> <span class="o">=</span> <span class="n">next</span><span class="p">;</span>
   <span class="p">}</span>
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">prev</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p><br />
 <img src="/assets/images/data_structures/linked_list_reverse_iter.png" alt="Linked List" class="img=responsive" /></p>
@@ -1059,7 +1069,8 @@
 
 <p>In this example, the base case is just an empty list (<em>NULL</em>) and the recursive step is to just print the item as long as the list doesn’t fall into the base case.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list_r</span> <span class="p">()</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list_r</span> <span class="p">()</span> <span class="p">{</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// base case
 </span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NULL"</span><span class="p">;</span>
@@ -1068,7 +1079,8 @@
   <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>       <span class="c1">// move forward
 </span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">print_list_r</span><span class="p">();</span>        <span class="c1">// recursive call
 </span>  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>  <span class="c1">// print 
-</span><span class="p">}</span></code></pre></figure>
+</span><span class="p">}</span></code></pre>
+</figure>
 
 <p>It is very important to understand this and our <a href="https://dotkay.github.io/2017/11/05/linked-list-print">previous post</a> as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!</p>
 

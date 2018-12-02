@@ -203,7 +203,8 @@
   <div class="post-content" itemprop="articleBody">
     <p>Given a set of points (say provided to us as <em>(x, y)</em> coordinates) on a plane, let us find the closest pair among the set. The straight forward approach would be to compute the distance of each point with every other point in the given set and store the minimum distance.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REP(i, n) for (int i=0; i&lt;n; i++)
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REP(i, n) for (int i=0; i&lt;n; i++)
 #define REPK(i, k, n) for (int i=k; i&lt;n; i++)
 </span>
 <span class="k">class</span> <span class="nc">Point</span> <span class="p">{</span>
@@ -224,7 +225,8 @@
         <span class="n">min</span> <span class="o">=</span> <span class="n">dist</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
   <span class="k">return</span> <span class="n">min</span><span class="p">;</span>
   <span class="c1">// Time Complexity: O(n^2) - nested for loops (2)
-</span><span class="p">}</span></code></pre></figure>
+</span><span class="p">}</span></code></pre>
+</figure>
 
 <p>As you can see this is a <em>O(n^2)</em> algorithm. Can we do better than this? It turns out we can - a topic for a future post.</p>
 

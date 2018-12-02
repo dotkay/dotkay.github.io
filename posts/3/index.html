@@ -270,14 +270,16 @@
   <li>On the way, print the data part (interesting part) of our list</li>
 </ol>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list</span> <span class="p">()</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list</span> <span class="p">()</span> <span class="p">{</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>          <span class="c1">// get the head
 </span>  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// traverse till the end
 </span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" -&gt; "</span><span class="p">;</span>   <span class="c1">// print node data
 </span>    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>                <span class="c1">// move forward
 </span>  <span class="p">}</span>
   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NULL</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>This is an iterative solution. We will soon look at a recursive solution to this. Stay tuned.</p>
 
@@ -471,7 +473,8 @@
 <p><br />
 <img src="/assets/images/data_structures/linked_list_delete.png" alt="Linked List" class="img=responsive" /></p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">delete_at_index</span> <span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">delete_at_index</span> <span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Index out of range for the linkedlist"</span><span class="p">);</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
@@ -493,7 +496,8 @@
     <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="k">delete</span> <span class="n">it</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
         </div>
         
@@ -668,7 +672,8 @@
         <div class="post-content">
           <p>In this post, let us see how to find if a given item exists in the linked list. Conceptually, it is very simple - just go through the nodes one by one and see if the data matches the item given as input. But, where do we start the traversal from? This is what we use the <em>head</em> pointer for. And when do we stop? Obviously, if we find the item we are looking for, we stop. We might also not find the item at all, in which case we traverse all of the list until we hit the <em>NULL</em> node (that indicates the end of the list).</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">find</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">find</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
@@ -677,7 +682,8 @@
     <span class="p">}</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
         </div>
         
@@ -853,12 +859,14 @@
           <p>Having introduced linked lists in our <a href="https://dotkay.github.io/2017/11/01/linked-lists-intro">previous post</a>, 
 let us look at some operations on such a data structure. Specifically, let us look at how to insert a new item (a new <em>node</em>) to a linked list. Typically, we start with an empty linked list (denoted by just one node, the NULL node) and grow it by adding more and more items. The usual approach to adding a new item is to form a node (the building block) for the new item and then attach the item to a position in the linked list - by default we choose to add it to the head.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">insert_item</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">insert_item</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">item</span><span class="p">);</span> <span class="c1">// form the building block
 </span>  <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>     <span class="c1">// set the next pointer
 </span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>           <span class="c1">// make new node the head
 </span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span><span class="o">++</span><span class="p">;</span>                  <span class="c1">// update the length
-</span><span class="p">}</span></code></pre></figure>
+</span><span class="p">}</span></code></pre>
+</figure>
 
 
         </div>
@@ -1041,22 +1049,26 @@ let us look at some operations on such a data structure. Specifically, let us lo
 
 <p>Here is how you would describe a node and a linked list as C++ classes:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
   <span class="k">public</span><span class="o">:</span> 
     <span class="n">Node</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-<span class="p">};</span></code></pre></figure>
+<span class="p">};</span></code></pre>
+</figure>
 
 <p>We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">LinkedList</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">LinkedList</span> <span class="p">{</span>
   <span class="k">private</span><span class="o">:</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>
   <span class="c1">// constructors and member functions
-</span>  <span class="p">...</span></code></pre></figure>
+</span>  <span class="p">...</span></code></pre>
+</figure>
 
 <p><br />
 <img src="/assets/images/data_structures/linked_lists_intro2.png" alt="Linked List" class="img=responsive" /></p>

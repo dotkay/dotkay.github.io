@@ -218,7 +218,9 @@
 
 <p>OCaml is a very nice functional programming language and it offers <code class="highlighter-rouge">list</code> as a primitive data type. For example, if we want a list of five integers, this is how we do it in OCaml:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">;</span><span class="mi">5</span><span class="o">];;</span></code></pre></figure>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">;</span><span class="mi">5</span><span class="o">];;</span></code></pre>
+</figure>
 
 <p>We would usually think of the list data type itself to be a recursive definition. i.e., a list is made of either an empty list or a list composed of a <code class="highlighter-rouge">head</code> element and <code class="highlighter-rouge">tail</code> where tail itself is a list (possibly empty list). For example, in the list <code class="highlighter-rouge">l1</code> above, <code class="highlighter-rouge">1</code> constitutes the head element and the tail corresponds to the list <code class="highlighter-rouge">2;3;4;5</code>.</p>
 
@@ -239,29 +241,37 @@
 
 <p>Now, let’s write the above two steps in the following program which we call <code class="highlighter-rouge">lst_len</code> (for list length), that takes a single input parameter <code class="highlighter-rouge">lst</code>:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_len</span> <span class="n">lst</span> <span class="p">=</span> 
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_len</span> <span class="n">lst</span> <span class="p">=</span> 
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="mi">0</span>
   <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">lst_len</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* val len_lst : 'a list -&gt; int = &lt;fun&gt; *)</span></code></pre></figure>
+<span class="c">(* val len_lst : 'a list -&gt; int = &lt;fun&gt; *)</span></code></pre>
+</figure>
 
 <p>Recursive functions in OCaml are defined with <code class="highlighter-rouge">rec</code> keyword. Let’s use this function to count the number of elements in our list <code class="highlighter-rouge">l1</code>:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_len</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int = 5 *)</span></code></pre></figure>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_len</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int = 5 *)</span></code></pre>
+</figure>
 
 <p>Let’s use the same thought process to write a recursive function <code class="highlighter-rouge">lst_sum</code> to sum up (add) the elements of the list.</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_sum</span> <span class="n">lst</span> <span class="p">=</span> 
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_sum</span> <span class="n">lst</span> <span class="p">=</span> 
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="mi">0</span>
   <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">h</span> <span class="o">+</span> <span class="n">lst_sum</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* val lst_sum : int list -&gt; int = &lt;fun&gt; *)</span></code></pre></figure>
+<span class="c">(* val lst_sum : int list -&gt; int = &lt;fun&gt; *)</span></code></pre>
+</figure>
 
 <p>And let’s use this function to sum up the elements in our list <code class="highlighter-rouge">l1</code>:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_sum</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int = 15 *)</span></code></pre></figure>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_sum</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int = 15 *)</span></code></pre>
+</figure>
 
 <p>Isn’t this intuitive and elegant way of programming? We’ll talk more about simple programs that can be written in an intuitive way and try to develop our understanding of the concepts in a clear way.</p>
 

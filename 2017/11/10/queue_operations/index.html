@@ -260,7 +260,8 @@
 <p><br />
 <img src="/assets/images/data_structures/queue_arr.png" alt="Queue Operations" class="img=responsive" /></p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">rear</span> <span class="o">&gt;=</span> <span class="n">MAXSIZE</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Queue is full. Nothing can be enqueued now."</span><span class="p">);</span>
   <span class="k">else</span> <span class="p">{</span>
@@ -272,13 +273,16 @@
   <span class="k">if</span> <span class="p">(</span><span class="n">rear</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Can not dequeue from empty queue"</span><span class="p">);</span>
   <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">front</span><span class="o">++</span><span class="p">];</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>So, when <em>front = rear</em> there is only one element and if <em>front &gt; rear</em>, the queue is empty (recollect that the <code class="highlighter-rouge">front</code> is initialized to 0 and <code class="highlighter-rouge">rear</code> is initialized to -1).</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Queue</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Queue</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">(</span><span class="n">front</span> <span class="o">&gt;</span> <span class="n">rear</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Although pretty straight-forward, Queues have a variety of applications. We will soon see some applications when we discuss Graph data structures.</p>
 

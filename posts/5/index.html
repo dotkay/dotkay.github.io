@@ -216,7 +216,8 @@
 
 <p>In the traditional recursive version of merge-sort, we divide the input array into two halves and call merge-sort procedure on each of the sub-arrays recursively and eventually merge the results. Suppose our input array is <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">4,</span><span class="w"> </span><span class="err">1,</span><span class="w"> </span><span class="err">3,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code> and suppose that the merge-sort procedure calls are complete and that we are in the merge process. Let us say that we ended up with the following sorted subarrays and trying to merge them up into a single sorted array - <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">4</span><span class="p">}</span></code> and <code class="highlighter-rouge"><span class="p">{</span><span class="err">1,</span><span class="w"> </span><span class="err">3,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code>. The way merge procedure works is to compare the two sub-arrays (call it <code class="highlighter-rouge">left</code> and <code class="highlighter-rouge">right</code>) and compare the elements one by one. First, we compare <code class="highlighter-rouge">2</code> and <code class="highlighter-rouge">1</code>, since <code class="highlighter-rouge">1</code> is less than <code class="highlighter-rouge">2</code>, we push <code class="highlighter-rouge">1</code> to the result array (<code class="highlighter-rouge">1</code> being the smaller element). And we have encountered an inversion - the index of <code class="highlighter-rouge">2</code> is smaller than the index of <code class="highlighter-rouge">1</code>. Since we know that each of the sub-arrays are sorted, elements that follow <code class="highlighter-rouge">2</code> in the <code class="highlighter-rouge">left</code> sub-array would be greater than <code class="highlighter-rouge">2</code> and since <code class="highlighter-rouge">2</code> formed an inversion with <code class="highlighter-rouge">1</code> (of the <code class="highlighter-rouge">right</code> sub-array), so will all the elements that follow <code class="highlighter-rouge">2</code> in the <code class="highlighter-rouge">left</code> sub-array. So, we already see two inversions - <code class="highlighter-rouge">(2, 1)</code> and <code class="highlighter-rouge">(4, 1)</code>. Now we move on and compare the next elements - <code class="highlighter-rouge">2</code> and <code class="highlighter-rouge">3</code> and push <code class="highlighter-rouge">2</code> into the result array, and move on to the next. Now, we compare <code class="highlighter-rouge">4</code> and <code class="highlighter-rouge">3</code> and since <code class="highlighter-rouge">3</code> is smaller, we push it into the result array - we also encounter an inversion <code class="highlighter-rouge">(4, 3)</code>. A pair of keen eyes would note that whenever we push an element from the <code class="highlighter-rouge">right</code> sub-array into the result array, we encounter (at least) an inversion and the number of inversions at that step equals the number of elements following the current element in <code class="highlighter-rouge">left</code> sub-array. Think over it.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REP(i, n) for (int i=0; i&lt;n; i++)
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REP(i, n) for (int i=0; i&lt;n; i++)
 #define REPK(i, k, n) for (int i=k; i&lt;n; i++)
 </span>
 <span class="kt">int</span> <span class="nf">merge</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
@@ -262,7 +263,8 @@
     <span class="n">inv_cnt</span> <span class="o">+=</span> <span class="n">merge</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="n">inv_cnt</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Since we use divide and conquer, in fact we could re-purpose merge step of merge-sort as shown below to count the number of inversions, the time complexity of this approach is <code class="highlighter-rouge">O(nlogn)</code> which is better than our previous approach.</p>
 
@@ -394,7 +396,8 @@
 
 <p>For example, if <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">4,</span><span class="w"> </span><span class="err">1,</span><span class="w"> </span><span class="err">3,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code> is our input array, it has 3 inversions <code class="highlighter-rouge">(2, 1), (4,1)</code> and <code class="highlighter-rouge">(4, 3)</code>. Let us look for a naïve straight-forward algorithm to solve this problem - i.e., traverse the array comparing the elements and checking if there is an inversion.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">inv_count</span> <span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">inv_count</span> <span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">inv_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
@@ -402,7 +405,8 @@
         <span class="n">inv_count</span><span class="o">++</span><span class="p">;</span>
   <span class="k">return</span> <span class="n">inv_count</span><span class="p">;</span>
   <span class="c1">// Time complexity: O(n^2) (two for loops)
-</span><span class="p">}</span></code></pre></figure>
+</span><span class="p">}</span></code></pre>
+</figure>
 
 <p>Inversion tells us how far the array is from being sorted. For a sorted array, the number of inversions is <code class="highlighter-rouge">0</code> and if the array is sorted in the other order it has maximum number of inversions.</p>
 
@@ -534,7 +538,8 @@
 
 <p>The ordering of queries themselves could be done in several ways. In this post, we shall look at one Mo’s algorithm that buckets the queries into a number of buckets which are a function of the size of the input array. If the input array is of size <code class="highlighter-rouge">n</code>, we put all the queries whose left index (<code class="highlighter-rouge">L</code>) ranges from 0 … \sqrt(n) -1 in the first bucket, (\sqrt n) … (2 * \sqrt(n) - 1), and so on. Within each bucket, we shall order the queries in increasing order of the right indices - the queries’ <code class="highlighter-rouge">R</code> values.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// a, b : two Queries to be compared in order to sort
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// a, b : two Queries to be compared in order to sort
 </span><span class="kt">bool</span> <span class="nf">compare</span><span class="p">(</span><span class="n">Query</span> <span class="n">a</span><span class="p">,</span> <span class="n">Query</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// first, sort by L if they are in different buckets
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span> <span class="o">!=</span> <span class="n">b</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span><span class="p">)</span>
@@ -542,13 +547,15 @@
   <span class="c1">// within the same bucket, queries are sorted
 </span>  <span class="c1">// according to R values
 </span>  <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">R</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">R</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Now, we need to adjust for over-lapping ranges in the queries. For example, if the previous (already computed) query was <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code> and the query that is currently being worked upon is <code class="highlighter-rouge"><span class="p">{</span><span class="err">4,</span><span class="w"> </span><span class="err">7</span><span class="p">}</span></code> then we need to discount <code class="highlighter-rouge">a[2]</code> and <code class="highlighter-rouge">a[3]</code> from the already computed sum (for <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code>) and also add <code class="highlighter-rouge">a[6]</code> and <code class="highlighter-rouge">a[7]</code> to it.</p>
 
 <p>Very similarly, we may have to remove elements from the right as well (i.e. tracking the <code class="highlighter-rouge">R</code> indices). For example, if the previous range was <code class="highlighter-rouge"><span class="p">{</span><span class="err">0,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code> and the current range <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">3</span><span class="p">}</span></code>, we need to discount <code class="highlighter-rouge">a[4]</code> and <code class="highlighter-rouge">a[5]</code> from the previous sum, as well (besides <code class="highlighter-rouge">a[0]</code> and <code class="highlighter-rouge">a[1]</code> which were taken care when we were handling L (previous paragraph)).</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// initialize the current L and R values
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// initialize the current L and R values
 </span><span class="kt">int</span> <span class="n">currL</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">currR</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="c1">// initialize an accumulator for the sum
 </span><span class="kt">int</span> <span class="n">curr_sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -582,7 +589,8 @@
     <span class="n">curr_sum</span> <span class="o">-=</span> <span class="n">a</span><span class="p">[</span><span class="n">currR</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
     <span class="n">currR</span><span class="o">--</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Let us run this on an example. Let us assume we are provided with an input array <code class="highlighter-rouge">a</code> which is <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">4</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">4</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">4</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">4</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="p">}</span></code> of size 25 (<code class="highlighter-rouge">n</code>) and the following 8 (<code class="highlighter-rouge">m</code>) queries <code class="highlighter-rouge">(2,4) (1,7) (0,8) (5,8) (10,15) (12,16) (17,20) (18,21)</code>. Now, since <code class="highlighter-rouge">n</code> is 25, we need to put the queries with L values in the range 0 … \sqrt(n) -1 in the first bucket and so on. The first bucket, for example, would initially (arranged according to L values from 0..\sqrt(25) - 1), i.e. 0..4, will have the queries <code class="highlighter-rouge">(0, 8) (2, 4) (1, 7)</code> and then re-ordered as per their <code class="highlighter-rouge">R</code> values to <code class="highlighter-rouge">(2, 4) (1, 7) (0, 8)</code>. The other buckets are second: <code class="highlighter-rouge">(5,8)</code>, third: <code class="highlighter-rouge">(10, 15) (12, 16)</code>, fourth: <code class="highlighter-rouge">(17, 20) (18, 21)</code>.</p>
 
@@ -718,13 +726,16 @@
 
 <p>A query is just modelled as a <code class="highlighter-rouge">struct</code> specifying the left and right sub-array bounds by integers <code class="highlighter-rouge">L</code> and <code class="highlighter-rouge">R</code>. For example, <code class="highlighter-rouge"><span class="p">{</span><span class="err">3,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code> would mean <em>sum the elements in the indicies 3, 4, 5 - i.e. a[3] + a[4] + a[5]</em></p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Query</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">Query</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">L</span><span class="p">,</span> <span class="n">R</span><span class="p">;</span>
-<span class="p">};</span></code></pre></figure>
+<span class="p">};</span></code></pre>
+</figure>
 
 <p>Now, let us walk through the queries one by one, and for each query, we shall traverse the array and pick up the elements in the indices specified by the query and sum them up. We initialize an accumulator <code class="highlighter-rouge">sum</code> and keep updating it for this purpose. Again, <code class="highlighter-rouge">a</code> is the input array of size <code class="highlighter-rouge">n</code>, and <code class="highlighter-rouge">q</code> is an array of queries and there are <code class="highlighter-rouge">m</code> queries in all.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// walk through the queries one by one and 
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// walk through the queries one by one and 
 // get the query bounds
 // Complexity: O(m)
 </span><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -738,7 +749,8 @@
     <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
   <span class="p">}</span>
 <span class="p">}</span>
-<span class="o">//</span> <span class="n">Total</span> <span class="n">Complexity</span><span class="o">:</span> <span class="n">O</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span></code></pre></figure>
+<span class="o">//</span> <span class="n">Total</span> <span class="n">Complexity</span><span class="o">:</span> <span class="n">O</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span></code></pre>
+</figure>
 
 <p>As you can see we have two loops - one within another and hence the total complexity is <em>O(mn)</em>. How can we make this naïve algorithm better? What do we look for? Hint: If I have queries one of which is a subset of another, we would end up computing the sum twice. For example, if two of our queries are <code class="highlighter-rouge"><span class="p">{</span><span class="err">0,4</span><span class="p">}</span></code> and <code class="highlighter-rouge"><span class="p">{</span><span class="err">1,3</span><span class="p">}</span></code>, by walking through all the queries and traversing the array for each query as above, we are not utilizing the fact that we could reuse the sub-array sum within <code class="highlighter-rouge"><span class="p">{</span><span class="err">1,3</span><span class="p">}</span></code> in the query <code class="highlighter-rouge"><span class="p">{</span><span class="err">0,4</span><span class="p">}</span></code> instead of recomputing them independently.</p>
 

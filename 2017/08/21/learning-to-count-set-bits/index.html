@@ -228,7 +228,8 @@
 
 <p>Let’s write a quick C function:</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+<figure class="highlight">
+  <pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
 <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
@@ -236,7 +237,8 @@
         <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
 
@@ -252,7 +254,8 @@
 
 <p>Let’s write a quick C function:</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">BK_count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+<figure class="highlight">
+  <pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">BK_count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
 <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
@@ -260,7 +263,8 @@
         <span class="n">count</span><span class="o">++</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>That’s all for now. Let me get my head around other bits and pieces before my next post.</p>
 

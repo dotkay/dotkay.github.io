@@ -214,16 +214,19 @@
 
 <p>That is, if we consider the consecutive sequence of number <code class="highlighter-rouge">0 1 2 3 4 5</code> and choose <code class="highlighter-rouge">3</code>, we see that there are exactly three natural numbers before it - <code class="highlighter-rouge">0 1 2</code>. A curious mind would have noted that these three numbers actually need not be in order - they should just exist. For example <code class="highlighter-rouge">1 0 2 3 4 5</code> has three numbers before <code class="highlighter-rouge">3</code>, they are not in sequence, but the fact that there are three of them assures us that nothing less than three is missing in the sequence. This is the property we are going to use to come up with a simpler search. Just like how we <a href="https://dotkay.github.io/2017/09/19/list-partitioning-and-quicksort">partitioned a list of numbers around a pivot element for quicksort</a>, we will choose an element <code class="highlighter-rouge">x</code> and push all the numbers less than it (in any order) to the left of it and the rest to the right of it. We will also need to keep track of the number of elements <code class="highlighter-rouge">num</code> to the left of the chosen number (in order to check our fancy property mentioned above). Let’s write the partition function first:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">partition</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span> 
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">partition</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span> 
   <span class="k">let</span> <span class="n">aux</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="n">y</span> <span class="p">=</span> 
     <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="p">&lt;</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">::</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span>
     <span class="k">else</span> <span class="n">num</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">y</span><span class="p">::</span><span class="n">right</span>
   <span class="k">in</span>
-  <span class="nn">List</span><span class="p">.</span><span class="n">fold_left</span> <span class="n">aux</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">[]</span><span class="p">,</span> <span class="bp">[]</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+  <span class="nn">List</span><span class="p">.</span><span class="n">fold_left</span> <span class="n">aux</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">[]</span><span class="p">,</span> <span class="bp">[]</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+</figure>
 
 <p>If the number of elements tracked is equal to the chosen number, it just means that there is no missing number in the left partition (just like the example above where the number of elements less than <code class="highlighter-rouge">3</code> is equal to three, and we don’t have any missing natural number to the left of <code class="highlighter-rouge">3</code>). Now, we will use this partition function to find the missing natural number:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">min_missing_num</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">min_missing_num</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="c">(* m is the least nat number - 0 *)</span> 
   <span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">m</span> <span class="n">l</span> <span class="p">=</span> 
     <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
@@ -236,7 +239,8 @@
       <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="n">m</span> <span class="p">=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">find_min</span> <span class="p">(</span><span class="n">h</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">right</span>
       <span class="k">else</span> <span class="n">find_min</span> <span class="n">m</span> <span class="n">left</span>
     <span class="k">in</span>
-    <span class="n">find_min</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre></figure>
+    <span class="n">find_min</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+</figure>
 
 <p>Think of <code class="highlighter-rouge">m</code> as the accumulator - we know that <code class="highlighter-rouge">0</code> is the first natural number, so in case our input list is an empty one (base case), we just return the first (minimum) natural number that is missing. Is there too much going on in this? If you could work this out in a sample input, say <code class="highlighter-rouge">[0; 3; 2; 9; 1]</code> it would help understand it better.</p>
 

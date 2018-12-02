@@ -207,7 +207,8 @@
 
 <p>The ordering of queries themselves could be done in several ways. In this post, we shall look at one Mo’s algorithm that buckets the queries into a number of buckets which are a function of the size of the input array. If the input array is of size <code class="highlighter-rouge">n</code>, we put all the queries whose left index (<code class="highlighter-rouge">L</code>) ranges from 0 … \sqrt(n) -1 in the first bucket, (\sqrt n) … (2 * \sqrt(n) - 1), and so on. Within each bucket, we shall order the queries in increasing order of the right indices - the queries’ <code class="highlighter-rouge">R</code> values.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// a, b : two Queries to be compared in order to sort
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// a, b : two Queries to be compared in order to sort
 </span><span class="kt">bool</span> <span class="nf">compare</span><span class="p">(</span><span class="n">Query</span> <span class="n">a</span><span class="p">,</span> <span class="n">Query</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// first, sort by L if they are in different buckets
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span> <span class="o">!=</span> <span class="n">b</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span><span class="p">)</span>
@@ -215,13 +216,15 @@
   <span class="c1">// within the same bucket, queries are sorted
 </span>  <span class="c1">// according to R values
 </span>  <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">R</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">R</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Now, we need to adjust for over-lapping ranges in the queries. For example, if the previous (already computed) query was <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code> and the query that is currently being worked upon is <code class="highlighter-rouge"><span class="p">{</span><span class="err">4,</span><span class="w"> </span><span class="err">7</span><span class="p">}</span></code> then we need to discount <code class="highlighter-rouge">a[2]</code> and <code class="highlighter-rouge">a[3]</code> from the already computed sum (for <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code>) and also add <code class="highlighter-rouge">a[6]</code> and <code class="highlighter-rouge">a[7]</code> to it.</p>
 
 <p>Very similarly, we may have to remove elements from the right as well (i.e. tracking the <code class="highlighter-rouge">R</code> indices). For example, if the previous range was <code class="highlighter-rouge"><span class="p">{</span><span class="err">0,</span><span class="w"> </span><span class="err">5</span><span class="p">}</span></code> and the current range <code class="highlighter-rouge"><span class="p">{</span><span class="err">2,</span><span class="w"> </span><span class="err">3</span><span class="p">}</span></code>, we need to discount <code class="highlighter-rouge">a[4]</code> and <code class="highlighter-rouge">a[5]</code> from the previous sum, as well (besides <code class="highlighter-rouge">a[0]</code> and <code class="highlighter-rouge">a[1]</code> which were taken care when we were handling L (previous paragraph)).</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// initialize the current L and R values
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// initialize the current L and R values
 </span><span class="kt">int</span> <span class="n">currL</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">currR</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="c1">// initialize an accumulator for the sum
 </span><span class="kt">int</span> <span class="n">curr_sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -255,7 +258,8 @@
     <span class="n">curr_sum</span> <span class="o">-=</span> <span class="n">a</span><span class="p">[</span><span class="n">currR</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
     <span class="n">currR</span><span class="o">--</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Let us run this on an example. Let us assume we are provided with an input array <code class="highlighter-rouge">a</code> which is <code class="highlighter-rouge"><span class="p">{</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">4</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">4</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">4</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">4</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">1</span><span class="w"> </span><span class="err">2</span><span class="w"> </span><span class="err">3</span><span class="w"> </span><span class="p">}</span></code> of size 25 (<code class="highlighter-rouge">n</code>) and the following 8 (<code class="highlighter-rouge">m</code>) queries <code class="highlighter-rouge">(2,4) (1,7) (0,8) (5,8) (10,15) (12,16) (17,20) (18,21)</code>. Now, since <code class="highlighter-rouge">n</code> is 25, we need to put the queries with L values in the range 0 … \sqrt(n) -1 in the first bucket and so on. The first bucket, for example, would initially (arranged according to L values from 0..\sqrt(25) - 1), i.e. 0..4, will have the queries <code class="highlighter-rouge">(0, 8) (2, 4) (1, 7)</code> and then re-ordered as per their <code class="highlighter-rouge">R</code> values to <code class="highlighter-rouge">(2, 4) (1, 7) (0, 8)</code>. The other buckets are second: <code class="highlighter-rouge">(5,8)</code>, third: <code class="highlighter-rouge">(10, 15) (12, 16)</code>, fourth: <code class="highlighter-rouge">(17, 20) (18, 21)</code>.</p>
 

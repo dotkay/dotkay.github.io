@@ -259,7 +259,8 @@
 
 <p>This is very similar to inserting a new element to a linked list as we saw <a href="https://dotkay.github.io/2017/11/02/linked-list-insertion">earlier</a>. To insert a new item, we construct a node with that item and a <em>next</em> pointer, add it to the list and adjust the pointers.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// if the queue is empty
 </span>  <span class="c1">// front and rear are the same, i.e the new item
 </span>  <span class="n">Node</span> <span class="o">*</span><span class="n">new_item</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
@@ -273,12 +274,14 @@
 </span>  <span class="c1">// of the queue
 </span>  <span class="n">rear</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
   <span class="n">rear</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p><br />
 <img src="/assets/images/data_structures/queue_ll.png" alt="Queue Operations" class="img=responsive" /></p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">Queue</span><span class="o">::</span><span class="n">dequeue</span> <span class="p">()</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">Queue</span><span class="o">::</span><span class="n">dequeue</span> <span class="p">()</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
   <span class="c1">// check if the queue is empty
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
@@ -300,7 +303,8 @@
 
 <span class="kt">bool</span> <span class="n">Queue</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>That’s all there is in Queues!</p>
 

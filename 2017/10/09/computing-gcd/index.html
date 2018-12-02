@@ -261,13 +261,15 @@
 
 <p>If <code class="highlighter-rouge">x &gt;= y</code>, <code class="highlighter-rouge">gcd(x, y) = gcd(x mod y, y)</code>. As you see, the recursion is built in the description itself. Here’s an implementation:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">euclid_gcd</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">euclid_gcd</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
   <span class="c1">// base case
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
   <span class="k">else</span>
     <span class="k">return</span> <span class="n">euclid_gcd</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">%</span> <span class="n">y</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>One has to note that in the recursive call, the first argument became <code class="highlighter-rouge">y</code> and the second <code class="highlighter-rouge">x mod y</code>. This is because of the following lemma:</p>
 

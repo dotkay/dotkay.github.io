@@ -264,22 +264,26 @@
 
 <p>Here is how you would describe a node and a linked list as C++ classes:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
   <span class="k">public</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
   <span class="k">public</span><span class="o">:</span> 
     <span class="n">Node</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-<span class="p">};</span></code></pre></figure>
+<span class="p">};</span></code></pre>
+</figure>
 
 <p>We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">LinkedList</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">LinkedList</span> <span class="p">{</span>
   <span class="k">private</span><span class="o">:</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>
   <span class="c1">// constructors and member functions
-</span>  <span class="p">...</span></code></pre></figure>
+</span>  <span class="p">...</span></code></pre>
+</figure>
 
 <p><br />
 <img src="/assets/images/data_structures/linked_lists_intro2.png" alt="Linked List" class="img=responsive" /></p>

@@ -214,10 +214,12 @@
         <div class="post-content">
           <p>Now that we are already thinking of recursive function calls whenever possible, it is a nice time to introduce tail recursions. Let’s consider this function <code class="highlighter-rouge">lst_sum</code> that we worked out in one of our <a href="https://dotkay.github.io/2017/08/14/ocaml-recursion-simple">earlier posts</a>, repeated here for convenience:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_sum</span> <span class="n">lst</span> <span class="p">=</span> 
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_sum</span> <span class="n">lst</span> <span class="p">=</span> 
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="mi">0</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">h</span> <span class="o">+</span> <span class="n">lst_sum</span> <span class="n">t</span><span class="p">;;</span></code></pre></figure>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">h</span> <span class="o">+</span> <span class="n">lst_sum</span> <span class="n">t</span><span class="p">;;</span></code></pre>
+</figure>
 
 <p>When we call this function on this list <code class="highlighter-rouge">l1 = [1; 2; 3; 4; 5]</code>, this is what would how the stack frame of the execution by the compiler would look like:</p>
 
@@ -237,13 +239,15 @@
 
 <p>Let’s see a tail-recursive version of the same function. Let’s call it <code class="highlighter-rouge">tr_lst_sum</code>.</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
     <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
     <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
     <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_sum</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
   <span class="k">in</span>
-  <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre></figure>
+  <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
+</figure>
 
 <p>We have an auxiliary recursive function <code class="highlighter-rouge">aux_lst_sum</code> and pass another parameter <code class="highlighter-rouge">acc</code> (for accumulator) to it. The idea is to accumulate intermediate results so that we can start computations as and when a step completes, and not have to save the recursive calls to the functions in the stack frame. This is how the execution of our tail-recursive version would look like:</p>
 
@@ -391,7 +395,8 @@
 
 <p>From the above we realize that we don’t need to iterate through the numbers all the way until <code class="highlighter-rouge">N</code>. We just need to do it until <code class="highlighter-rouge">\sqrt(N)</code>. Here’s the algorithm for computing all the factors:</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">all_factors</span> <span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">all_factors</span> <span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
     <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
     <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
@@ -403,7 +408,8 @@
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>That was a super short post!</p>
 
@@ -531,7 +537,8 @@
 
 <p>The straight-forward approach is to go through all possible subarrays, compute their sum and pick the maximum of those.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_On3</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_On3</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -544,13 +551,15 @@
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>Here, <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> denote the window of the subarray. We use the loop with the index <code class="highlighter-rouge">c</code> to compute the sum in the subarray defined by the window between <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code>. We then compute the max of the accumulated sum <code class="highlighter-rouge">sum</code> from this window and the saved result <code class="highlighter-rouge">res</code>. The time complexity of this algorithm is O(n<sup>3</sup>).</p>
 
 <p>Let’s do it a little better. What if we compute the sum at the same time as we extend the window to the right - i.e., move <code class="highlighter-rouge">b</code> to the right (the second for loop that increments <code class="highlighter-rouge">b</code>)? Let’s try that.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_On2</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_On2</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -561,13 +570,15 @@
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>We initialize <code class="highlighter-rouge">sum</code> before entering the loop and compute the <code class="highlighter-rouge">sum</code> and the max of <code class="highlighter-rouge">sum</code> and the saved result (max-so-far) within this loop. The time complexity of this algorithm is O(n<sup>2</sup>).</p>
 
 <p>Can we do better? I initially thought ‘No’. And it was too hard to convince myself the simple and elegant algorithm by <a href="http://tepper.cmu.edu/our-faculty-and-research/about-our-faculty/faculty-profiles/kadane/kadane-joseph">Joseph Kadene</a>.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_3</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_3</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
     <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -575,7 +586,8 @@
         <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>The idea is to look at the first loop (indexed by <code class="highlighter-rouge">a</code>) as a subarray consisting of elements upto <code class="highlighter-rouge">a-1</code> followed by element at <code class="highlighter-rouge">a</code>. As we traverse the array, we keep computing the max of the element we are currently at <code class="highlighter-rouge">arr[a]</code> and (the sum-so-far + the element we are currently at - which is actually the boundary of the subarray, meaning max-until-this-point) - <code class="highlighter-rouge">sum + arr[a]</code>. <code class="highlighter-rouge">res</code> indicates the maximum value seen so far and we update it after comparing against the max-until-this-point (the max we computed after moving the window one element to the right, which is now in <code class="highlighter-rouge">sum</code>). Since we iterate over the array only once (one for loop), the time complexity of this algorithm is O(n). Isn’t it awesome?</p>
 
@@ -726,7 +738,8 @@
 
 <p>Let’s write a quick C function:</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+<figure class="highlight">
+  <pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
 <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
@@ -734,7 +747,8 @@
         <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
 
@@ -750,7 +764,8 @@
 
 <p>Let’s write a quick C function:</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">BK_count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+<figure class="highlight">
+  <pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">BK_count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
 <span class="p">{</span>
     <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
     <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
@@ -758,7 +773,8 @@
         <span class="n">count</span><span class="o">++</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>That’s all for now. Let me get my head around other bits and pieces before my next post.</p>
 
@@ -944,26 +960,32 @@
 
 <p>Let’s implement the above ingredients that we need for selection sort recipe.</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
   <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="p">=</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">rem</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">rem</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+</figure>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">failwith</span><span class="p">(</span><span class="s2">"empty list"</span><span class="p">)</span>
   <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">x</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">min</span> <span class="n">h</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">min</span> <span class="n">h</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+</figure>
 
 <p>Now, let’s use the above two to implement selection sort. We will call the function <code class="highlighter-rouge">ssort</code>. Recollect that, we will find the minimum element <code class="highlighter-rouge">m</code> of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">ssort</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">ssort</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
   <span class="p">|</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="k">let</span> <span class="n">m</span> <span class="p">=</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="k">in</span>
-         <span class="n">m</span><span class="o">::(</span><span class="n">ssort</span> <span class="p">(</span><span class="n">rem</span> <span class="n">m</span> <span class="n">lst</span><span class="o">));;</span></code></pre></figure>
+         <span class="n">m</span><span class="o">::(</span><span class="n">ssort</span> <span class="p">(</span><span class="n">rem</span> <span class="n">m</span> <span class="n">lst</span><span class="o">));;</span></code></pre>
+</figure>
 
 <p>That’s all folks! Have a great week ahead!</p>
 

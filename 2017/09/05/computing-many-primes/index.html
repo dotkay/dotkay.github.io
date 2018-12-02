@@ -208,7 +208,8 @@
 
 <p>We start by assuming that all the numbers, say <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">n</code> are primes. Assume we have an array of size <code class="highlighter-rouge">n</code> and we marked all the elements as prime. Now, we traverse the array and start marking out all the multiples, say <code class="highlighter-rouge">2, 4 ,6, 8, 10, ...</code> as not prime, and similarly <code class="highlighter-rouge">3, 9, 15,...</code>. Once we are done, we are left only with primes. I am still amazed at the simplicity of this algorithm given that it was invented more than a couple of thousand years ago.</p>
 
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">eratosthenes</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">eratosthenes</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
   <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">prime</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
   <span class="n">prime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
@@ -222,7 +223,8 @@
         <span class="p">}</span>
   <span class="p">}</span>
   <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>That’s all folks!</p>
 

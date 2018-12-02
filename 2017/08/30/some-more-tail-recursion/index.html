@@ -257,28 +257,34 @@
   <div class="post-content" itemprop="articleBody">
     <p>Let’s continue with tail recursion and folding (recollect our <a href="https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursions-and-reversing-a-list">previous post</a>. Let’s use those concepts to write insertion sort algorithm. In an <a href="https://dotkay.github.io/2017/08/19/some-more-recursion">earlier post</a> we wrote a recursive implementation of insertion sort algorithm as below:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
   <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
      <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="p">::</span><span class="n">h</span><span class="p">::</span><span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+</figure>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
   <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre></figure>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
+</figure>
 
 <p>Now, let’s write a tail recursive version of insertion sort. Let’s just call it <code class="highlighter-rouge">tr_isort</code>.</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_isort</span> <span class="n">lst</span> <span class="p">=</span>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_isort</span> <span class="n">lst</span> <span class="p">=</span>
   <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
     <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
     <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
     <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux</span> <span class="n">t</span> <span class="p">(</span><span class="n">insert</span> <span class="n">h</span> <span class="n">acc</span><span class="p">)</span>
   <span class="k">in</span>
-  <span class="n">aux</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre></figure>
+  <span class="n">aux</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
+</figure>
 
 <p>Food for thought - is it possible to write a tail-recursive version of <code class="highlighter-rouge">insert</code> function that we used above? If yes, why don’t we try it. If no, why not?</p>
 

@@ -208,7 +208,8 @@
 
 <p>How do we go about solving this problem. Once we look at <em>unsorted</em>, we can think of sorting the provided list first. Once we sort the list, we just need to go through the elements of the list one by one and find the missing number. As we have sorted the list already, the first missing number we encounter would be the minimum missing number.</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">min_missing_num</span> <span class="n">lst</span> <span class="p">=</span> 
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">min_missing_num</span> <span class="n">lst</span> <span class="p">=</span> 
   <span class="k">let</span> <span class="n">sort_lst</span> <span class="p">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">sort</span> <span class="n">compare</span> <span class="n">lst</span> <span class="k">in</span>
   <span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">sort_lst</span> <span class="p">=</span> 
     <span class="k">match</span> <span class="n">sort_lst</span> <span class="k">with</span>
@@ -217,15 +218,20 @@
     <span class="p">|</span> <span class="n">x</span><span class="p">::</span><span class="n">y</span><span class="o">::_</span> <span class="k">when</span> <span class="n">y</span> <span class="p">-</span> <span class="n">x</span> <span class="p">&gt;</span> <span class="mi">1</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
     <span class="p">|</span> <span class="o">_::</span><span class="n">tl</span> <span class="p">-&gt;</span> <span class="n">find_min</span> <span class="n">tl</span>
   <span class="k">in</span>
-  <span class="n">find_min</span> <span class="o">((-</span><span class="mi">1</span><span class="o">)::</span><span class="n">sort_lst</span><span class="o">);;</span></code></pre></figure>
+  <span class="n">find_min</span> <span class="o">((-</span><span class="mi">1</span><span class="o">)::</span><span class="n">sort_lst</span><span class="o">);;</span></code></pre>
+</figure>
 
 <p>Here, we are using OCaml List module’s sort function that has the following signature:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : ('a -&gt; 'a -&gt; int) -&gt; 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre></figure>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : ('a -&gt; 'a -&gt; int) -&gt; 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
+</figure>
 
 <p>And <code class="highlighter-rouge">compare</code> is a comparision function that has the following signature:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : 'a -&gt; 'a -&gt; int = &lt;fun&gt; *)</span></code></pre></figure>
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : 'a -&gt; 'a -&gt; int = &lt;fun&gt; *)</span></code></pre>
+</figure>
 
 <p>Essentially, <code class="highlighter-rouge">compare x y</code> returns 0 if <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> are equal, <code class="highlighter-rouge">-1</code> if <code class="highlighter-rouge">x &lt; y</code> and <code class="highlighter-rouge">1</code> if <code class="highlighter-rouge">x &gt; y</code>.</p>
 
