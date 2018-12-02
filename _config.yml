@@ -44,6 +44,7 @@ kramdown:
   entity_output: as_char
   footnote_nr: 1
   smart_quotes: lsquo,rsquo,ldquo,rdquo
+  parse_block_html: true
   toc_levels: 1..6
 
 jekyll-archives:
