@@ -394,6 +394,210 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/11/11/queues_linked_list/">Queues using Linked List &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 11, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/queues/">queues</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In an <a href="https://dotkay.github.io/2017/11/09/queues">earlier post</a>, we saw implementation of Queues using arrays. Now, we will use <em>Linked List</em> to store the elements instead of an array. Since we are all linked list champs by now, we already know how to go about building a linked list - create nodes that contain our elements and join the nodes using <em>next</em> pointers.</p>
+
+<p>We will use this example to introduce the notion of a <em>friend</em> class in C++.</p>
+
+<blockquote>
+  <p>A <em>friend class</em> F is a C++ class that can access private and protected members of another class A in which F is declared as friend. Here, a <em>Queue</em> class (F) may be allowed to access private members of a Node class (A).</p>
+</blockquote>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Queue</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+    <span class="n">Node</span> <span class="o">*</span><span class="n">front</span><span class="p">,</span> <span class="o">*</span><span class="n">rear</span><span class="p">;</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="n">Queue</span> <span class="p">();</span>
+    <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
+    <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
+    <span class="kt">int</span> <span class="n">dequeue</span> <span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">Queue</span><span class="o">::</span><span class="n">Queue</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">front</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">rear</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>There is also a notion of <em>friend function</em>, very similar to <em>friend class</em>:</p>
+<blockquote>
+  <p>A <em>friend function</em> f can be used to access private and protected members and it can be either:
+. a method of a class A
+.  A global function</p>
+</blockquote>
+
+<p>In the following post, we will see how to implement the methods <em>enqueue()</em> and <em>dequeue()</em> for the Queue class above.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/11/10/queue_operations/">Queue using Arrays - Operations &rarr;</a>
           </h1>
 
@@ -761,188 +965,6 @@
 <span class="p">}</span></code></pre></figure>
 
 <p>We have two private members - <em>front</em> and <em>rear</em> - <em>front</em> gets served first. Objects get added to the container using the <em>enqueue()</em> method and they get processed in FIFO order using <em>dequeue()</em> method. We will look at these operations in future posts.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/08/linked-list-print-reverse-rec/">Linked Lists - Reverse me (R)! &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 8, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/linked-lists/">linked lists</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In our <a href="https://dotkay.github.io/2017/11/07/linked-list-reverse">previous post</a>, we looked at an iterative function to reverse a linked list. I believe it was a lot of fun. Now, we shall look at a recursive function to do the same. As before, whenever you hear recursion, you should just think of the base case and the recursive steps (i.e. what is to be done in each recursive step - like printing the node’s data in our <a href="https://dotkay.github.io/2017/11/06/linked-list-print-rec">recursive print function</a>) - once this is clear, the rest would be straight forward. For reversing a linked list, at each recursive step, we need to update the pointer directions - if there is a pointer <code class="highlighter-rouge">C  --&gt;  D</code>, after the recursive call it would be <code class="highlighter-rouge">C  &lt;--  D</code>. We keep track of two pointers, <code class="highlighter-rouge">head</code> and <code class="highlighter-rouge">rest</code> (everything following <code class="highlighter-rouge">head</code>) - and recursively call the function.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">reverse_list_r</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">first</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="n">first</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
-  <span class="n">rest</span> <span class="o">=</span> <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">rest</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="k">return</span><span class="p">;</span>                   <span class="c1">// base case
-</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">rest</span><span class="p">;</span>          <span class="c1">// move forward
-</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">reverse_list_r</span> <span class="p">();</span>    <span class="c1">// recursive call  
-</span>  <span class="n">rest</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>         <span class="c1">// update pointers
-</span>  <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span></code></pre></figure>
-
-<p>I will leave it as an (interesting) exercise for the reader to work out this function as we did for the iterative case.</p>
 
         </div>
         

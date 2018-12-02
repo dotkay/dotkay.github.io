@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-02T00:39:05+00:00</updated>
+  <updated>2018-12-02T00:52:24+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,81 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Queues using Linked List →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/11/queues_linked_list/" rel="alternate" type="text/html" title="Queues using Linked List" />
+      <published>2017-11-11T00:00:00+00:00</published>
+      <updated>2017-11-11T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/11/queues_linked_list</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/11/queues_linked_list/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2017/11/09/queues&quot;&gt;earlier post&lt;/a&gt;, we saw implementation of Queues using arrays. Now, we will use &lt;em&gt;Linked List&lt;/em&gt; to store the elements instead of an array. Since we are all linked list champs by now, we already know how to go about building a linked list - create nodes that contain our elements and join the nodes using &lt;em&gt;next&lt;/em&gt; pointers.&lt;/p&gt;
+
+&lt;p&gt;We will use this example to introduce the notion of a &lt;em&gt;friend&lt;/em&gt; class in C++.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A &lt;em&gt;friend class&lt;/em&gt; F is a C++ class that can access private and protected members of another class A in which F is declared as friend. Here, a &lt;em&gt;Queue&lt;/em&gt; class (F) may be allowed to access private members of a Node class (A).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;friend&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Queue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;There is also a notion of &lt;em&gt;friend function&lt;/em&gt;, very similar to &lt;em&gt;friend class&lt;/em&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A &lt;em&gt;friend function&lt;/em&gt; f can be used to access private and protected members and it can be either:
+. a method of a class A
+.  A global function&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In the following post, we will see how to implement the methods &lt;em&gt;enqueue()&lt;/em&gt; and &lt;em&gt;dequeue()&lt;/em&gt; for the Queue class above.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="queues" />
+      
+
+      
+
+      
+        <summary type="html">In an earlier post, we saw implementation of Queues using arrays. Now, we will use Linked List to store the elements instead of an array. Since we are all linked list champs by now, we already know how to go about building a linked list - create nodes that contain our elements and join the nodes using next pointers. We will use this example to introduce the notion of a friend class in C++. A friend class F is a C++ class that can access private and protected members of another class A in which F is declared as friend. Here, a Queue class (F) may be allowed to access private members of a Node class (A). class Node { private: int data; Node *next; friend class Queue; }; class Queue { private: Node *front, *rear; public: Queue (); void enqueue (int item); bool is_empty (); int dequeue (); }; Queue::Queue () { this-&amp;gt;front = NULL; this-&amp;gt;rear = NULL; } There is also a notion of friend function, very similar to friend class: A friend function f can be used to access private and protected members and it can be either: . a method of a class A . A global function In the following post, we will see how to implement the methods enqueue() and dequeue() for the Queue class above.</summary>
       
 
       
@@ -1159,100 +1234,6 @@ BAA  (*)
 
       
         <summary type="html">Let us think about computing the number of inversions in an array. Let us also assume that our array has unique elements. Two elements in an array arr form an inversion if arr[i] &amp;gt; arr[j] for i &amp;lt; j. For example, if {2, 4, 1, 3, 5} is our input array, it has 3 inversions (2, 1), (4,1) and (4, 3). Let us look for a naïve straight-forward algorithm to solve this problem - i.e., traverse the array comparing the elements and checking if there is an inversion. int inv_count (int arr[], int n) { int inv_count = 0; for (int i=0; i&amp;lt;n-1; i++) for (int j=i+1; j&amp;lt;n; j++) if (arr[j] &amp;lt; arr[i]) inv_count++; return inv_count; // Time complexity: O(n^2) (two for loops) } Inversion tells us how far the array is from being sorted. For a sorted array, the number of inversions is 0 and if the array is sorted in the other order it has maximum number of inversions. But can we do better than O(n^2?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Computing sub-array sum given a set of queries on sub-array indices - Mo’s Algorithm →</title>
-      
-      <link href="https://dotkay.github.io/2017/10/01/array-query-sum-mo/" rel="alternate" type="text/html" title="Computing sub-array sum given a set of queries on sub-array indices - Mo's Algorithm" />
-      <published>2017-10-01T00:00:00+00:00</published>
-      <updated>2017-10-01T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/10/01/array-query-sum-mo</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/10/01/array-query-sum-mo/">&lt;p&gt;In the &lt;a href=&quot;https://dotkay.github.io/2017/09/30/array-query-sum/&quot;&gt;previous post&lt;/a&gt;, we saw the naïve way of computing sub-array sums, given a set of queries. Now, following the hint provided in the previous post, let us try to think what would make it better.&lt;/p&gt;
-
-&lt;p&gt;First, let us try to understand it with an example. If we had an inpur array &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; and three queries of the form &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;, we were independently computing &lt;code class=&quot;highlighter-rouge&quot;&gt;a[0] + a[1] + a[2] + a[3]&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;a[4] + a[5] + a[6] + a[7]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;a[0] + a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7] + a[8]&lt;/code&gt;. Although the sub-array sums we computed for the first two queries &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; could have just been reused instead of computing the sum all over again. Even in the case where the third query was of the form &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; we could have used the results computed for the queries &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;. This also means that we need to compute the queries &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; so that we could reuse them for &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; - i.e., if we computed &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; first, we already lost the advantage. Which means that we need to order our queries in such a way that we compute the queries that have the potential to be reused before computing the other queries - in the above example &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The ordering of queries themselves could be done in several ways. In this post, we shall look at one Mo’s algorithm that buckets the queries into a number of buckets which are a function of the size of the input array. If the input array is of size &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;, we put all the queries whose left index (&lt;code class=&quot;highlighter-rouge&quot;&gt;L&lt;/code&gt;) ranges from 0 … \sqrt(n) -1 in the first bucket, (\sqrt n) … (2 * \sqrt(n) - 1), and so on. Within each bucket, we shall order the queries in increasing order of the right indices - the queries’ &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt; values.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// a, b : two Queries to be compared in order to sort
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Query&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Query&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// first, sort by L if they are in different buckets
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bucket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bucket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bucket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bucket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// within the same bucket, queries are sorted
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// according to R values
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Now, we need to adjust for over-lapping ranges in the queries. For example, if the previous (already computed) query was &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and the query that is currently being worked upon is &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; then we need to discount &lt;code class=&quot;highlighter-rouge&quot;&gt;a[2]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;a[3]&lt;/code&gt; from the already computed sum (for &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;) and also add &lt;code class=&quot;highlighter-rouge&quot;&gt;a[6]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;a[7]&lt;/code&gt; to it.&lt;/p&gt;
-
-&lt;p&gt;Very similarly, we may have to remove elements from the right as well (i.e. tracking the &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt; indices). For example, if the previous range was &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and the current range &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;, we need to discount &lt;code class=&quot;highlighter-rouge&quot;&gt;a[4]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;a[5]&lt;/code&gt; from the previous sum, as well (besides &lt;code class=&quot;highlighter-rouge&quot;&gt;a[0]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;a[1]&lt;/code&gt; which were taken care when we were handling L (previous paragraph)).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// initialize the current L and R values
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;currR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// initialize an accumulator for the sum
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// iterate over the queries
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// taking care of L
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// taking care of discarding
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// sub-parts from the sum
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;curr_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;currL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// taking care of adding 
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// sub-parts to the sum
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;curr_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;currL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// taking care of R
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// adding elements to R
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;curr_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;currR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// discounting elements
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;curr_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;currR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Let us run this on an example. Let us assume we are provided with an input array &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; which is &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; of size 25 (&lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;) and the following 8 (&lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt;) queries &lt;code class=&quot;highlighter-rouge&quot;&gt;(2,4) (1,7) (0,8) (5,8) (10,15) (12,16) (17,20) (18,21)&lt;/code&gt;. Now, since &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; is 25, we need to put the queries with L values in the range 0 … \sqrt(n) -1 in the first bucket and so on. The first bucket, for example, would initially (arranged according to L values from 0..\sqrt(25) - 1), i.e. 0..4, will have the queries &lt;code class=&quot;highlighter-rouge&quot;&gt;(0, 8) (2, 4) (1, 7)&lt;/code&gt; and then re-ordered as per their &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt; values to &lt;code class=&quot;highlighter-rouge&quot;&gt;(2, 4) (1, 7) (0, 8)&lt;/code&gt;. The other buckets are second: &lt;code class=&quot;highlighter-rouge&quot;&gt;(5,8)&lt;/code&gt;, third: &lt;code class=&quot;highlighter-rouge&quot;&gt;(10, 15) (12, 16)&lt;/code&gt;, fourth: &lt;code class=&quot;highlighter-rouge&quot;&gt;(17, 20) (18, 21)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Take some time to work through it. It would be worth the time to enhance the understanding.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-
-      
-
-      
-        <summary type="html">In the previous post, we saw the naïve way of computing sub-array sums, given a set of queries. Now, following the hint provided in the previous post, let us try to think what would make it better. First, let us try to understand it with an example. If we had an inpur array a and three queries of the form {0, 3}, {4, 8} and {0, 8}, we were independently computing a[0] + a[1] + a[2] + a[3], a[4] + a[5] + a[6] + a[7] and a[0] + a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7] + a[8]. Although the sub-array sums we computed for the first two queries {0, 3} and {4, 8} could have just been reused instead of computing the sum all over again. Even in the case where the third query was of the form {0, 10} we could have used the results computed for the queries {0, 3} and {4, 8}. This also means that we need to compute the queries {0, 3} and {4, 8} so that we could reuse them for {0, 8} - i.e., if we computed {0, 8} first, we already lost the advantage. Which means that we need to order our queries in such a way that we compute the queries that have the potential to be reused before computing the other queries - in the above example {0, 3} and {4, 8}. The ordering of queries themselves could be done in several ways. In this post, we shall look at one Mo’s algorithm that buckets the queries into a number of buckets which are a function of the size of the input array. If the input array is of size n, we put all the queries whose left index (L) ranges from 0 … \sqrt(n) -1 in the first bucket, (\sqrt n) … (2 * \sqrt(n) - 1), and so on. Within each bucket, we shall order the queries in increasing order of the right indices - the queries’ R values. // a, b : two Queries to be compared in order to sort bool compare(Query a, Query b) { // first, sort by L if they are in different buckets if (a.L/bucket != b.L/bucket) return a.L/bucket &amp;lt; b.L/bucket; // within the same bucket, queries are sorted // according to R values return a.R &amp;lt; b.R; } Now, we need to adjust for over-lapping ranges in the queries. For example, if the previous (already computed) query was {2, 5} and the query that is currently being worked upon is {4, 7} then we need to discount a[2] and a[3] from the already computed sum (for {2, 5}) and also add a[6] and a[7] to it. Very similarly, we may have to remove elements from the right as well (i.e. tracking the R indices). For example, if the previous range was {0, 5} and the current range {2, 3}, we need to discount a[4] and a[5] from the previous sum, as well (besides a[0] and a[1] which were taken care when we were handling L (previous paragraph)). // initialize the current L and R values int currL = 0, currR = 0; // initialize an accumulator for the sum int curr_sum = 0; // iterate over the queries for (int i=0; i&amp;lt;m; i++) { int L = q[i].L, R = q[i].R; // taking care of L // taking care of discarding // sub-parts from the sum while (currL &amp;lt; L) { curr_sum -= a[currL]; currL++; } // taking care of adding // sub-parts to the sum while (currL &amp;gt; L) { curr_sum += a[currL]; currL--; } // taking care of R // adding elements to R while (currR &amp;lt;= R) { curr_sum += a[currR]; currR++; } // discounting elements while (currR &amp;gt; R+1) { curr_sum -= a[currR - 1]; currR--; } } Let us run this on an example. Let us assume we are provided with an input array a which is { 1 2 3 1 1 2 4 1 3 4 2 1 2 3 4 1 1 3 4 2 3 2 1 2 3 } of size 25 (n) and the following 8 (m) queries (2,4) (1,7) (0,8) (5,8) (10,15) (12,16) (17,20) (18,21). Now, since n is 25, we need to put the queries with L values in the range 0 … \sqrt(n) -1 in the first bucket and so on. The first bucket, for example, would initially (arranged according to L values from 0..\sqrt(25) - 1), i.e. 0..4, will have the queries (0, 8) (2, 4) (1, 7) and then re-ordered as per their R values to (2, 4) (1, 7) (0, 8). The other buckets are second: (5,8), third: (10, 15) (12, 16), fourth: (17, 20) (18, 21). Take some time to work through it. It would be worth the time to enhance the understanding.</summary>
       
 
       
