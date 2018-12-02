@@ -9,7 +9,7 @@
   
   
   <title>Queue using Linked List - Operations</title>
-  <meta name="description" content="In our previous post, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods enqueue() and dequeue(). This is very similar to inserting a new element to a linked list as we saw earlier. To insert a new item, we construct a node with that item and a next pointer, add it to the list and adjust the pointers. void Queue::enqueue (int item) { // if the queue is empty // front and rear are the same, i.e the new item Node *new_item = new Node; new_item-&amp;gt;data = item; new_item-&amp;gt;next = NULL; if (rear == NULL) { front = rear = new_item; return; } // else add it to the rear end // of the queue rear-&amp;gt;next = new_item; rear = new_item; } int Queue::dequeue () { int res; // check if the queue is empty if (front == NULL) throw out_of_range(&quot;Empty queue&quot;); Node *enqueue_item = front; res = front-&amp;gt;data; front = front-&amp;gt;next; // now, if there was only one node // to pop front would point to NULL if (front == NULL) rear = NULL; delete (enqueue_item); return res; } bool Queue::is_empty () { return (front == NULL); } That’s all there is in Queues!">
+  <meta name="description" content="In our previous post, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods enqueue() and dequeue(). This is very similar to inserting a new element to a linked list as we saw earlier. To insert a new item, we construct a node with that item and a next pointer, add it to the list and adjust the pointers. void Queue::enqueue (int item) { // if the queue is empty // front and rear are the same, i.e the new item Node *new_item = new Node; new_item-&amp;gt;data = item; new_item-&amp;gt;next = NULL; if (rear == NULL) { front = rear = new_item; return; } // else add it to the rear end // of the queue rear-&amp;gt;next = new_item; rear = new_item; } int Queue::dequeue () { int res; // check if the queue is empty if (front == NULL) throw out_of_range(&quot;Empty queue&quot;); // get the item to dequeue Node *dequeue_item = front; res = front-&amp;gt;data; front = front-&amp;gt;next; // now, if there was only one node // to pop front would point to NULL if (front == NULL) rear = NULL; delete (dequeue_item); return res; } bool Queue::is_empty () { return (front == NULL); } That’s all there is in Queues!">
   
     
     <meta name="keywords" content="C++, data structures, queues">
@@ -277,8 +277,9 @@
   <span class="c1">// check if the queue is empty
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Empty queue"</span><span class="p">);</span>
-
-  <span class="n">Node</span> <span class="o">*</span><span class="n">enqueue_item</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
+  
+  <span class="c1">// get the item to dequeue
+</span>  <span class="n">Node</span> <span class="o">*</span><span class="n">dequeue_item</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
   <span class="n">res</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
   <span class="n">front</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 
@@ -287,7 +288,7 @@
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="n">rear</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
-  <span class="k">delete</span> <span class="p">(</span><span class="n">enqueue_item</span><span class="p">);</span>
+  <span class="k">delete</span> <span class="p">(</span><span class="n">dequeue_item</span><span class="p">);</span>
   <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
 <span class="p">}</span>
 

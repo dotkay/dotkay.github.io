@@ -577,8 +577,9 @@
   <span class="c1">// check if the queue is empty
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Empty queue"</span><span class="p">);</span>
-
-  <span class="n">Node</span> <span class="o">*</span><span class="n">enqueue_item</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
+  
+  <span class="c1">// get the item to dequeue
+</span>  <span class="n">Node</span> <span class="o">*</span><span class="n">dequeue_item</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
   <span class="n">res</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
   <span class="n">front</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 
@@ -587,7 +588,7 @@
 </span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="n">rear</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
-  <span class="k">delete</span> <span class="p">(</span><span class="n">enqueue_item</span><span class="p">);</span>
+  <span class="k">delete</span> <span class="p">(</span><span class="n">dequeue_item</span><span class="p">);</span>
   <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
 <span class="p">}</span>
 

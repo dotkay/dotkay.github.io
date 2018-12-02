@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-02T15:51:14+00:00</updated>
+  <updated>2018-12-02T15:54:19+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -137,8 +137,9 @@
   &lt;span class=&quot;c1&quot;&gt;// check if the queue is empty
 &lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Empty queue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enqueue_item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  
+  &lt;span class=&quot;c1&quot;&gt;// get the item to dequeue
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dequeue_item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
@@ -147,7 +148,7 @@
 &lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
-  &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enqueue_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dequeue_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
@@ -176,7 +177,7 @@
       
 
       
-        <summary type="html">In our previous post, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods enqueue() and dequeue(). This is very similar to inserting a new element to a linked list as we saw earlier. To insert a new item, we construct a node with that item and a next pointer, add it to the list and adjust the pointers. void Queue::enqueue (int item) { // if the queue is empty // front and rear are the same, i.e the new item Node *new_item = new Node; new_item-&amp;gt;data = item; new_item-&amp;gt;next = NULL; if (rear == NULL) { front = rear = new_item; return; } // else add it to the rear end // of the queue rear-&amp;gt;next = new_item; rear = new_item; } int Queue::dequeue () { int res; // check if the queue is empty if (front == NULL) throw out_of_range(&quot;Empty queue&quot;); Node *enqueue_item = front; res = front-&amp;gt;data; front = front-&amp;gt;next; // now, if there was only one node // to pop front would point to NULL if (front == NULL) rear = NULL; delete (enqueue_item); return res; } bool Queue::is_empty () { return (front == NULL); } That’s all there is in Queues!</summary>
+        <summary type="html">In our previous post, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods enqueue() and dequeue(). This is very similar to inserting a new element to a linked list as we saw earlier. To insert a new item, we construct a node with that item and a next pointer, add it to the list and adjust the pointers. void Queue::enqueue (int item) { // if the queue is empty // front and rear are the same, i.e the new item Node *new_item = new Node; new_item-&amp;gt;data = item; new_item-&amp;gt;next = NULL; if (rear == NULL) { front = rear = new_item; return; } // else add it to the rear end // of the queue rear-&amp;gt;next = new_item; rear = new_item; } int Queue::dequeue () { int res; // check if the queue is empty if (front == NULL) throw out_of_range(&quot;Empty queue&quot;); // get the item to dequeue Node *dequeue_item = front; res = front-&amp;gt;data; front = front-&amp;gt;next; // now, if there was only one node // to pop front would point to NULL if (front == NULL) rear = NULL; delete (dequeue_item); return res; } bool Queue::is_empty () { return (front == NULL); } That’s all there is in Queues!</summary>
       
 
       
