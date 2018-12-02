@@ -37,8 +37,9 @@ int Queue::dequeue () {
   // check if the queue is empty
   if (front == NULL)
     throw out_of_range("Empty queue");
-
-  Node *enqueue_item = front;
+  
+  // get the item to dequeue
+  Node *dequeue_item = front;
   res = front->data;
   front = front->next;
 
@@ -47,7 +48,7 @@ int Queue::dequeue () {
   if (front == NULL)
     rear = NULL;
 
-  delete (enqueue_item);
+  delete (dequeue_item);
   return res;
 }
 
