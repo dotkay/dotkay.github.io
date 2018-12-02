@@ -102,6 +102,210 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/30/some-more-tail-recursion/">Some more tail recursion... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 30, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s continue with tail recursion and folding (recollect our <a href="https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursions-and-reversing-a-list">previous post</a>. Let’s use those concepts to write insertion sort algorithm. In an <a href="https://dotkay.github.io/2017/08/19/some-more-recursion">earlier post</a> we wrote a recursive implementation of insertion sort algorithm as below:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="p">::</span><span class="n">h</span><span class="p">::</span><span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+</figure>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
+  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
+</figure>
+
+<p>Now, let’s write a tail recursive version of insertion sort. Let’s just call it <code class="highlighter-rouge">tr_isort</code>.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_isort</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux</span> <span class="n">t</span> <span class="p">(</span><span class="n">insert</span> <span class="n">h</span> <span class="n">acc</span><span class="p">)</span>
+  <span class="k">in</span>
+  <span class="n">aux</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Food for thought - is it possible to write a tail-recursive version of <code class="highlighter-rouge">insert</code> function that we used above? If yes, why don’t we try it. If no, why not?</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list/">Tail recursions and reversing a list &rarr;</a>
           </h1>
 
@@ -741,173 +945,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 </figure>
 
 <p>That’s all for today! Hope it was enjoyable.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/25/some-more-examples-of-tail-recursion/">More examples of tail recursions &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 25, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>We introduced tail recursion in our <a href="https://dotkay.github.io/2017/08/24/introducing-tail-recursions">previous post</a>. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function <code class="highlighter-rouge">lst_rev</code>, introduced in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples">earlier posts</a> which takes a list <code class="highlighter-rouge">lst</code> and returns the reversed list. Here’s it is for your reference:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="p">(</span><span class="n">lst_rev</span> <span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">h</span><span class="o">];;</span></code></pre>
-</figure>
-
-<p>Recollect that in Ocaml, <code class="highlighter-rouge">@</code> is the operator for list concatenation. Let’s work out how the execution of this function on our list <code class="highlighter-rouge">[1; 2; 3 4]</code> would look like:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	lst_rev [1; 2; 3; 4]
-= 	lst_rev [2; 3; 4] @ [1]
-= 	lst_rev [3; 4] @ [2] @ [1]
-= 	lst_rev [4] @ [3] @ [2] @ [1]
-= 	lst_rev [] @ [4] @ [3] @ [2] @ [1]
-=	[] @ [4] @ [3] @ [2] @ [1]
-= 	[4; 3; 2; 1]
-</code></pre>
-</div>
-
-<p>Here is our tail-recursive version of the same. Let’s call it <code class="highlighter-rouge">tr_lst_rev</code>.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
-    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_rev</span> <span class="n">t</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">acc</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Again, very similar to our previous example, we use an accumulator <code class="highlighter-rouge">acc</code> to collect the results of intermediate computations (results of each recursive step).</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	tr_lst_rev [1; 2; 3; 4]
-=	aux_lst_rev [2; 3; 4]	1::[]
-=	aux_lst_rev [3; 4] 	2::[1]
-=	aux_lst_rev [4] 	3::[2; 1]
-=	aux_lst_rev [] 		4::[3; 2; 1]
-= 	[4; 3; 2; 1]
-
-</code></pre>
-</div>
-
 
         </div>
         

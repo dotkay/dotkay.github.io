@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Stack using Arrays - Operations</title>
+  <meta name="description" content="In our previous post we introduced the Stack data structure implemented using arrays. Now, we will see how to implement the operations on such a Stack - in particular we will learn how to implement the following methods: Push(item) - to push the input item into the stack Pop() - to pop an item from the stack top_of_stack() - to track the item in the top of the stack is_empty() - to check if the stack is empty As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for top of stack) to -1 and we shall use that while performing our operations. We are tracking only top, so we increment the index when we push(), decrement it when we pop() and check the value to determine when the stack is empty as shown in the code fragment below: bool Stack::push (int item) { // check if there&#39;s place to push if (top &amp;gt;= (MAXSIZE-1)) { cout &amp;lt;&amp;lt; &quot;Stack overflow!&quot;; return false; } // if there&#39;s place store the item else { arr[++top] = item; return true; } } int Stack::pop () { // check if there&#39;s anything to pop // or if the stack is empty if (top &amp;lt; 0) { throw out_of_range(&quot;Stack underflow!&quot;); } else { return arr[top--]; } } int Stack::top_of_stack () { return arr[top]; } bool Stack::is_empty () { return (top == -1); } That was easy!">
+  
+    
+    <meta name="keywords" content="C++, data structures, stacks">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/11/14/stack_operations/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Stack using Arrays - Operations">
+  <meta name="twitter:description" content="In our previous post we introduced the Stack data structure implemented using arrays. Now, we will see how to implement the operations on such a Stack - in particular we will learn how to implement...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/11/14/stacks_operations">Stack using Arrays - Operations &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-11-14T00:00:00+00:00" itemprop="datePublished">Nov 14, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/stacks/">stacks</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In our <a href="https://dotkay.github.io/2017/11/13/stacks">previous post</a> we introduced the <em>Stack</em> data structure implemented using arrays. Now, we will see how to implement the operations on such a Stack - in particular we will learn how to implement the following methods:</p>
+
+<ul>
+  <li>Push(item) - to push the input item into the stack</li>
+  <li>Pop() - to pop an item from the stack</li>
+  <li>top_of_stack() - to track the item in the top of the stack</li>
+  <li>is_empty() - to check if the stack is empty</li>
+</ul>
+
+<p>As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for <em>top of stack</em>) to <code class="highlighter-rouge">-1</code> and we shall use that while performing our operations. We are tracking only <em>top</em>, so we increment the index when we <em>push()</em>, decrement it when we <em>pop()</em> and check the value to determine when the stack is empty as shown in the code fragment below:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// check if there's place to push
+</span>  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">MAXSIZE</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Stack overflow!"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// if there's place store the item
+</span>  <span class="k">else</span> <span class="p">{</span>
+    <span class="n">arr</span><span class="p">[</span><span class="o">++</span><span class="n">top</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Stack</span><span class="o">::</span><span class="n">pop</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// check if there's anything to pop
+</span>  <span class="c1">// or if the stack is empty
+</span>  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Stack underflow!"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">top</span><span class="o">--</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Stack</span><span class="o">::</span><span class="n">top_of_stack</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">top</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">top</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>That was easy!</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
