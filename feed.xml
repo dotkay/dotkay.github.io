@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-02T00:32:16+00:00</updated>
+  <updated>2018-12-02T00:39:05+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,69 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Queue using Arrays - Operations →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/10/queue_operations/" rel="alternate" type="text/html" title="Queue using Arrays - Operations" />
+      <published>2017-11-10T00:00:00+00:00</published>
+      <updated>2017-11-10T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/10/queue_operations</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/10/queue_operations/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/11/09/queues&quot;&gt;previous post&lt;/a&gt;, we looked at the modelling of the Queue class using an &lt;em&gt;array&lt;/em&gt; as the container to hold the queue elements. &lt;em&gt;front&lt;/em&gt; and &lt;em&gt;rear&lt;/em&gt; indicate the boundary of the queue (the first and the last elements). When we want to add a new element, we add it at the &lt;em&gt;rear&lt;/em&gt;. Likewise, when we want to remove and process an element, we remove it from the &lt;em&gt;front&lt;/em&gt;. That is, enqueue increments the &lt;code class=&quot;highlighter-rouge&quot;&gt;rear&lt;/code&gt; member and dequeue increments the &lt;code class=&quot;highlighter-rouge&quot;&gt;front&lt;/code&gt; member.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_structures/queue_arr.png&quot; alt=&quot;Queue Operations&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAXSIZE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Queue is full. Nothing can be enqueued now.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Can not dequeue from empty queue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So, when &lt;em&gt;front = rear&lt;/em&gt; there is only one element and if &lt;em&gt;front &amp;gt; rear&lt;/em&gt;, the queue is empty (recollect that the &lt;code class=&quot;highlighter-rouge&quot;&gt;front&lt;/code&gt; is initialized to 0 and &lt;code class=&quot;highlighter-rouge&quot;&gt;rear&lt;/code&gt; is initialized to -1).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Although pretty straight-forward, Queues have a variety of applications. We will soon see some applications when we discuss Graph data structures.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="queues" />
+      
+
+      
+
+      
+        <summary type="html">In our previous post, we looked at the modelling of the Queue class using an array as the container to hold the queue elements. front and rear indicate the boundary of the queue (the first and the last elements). When we want to add a new element, we add it at the rear. Likewise, when we want to remove and process an element, we remove it from the front. That is, enqueue increments the rear member and dequeue increments the front member. void Queue::enqueue (int item) { if (rear &amp;gt;= MAXSIZE - 1) throw out_of_range(&quot;Queue is full. Nothing can be enqueued now.&quot;); else { arr[++rear] = item; } } int Queue::dequeue () { if (rear == -1) throw out_of_range(&quot;Can not dequeue from empty queue&quot;); return arr[front++]; } So, when front = rear there is only one element and if front &amp;gt; rear, the queue is empty (recollect that the front is initialized to 0 and rear is initialized to -1). bool Queue::is_empty () { return (front &amp;gt; rear); } Although pretty straight-forward, Queues have a variety of applications. We will soon see some applications when we discuss Graph data structures.</summary>
       
 
       
@@ -1190,74 +1253,6 @@ BAA  (*)
 
       
         <summary type="html">In the previous post, we saw the naïve way of computing sub-array sums, given a set of queries. Now, following the hint provided in the previous post, let us try to think what would make it better. First, let us try to understand it with an example. If we had an inpur array a and three queries of the form {0, 3}, {4, 8} and {0, 8}, we were independently computing a[0] + a[1] + a[2] + a[3], a[4] + a[5] + a[6] + a[7] and a[0] + a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7] + a[8]. Although the sub-array sums we computed for the first two queries {0, 3} and {4, 8} could have just been reused instead of computing the sum all over again. Even in the case where the third query was of the form {0, 10} we could have used the results computed for the queries {0, 3} and {4, 8}. This also means that we need to compute the queries {0, 3} and {4, 8} so that we could reuse them for {0, 8} - i.e., if we computed {0, 8} first, we already lost the advantage. Which means that we need to order our queries in such a way that we compute the queries that have the potential to be reused before computing the other queries - in the above example {0, 3} and {4, 8}. The ordering of queries themselves could be done in several ways. In this post, we shall look at one Mo’s algorithm that buckets the queries into a number of buckets which are a function of the size of the input array. If the input array is of size n, we put all the queries whose left index (L) ranges from 0 … \sqrt(n) -1 in the first bucket, (\sqrt n) … (2 * \sqrt(n) - 1), and so on. Within each bucket, we shall order the queries in increasing order of the right indices - the queries’ R values. // a, b : two Queries to be compared in order to sort bool compare(Query a, Query b) { // first, sort by L if they are in different buckets if (a.L/bucket != b.L/bucket) return a.L/bucket &amp;lt; b.L/bucket; // within the same bucket, queries are sorted // according to R values return a.R &amp;lt; b.R; } Now, we need to adjust for over-lapping ranges in the queries. For example, if the previous (already computed) query was {2, 5} and the query that is currently being worked upon is {4, 7} then we need to discount a[2] and a[3] from the already computed sum (for {2, 5}) and also add a[6] and a[7] to it. Very similarly, we may have to remove elements from the right as well (i.e. tracking the R indices). For example, if the previous range was {0, 5} and the current range {2, 3}, we need to discount a[4] and a[5] from the previous sum, as well (besides a[0] and a[1] which were taken care when we were handling L (previous paragraph)). // initialize the current L and R values int currL = 0, currR = 0; // initialize an accumulator for the sum int curr_sum = 0; // iterate over the queries for (int i=0; i&amp;lt;m; i++) { int L = q[i].L, R = q[i].R; // taking care of L // taking care of discarding // sub-parts from the sum while (currL &amp;lt; L) { curr_sum -= a[currL]; currL++; } // taking care of adding // sub-parts to the sum while (currL &amp;gt; L) { curr_sum += a[currL]; currL--; } // taking care of R // adding elements to R while (currR &amp;lt;= R) { curr_sum += a[currR]; currR++; } // discounting elements while (currR &amp;gt; R+1) { curr_sum -= a[currR - 1]; currR--; } } Let us run this on an example. Let us assume we are provided with an input array a which is { 1 2 3 1 1 2 4 1 3 4 2 1 2 3 4 1 1 3 4 2 3 2 1 2 3 } of size 25 (n) and the following 8 (m) queries (2,4) (1,7) (0,8) (5,8) (10,15) (12,16) (17,20) (18,21). Now, since n is 25, we need to put the queries with L values in the range 0 … \sqrt(n) -1 in the first bucket and so on. The first bucket, for example, would initially (arranged according to L values from 0..\sqrt(25) - 1), i.e. 0..4, will have the queries (0, 8) (2, 4) (1, 7) and then re-ordered as per their R values to (2, 4) (1, 7) (0, 8). The other buckets are second: (5,8), third: (10, 15) (12, 16), fourth: (17, 20) (18, 21). Take some time to work through it. It would be worth the time to enhance the understanding.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Computing sub-array sum given a set of queries on sub-array indices →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/30/array-query-sum/" rel="alternate" type="text/html" title="Computing sub-array sum given a set of queries on sub-array indices" />
-      <published>2017-09-30T00:00:00+00:00</published>
-      <updated>2017-09-30T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/30/array-query-sum</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/30/array-query-sum/">&lt;p&gt;Let us discuss an interesting algorithm problem - finding sub-array sums in an array.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Given an array &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; and a set of queries &lt;code class=&quot;highlighter-rouge&quot;&gt;q&lt;/code&gt; indicating ranges in an array, say sub-array indicies, how to compute the sum of the sub-array elements in the ranges specified in the query.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;In this post, we will discuss a very straightforward solution that traverses the array and the set of queries and computes the sum of each of the sub-arrays specified by the query bounds.&lt;/p&gt;
-
-&lt;p&gt;A query is just modelled as a &lt;code class=&quot;highlighter-rouge&quot;&gt;struct&lt;/code&gt; specifying the left and right sub-array bounds by integers &lt;code class=&quot;highlighter-rouge&quot;&gt;L&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;R&lt;/code&gt;. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; would mean &lt;em&gt;sum the elements in the indicies 3, 4, 5 - i.e. a[3] + a[4] + a[5]&lt;/em&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Query&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Now, let us walk through the queries one by one, and for each query, we shall traverse the array and pick up the elements in the indices specified by the query and sum them up. We initialize an accumulator &lt;code class=&quot;highlighter-rouge&quot;&gt;sum&lt;/code&gt; and keep updating it for this purpose. Again, &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; is the input array of size &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt;, and &lt;code class=&quot;highlighter-rouge&quot;&gt;q&lt;/code&gt; is an array of queries and there are &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; queries in all.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// walk through the queries one by one and 
-// get the query bounds
-// Complexity: O(m)
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;L&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// accumulator to collect the sum
-&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// traverse the array and sum up the elements
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// within the query bounds
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// Complexity: O(n)
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Total&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Complexity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;O&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;As you can see we have two loops - one within another and hence the total complexity is &lt;em&gt;O(mn)&lt;/em&gt;. How can we make this naïve algorithm better? What do we look for? Hint: If I have queries one of which is a subset of another, we would end up computing the sum twice. For example, if two of our queries are &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;, by walking through all the queries and traversing the array for each query as above, we are not utilizing the fact that we could reuse the sub-array sum within &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; in the query &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0,4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; instead of recomputing them independently.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-
-      
-
-      
-        <summary type="html">Let us discuss an interesting algorithm problem - finding sub-array sums in an array. Given an array a and a set of queries q indicating ranges in an array, say sub-array indicies, how to compute the sum of the sub-array elements in the ranges specified in the query. In this post, we will discuss a very straightforward solution that traverses the array and the set of queries and computes the sum of each of the sub-arrays specified by the query bounds. A query is just modelled as a struct specifying the left and right sub-array bounds by integers L and R. For example, {3, 5} would mean sum the elements in the indicies 3, 4, 5 - i.e. a[3] + a[4] + a[5] struct Query { int L, R; }; Now, let us walk through the queries one by one, and for each query, we shall traverse the array and pick up the elements in the indices specified by the query and sum them up. We initialize an accumulator sum and keep updating it for this purpose. Again, a is the input array of size n, and q is an array of queries and there are m queries in all. // walk through the queries one by one and // get the query bounds // Complexity: O(m) for (int i=0; i &amp;lt; m; i++) { int L = q[i].L, R = q[i].R; // accumulator to collect the sum int sum = 0; // traverse the array and sum up the elements // within the query bounds // Complexity: O(n) for (int j=L; j&amp;lt;=R; j++) { sum += a[j]; } } // Total Complexity: O(nm) As you can see we have two loops - one within another and hence the total complexity is O(mn). How can we make this naïve algorithm better? What do we look for? Hint: If I have queries one of which is a subset of another, we would end up computing the sum twice. For example, if two of our queries are {0,4} and {1,3}, by walking through all the queries and traversing the array for each query as above, we are not utilizing the fact that we could reuse the sub-array sum within {1,3} in the query {0,4} instead of recomputing them independently.</summary>
       
 
       
