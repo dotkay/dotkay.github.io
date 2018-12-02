@@ -762,9 +762,9 @@
         </header>
 
         <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2017/11/09/queues">earlier post</a>, we saw implementation of Queues using arrays. Now, we will use <em>Linked List</em> to store the elements instead of an array. Since we are all linked list champs by now, we already know how to go about building a linked list - create nodes that contain our elements and join the nodes using <em>next</em> pointers.</p>
+          <p>In an <a href="https://dotkay.github.io/2017/11/09/queues">earlier post</a>, we saw implementation of Queues using arrays. Now, we will use a <em>Linked List</em> to store the elements instead of an array. Since we are all linked list champs by now, we already know how to go about building a linked list given an input set of elements - create nodes that contain our elements and join the nodes using <em>next</em> pointers.</p>
 
-<p>We will use this example to introduce the notion of a <em>friend</em> class in C++.</p>
+<p>We will also use this example to introduce the notion of a <em>friend</em> class in C++.</p>
 
 <blockquote>
   <p>A <em>friend class</em> F is a C++ class that can access private and protected members of another class A in which F is declared as friend. Here, a <em>Queue</em> class (F) may be allowed to access private members of a Node class (A).</p>
@@ -794,9 +794,11 @@
 
 <p>There is also a notion of <em>friend function</em>, very similar to <em>friend class</em>:</p>
 <blockquote>
-  <p>A <em>friend function</em> f can be used to access private and protected members and it can be either:
-. a method of a class A
-.  A global function</p>
+  <p>A <em>friend function</em> f can be used to access private and protected members and it can be either:</p>
+  <ul>
+    <li>a method of a class A</li>
+    <li>a global function</li>
+  </ul>
 </blockquote>
 
 <p>In the following post, we will see how to implement the methods <em>enqueue()</em> and <em>dequeue()</em> for the Queue class above.</p>
