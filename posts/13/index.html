@@ -102,6 +102,182 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/14/ocaml-recursion-simple/">Let&#39;s play with some simple recursion &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 14, 2017 • 
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Recursion has been one of my favourite concepts for a very long time much like my fascination for mathematical induction. The subtle differences between the two would be a topic for a separate post.</p>
+
+<p>Let’s do some simple recursive functions just to illustrate the beauty. I chose <a href="http://www.ocaml.org">OCaml</a> for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive.</p>
+
+<p>OCaml is a very nice functional programming language and it offers <code class="highlighter-rouge">list</code> as a primitive data type. For example, if we want a list of five integers, this is how we do it in OCaml:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">;</span><span class="mi">5</span><span class="o">];;</span></code></pre></figure>
+
+<p>We would usually think of the list data type itself to be a recursive definition. i.e., a list is made of either an empty list or a list composed of a <code class="highlighter-rouge">head</code> element and <code class="highlighter-rouge">tail</code> where tail itself is a list (possibly empty list). For example, in the list <code class="highlighter-rouge">l1</code> above, <code class="highlighter-rouge">1</code> constitutes the head element and the tail corresponds to the list <code class="highlighter-rouge">2;3;4;5</code>.</p>
+
+<p>Now, let’s write a recursive function to count the number of elements in the list.</p>
+
+<ol>
+  <li>Let’s think of the base case: when the list is empty - in which case we just return <code class="highlighter-rouge">0</code> as the result.</li>
+  <li>And let’s build our thought process this way - what if the list has just one element? This would correspond to a list where there is a single head element and an empty list as the tail. i.e., we count the single head element and the empty list (the tail) we know contributes <code class="highlighter-rouge">0</code> to our result (the base case we just saw in 1.).</li>
+  <li>Now, when the list has 2 elements, we think of it as having a head element and a tail list that consists of a single element. Now, we count the head element and apply the same function (our counting) to count the number of elements in the tail list (which now corresponds to the case we saw in 2.).</li>
+</ol>
+
+<p>Essentially what we are doing is:</p>
+
+<ol>
+  <li>If the list is empty, return 0 as the result</li>
+  <li>If the list is not empty, count the head element (1) and call the function (recursively) to count the number of elements in the tail</li>
+</ol>
+
+<p>Now, let’s write the above two steps in the following program which we call <code class="highlighter-rouge">lst_len</code> (for list length), that takes a single input parameter <code class="highlighter-rouge">lst</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_len</span> <span class="n">lst</span> <span class="p">=</span> 
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="mi">0</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">lst_len</span> <span class="n">t</span><span class="p">;;</span>
+<span class="c">(* val len_lst : 'a list -&gt; int = &lt;fun&gt; *)</span></code></pre></figure>
+
+<p>Recursive functions in OCaml are defined with <code class="highlighter-rouge">rec</code> keyword. Let’s use this function to count the number of elements in our list <code class="highlighter-rouge">l1</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_len</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int = 5 *)</span></code></pre></figure>
+
+<p>Let’s use the same thought process to write a recursive function <code class="highlighter-rouge">lst_sum</code> to sum up (add) the elements of the list.</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_sum</span> <span class="n">lst</span> <span class="p">=</span> 
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="mi">0</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">h</span> <span class="o">+</span> <span class="n">lst_sum</span> <span class="n">t</span><span class="p">;;</span>
+<span class="c">(* val lst_sum : int list -&gt; int = &lt;fun&gt; *)</span></code></pre></figure>
+
+<p>And let’s use this function to sum up the elements in our list <code class="highlighter-rouge">l1</code>:</p>
+
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_sum</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int = 15 *)</span></code></pre></figure>
+
+<p>Isn’t this intuitive and elegant way of programming? We’ll talk more about simple programs that can be written in an intuitive way and try to develop our understanding of the concepts in a clear way.</p>
+
+<p>Thanks for your interest and keep checking out this space for more.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/10/my-first-post/">My First Post &rarr;</a>
           </h1>
 
@@ -110,6 +286,8 @@
   
     
       <a href="/categories/misc/">misc</a>
+    
+  
     
   
     

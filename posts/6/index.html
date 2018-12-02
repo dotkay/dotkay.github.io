@@ -102,6 +102,152 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/28/analyzing-happiness-data/">Thinking about Happiness... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 28, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-analysis/">data analysis</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Lately, I have been pondering a lot about <a href="https://www.ted.com/talks/matthieu_ricard_on_the_habits_of_happiness">happiness</a> and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from <a href="https://www.kaggle.com/">Kaggle</a> that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let’s start with 2015 data, as that’s what I analyzed first. Again, we will use <a href="https://pandas.pydata.org/">Pandas</a> library for data analysis and <a href="https://seaborn.pydata.org/">seaborn</a> library to plot the data and make our inference from the plots.</p>
+
+<p>Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">df_2015</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'2015.csv'</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Region'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Region of the World'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre></figure>
+
+<p>And here is what we see:
+<br />
+<img src="/assets/images/data_science/happiness_world_regions.png" alt="Happiness Scores - Regions of the World (2015)" class="img=responsive" /></p>
+
+<p>Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know).</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Health (Life Expectancy)'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> 
+           <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'Region'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life Expectancy'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre></figure>
+
+<p>And here’s the result: 
+<br />
+<img src="/assets/images/data_science/happiness_vs_life_expectancy.png" alt="Happiness Scores and Life Expectancy (2015)" class="img=responsive" /></p>
+
+<p>More on individual countries in a later post.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/27/analyzing-some-more-pokemon-data/">Analyzing some more Pokemon data &rarr;</a>
           </h1>
 
@@ -154,6 +300,8 @@
   
     
   
+    
+  
 
   
   
@@ -175,6 +323,8 @@
   
     
       <a href="/categories/python/">python</a>
+    
+  
     
   
     
@@ -280,6 +430,8 @@
   
     
   
+    
+  
 
   
   
@@ -301,6 +453,8 @@
   
     
       <a href="/categories/python/">python</a>
+    
+  
     
   
     
@@ -421,6 +575,8 @@
   
     
   
+    
+  
 
   
   
@@ -470,6 +626,8 @@
   
     
   
+    
+  
 
   
   
@@ -477,6 +635,8 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
     
   
     
@@ -612,6 +772,8 @@
   
     
   
+    
+  
 
   
   
@@ -627,6 +789,8 @@
   
     
       <a href="/categories/npr/">NPR</a>,
+    
+  
     
   
     
@@ -710,6 +874,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -725,197 +891,6 @@
 <p><br />
 Hopefully, I will keep learning and continue to improve my work-in-progress project (my life) and get better every day of the project.</p>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/23/binary-trees-2/">Binary Trees again &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 23, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In the <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an <code class="highlighter-rouge">insert</code> function to do that:</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">tree</span> <span class="p">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tree</span><span class="o">);;</span></code></pre></figure>
-
-<p>If we want to insert an element <code class="highlighter-rouge">0</code> into an empty tree, we just do the following:</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
-<span class="c">(* val empty : 'a tree = Leaf *)</span>
-<span class="n">insert</span> <span class="mi">0</span> <span class="n">empty</span><span class="p">;;</span>
-<span class="c">(* - : int tree = Node (Leaf, 0, Leaf) *)</span></code></pre></figure>
-
-<p>Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function <code class="highlighter-rouge">make_tree</code>.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_tree</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">empty</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_tree</span> <span class="n">t</span><span class="o">);;</span></code></pre></figure>
-
-<p>Let us use our new function to create a tree from the list <code class="highlighter-rouge">[0; 1; 2]</code>.</p>
-
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><span class="n">make_tree</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="o">];;</span>
-<span class="c">(* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *)</span></code></pre></figure>
-
-<p>Wasn’t that super easy?</p>
 
         </div>
         

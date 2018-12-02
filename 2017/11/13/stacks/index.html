@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Stacks</title>
+  <meta name="description" content="In this post, we introduce Stack - a data structure closely related to Queue. It differs however in the order of operations that we perform on the constituent elements. While queue provided a FIFO (First-In-First-Out) order of processing, stack provides us LIFO (Last-In-First-Out), just as you would pick the last element that you put on the stack before picking out the other elements - just like in the stack of books below, it is very likely you added the blue book on the top very recently (Last-In) and you would pick out this book (on the top of the stack - First-Out) before picking out, say, the green books. Again, as with queues, we can use an array or a linked list to store our elements. Let use see how to define a Stack class using an array implementation. #define MAXSIZE 100 class Stack { int top; // top of the stack int arr[MAXSIZE]; // array that implements the stack public: Stack (); bool push (int item); int pop (); int top_of_stack (); bool is_empty (); }; Stack::Stack () { top = -1; } We add elements to our stack using the push() method, remove elements from the stack (actually from the top of our stack) using pop() method, and we also keep track of the top of the stack because that’s where interesting actions happen. We will see the different methods in the following posts. Stay tuned!.">
+  
+    
+    <meta name="keywords" content="C++, data structures, stacks">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2017/11/13/stacks/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Stacks">
+  <meta name="twitter:description" content="In this post, we introduce Stack - a data structure closely related to Queue. It differs however in the order of operations that we perform on the constituent elements. While queue provided a FIFO ...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/11/13/stacks">Stacks &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2017-11-13T00:00:00+00:00" itemprop="datePublished">Nov 13, 2017</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/stacks/">stacks</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In this post, we introduce <em>Stack</em> - a data structure closely related to <em>Queue</em>. It differs however in the order of operations that we perform on the constituent elements. While queue provided a <em>FIFO</em> (First-In-First-Out) order of processing, stack provides us <em>LIFO</em> (Last-In-First-Out), just as you would pick the last element that you put on the stack before picking out the other elements - just like in the stack of books below, it is very likely you added the blue book on the top very recently (Last-In) and you would pick out this book (on the <em>top of the stack</em> - First-Out) before picking out, say, the green books.</p>
+
+<p><br />
+<img src="/assets/images/data_structures/stack_of_books.png" alt="Stack of Books" class="img=responsive" /></p>
+
+<p>Again, as with queues, we can use an <em>array</em> or a <em>linked list</em> to store our elements. Let use see how to define a Stack class using an array implementation.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
+</span><span class="k">class</span> <span class="nc">Stack</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">top</span><span class="p">;</span>           <span class="c1">// top of the stack
+</span>  <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>  <span class="c1">// array that implements the stack
+</span>  
+  <span class="k">public</span><span class="o">:</span>
+    <span class="n">Stack</span> <span class="p">();</span>
+
+    <span class="kt">bool</span> <span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">pop</span> <span class="p">();</span>
+    <span class="kt">int</span> <span class="n">top_of_stack</span> <span class="p">();</span>
+    <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">Stack</span><span class="o">::</span><span class="n">Stack</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">top</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We add elements to our stack using the <em>push()</em> method, remove elements from the stack (actually from the top of our stack) using <em>pop()</em> method, and we also keep track of the top of the stack because that’s where interesting actions happen.</p>
+
+<p>We will see the different methods in the following posts. Stay tuned!.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
