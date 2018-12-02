@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-02T20:39:07+00:00</updated>
+  <updated>2018-12-02T20:40:58+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -111,8 +111,10 @@
       <id>https://dotkay.github.io/2017/11/13/stacks</id>
       <content type="html" xml:base="https://dotkay.github.io/2017/11/13/stacks/">&lt;p&gt;In this post, we introduce &lt;em&gt;Stack&lt;/em&gt; - a data structure closely related to &lt;em&gt;Queue&lt;/em&gt;. It differs however in the order of operations that we perform on the constituent elements. While queue provided a &lt;em&gt;FIFO&lt;/em&gt; (First-In-First-Out) order of processing, stack provides us &lt;em&gt;LIFO&lt;/em&gt; (Last-In-First-Out), just as you would pick the last element that you put on the stack before picking out the other elements - just like in the stack of books below, it is very likely you added the blue book on the top very recently (Last-In) and you would pick out this book (on the &lt;em&gt;top of the stack&lt;/em&gt; - First-Out) before picking out, say, the green books.&lt;/p&gt;
 
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_structures/stack_of_books.png&quot; alt=&quot;Stack of Books&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;p&gt;&lt;img src=&quot;/assets/images/data_structures/stack_of_books.png&quot; alt=&quot;Stack of Books&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
 
 &lt;p&gt;Again, as with queues, we can use an &lt;em&gt;array&lt;/em&gt; or a &lt;em&gt;linked list&lt;/em&gt; to store our elements. Let use see how to define a Stack class using an array implementation.&lt;/p&gt;
 
