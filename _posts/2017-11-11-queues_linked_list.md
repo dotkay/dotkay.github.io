@@ -37,7 +37,7 @@ Queue::Queue () {
 {% endhighlight %}
 
 There is also a notion of _friend function_, very similar to _friend class_:
-> A _friend function_ f can be used to access private and protected members and it can be either:
+> A _friend function_ f can be used to access private and protected members of a class A and it can be either:
 * a method of a class A
 * a global function
 
