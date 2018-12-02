@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-02T00:52:24+00:00</updated>
+  <updated>2018-12-02T01:28:53+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,90 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Queue using Linked List - Operations →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/12/queue_linked_list_methods/" rel="alternate" type="text/html" title="Queue using Linked List - Operations" />
+      <published>2017-11-12T00:00:00+00:00</published>
+      <updated>2017-11-12T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/12/queue_linked_list_methods</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/12/queue_linked_list_methods/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/11/11/queues_linked_list&quot;&gt;previous post&lt;/a&gt;, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods &lt;em&gt;enqueue()&lt;/em&gt; and &lt;em&gt;dequeue()&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is very similar to inserting a new element to a linked list as we saw &lt;a href=&quot;https://dotkay.github.io/2017/11/02/linked-list-insertion&quot;&gt;earlier&lt;/a&gt;. To insert a new item, we construct a node with that item and a &lt;em&gt;next&lt;/em&gt; pointer, add it to the list and adjust the pointers.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// if the queue is empty
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// front and rear are the same, i.e the new item
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// else add it to the rear end 
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// of the queue
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/data_structures/queue_ll.png&quot; alt=&quot;Queue Operations&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// check if the queue is empty
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Empty queue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enqueue_item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// now, if there was only one node
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// to pop front would point to NULL
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enqueue_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;That’s all there is in Queues!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="queues" />
+      
+
+      
+
+      
+        <summary type="html">In our previous post, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods enqueue() and dequeue(). This is very similar to inserting a new element to a linked list as we saw earlier. To insert a new item, we construct a node with that item and a next pointer, add it to the list and adjust the pointers. void Queue::enqueue (int item) { // if the queue is empty // front and rear are the same, i.e the new item Node *new_item = new Node; new_item-&amp;gt;data = item; new_item-&amp;gt;next = NULL; if (rear == NULL) { front = rear = new_item; return; } // else add it to the rear end // of the queue rear-&amp;gt;next = new_item; rear = new_item; } int Queue::dequeue () { int res; // check if the queue is empty if (front == NULL) throw out_of_range(&quot;Empty queue&quot;); Node *enqueue_item = front; res = front-&amp;gt;data; front = front-&amp;gt;next; // now, if there was only one node // to pop front would point to NULL if (front == NULL) rear = NULL; delete (enqueue_item); return res; } bool Queue::is_empty () { return (front == NULL); } That’s all there is in Queues!</summary>
       
 
       
@@ -1178,62 +1262,6 @@ BAA  (*)
 
       
         <summary type="html">In our previous post, we saw an O(n^2 algorithm to compute the number of inversions in an input array. Now, let us see how we can use divide and conquer approach to solve the same problem. We will see that we can do better than O(n^2) using this approach. In the traditional recursive version of merge-sort, we divide the input array into two halves and call merge-sort procedure on each of the sub-arrays recursively and eventually merge the results. Suppose our input array is {2, 4, 1, 3, 5} and suppose that the merge-sort procedure calls are complete and that we are in the merge process. Let us say that we ended up with the following sorted subarrays and trying to merge them up into a single sorted array - {2, 4} and {1, 3, 5}. The way merge procedure works is to compare the two sub-arrays (call it left and right) and compare the elements one by one. First, we compare 2 and 1, since 1 is less than 2, we push 1 to the result array (1 being the smaller element). And we have encountered an inversion - the index of 2 is smaller than the index of 1. Since we know that each of the sub-arrays are sorted, elements that follow 2 in the left sub-array would be greater than 2 and since 2 formed an inversion with 1 (of the right sub-array), so will all the elements that follow 2 in the left sub-array. So, we already see two inversions - (2, 1) and (4, 1). Now we move on and compare the next elements - 2 and 3 and push 2 into the result array, and move on to the next. Now, we compare 4 and 3 and since 3 is smaller, we push it into the result array - we also encounter an inversion (4, 3). A pair of keen eyes would note that whenever we push an element from the right sub-array into the result array, we encounter (at least) an inversion and the number of inversions at that step equals the number of elements following the current element in left sub-array. Think over it. #define REP(i, n) for (int i=0; i&amp;lt;n; i++) #define REPK(i, k, n) for (int i=k; i&amp;lt;n; i++) int merge(int arr[], int l, int m, int r) { int inv_cnt = 0; // create tmp arrays for l and r int lsz = m - l + 1; int rsz = r - m; int left[lsz]; int right[rsz]; // populate REP(i, lsz) left[i] = arr[l + i]; REP(i, rsz) right[i] = arr[m + 1 + i]; // compare and merge int i, j, k; i = 0; j = 0; k = l; while ((i &amp;lt; lsz) &amp;amp;&amp;amp; (j &amp;lt; rsz)) { if (left[i] &amp;lt;= right[j]) arr[k++] = left[i++]; else { arr[k++] = right[j++]; inv_cnt += lsz - i; } } // fill in the left-over elements while (i &amp;lt; lsz) arr[k++] = left[i++]; while (j &amp;lt; rsz) arr[k++] = right[j++]; return inv_cnt; } int mergesort (int arr[], int l, int r) { int inv_cnt = 0; if (l &amp;lt; r) { int mid = l+(r-l)/2; inv_cnt = mergesort(arr, l, mid); inv_cnt += mergesort(arr, mid+1, r); inv_cnt += merge(arr, l, mid, r); } return inv_cnt; } Since we use divide and conquer, in fact we could re-purpose merge step of merge-sort as shown below to count the number of inversions, the time complexity of this approach is O(nlogn) which is better than our previous approach.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Computing the number of inversions in an array - naïve method →</title>
-      
-      <link href="https://dotkay.github.io/2017/10/02/array-inversions-naive/" rel="alternate" type="text/html" title="Computing the number of inversions in an array - naïve method" />
-      <published>2017-10-02T00:00:00+00:00</published>
-      <updated>2017-10-02T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/10/02/array-inversions-naive</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/10/02/array-inversions-naive/">&lt;p&gt;Let us think about computing the number of inversions in an array. Let us also assume that our array has unique elements.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Two elements in an array &lt;em&gt;arr&lt;/em&gt; form an inversion if &lt;em&gt;arr[i] &amp;gt; arr[j]&lt;/em&gt; for &lt;em&gt;i &amp;lt; j&lt;/em&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;For example, if &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt; is our input array, it has 3 inversions &lt;code class=&quot;highlighter-rouge&quot;&gt;(2, 1), (4,1)&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;(4, 3)&lt;/code&gt;. Let us look for a naïve straight-forward algorithm to solve this problem - i.e., traverse the array comparing the elements and checking if there is an inversion.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;inv_count&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inv_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;inv_count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inv_count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// Time complexity: O(n^2) (two for loops)
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Inversion tells us how far the array is from being sorted. For a sorted array, the number of inversions is &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; and if the array is sorted in the other order it has maximum number of inversions.&lt;/p&gt;
-
-&lt;p&gt;But can we do better than &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n^2&lt;/code&gt;?&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-
-      
-
-      
-        <summary type="html">Let us think about computing the number of inversions in an array. Let us also assume that our array has unique elements. Two elements in an array arr form an inversion if arr[i] &amp;gt; arr[j] for i &amp;lt; j. For example, if {2, 4, 1, 3, 5} is our input array, it has 3 inversions (2, 1), (4,1) and (4, 3). Let us look for a naïve straight-forward algorithm to solve this problem - i.e., traverse the array comparing the elements and checking if there is an inversion. int inv_count (int arr[], int n) { int inv_count = 0; for (int i=0; i&amp;lt;n-1; i++) for (int j=i+1; j&amp;lt;n; j++) if (arr[j] &amp;lt; arr[i]) inv_count++; return inv_count; // Time complexity: O(n^2) (two for loops) } Inversion tells us how far the array is from being sorted. For a sorted array, the number of inversions is 0 and if the array is sorted in the other order it has maximum number of inversions. But can we do better than O(n^2?</summary>
       
 
       
