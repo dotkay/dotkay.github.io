@@ -102,10 +102,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/11/05/linked-list-print/">Linked Lists - Print me! &rarr;</a>
+            <a class="post-link" href="/2017/11/06/linked-list-print-rec/">Linked Lists - Print me (R)! &rarr;</a>
           </h1>
 
-          <p class="post-meta">Nov 5, 2017 • 
+          <p class="post-meta">Nov 6, 2017 • 
   
   
     
@@ -116,6 +116,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -199,6 +201,8 @@
   
     
   
+    
+  
 
   
   
@@ -236,6 +240,196 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In our <a href="https://dotkay.github.io/2017/11/05/linked-list-print">previous post</a> we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do it in a fancy recursive way. This should remind you of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">earlier posts</a> on recursion, just that now we are in C++ world.</p>
+
+<p>As we saw when we taught ourselves recursion using a more intuitive programming paradigm (functional programming using OCaml programming language), in any recursive function, we need to take care of:</p>
+<ol>
+  <li>Base case</li>
+  <li>Recursive step</li>
+</ol>
+
+<p>In this example, the base case is just an empty list (<em>NULL</em>) and the recursive step is to just print the item as long as the list doesn’t fall into the base case.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list_r</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// base case
+</span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NULL"</span><span class="p">;</span>
+    <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>       <span class="c1">// move forward
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">print_list_r</span><span class="p">();</span>        <span class="c1">// recursive call
+</span>  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>  <span class="c1">// print 
+</span><span class="p">}</span></code></pre></figure>
+
+<p>It is very important to understand this and our <a href="https://dotkay.github.io/2017/11/05/linked-list-print">previous post</a> as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/11/05/linked-list-print/">Linked Lists - Print me! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 5, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -329,6 +523,8 @@
   
     
   
+    
+  
 
   
   
@@ -360,6 +556,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -413,6 +611,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -531,6 +731,8 @@
   
     
   
+    
+  
 
   
   
@@ -562,6 +764,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -615,6 +819,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -703,6 +909,8 @@
   
     
   
+    
+  
 
   
   
@@ -734,6 +942,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -787,6 +997,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -812,194 +1024,6 @@ let us look at some operations on such a data structure. Specifically, let us lo
 </span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span><span class="o">++</span><span class="p">;</span>                  <span class="c1">// update the length
 </span><span class="p">}</span></code></pre></figure>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/01/linked-lists-intro/">Linked Lists &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 1, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/linked-lists/">linked lists</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let us look at some fundamental data structures which are just a collection of primitive data types. For example, an array of integers is a collection of integers, a string is a collection of characters, etc.</p>
-
-<p>Here, we are interested in <em>Linked Lists</em> which are just a collection (<em>list</em>) made by linking together some data-types (<em>node</em>). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a <em>node</em> and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better.</p>
-
-<p><br />
-<img src="/assets/images/data_structures/linked_lists_intro.png" alt="Linked List" class="img=responsive" /></p>
-
-<p>Here is how you would describe a node and a linked list as C++ classes:</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
-  <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
-    <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
-  <span class="k">public</span><span class="o">:</span> 
-    <span class="n">Node</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-<span class="p">};</span></code></pre></figure>
-
-<p>We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">LinkedList</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
-    <span class="n">Node</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">length</span><span class="p">;</span>
-  <span class="c1">// constructors and member functions
-</span>  <span class="p">...</span></code></pre></figure>
-
-<p><br />
-<img src="/assets/images/data_structures/linked_lists_intro2.png" alt="Linked List" class="img=responsive" /></p>
 
         </div>
         

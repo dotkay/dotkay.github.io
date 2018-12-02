@@ -147,6 +147,8 @@
     
   
     
+  
+    
       <a href="/categories/technology/">technology</a>,
     
   
@@ -154,6 +156,8 @@
   
 
   
+  
+    
   
     
   
@@ -257,6 +261,8 @@
     
   
     
+  
+    
       <a href="/categories/psychology/">psychology</a>,
     
   
@@ -268,6 +274,8 @@
   
 
   
+  
+    
   
     
   
@@ -360,6 +368,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -384,10 +394,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/11/08/linked-list-print-reverse-rec/">Linked Lists - Reverse me (R)! &rarr;</a>
+            <a class="post-link" href="/2017/11/09/queues/">Queues &rarr;</a>
           </h1>
 
-          <p class="post-meta">Nov 8, 2017 • 
+          <p class="post-meta">Nov 9, 2017 • 
   
   
     
@@ -398,6 +408,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -481,6 +493,189 @@
   
     
   
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/queues/">queues</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s look at another important data structure - the <em>Queue</em>. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called <em>FIFO</em> (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
+</span><span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
+  <span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="n">rear</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>
+  <span class="k">public</span><span class="o">:</span>
+    <span class="n">Queue</span> <span class="p">();</span>
+    <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">dequeue</span> <span class="p">();</span>
+    <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>We have two private members - <em>front</em> and <em>rear</em> - <em>front</em> gets served first. Objects get added to the container using the <em>enqueue()</em> method and they get processed in FIFO order using <em>dequeue()</em> method. We will look at these operations in future posts.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/11/08/linked-list-print-reverse-rec/">Linked Lists - Reverse me (R)! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 8, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -518,6 +713,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -610,6 +807,8 @@
   
     
   
+    
+  
 
   
   
@@ -641,6 +840,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -694,6 +895,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -745,188 +948,6 @@
 <img src="/assets/images/data_structures/linked_list_reverse_iter.png" alt="Linked List" class="img=responsive" /></p>
 
 <p>Now, you get it!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/06/linked-list-print-rec/">Linked Lists - Print me (R)! &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 6, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/linked-lists/">linked lists</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In our <a href="https://dotkay.github.io/2017/11/05/linked-list-print">previous post</a> we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do it in a fancy recursive way. This should remind you of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">earlier posts</a> on recursion, just that now we are in C++ world.</p>
-
-<p>As we saw when we taught ourselves recursion using a more intuitive programming paradigm (functional programming using OCaml programming language), in any recursive function, we need to take care of:</p>
-<ol>
-  <li>Base case</li>
-  <li>Recursive step</li>
-</ol>
-
-<p>In this example, the base case is just an empty list (<em>NULL</em>) and the recursive step is to just print the item as long as the list doesn’t fall into the base case.</p>
-
-<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list_r</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// base case
-</span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NULL"</span><span class="p">;</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>       <span class="c1">// move forward
-</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">print_list_r</span><span class="p">();</span>        <span class="c1">// recursive call
-</span>  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>  <span class="c1">// print 
-</span><span class="p">}</span></code></pre></figure>
-
-<p>It is very important to understand this and our <a href="https://dotkay.github.io/2017/11/05/linked-list-print">previous post</a> as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!</p>
 
         </div>
         

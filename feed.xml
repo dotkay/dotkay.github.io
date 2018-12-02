@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-11-25T19:02:18+00:00</updated>
+  <updated>2018-12-02T00:17:26+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,6 +93,58 @@
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Queues →</title>
+      
+      <link href="https://dotkay.github.io/2017/11/09/queues/" rel="alternate" type="text/html" title="Queues" />
+      <published>2017-11-09T00:00:00+00:00</published>
+      <updated>2017-11-09T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2017/11/09/queues</id>
+      <content type="html" xml:base="https://dotkay.github.io/2017/11/09/queues/">&lt;p&gt;Let’s look at another important data structure - the &lt;em&gt;Queue&lt;/em&gt;. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called &lt;em&gt;FIFO&lt;/em&gt; (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#define MAXSIZE 100
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Queue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAXSIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We have two private members - &lt;em&gt;front&lt;/em&gt; and &lt;em&gt;rear&lt;/em&gt; - &lt;em&gt;front&lt;/em&gt; gets served first. Objects get added to the container using the &lt;em&gt;enqueue()&lt;/em&gt; method and they get processed in FIFO order using &lt;em&gt;dequeue()&lt;/em&gt; method. We will look at these operations in future posts.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="queues" />
+      
+
+      
+
+      
+        <summary type="html">Let’s look at another important data structure - the Queue. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called FIFO (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array: #define MAXSIZE 100 class Queue { private: int front, rear; int arr[MAXSIZE]; public: Queue (); void enqueue (int item); int dequeue (); bool is_empty (); }; We have two private members - front and rear - front gets served first. Objects get added to the container using the enqueue() method and they get processed in FIFO order using dequeue() method. We will look at these operations in future posts.</summary>
       
 
       
@@ -1201,49 +1253,6 @@ BAA  (*)
 
       
         <summary type="html">Let us discuss an interesting algorithm problem - finding sub-array sums in an array. Given an array a and a set of queries q indicating ranges in an array, say sub-array indicies, how to compute the sum of the sub-array elements in the ranges specified in the query. In this post, we will discuss a very straightforward solution that traverses the array and the set of queries and computes the sum of each of the sub-arrays specified by the query bounds. A query is just modelled as a struct specifying the left and right sub-array bounds by integers L and R. For example, {3, 5} would mean sum the elements in the indicies 3, 4, 5 - i.e. a[3] + a[4] + a[5] struct Query { int L, R; }; Now, let us walk through the queries one by one, and for each query, we shall traverse the array and pick up the elements in the indices specified by the query and sum them up. We initialize an accumulator sum and keep updating it for this purpose. Again, a is the input array of size n, and q is an array of queries and there are m queries in all. // walk through the queries one by one and // get the query bounds // Complexity: O(m) for (int i=0; i &amp;lt; m; i++) { int L = q[i].L, R = q[i].R; // accumulator to collect the sum int sum = 0; // traverse the array and sum up the elements // within the query bounds // Complexity: O(n) for (int j=L; j&amp;lt;=R; j++) { sum += a[j]; } } // Total Complexity: O(nm) As you can see we have two loops - one within another and hence the total complexity is O(mn). How can we make this naïve algorithm better? What do we look for? Hint: If I have queries one of which is a subset of another, we would end up computing the sum twice. For example, if two of our queries are {0,4} and {1,3}, by walking through all the queries and traversing the array for each query as above, we are not utilizing the fact that we could reuse the sub-array sum within {1,3} in the query {0,4} instead of recomputing them independently.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">More about Happiness… →</title>
-      
-      <link href="https://dotkay.github.io/2017/09/29/analyzing-more-happiness-data/" rel="alternate" type="text/html" title="More about Happiness..." />
-      <published>2017-09-29T00:00:00+00:00</published>
-      <updated>2017-09-29T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/09/29/analyzing-more-happiness-data</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/09/29/analyzing-more-happiness-data/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/09/28/analyzing-happiness-data&quot;&gt;previous post&lt;/a&gt; we analyzed some happiness data. As I mentioned I got statistical figures for world regions on several parameters from Kaggle, for the years 2015, 2016 and 2017. We analyzed 2015 data in the last post. What confuses me now is how did they even come up with 2017 data (the year is not yet over). Or is this calendar also a confused one like tax calendars ;-)&lt;/p&gt;
-
-&lt;p&gt;In any case, let’s look at whatever was called 2017 data. I had to clean up the data-set as it had different names for some of the parameters, it had some differences in the countries (for example, South Sudan is the newest country and it appears in 2017 data-set, etc.). I renamed some of those fields, added the &lt;code class=&quot;highlighter-rouge&quot;&gt;Region&lt;/code&gt; parameter comparing the countries against 2015 data-set, etc. There were still some discrepancies as data about some of the countries just does not exist in the 2017 data-set. The results we plotted in our previous post look more or less similar with the 2017 data as well. But I wanted to dig deeper and plot the happiness rankings of individual countries and here’s how it looked:&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_science/happiness_world_countries_2017.png&quot; alt=&quot;Happiness Rankings - Countries of the World&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Not that I don’t want some of the countries to be unhappier, but some of the data points are counter-intuitive to my (perceived) knowledge of world regions. This is also a demonstration of my perceptions of different parts of the world and how many things can not just be captured in data. Some day, I would really want to dig into how this &lt;code class=&quot;highlighter-rouge&quot;&gt;Happiness Score&lt;/code&gt; is computed and to check if it is meaningful at all.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="data analysis" />
-      
-        <category term="python" />
-      
-
-      
-
-      
-        <summary type="html">In our previous post we analyzed some happiness data. As I mentioned I got statistical figures for world regions on several parameters from Kaggle, for the years 2015, 2016 and 2017. We analyzed 2015 data in the last post. What confuses me now is how did they even come up with 2017 data (the year is not yet over). Or is this calendar also a confused one like tax calendars ;-) In any case, let’s look at whatever was called 2017 data. I had to clean up the data-set as it had different names for some of the parameters, it had some differences in the countries (for example, South Sudan is the newest country and it appears in 2017 data-set, etc.). I renamed some of those fields, added the Region parameter comparing the countries against 2015 data-set, etc. There were still some discrepancies as data about some of the countries just does not exist in the 2017 data-set. The results we plotted in our previous post look more or less similar with the 2017 data as well. But I wanted to dig deeper and plot the happiness rankings of individual countries and here’s how it looked: Not that I don’t want some of the countries to be unhappier, but some of the data points are counter-intuitive to my (perceived) knowledge of world regions. This is also a demonstration of my perceptions of different parts of the world and how many things can not just be captured in data. Some day, I would really want to dig into how this Happiness Score is computed and to check if it is meaningful at all.</summary>
       
 
       
