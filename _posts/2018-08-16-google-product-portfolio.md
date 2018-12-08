@@ -3,11 +3,11 @@ layout: post
 title: Google's product portfolio
 categories: [technology, products, Google]
 keywords: [technology, products, Google]
-external-url: https://dotkay.github.io/2018/08/16-google-product-portfolio
+external-url: https://dotkay.github.io/2018/08/16/google-product-portfolio
 mathjax: true
 ---
 
-Keeping up with my modest goals from the [previous post](https://dotkay.github.io/2018/08/15-deep-learning-and-tech-products), I started looking at Google's product portfolio. 
+Keeping up with my modest goals from the [previous post](https://dotkay.github.io/2018/08/15/deep-learning-and-tech-products), I started looking at Google's product portfolio. 
 * Why Google? - Why not? 
 * Why their product portfolio? - there is such a rich variety catering to different customer segments. 
 * Why for this topic (analysing how machine learning and/or deep learning will impact/improve the products)? - Because we already see the impact (like Google translate, maps, etc.)

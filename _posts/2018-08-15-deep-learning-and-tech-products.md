@@ -3,7 +3,7 @@ layout: post
 title: Deep Learning and Technology Products
 categories: [technology, deep learning, Google]
 keywords: [technology, deep learning, Google]
-external-url: https://dotkay.github.io/2018/08/15-deep-learning-and-tech-products
+external-url: https://dotkay.github.io/2018/08/15/deep-learning-and-tech-products
 mathjax: true
 ---
 
