@@ -102,10 +102,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/11/01/linked-lists-intro/">Linked Lists &rarr;</a>
+            <a class="post-link" href="/2017/11/03/linked-list-find/">Linked Lists - Find me! &rarr;</a>
           </h1>
 
-          <p class="post-meta">Nov 1, 2017 • 
+          <p class="post-meta">Nov 3, 2017 • 
   
   
     
@@ -116,6 +116,12 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -207,6 +213,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -244,6 +256,418 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In this post, let us see how to find if a given item exists in the linked list. Conceptually, it is very simple - just go through the nodes one by one and see if the data matches the item given as input. But, where do we start the traversal from? This is what we use the <em>head</em> pointer for. And when do we stop? Obviously, if we find the item we are looking for, we stop. We might also not find the item at all, in which case we traverse all of the list until we hit the <em>NULL</em> node (that indicates the end of the list).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">find</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/11/02/linked-list-insertion/">Linked Lists - Add me! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 2, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Having introduced linked lists in our <a href="https://dotkay.github.io/2017/11/01/linked-lists-intro">previous post</a>, 
+let us look at some operations on such a data structure. Specifically, let us look at how to insert a new item (a new <em>node</em>) to a linked list. Typically, we start with an empty linked list (denoted by just one node, the NULL node) and grow it by adding more and more items. The usual approach to adding a new item is to form a node (the building block) for the new item and then attach the item to a position in the linked list - by default we choose to add it to the head.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">insert_item</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">item</span><span class="p">);</span> <span class="c1">// form the building block
+</span>  <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>     <span class="c1">// set the next pointer
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>           <span class="c1">// make new node the head
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span><span class="o">++</span><span class="p">;</span>                  <span class="c1">// update the length
+</span><span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/11/01/linked-lists-intro/">Linked Lists &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 1, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -360,6 +784,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -411,6 +841,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -420,6 +856,12 @@
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -555,6 +997,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -606,6 +1054,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
 </p>
         </header>
@@ -620,441 +1074,6 @@
 <p>So, you start at midnight and watch for <code class="highlighter-rouge">25 x 3 = 75</code> hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute <em>modulo 24</em> and <code class="highlighter-rouge">75 mod 24  = 3</code> and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range <code class="highlighter-rouge"><span class="p">{</span><span class="err">0,</span><span class="w"> </span><span class="err">1,</span><span class="w"> </span><span class="err">...,</span><span class="w"> </span><span class="err">N-1</span><span class="p">}</span></code>.</p>
 
 <p>Modular arithmetic has some beautiful properties that are very useful in several application domains, especially cryptography. We will get to learn about them in future posts.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/10/07/computing-permutations-with-duplicates/">Computing permutations (with duplicates) - divide and conquer &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Oct 7, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2017/10/06/computing-permutations">previous post</a> we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated characters, as in the input string “AAB”. What could we do to avoid the redundant computations?</p>
-
-<p>Intuitively we need to avoid some recursive calls that we know will lead to redundant computations. The sub-trees corresponding to this redundant computation are marked red in the sketch below:
-<br />
-<img src="/assets/images/algorithms/cpp/perm_2.png" alt="Permutations of &quot;ABC&quot;" class="img=responsive" /></p>
-
-<p>What it indicates is that when we have the substring that we are processing (by walking through the characters in the substring) we look at the characters we process and decide if we want to go down that recursive path.</p>
-
-<p>Let’s go through a couple of paths in the recursion tree above and try to figure this out:</p>
-
-<ol>
-  <li>
-    <p><code class="highlighter-rouge">(start:0, i:0)</code>: The string we are staring with is <code class="highlighter-rouge">AAB</code>, substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AAB</code> and substring starting at <code class="highlighter-rouge">i</code> is also <code class="highlighter-rouge">AAB</code> (as <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">start</code> to begin with). Now we swap <code class="highlighter-rouge">s[start]</code> and <code class="highlighter-rouge">s[i]</code> which are both <code class="highlighter-rouge">A</code>. Now we call the _<code class="highlighter-rouge">permute()</code> with <code class="highlighter-rouge">start</code> incremented by <code class="highlighter-rouge">1</code>.
-  a. <code class="highlighter-rouge">(start:1, i:1..2)</code>: Now the substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AB</code> (as <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">1</code>) and substring starting at <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">AB</code>. Further <code class="highlighter-rouge">s[start]</code> is <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">s[i]</code> is also <code class="highlighter-rouge">A</code>. We hence perform a swap producing <code class="highlighter-rouge">AAB</code> and backtrack. Now, <code class="highlighter-rouge">i:2</code> and so <code class="highlighter-rouge">s[start]</code> is <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">s[i]</code> is <code class="highlighter-rouge">B</code>. We swap <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">B</code> and get <code class="highlighter-rouge">ABA</code>.</p>
-  </li>
-  <li>
-    <p><code class="highlighter-rouge">(start:0, i:1)</code>: The string we are staring with is <code class="highlighter-rouge">AAB</code>, substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AAB</code> and substring starting at <code class="highlighter-rouge">i</code> is also <code class="highlighter-rouge">AB</code> (as <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">1</code> now). We have <code class="highlighter-rouge">substring_from_start</code> different from <code class="highlighter-rouge">substring_from_i</code> but <code class="highlighter-rouge">s[start]</code> is the same as <code class="highlighter-rouge">s[i]</code> which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this <code class="highlighter-rouge">i</code>. So we avoid going down this path and start working through <code class="highlighter-rouge">start:0, i:2</code>.</p>
-  </li>
-</ol>
-
-<p>So the condition we are looking for traversing is that <code class="highlighter-rouge">substring(start)</code> and <code class="highlighter-rouge">substring(i)</code> are same and further the starting character at <code class="highlighter-rouge">start</code> and <code class="highlighter-rouge">i</code> are the same. Further, if <code class="highlighter-rouge">substring(start)</code> and <code class="highlighter-rouge">substring(i)</code> are different and the starting characters are different, we go ahead with the traversal (as in <code class="highlighter-rouge">start:0, i:2</code>).</p>
-
-<p>Here is the modified <code class="highlighter-rouge">permute()</code> function with the condition incorporated:</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-  <span class="k">else</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">start</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">end</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// handle duplicates
-</span>      <span class="k">if</span> <span class="p">((</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">||</span> 
-          <span class="p">((</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">&amp;&amp;</span> 
-           <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))))</span> <span class="p">{</span>
-        <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-        <span class="n">permute</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
-        <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>Hope you can refer to the sketch above, work through the example and feel convinced.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/10/06/computing-permutations/">Computing permutations - divide and conquer &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Oct 6, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In one of the <a href="https://dotkay.github.io/2017/09/21/permutations-of-a-list/">previous posts</a> we saw how to compute all permutations of a list recursively. Let us attempt the same, but this time with C++, in what is called divide and conquer approach - essentially divide the input into smaller chunks and recursively call the function on each of the smaller chunk.</p>
-
-<p>Let us compute the permutations of say characters in a string. A string of <em>n</em> characters would have <em>n!</em> permutations. For example, if we have the string “ABC”, the permutations (6 in all) are:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>ABC
-ACB
-BAC
-BCA
-CBA
-CAB
-</code></pre>
-</div>
-<p>We shall do it by going through the string of characters and iteratively swapping each character with the neighbouring character to get the permutation. For example, for the string “ABC”:</p>
-
-<p><br />
-<img src="/assets/images/algorithms/cpp/perm_1.png" alt="Permutations of &quot;ABC&quot;" class="img=responsive" /></p>
-
-<p>Here is a function <code class="highlighter-rouge">permute()</code> implementing the traversal: We are given a string <em>s</em> with starting index <em>start</em> and ending index <em>end</em>.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-  <span class="k">else</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">start</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">end</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-      <span class="n">permute</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
-      <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>AAB
-ABA
-AAB  (*)
-ABA  (*)
-BAA
-BAA  (*)
-</code></pre>
-</div>
-
-<p>As you can see, we are computing the same permutation more than once (marked with *). How can we modify the above function to handle duplicates?</p>
 
         </div>
         

@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2018-12-02T20:54:46+00:00</updated>
+  <updated>2018-12-08T18:22:28+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,96 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Google’s product portfolio →</title>
+      
+      <link href="https://dotkay.github.io/2018/08/16/google-product-portfolio/" rel="alternate" type="text/html" title="Google's product portfolio" />
+      <published>2018-08-16T00:00:00+00:00</published>
+      <updated>2018-08-16T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/08/16/google-product-portfolio</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/08/16/google-product-portfolio/">&lt;p&gt;Keeping up with my modest goals from the &lt;a href=&quot;&quot;&gt;previous post&lt;/a&gt;, I started looking at Google’s product portfolio.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Why Google? - Why not?&lt;/li&gt;
+  &lt;li&gt;Why their product portfolio? - there is such a rich variety catering to different customer segments.&lt;/li&gt;
+  &lt;li&gt;Why for this topic (analysing how machine learning and/or deep learning will impact/improve the products)? - Because we already see the impact (like Google translate, maps, etc.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here’s their product portfolio, right from their webpage:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;p&gt;&lt;img src=&quot;/assets/images/products/G_product_portfolio.png&quot; alt=&quot;Google Product Portfolio&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In future posts, we will pick products from this list and analyze.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="technology" />
+      
+        <category term="products" />
+      
+        <category term="Google" />
+      
+
+      
+
+      
+        <summary type="html">Keeping up with my modest goals from the previous post, I started looking at Google’s product portfolio. Why Google? - Why not? Why their product portfolio? - there is such a rich variety catering to different customer segments. Why for this topic (analysing how machine learning and/or deep learning will impact/improve the products)? - Because we already see the impact (like Google translate, maps, etc.) Here’s their product portfolio, right from their webpage: In future posts, we will pick products from this list and analyze.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Deep Learning and Technology Products →</title>
+      
+      <link href="https://dotkay.github.io/2018/08/15/deep-learning-and-tech-products/" rel="alternate" type="text/html" title="Deep Learning and Technology Products" />
+      <published>2018-08-15T00:00:00+00:00</published>
+      <updated>2018-08-15T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/08/15/deep-learning-and-tech-products</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/08/15/deep-learning-and-tech-products/">&lt;p&gt;I happened to complete an online course on Deep Learning and just starting to look at different products to see how machine learning or deep learning techniques could be used to make these products better. Since I understand technology products and their landscape better, I am likely to be biased in analysing more technology products than non-tech ones, although I am determined to study some non-tech industries, processes, products and services to see if (at all) and how deep learning could be used there - that is a bigger challenge and one that would stimulate our neurons more. Let’s see how I fare …&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="technology" />
+      
+        <category term="deep learning" />
+      
+        <category term="Google" />
+      
+
+      
+
+      
+        <summary type="html">I happened to complete an online course on Deep Learning and just starting to look at different products to see how machine learning or deep learning techniques could be used to make these products better. Since I understand technology products and their landscape better, I am likely to be biased in analysing more technology products than non-tech ones, although I am determined to study some non-tech industries, processes, products and services to see if (at all) and how deep learning could be used there - that is a bigger challenge and one that would stimulate our neurons more. Let’s see how I fare …</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1139,171 +1229,6 @@ let us look at some operations on such a data structure. Specifically, let us lo
 
       
         <summary type="html">Let us chat about Modular Arithmetic - let’s start with a fun question that I actually happened to read in one of my textbooks on Algorithms. Suppose you binge watch an entire season of some television show in one sitting, starting at midnight and suppose there are 25 episodes of the show, each lasting 3 hours. At what time of the day will you be done? So, you start at midnight and watch for 25 x 3 = 75 hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute modulo 24 and 75 mod 24 = 3 and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range {0, 1, ..., N-1}. Modular arithmetic has some beautiful properties that are very useful in several application domains, especially cryptography. We will get to learn about them in future posts.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Computing permutations (with duplicates) - divide and conquer →</title>
-      
-      <link href="https://dotkay.github.io/2017/10/07/computing-permutations-with-duplicates/" rel="alternate" type="text/html" title="Computing permutations (with duplicates) - divide and conquer" />
-      <published>2017-10-07T00:00:00+00:00</published>
-      <updated>2017-10-07T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/10/07/computing-permutations-with-duplicates</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/10/07/computing-permutations-with-duplicates/">&lt;p&gt;In a &lt;a href=&quot;https://dotkay.github.io/2017/10/06/computing-permutations&quot;&gt;previous post&lt;/a&gt; we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated characters, as in the input string “AAB”. What could we do to avoid the redundant computations?&lt;/p&gt;
-
-&lt;p&gt;Intuitively we need to avoid some recursive calls that we know will lead to redundant computations. The sub-trees corresponding to this redundant computation are marked red in the sketch below:
-&lt;br /&gt;
-&lt;img src=&quot;/assets/images/algorithms/cpp/perm_2.png&quot; alt=&quot;Permutations of &amp;quot;ABC&amp;quot;&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;What it indicates is that when we have the substring that we are processing (by walking through the characters in the substring) we look at the characters we process and decide if we want to go down that recursive path.&lt;/p&gt;
-
-&lt;p&gt;Let’s go through a couple of paths in the recursion tree above and try to figure this out:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(start:0, i:0)&lt;/code&gt;: The string we are staring with is &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt;, substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt; and substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is also &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt; (as &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; to begin with). Now we swap &lt;code class=&quot;highlighter-rouge&quot;&gt;s[start]&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;s[i]&lt;/code&gt; which are both &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt;. Now we call the _&lt;code class=&quot;highlighter-rouge&quot;&gt;permute()&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; incremented by &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;.
-  a. &lt;code class=&quot;highlighter-rouge&quot;&gt;(start:1, i:1..2)&lt;/code&gt;: Now the substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;AB&lt;/code&gt; (as &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;) and substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;AB&lt;/code&gt;. Further &lt;code class=&quot;highlighter-rouge&quot;&gt;s[start]&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;s[i]&lt;/code&gt; is also &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt;. We hence perform a swap producing &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt; and backtrack. Now, &lt;code class=&quot;highlighter-rouge&quot;&gt;i:2&lt;/code&gt; and so &lt;code class=&quot;highlighter-rouge&quot;&gt;s[start]&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;s[i]&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt;. We swap &lt;code class=&quot;highlighter-rouge&quot;&gt;A&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;B&lt;/code&gt; and get &lt;code class=&quot;highlighter-rouge&quot;&gt;ABA&lt;/code&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;(start:0, i:1)&lt;/code&gt;: The string we are staring with is &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt;, substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;AAB&lt;/code&gt; and substring starting at &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is also &lt;code class=&quot;highlighter-rouge&quot;&gt;AB&lt;/code&gt; (as &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; is &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; now). We have &lt;code class=&quot;highlighter-rouge&quot;&gt;substring_from_start&lt;/code&gt; different from &lt;code class=&quot;highlighter-rouge&quot;&gt;substring_from_i&lt;/code&gt; but &lt;code class=&quot;highlighter-rouge&quot;&gt;s[start]&lt;/code&gt; is the same as &lt;code class=&quot;highlighter-rouge&quot;&gt;s[i]&lt;/code&gt; which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;. So we avoid going down this path and start working through &lt;code class=&quot;highlighter-rouge&quot;&gt;start:0, i:2&lt;/code&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;So the condition we are looking for traversing is that &lt;code class=&quot;highlighter-rouge&quot;&gt;substring(start)&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;substring(i)&lt;/code&gt; are same and further the starting character at &lt;code class=&quot;highlighter-rouge&quot;&gt;start&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; are the same. Further, if &lt;code class=&quot;highlighter-rouge&quot;&gt;substring(start)&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;substring(i)&lt;/code&gt; are different and the starting characters are different, we go ahead with the traversal (as in &lt;code class=&quot;highlighter-rouge&quot;&gt;start:0, i:2&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;Here is the modified &lt;code class=&quot;highlighter-rouge&quot;&gt;permute()&lt;/code&gt; function with the condition incorporated:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;c1&quot;&gt;// handle duplicates
-&lt;/span&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; 
-          &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; 
-           &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Hope you can refer to the sketch above, work through the example and feel convinced.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-        <category term="recursion" />
-      
-
-      
-
-      
-        <summary type="html">In a previous post we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated characters, as in the input string “AAB”. What could we do to avoid the redundant computations? Intuitively we need to avoid some recursive calls that we know will lead to redundant computations. The sub-trees corresponding to this redundant computation are marked red in the sketch below: What it indicates is that when we have the substring that we are processing (by walking through the characters in the substring) we look at the characters we process and decide if we want to go down that recursive path. Let’s go through a couple of paths in the recursion tree above and try to figure this out: (start:0, i:0): The string we are staring with is AAB, substring starting at start is AAB and substring starting at i is also AAB (as i is start to begin with). Now we swap s[start] and s[i] which are both A. Now we call the _permute() with start incremented by 1. a. (start:1, i:1..2): Now the substring starting at start is AB (as start is 1) and substring starting at i is AB. Further s[start] is A and s[i] is also A. We hence perform a swap producing AAB and backtrack. Now, i:2 and so s[start] is A and s[i] is B. We swap A and B and get ABA. (start:0, i:1): The string we are staring with is AAB, substring starting at start is AAB and substring starting at i is also AB (as i is 1 now). We have substring_from_start different from substring_from_i but s[start] is the same as s[i] which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this i. So we avoid going down this path and start working through start:0, i:2. So the condition we are looking for traversing is that substring(start) and substring(i) are same and further the starting character at start and i are the same. Further, if substring(start) and substring(i) are different and the starting characters are different, we go ahead with the traversal (as in start:0, i:2). Here is the modified permute() function with the condition incorporated: void permute(string s, int start, int end) { int i; if (start == end) cout &amp;lt;&amp;lt; s &amp;lt;&amp;lt; endl; else { for (i=start; i&amp;lt;=end; i++) { // handle duplicates if ((s.at(start) != s.at(i)) || ((s.substr(start, end-start+1) == s.substr(start, end-i+1)) &amp;amp;&amp;amp; (s.at(start) == s.at(i)))) { swap(s[start], s[i]); permute(s, start+1, end); swap(s[start], s[i]); } } } } Hope you can refer to the sketch above, work through the example and feel convinced.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Computing permutations - divide and conquer →</title>
-      
-      <link href="https://dotkay.github.io/2017/10/06/computing-permutations/" rel="alternate" type="text/html" title="Computing permutations - divide and conquer" />
-      <published>2017-10-06T00:00:00+00:00</published>
-      <updated>2017-10-06T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/10/06/computing-permutations</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/10/06/computing-permutations/">&lt;p&gt;In one of the &lt;a href=&quot;https://dotkay.github.io/2017/09/21/permutations-of-a-list/&quot;&gt;previous posts&lt;/a&gt; we saw how to compute all permutations of a list recursively. Let us attempt the same, but this time with C++, in what is called divide and conquer approach - essentially divide the input into smaller chunks and recursively call the function on each of the smaller chunk.&lt;/p&gt;
-
-&lt;p&gt;Let us compute the permutations of say characters in a string. A string of &lt;em&gt;n&lt;/em&gt; characters would have &lt;em&gt;n!&lt;/em&gt; permutations. For example, if we have the string “ABC”, the permutations (6 in all) are:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ABC
-ACB
-BAC
-BCA
-CBA
-CAB
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;We shall do it by going through the string of characters and iteratively swapping each character with the neighbouring character to get the permutation. For example, for the string “ABC”:&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/algorithms/cpp/perm_1.png&quot; alt=&quot;Permutations of &amp;quot;ABC&amp;quot;&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Here is a function &lt;code class=&quot;highlighter-rouge&quot;&gt;permute()&lt;/code&gt; implementing the traversal: We are given a string &lt;em&gt;s&lt;/em&gt; with starting index &lt;em&gt;start&lt;/em&gt; and ending index &lt;em&gt;end&lt;/em&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;permute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;AAB
-ABA
-AAB  (*)
-ABA  (*)
-BAA
-BAA  (*)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;As you can see, we are computing the same permutation more than once (marked with *). How can we modify the above function to handle duplicates?&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-        <category term="recursion" />
-      
-
-      
-
-      
-        <summary type="html">In one of the previous posts we saw how to compute all permutations of a list recursively. Let us attempt the same, but this time with C++, in what is called divide and conquer approach - essentially divide the input into smaller chunks and recursively call the function on each of the smaller chunk. Let us compute the permutations of say characters in a string. A string of n characters would have n! permutations. For example, if we have the string “ABC”, the permutations (6 in all) are: ABC ACB BAC BCA CBA CAB We shall do it by going through the string of characters and iteratively swapping each character with the neighbouring character to get the permutation. For example, for the string “ABC”: Here is a function permute() implementing the traversal: We are given a string s with starting index start and ending index end. void permute(string s, int start, int end) { int i; if (start == end) cout &amp;lt;&amp;lt; s &amp;lt;&amp;lt; endl; else { for (i=start; i&amp;lt;=end; i++) { swap(s[start], s[i]); permute(s, start+1, end); swap(s[start], s[i]); } } } What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce: AAB ABA AAB (*) ABA (*) BAA BAA (*) As you can see, we are computing the same permutation more than once (marked with *). How can we modify the above function to handle duplicates?</summary>
       
 
       

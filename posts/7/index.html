@@ -102,6 +102,390 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/26/more-pokemon-data-analysis/">Playing with some more Pokemon data &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 26, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-analysis/">data analysis</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in <a href="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1">this post</a>. Today, along with the other libraries, we will also use <a href="https://seaborn.pydata.org/">seaborn</a> to make fancy plots very quickly.</p>
+
+<p>Let’s do the initial imports as before, this time also importing <code class="highlighter-rouge">seaborn</code></p>
+
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span></code></pre>
+</figure>
+
+<p>Let’s grab the data-set and try to see the <code class="highlighter-rouge">Attack</code> and <code class="highlighter-rouge">Defense</code> scores of the different generations of Pokemons.</p>
+
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="c"># read the dataset</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre>
+</figure>
+
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Defense'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+           <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+           <span class="n">hue</span><span class="o">=</span><span class="s">'Generation'</span><span class="p">)</span>
+<span class="c"># specify the axes limits</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span></code></pre>
+</figure>
+
+<p>Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set <code class="highlighter-rouge">fit_reg</code> to <code class="highlighter-rouge">False</code> in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</p>
+
+<p><br />
+<img src="/assets/images/data_science/attack_defense_pokemons.png" alt="Attack and Defense Scores of Generations of Pokemons" class="img=responsive" /></p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/09/25/binary-search-tree/">Binary Search Tree &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 25, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In a <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw binary trees. Today, we will see Binary <em>Search</em> Trees (BST). The key difference is that when we insert nodes into our tree, we make sure the items whose values are less than that of the root are added to the left sub-tree and the ones whose values are greater than that of the root are added to the right sub-tree. Let’s start by defining our data structure. The definition is the same as our earlier <em>tree</em> definition. Just for the sake of clarity let’s call our type <code class="highlighter-rouge">bst</code>.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">bst</span> <span class="p">=</span>
+  <span class="p">|</span> <span class="nc">Leaf</span>
+  <span class="p">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Now, for inserting an element into our tree, we wouldn’t just insert the element as we did earlier, but we shall compare the element to the root and decide which of the sub-trees (left or right) we want to insert our new item to. This looks like a very small difference - but it has huge implications for search.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">bst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">bst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="nc">Leaf</span> <span class="p">-&gt;</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nc">Leaf</span><span class="p">)</span>
+  <span class="p">|</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="p">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="k">then</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
+     <span class="k">else</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">right</span><span class="o">);;</span></code></pre>
+</figure>
+
+<p>Let’s also write the function to create a bst from an input list, which again is the same as before:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_bst</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">empty</span>
+  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_bst</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+</figure>
+
+<p>In future posts, we will see the different ways we can traverse this tree.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/24/interesting-podcast-on-failure/">An interesting podcast on failure! &rarr;</a>
           </h1>
 
@@ -138,6 +522,12 @@
   
     
       <a href="/categories/failure/">Failure</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -207,6 +597,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -224,6 +620,12 @@
   
     
       <a href="/categories/ted/">TED</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -338,6 +740,12 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -389,6 +797,12 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -396,6 +810,12 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -543,6 +963,12 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -594,6 +1020,12 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -601,6 +1033,12 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -720,362 +1158,6 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 </div>
 
 <p>In the following post, we will write a functions to interact with this structure.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/21/permutations-of-a-list/">All permutations of a list &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 21, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implemented very easily (refer to the end of this post for sample implementations). One of them is the <code class="highlighter-rouge">map</code> function, that accepts an input function and a list and applies that function to each element of the list. For example, if we want to square each element of an input list <code class="highlighter-rouge">lst</code>, call the function <code class="highlighter-rouge">sq_lst</code>:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">sq_lst</span> <span class="n">lst</span> <span class="p">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="p">*</span> <span class="n">x</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>When we provide the function with a list <code class="highlighter-rouge">[1;2;3]</code>, we would obtain <code class="highlighter-rouge">[1;4;9]</code> as the result.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">sq_lst</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="o">];;</span>
-<span class="c">(* - : int list = [1; 4; 9] *)</span></code></pre>
-</figure>
-
-<p>Another built-in function from the List module we would use is <code class="highlighter-rouge">flatten</code>, which just flattens a list of lists into a list. For example, if we want to flatten <code class="highlighter-rouge">[[1; 2]; [3; 4]; [5]]</code> into a single list:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="nn">List</span><span class="p">.</span><span class="n">flatten</span> <span class="o">[[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="o">];</span> <span class="p">[</span><span class="mi">3</span><span class="p">;</span> <span class="mi">4</span><span class="o">];</span> <span class="p">[</span><span class="mi">5</span><span class="o">]];;</span>
-<span class="c">(* - : int list = [1; 2; 3; 4; 5] *)</span></code></pre>
-</figure>
-
-<p>Let’s focus back at the problem at hand - generating permutations of a list.</p>
-
-<blockquote>
-  <p>Permutation - all possible arrangements of a list of items, where order is important.</p>
-</blockquote>
-
-<p>For example, <code class="highlighter-rouge"><span class="p">{</span><span class="err">a,b,c</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">a,c,b</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">b,a,c</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">b,c,a</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">c,a,b</span><span class="p">}</span><span class="w"> </span><span class="p">{</span><span class="err">c,b,a</span><span class="p">}</span></code> are permutations of <code class="highlighter-rouge"><span class="p">{</span><span class="err">a,b,c</span><span class="p">}</span></code>. Let’s approach this problem by first writing a function - let’s call it <code class="highlighter-rouge">insert</code> that would take two arguments - an element <code class="highlighter-rouge">x</code> to insert and a list <code class="highlighter-rouge">lst</code> to insert <code class="highlighter-rouge">x</code> into. And this function <code class="highlighter-rouge">insert</code> would insert <code class="highlighter-rouge">x</code> at all possible positions in <code class="highlighter-rouge">lst</code>. For example, if we have a list <code class="highlighter-rouge">[1;2]</code> and an element <code class="highlighter-rouge">0</code>, we want to insert this <code class="highlighter-rouge">0</code> at all possible positions in the list <code class="highlighter-rouge">[1;2]</code>, producing <code class="highlighter-rouge">[[0; 1; 2], [1; 0; 2], [1; 2; 0]]</code> - note that this is not the permutation, we are just inserting a given element into all possible positions in the list.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="o">[[</span><span class="n">x</span><span class="o">]]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> 
-    <span class="p">(</span><span class="n">x</span><span class="p">::</span><span class="n">lst</span><span class="p">)</span> <span class="p">::</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">el</span> <span class="p">-&gt;</span> <span class="n">h</span><span class="p">::</span><span class="n">el</span><span class="p">)</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">));;</span></code></pre>
-</figure>
-
-<p>Since we are producing a list of lists as output, for the base case we create a list of list containing a single element - the input element <code class="highlighter-rouge">x</code>. The second part just applies the function to each element of the list, besides adding the element to the list itself. So, <code class="highlighter-rouge">x::lst</code> produces <code class="highlighter-rouge">[0; 1; 2]</code>, and the <code class="highlighter-rouge">map</code> part produces <code class="highlighter-rouge">[1; 0; 2]</code> (which is applying the function to the first element <code class="highlighter-rouge">1</code> of the list (<code class="highlighter-rouge">h::el</code>) - the function just adds the element <code class="highlighter-rouge">0</code> to the list head item <code class="highlighter-rouge">1</code> giving <code class="highlighter-rouge">1; 0</code>) and similarly <code class="highlighter-rouge">[1; 2; 0]</code>.</p>
-
-<p>Now we will use this <code class="highlighter-rouge">insert</code> function to write our <code class="highlighter-rouge">perm</code> (for permutation) function, which is straight-forward given the <code class="highlighter-rouge">insert</code> function. We will just traverse the list and choose each item in the list and insert the item to all the positions of the rest of the list.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">perm</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">lst</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> 
-    <span class="nn">List</span><span class="p">.</span><span class="n">flatten</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="n">insert</span> <span class="n">h</span><span class="p">)</span> <span class="p">(</span><span class="n">perm</span> <span class="n">t</span><span class="o">));;</span></code></pre>
-</figure>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">perm</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="o">];;</span>
-<span class="c">(* - : int list list = *)</span>
-<span class="c">(* [[0; 1; 2]; [1; 0; 2]; [1; 2; 0]; [0; 2; 1]; [2; 0; 1]; [2; 1; 0]] *)</span></code></pre>
-</figure>
-
-<p>Hope this was the most intuitive way to a permutation function.</p>
-
-<p>Here’s a sample implementation of map and flatten functions - I creatively named them <code class="highlighter-rouge">mapp</code> and <code class="highlighter-rouge">flatn</code>:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">mapp</span> <span class="n">f</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">f</span> <span class="n">h</span> <span class="p">::</span> <span class="p">(</span><span class="n">mapp</span> <span class="n">f</span> <span class="n">t</span><span class="o">);;</span></code></pre>
-</figure>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">flatn</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">l</span> <span class="p">=</span>
-    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux</span> <span class="p">(</span><span class="n">acc</span> <span class="o">@</span> <span class="n">h</span><span class="p">)</span> <span class="n">t</span>
-  <span class="k">in</span>
-  <span class="n">aux</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/20/minimum-missing-nat-number-2/">Finding the minimum missing natural number - a better way! &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 20, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In one of the <a href="https://dotkay.github.io/2017/09/18/minimum-missing-natural-number">earlier posts</a> we saw a straight forward way to find the minimum missing natural number in a list. That solution, although very straight forward, required us to sort the list before finding the minimum missing number. The question was - can we get away without that expense of sorting that list?</p>
-
-<p>The answer seems to be <em>yes</em>. Since we know that we are not allowing any duplicates and we consider only natural numbers, we can use a very nice property:</p>
-
-<blockquote>
-  <p>In a perfectly consecutive sequence of natural numbers, any chosen number is also the number of natural numbers less than it.</p>
-</blockquote>
-
-<p>That is, if we consider the consecutive sequence of number <code class="highlighter-rouge">0 1 2 3 4 5</code> and choose <code class="highlighter-rouge">3</code>, we see that there are exactly three natural numbers before it - <code class="highlighter-rouge">0 1 2</code>. A curious mind would have noted that these three numbers actually need not be in order - they should just exist. For example <code class="highlighter-rouge">1 0 2 3 4 5</code> has three numbers before <code class="highlighter-rouge">3</code>, they are not in sequence, but the fact that there are three of them assures us that nothing less than three is missing in the sequence. This is the property we are going to use to come up with a simpler search. Just like how we <a href="https://dotkay.github.io/2017/09/19/list-partitioning-and-quicksort">partitioned a list of numbers around a pivot element for quicksort</a>, we will choose an element <code class="highlighter-rouge">x</code> and push all the numbers less than it (in any order) to the left of it and the rest to the right of it. We will also need to keep track of the number of elements <code class="highlighter-rouge">num</code> to the left of the chosen number (in order to check our fancy property mentioned above). Let’s write the partition function first:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">partition</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span> 
-  <span class="k">let</span> <span class="n">aux</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="n">y</span> <span class="p">=</span> 
-    <span class="k">if</span> <span class="p">(</span><span class="n">y</span> <span class="p">&lt;</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="p">::</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span>
-    <span class="k">else</span> <span class="n">num</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">y</span><span class="p">::</span><span class="n">right</span>
-  <span class="k">in</span>
-  <span class="nn">List</span><span class="p">.</span><span class="n">fold_left</span> <span class="n">aux</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">[]</span><span class="p">,</span> <span class="bp">[]</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>If the number of elements tracked is equal to the chosen number, it just means that there is no missing number in the left partition (just like the example above where the number of elements less than <code class="highlighter-rouge">3</code> is equal to three, and we don’t have any missing natural number to the left of <code class="highlighter-rouge">3</code>). Now, we will use this partition function to find the missing natural number:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">min_missing_num</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="c">(* m is the least nat number - 0 *)</span> 
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">m</span> <span class="n">l</span> <span class="p">=</span> 
-    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">m</span>  <span class="c">(* we return 0 as the missing num *)</span>
-               <span class="c">(* as it is the least nat num *)</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> 
-      <span class="k">let</span> <span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="p">=</span> <span class="n">partition</span> <span class="n">h</span> <span class="n">t</span> <span class="k">in</span>
-      <span class="c">(* if (num = h) left side is perfect *)</span>
-      <span class="c">(* search on the right partition *)</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="n">m</span> <span class="p">=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">find_min</span> <span class="p">(</span><span class="n">h</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">right</span>
-      <span class="k">else</span> <span class="n">find_min</span> <span class="n">m</span> <span class="n">left</span>
-    <span class="k">in</span>
-    <span class="n">find_min</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Think of <code class="highlighter-rouge">m</code> as the accumulator - we know that <code class="highlighter-rouge">0</code> is the first natural number, so in case our input list is an empty one (base case), we just return the first (minimum) natural number that is missing. Is there too much going on in this? If you could work this out in a sample input, say <code class="highlighter-rouge">[0; 3; 2; 9; 1]</code> it would help understand it better.</p>
 
         </div>
         
