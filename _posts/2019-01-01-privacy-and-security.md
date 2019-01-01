@@ -17,4 +17,4 @@ But this story is not about the past, but about the future. Many top technology 
 
 An interesting short documentary I happened to watch recently:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/KGX-c5BJNFk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" align="center" src="https://www.youtube.com/embed/KGX-c5BJNFk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
