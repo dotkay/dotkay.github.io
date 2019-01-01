@@ -261,6 +261,10 @@
 <lastmod>2018-08-16T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://dotkay.github.io/2019/01/01/privacy-and-security/</loc>
+<lastmod>2019-01-01T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://dotkay.github.io/about/</loc>
 </url>
 <url>
@@ -348,6 +352,12 @@
 <loc>https://dotkay.github.io/categories/products/</loc>
 </url>
 <url>
+<loc>https://dotkay.github.io/categories/privacy/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/categories/security/</loc>
+</url>
+<url>
 <loc>https://dotkay.github.io/posts/2/</loc>
 </url>
 <url>
@@ -382,5 +392,8 @@
 </url>
 <url>
 <loc>https://dotkay.github.io/posts/13/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/posts/14/</loc>
 </url>
 </urlset>
