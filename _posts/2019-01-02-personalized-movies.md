@@ -8,7 +8,7 @@ mathjax: true
 ---
 
 <div class="img_container">
-![Amar Akbar Anthony](/assets/images/misc/deewaar.png)
+![Amar Akbar Anthony](/assets/images/misc/deewaar2.png)
 {:class="img=responsive"}
 </div>
 
