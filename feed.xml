@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-01-01T20:26:43+00:00</updated>
+  <updated>2019-01-03T07:20:45+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,54 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Personalized movies … any takers? →</title>
+      
+      <link href="https://dotkay.github.io/2019/01/02/personalized-movies/" rel="alternate" type="text/html" title="Personalized movies ... any takers?" />
+      <published>2019-01-02T00:00:00+00:00</published>
+      <updated>2019-01-02T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2019/01/02/personalized-movies</id>
+      <content type="html" xml:base="https://dotkay.github.io/2019/01/02/personalized-movies/">&lt;div class=&quot;img_container&quot;&gt;
+  &lt;p class=&quot;img=responsive&quot;&gt;&lt;img src=&quot;/assets/images/misc/deewaar.png&quot; alt=&quot;Amar Akbar Anthony&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I got into this discussion over lunch when I heard about the Netflix series “Black Mirror” which allows the audience to choose among a set of possible story endings. This is an excellent development, in my view, in that it not only brings more suspense and interest or attention to the content, on the lighter side it would also prevent spoilers.&lt;/p&gt;
+
+&lt;p&gt;Ever since I heard about &lt;a href=&quot;https://newsable.asianetnews.com/kerala/after-solo-other-malayalam-films-supposed-to-have-different-endings&quot;&gt;south Indian movies that had different climaxes&lt;/a&gt; (although to appease the fan base in different regions), I have always wondered why not have multiple possibilities for a movie climax and serve (stream) the appropriate one depending on the goal of the movie audience - i.e., if the goal is to just watch the movie and return home happy, one could have a happy ending, if the viewer is adventurous or an FPS gamer, one could have a violent or tragic ending, etc.&lt;/p&gt;
+
+&lt;p&gt;Now that we have personalization using big data analytics everywhere, it should be possible for a streaming service to identify the likes and dislikes of the audience based on previous perferences, reviews, age, likes, and the many similar features to identify the best climax for each specific viewer, besides providing the viewer the choice to choose from alternate climaxes. Of course, the cost is in the making of several different versions of a movie or TV series which in a way could be reduced using today’s CGI that only gets better over time. The upshot would be more viewership and more discussion centered around the various climaxes. Instead of viewers just watching the movie and rating them, each different climax of the same movie would get rated by different personalities. Such a service could also stream a movie ending in such a way as to cheer you up when you are dull or to pump you up when you are demotivated. Movies will never be the same again!&lt;/p&gt;
+
+&lt;p&gt;If such a personalization of streaming content were to happen who would lead the way? Would it be Amazon Fire TV who has the machine learning backend to make personalization happen, NetFlix who has the influence to get the producers to make several interesting versions of a movie or TV series or Apple TV service if Apple were to get its innovation crown back? What do you think?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="technology" />
+      
+        <category term="streaming content" />
+      
+        <category term="personalization" />
+      
+
+      
+
+      
+        <summary type="html">I got into this discussion over lunch when I heard about the Netflix series “Black Mirror” which allows the audience to choose among a set of possible story endings. This is an excellent development, in my view, in that it not only brings more suspense and interest or attention to the content, on the lighter side it would also prevent spoilers. Ever since I heard about south Indian movies that had different climaxes (although to appease the fan base in different regions), I have always wondered why not have multiple possibilities for a movie climax and serve (stream) the appropriate one depending on the goal of the movie audience - i.e., if the goal is to just watch the movie and return home happy, one could have a happy ending, if the viewer is adventurous or an FPS gamer, one could have a violent or tragic ending, etc. Now that we have personalization using big data analytics everywhere, it should be possible for a streaming service to identify the likes and dislikes of the audience based on previous perferences, reviews, age, likes, and the many similar features to identify the best climax for each specific viewer, besides providing the viewer the choice to choose from alternate climaxes. Of course, the cost is in the making of several different versions of a movie or TV series which in a way could be reduced using today’s CGI that only gets better over time. The upshot would be more viewership and more discussion centered around the various climaxes. Instead of viewers just watching the movie and rating them, each different climax of the same movie would get rated by different personalities. Such a service could also stream a movie ending in such a way as to cheer you up when you are dull or to pump you up when you are demotivated. Movies will never be the same again! If such a personalization of streaming content were to happen who would lead the way? Would it be Amazon Fire TV who has the machine learning backend to make personalization happen, NetFlix who has the influence to get the producers to make several interesting versions of a movie or TV series or Apple TV service if Apple were to get its innovation crown back? What do you think?</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1177,66 +1225,6 @@ let us look at some operations on such a data structure. Specifically, let us lo
 
       
         <summary type="html">Let us look at some fundamental data structures which are just a collection of primitive data types. For example, an array of integers is a collection of integers, a string is a collection of characters, etc. Here, we are interested in Linked Lists which are just a collection (list) made by linking together some data-types (node). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a node and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better. Here is how you would describe a node and a linked list as C++ classes: class Node { public: int data; Node *next; public: Node (int item); }; We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below. class LinkedList { private: Node *head; int length; // constructors and member functions ...</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Computing GCD (greatest common divisor) of two given integers →</title>
-      
-      <link href="https://dotkay.github.io/2017/10/09/computing-gcd/" rel="alternate" type="text/html" title="Computing GCD (greatest common divisor) of two given integers" />
-      <published>2017-10-09T00:00:00+00:00</published>
-      <updated>2017-10-09T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/10/09/computing-gcd</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/10/09/computing-gcd/">&lt;p&gt;Today, let us see how to compute the greatest common divisor (GCD) of two given input numbers. Although it is a very easy problem with a relatively straight-forward implementation, the beauty of the problem is that the algorithm was discovered more than 2000 years ago by a Greek mathematician Euclid, after whom the algorithm is named.&lt;/p&gt;
-
-&lt;p&gt;It uses the concept of modular arithmetic as discussed in the &lt;a href=&quot;https://dotkay.github.io/2017/10/08/mod-arith&quot;&gt;previous post&lt;/a&gt;. Put simply, the &lt;em&gt;gcd&lt;/em&gt; of two given integers x and y is just the greatest number that divides both x and y. For example, the greatest common divisor of both 6 and 9 is 3. The obvious approach to compute the &lt;em&gt;gcd&lt;/em&gt; if two given numbers is to factor both the numbers, pick out the common factors and multiply them. For example, 6 = 1 x 2 x 3 and 9 = 1 x 3 x 3, and the common factors being 1 and 3. Euclid’s algorithm uses the following formula:&lt;/p&gt;
-
-&lt;p&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;x &amp;gt;= y&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;gcd(x, y) = gcd(x mod y, y)&lt;/code&gt;. As you see, the recursion is built in the description itself. Here’s an implementation:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;euclid_gcd&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// base case
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;euclid_gcd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;One has to note that in the recursive call, the first argument became &lt;code class=&quot;highlighter-rouge&quot;&gt;y&lt;/code&gt; and the second &lt;code class=&quot;highlighter-rouge&quot;&gt;x mod y&lt;/code&gt;. This is because of the following lemma:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;If &lt;code class=&quot;highlighter-rouge&quot;&gt;x &amp;gt;= y&lt;/code&gt;, then &lt;code class=&quot;highlighter-rouge&quot;&gt;x mod y &amp;lt; x/2&lt;/code&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-        <category term="recursion" />
-      
-
-      
-
-      
-        <summary type="html">Today, let us see how to compute the greatest common divisor (GCD) of two given input numbers. Although it is a very easy problem with a relatively straight-forward implementation, the beauty of the problem is that the algorithm was discovered more than 2000 years ago by a Greek mathematician Euclid, after whom the algorithm is named. It uses the concept of modular arithmetic as discussed in the previous post. Put simply, the gcd of two given integers x and y is just the greatest number that divides both x and y. For example, the greatest common divisor of both 6 and 9 is 3. The obvious approach to compute the gcd if two given numbers is to factor both the numbers, pick out the common factors and multiply them. For example, 6 = 1 x 2 x 3 and 9 = 1 x 3 x 3, and the common factors being 1 and 3. Euclid’s algorithm uses the following formula: If x &amp;gt;= y, gcd(x, y) = gcd(x mod y, y). As you see, the recursion is built in the description itself. Here’s an implementation: int euclid_gcd (int x, int y) { // base case if (y == 0) return x; else return euclid_gcd(y, x % y); } One has to note that in the recursive call, the first argument became y and the second x mod y. This is because of the following lemma: If x &amp;gt;= y, then x mod y &amp;lt; x/2. So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.</summary>
       
 
       
