@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-01-03T07:32:20+00:00</updated>
+  <updated>2019-01-07T03:38:43+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,56 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">The Edge Effect →</title>
+      
+      <link href="https://dotkay.github.io/2019/01/06/edge-effect/" rel="alternate" type="text/html" title="The Edge Effect" />
+      <published>2019-01-06T00:00:00+00:00</published>
+      <updated>2019-01-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2019/01/06/edge-effect</id>
+      <content type="html" xml:base="https://dotkay.github.io/2019/01/06/edge-effect/">&lt;p&gt;On this rainy Sunday in California, with not much motivation to do anything serious, with the last of the India-Australia Test series underway in Sydney delayed due to rain, I started scrolling through the library of my favourite pod-casts and this particular one caught my attention. &lt;em&gt;The Edge Effect&lt;/em&gt; - an episode from NPR’s &lt;a href=&quot;https://www.npr.org/series/423302056/hidden-brain&quot;&gt;Hidden Brain&lt;/a&gt; series.&lt;/p&gt;
+
+&lt;p&gt;The episode talks about the importance of encouraging and developing diversity of thoughts and ideas. It draws examples from science and music and makes compelling arguments supporting diversity. In particular, the experiments by Adam Galinsky and the life story of Cristina Pato were very impressive.&lt;/p&gt;
+
+&lt;p&gt;For those interested, here is a link to the podcast:&lt;/p&gt;
+
+&lt;audio controls=&quot;&quot;&gt;
+&lt;source src=&quot;https://play.podtrac.com/npr-510308/npr.mc.tritondigital.com/NPR_510308/media/anon.npr-podcasts/podcast/npr/hiddenbrain/2018/07/20180702_hiddenbrain_hb_diversity_and_creativity__-_final_pod_mix-9012e926-5cd6-4e44-b9d5-0b6e9750801c.mp3&quot; /&gt; 
+&lt;/audio&gt;
+
+&lt;p&gt;I should take time to appreciate the diversity my parents exposed me to, while growing up in India.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Diversity" />
+      
+        <category term="Edge Effect" />
+      
+        <category term="NPR" />
+      
+        <category term="Hidden Brain" />
+      
+
+      
+
+      
+        <summary type="html">On this rainy Sunday in California, with not much motivation to do anything serious, with the last of the India-Australia Test series underway in Sydney delayed due to rain, I started scrolling through the library of my favourite pod-casts and this particular one caught my attention. The Edge Effect - an episode from NPR’s Hidden Brain series. The episode talks about the importance of encouraging and developing diversity of thoughts and ideas. It draws examples from science and music and makes compelling arguments supporting diversity. In particular, the experiments by Adam Galinsky and the life story of Cristina Pato were very impressive. For those interested, here is a link to the podcast: I should take time to appreciate the diversity my parents exposed me to, while growing up in India.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1156,75 +1206,6 @@ let us look at some operations on such a data structure. Specifically, let us lo
 
       
         <summary type="html">Having introduced linked lists in our previous post, let us look at some operations on such a data structure. Specifically, let us look at how to insert a new item (a new node) to a linked list. Typically, we start with an empty linked list (denoted by just one node, the NULL node) and grow it by adding more and more items. The usual approach to adding a new item is to form a node (the building block) for the new item and then attach the item to a position in the linked list - by default we choose to add it to the head. Node *LinkedList::insert_item (int item) { Node *new_node = new Node(item); // form the building block new_node-&amp;gt;next = this-&amp;gt;head; // set the next pointer this-&amp;gt;head = new_node; // make new node the head this-&amp;gt;length++; // update the length }</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Linked Lists →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/01/linked-lists-intro/" rel="alternate" type="text/html" title="Linked Lists" />
-      <published>2017-11-01T00:00:00+00:00</published>
-      <updated>2017-11-01T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/01/linked-lists-intro</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/01/linked-lists-intro/">&lt;p&gt;Let us look at some fundamental data structures which are just a collection of primitive data types. For example, an array of integers is a collection of integers, a string is a collection of characters, etc.&lt;/p&gt;
-
-&lt;p&gt;Here, we are interested in &lt;em&gt;Linked Lists&lt;/em&gt; which are just a collection (&lt;em&gt;list&lt;/em&gt;) made by linking together some data-types (&lt;em&gt;node&lt;/em&gt;). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a &lt;em&gt;node&lt;/em&gt; and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_structures/linked_lists_intro.png&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Here is how you would describe a node and a linked list as C++ classes:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; 
-    &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LinkedList&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// constructors and member functions
-&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_structures/linked_lists_intro2.png&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="linked lists" />
-      
-
-      
-
-      
-        <summary type="html">Let us look at some fundamental data structures which are just a collection of primitive data types. For example, an array of integers is a collection of integers, a string is a collection of characters, etc. Here, we are interested in Linked Lists which are just a collection (list) made by linking together some data-types (node). The data-types themselves could be any primitive or a data-type formed of primitive types. For simplicity, we will discuss linked lists of integer nodes. The building block of the linked list is a node and nodes are chained (linked) together using pointers, just a data-type that stores the address of the next node. The following sketch would explain it better. Here is how you would describe a node and a linked list as C++ classes: class Node { public: int data; Node *next; public: Node (int item); }; We denote the fist node of the list as “head” node which will come handy when we have operations that traverse the list. The next pointer just stores the address of the next node, as shown in the image below. class LinkedList { private: Node *head; int length; // constructors and member functions ...</summary>
       
 
       
