@@ -11,11 +11,11 @@ Today, let us write a small program to reverse the elements of an array - i.e. r
 We traverse the array from the beginning and swap the elements with those from the end of the array. This way, by the time we are at the mid-point of the array, we would have swapped all the elements and the array would be in reverse order.
 
 {% highlight cpp %}
-void rev_arr(int arr[], int start, int end)
+void rev_arr(int arr[], int n)
 {
-  for (int i = start; i < (start + end - start)/2; i++)
-    swap(&arr[i], &arr[end - i - 1]);
+  for (int i = 0; i < n/2; i++)
+    swap(&arr[i], &arr[n - i - 1]);
 }
 {% endhighlight %}
 
-where `swap(arr[a], arr[b])` would swap the elements at array locations `a` and `b`.
+where `swap(arr[a], arr[b])` would swap the elements at array locations `a` and `b` and `n` is the size of the input array `arr`.
