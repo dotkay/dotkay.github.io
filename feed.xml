@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-01-07T03:38:43+00:00</updated>
+  <updated>2019-07-20T17:27:37+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,50 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">The Magic Money Tree →</title>
+      
+      <link href="https://dotkay.github.io/2019/07/01/mmt/" rel="alternate" type="text/html" title="The Magic Money Tree" />
+      <published>2019-07-01T00:00:00+00:00</published>
+      <updated>2019-07-01T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2019/07/01/mmt</id>
+      <content type="html" xml:base="https://dotkay.github.io/2019/07/01/mmt/">&lt;p&gt;As people who know me understand, I read articles and listen to podcasts on a variety of topics ranging from technology, social science, society, economics, etc. Economics is one of my favourites, as it is very relatable to our day to day lives, besides involving mathematical modelling (which, for the same reasons as Deep Learning techniques of today, can only be close to a very good approximation but never accurate). While listening to BBC’s Business Daily podcasts, I stumbled upon this episode on Modern Monetary Theory. The title of the podcast - “Magic Money Tree” caught my attention and it turned out to be an interesting take on a proposal by one of the former Hedge Fund manager about central banks being able to print more money when needed. I did have this idea when I was a kid before I realized inflation and value of goods and how they are tied to abundance of ciculation of money, interest rates and consumer spending. I am not an economist but I am worried how this could lead to powerful economies manipulating their inflation thereby leading to disastrous consequences in parts of the world whose currencies are not global trade currencies.&lt;/p&gt;
+
+&lt;p&gt;For those interested in listening to the episode, you can do it here:&lt;/p&gt;
+&lt;audio controls=&quot;&quot;&gt;
+&lt;source src=&quot;http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-low/proto/http/vpid/p079cpnd.mp3&quot; /&gt; 
+&lt;/audio&gt;
+
+&lt;p&gt;Are there wonderful teachers among expert economists who can
+help me understand?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="Money" />
+      
+        <category term="Monetary Policy" />
+      
+
+      
+
+      
+        <summary type="html">As people who know me understand, I read articles and listen to podcasts on a variety of topics ranging from technology, social science, society, economics, etc. Economics is one of my favourites, as it is very relatable to our day to day lives, besides involving mathematical modelling (which, for the same reasons as Deep Learning techniques of today, can only be close to a very good approximation but never accurate). While listening to BBC’s Business Daily podcasts, I stumbled upon this episode on Modern Monetary Theory. The title of the podcast - “Magic Money Tree” caught my attention and it turned out to be an interesting take on a proposal by one of the former Hedge Fund manager about central banks being able to print more money when needed. I did have this idea when I was a kid before I realized inflation and value of goods and how they are tied to abundance of ciculation of money, interest rates and consumer spending. I am not an economist but I am worried how this could lead to powerful economies manipulating their inflation thereby leading to disastrous consequences in parts of the world whose currencies are not global trade currencies. For those interested in listening to the episode, you can do it here: Are there wonderful teachers among expert economists who can help me understand?</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1158,54 +1202,6 @@
 
       
         <summary type="html">In this post, let us see how to find if a given item exists in the linked list. Conceptually, it is very simple - just go through the nodes one by one and see if the data matches the item given as input. But, where do we start the traversal from? This is what we use the head pointer for. And when do we stop? Obviously, if we find the item we are looking for, we stop. We might also not find the item at all, in which case we traverse all of the list until we hit the NULL node (that indicates the end of the list). Node *LinkedList::find (int item) { Node *it = this-&amp;gt;head; while (it != NULL) { it = it-&amp;gt;next; if (it-&amp;gt;data == item) { return it; } } return it; }</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Linked Lists - Add me! →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/02/linked-list-insertion/" rel="alternate" type="text/html" title="Linked Lists - Add me!" />
-      <published>2017-11-02T00:00:00+00:00</published>
-      <updated>2017-11-02T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/02/linked-list-insertion</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/02/linked-list-insertion/">&lt;p&gt;Having introduced linked lists in our &lt;a href=&quot;https://dotkay.github.io/2017/11/01/linked-lists-intro&quot;&gt;previous post&lt;/a&gt;, 
-let us look at some operations on such a data structure. Specifically, let us look at how to insert a new item (a new &lt;em&gt;node&lt;/em&gt;) to a linked list. Typically, we start with an empty linked list (denoted by just one node, the NULL node) and grow it by adding more and more items. The usual approach to adding a new item is to form a node (the building block) for the new item and then attach the item to a position in the linked list - by default we choose to add it to the head.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert_item&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// form the building block
-&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;new_node&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// set the next pointer
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// make new node the head
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                  &lt;span class=&quot;c1&quot;&gt;// update the length
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="linked lists" />
-      
-
-      
-
-      
-        <summary type="html">Having introduced linked lists in our previous post, let us look at some operations on such a data structure. Specifically, let us look at how to insert a new item (a new node) to a linked list. Typically, we start with an empty linked list (denoted by just one node, the NULL node) and grow it by adding more and more items. The usual approach to adding a new item is to form a node (the building block) for the new item and then attach the item to a position in the linked list - by default we choose to add it to the head. Node *LinkedList::insert_item (int item) { Node *new_node = new Node(item); // form the building block new_node-&amp;gt;next = this-&amp;gt;head; // set the next pointer this-&amp;gt;head = new_node; // make new node the head this-&amp;gt;length++; // update the length }</summary>
       
 
       
