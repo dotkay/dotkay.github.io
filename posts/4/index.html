@@ -102,10 +102,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/11/07/linked-list-print-reverse/">Linked Lists - Reverse me! &rarr;</a>
+            <a class="post-link" href="/2017/11/08/linked-list-print-reverse-rec/">Linked Lists - Reverse me (R)! &rarr;</a>
           </h1>
 
-          <p class="post-meta">Nov 7, 2017 • 
+          <p class="post-meta">Nov 8, 2017 • 
   
   
     
@@ -116,6 +116,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -255,6 +257,8 @@
   
     
   
+    
+  
 
   
   
@@ -292,6 +296,276 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In our <a href="https://dotkay.github.io/2017/11/07/linked-list-reverse">previous post</a>, we looked at an iterative function to reverse a linked list. I believe it was a lot of fun. Now, we shall look at a recursive function to do the same. As before, whenever you hear recursion, you should just think of the base case and the recursive steps (i.e. what is to be done in each recursive step - like printing the node’s data in our <a href="https://dotkay.github.io/2017/11/06/linked-list-print-rec">recursive print function</a>) - once this is clear, the rest would be straight forward. For reversing a linked list, at each recursive step, we need to update the pointer directions - if there is a pointer <code class="highlighter-rouge">C  --&gt;  D</code>, after the recursive call it would be <code class="highlighter-rouge">C  &lt;--  D</code>. We keep track of two pointers, <code class="highlighter-rouge">head</code> and <code class="highlighter-rouge">rest</code> (everything following <code class="highlighter-rouge">head</code>) - and recursively call the function.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">reverse_list_r</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">rest</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">first</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">first</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
+  <span class="n">rest</span> <span class="o">=</span> <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">||</span> <span class="n">rest</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>                   <span class="c1">// base case
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">rest</span><span class="p">;</span>          <span class="c1">// move forward
+</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">reverse_list_r</span> <span class="p">();</span>    <span class="c1">// recursive call  
+</span>  <span class="n">rest</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span>         <span class="c1">// update pointers
+</span>  <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>I will leave it as an (interesting) exercise for the reader to work out this function as we did for the iterative case.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/11/07/linked-list-print-reverse/">Linked Lists - Reverse me! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 7, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -462,6 +736,8 @@
   
     
   
+    
+  
 
   
   
@@ -493,6 +769,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -574,6 +852,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -730,6 +1010,8 @@
   
     
   
+    
+  
 
   
   
@@ -761,6 +1043,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -842,6 +1126,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -993,6 +1279,8 @@
   
     
   
+    
+  
 
   
   
@@ -1024,6 +1312,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -1105,6 +1395,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -1190,264 +1482,6 @@
     <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
     <span class="k">delete</span> <span class="n">it</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/03/linked-list-find/">Linked Lists - Find me! &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 3, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/linked-lists/">linked lists</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In this post, let us see how to find if a given item exists in the linked list. Conceptually, it is very simple - just go through the nodes one by one and see if the data matches the item given as input. But, where do we start the traversal from? This is what we use the <em>head</em> pointer for. And when do we stop? Obviously, if we find the item we are looking for, we stop. We might also not find the item at all, in which case we traverse all of the list until we hit the <em>NULL</em> node (that indicates the end of the list).</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">find</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">it</span><span class="p">;</span>
 <span class="p">}</span></code></pre>
 </figure>
 
