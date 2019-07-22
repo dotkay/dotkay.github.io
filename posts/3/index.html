@@ -102,6 +102,293 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/04/08/rotate-array-ccw/">Rotating an array counter clockwise around a given index &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 8, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was <code class="highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code>, the result of rotation around index <code class="highlighter-rouge">3</code> (that has the element 4) in the counter clockwise direction would be <code class="highlighter-rouge">[5, 6, 7, 8, 1, 2, 3, 4]</code>. The sequence of transformations the array goes through as each of the elements until the given index rotates would be:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+2 3 4 5 6 7 8 1            --&gt; 1 has rotated away to the end of the array
+3 4 5 6 7 8 1 2            --&gt; 2 has rotated away following 1
+4 5 6 7 8 1 2 3            --&gt; now, it's 3's turn
+5 6 7 8 1 2 3 4            --&gt; the element at index 3 (i.e. 4) around which we
+                               wanted to rotate has also completed.
+</code></pre>
+</div>
+
+<p>We can use the <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">algorithm we developed to reverse a sub-array</a>, in order to achieve this rotation. The idea is simple:</p>
+
+<ol>
+  <li>First, reverse the sub-array consisting of elements from the beginning of the array until the pivot (around which we want to rotate the array) in place</li>
+  <li>Now, rotate the remaining sub-array alone (i.e. from the pivot until the end of the array</li>
+  <li>Complete it by reversing the entire array once</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+4 3 2 1 5 6 7 8            --&gt; step-1 first sub-array reversed
+4 3 2 1 8 7 6 5            --&gt; step-2 second sub-array reversed
+5 6 7 8 1 2 3 4            --&gt; step-3 rotation of the entire array 
+</code></pre>
+</div>
+
+<p>An implementation would look like:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rotate_arr_ccw</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pivot</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pivot</span><span class="p">);</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">pivot</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/04/05/reverse-a-subarray/">Reversing a sub-array of an array in place &rarr;</a>
           </h1>
 
@@ -1197,308 +1484,6 @@
 <p>We add elements to our stack using the <em>push()</em> method, remove elements from the stack (actually from the top of our stack) using <em>pop()</em> method, and we also keep track of the top of the stack because that’s where interesting actions happen.</p>
 
 <p>We will see the different methods in the following posts. Stay tuned!.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/12/queue_linked_list_methods/">Queue using Linked List - Operations &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 12, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/queues/">queues</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In our <a href="https://dotkay.github.io/2017/11/11/queues_linked_list">previous post</a>, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods <em>enqueue()</em> and <em>dequeue()</em>.</p>
-
-<p>This is very similar to inserting a new element to a linked list as we saw <a href="https://dotkay.github.io/2017/11/02/linked-list-insertion">earlier</a>. To insert a new item, we construct a node with that item and a <em>next</em> pointer, add it to the list and adjust the pointers.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// if the queue is empty
-</span>  <span class="c1">// front and rear are the same, i.e the new item
-</span>  <span class="n">Node</span> <span class="o">*</span><span class="n">new_item</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
-  <span class="n">new_item</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
-  <span class="n">new_item</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">rear</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">front</span> <span class="o">=</span> <span class="n">rear</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// else add it to the rear end 
-</span>  <span class="c1">// of the queue
-</span>  <span class="n">rear</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
-  <span class="n">rear</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p><br />
-<img src="/assets/images/data_structures/queue_ll.png" alt="Queue Operations" class="img=responsive" /></p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">Queue</span><span class="o">::</span><span class="n">dequeue</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
-  <span class="c1">// check if the queue is empty
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Empty queue"</span><span class="p">);</span>
-  
-  <span class="c1">// get the item to dequeue
-</span>  <span class="n">Node</span> <span class="o">*</span><span class="n">dequeue_item</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
-  <span class="n">res</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
-  <span class="n">front</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-
-  <span class="c1">// now, if there was only one node
-</span>  <span class="c1">// to pop front would point to NULL
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="n">rear</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-
-  <span class="k">delete</span> <span class="p">(</span><span class="n">dequeue_item</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">bool</span> <span class="n">Queue</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>That’s all there is in Queues!</p>
 
         </div>
         

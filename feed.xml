@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-22T01:37:34+00:00</updated>
+  <updated>2019-07-22T13:49:55+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -377,6 +377,72 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Reversing elements of an array in groups →</title>
+      
+      <link href="https://dotkay.github.io/2018/04/17/reverse-subarray-groups/" rel="alternate" type="text/html" title="Reversing elements of an array in groups" />
+      <published>2018-04-17T00:00:00+00:00</published>
+      <updated>2018-04-17T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/04/17/reverse-subarray-groups</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/04/17/reverse-subarray-groups/">&lt;p&gt;Earlier, we &lt;a href=&quot;https://dotkay.github.io/2018/04/05/reverse-a-subarray&quot;&gt;saw how to reverse a sub-array&lt;/a&gt; given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is &lt;code class=&quot;highlighter-rouge&quot;&gt;[1, 2, 3, 4, 5, 6, 7, 8]&lt;/code&gt; and group size is &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt;, we want to reverse every group of 3 elements in the array and the remaining ones. Something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 2 3 4 5 6 7 8                 -&amp;gt; input array
+(3 2 1) 4 5 6 7 8               -&amp;gt; first group of 3 elements reversed;
+                                   group denoted by (..)
+(3 2 1) (6 5 4) 7 8             -&amp;gt; second group of 3 elements reversed
+(3 2 1) (6 5 4) (8 7)           -&amp;gt; remaining elements (less than group size)
+                                   reversed
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The algorithm is very similar to the earlier one, just that we need to take care of the group boundaries while traversal and reversing, just like how we took care of boundaries while reversing subarrays.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;reverse_in_groups&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Here, &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; denotes the size of the input array &lt;code class=&quot;highlighter-rouge&quot;&gt;arr&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;g&lt;/code&gt; denotes the size of the group.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="arrays" />
+      
+
+      
+
+      
+        <summary type="html">Earlier, we saw how to reverse a sub-array given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is [1, 2, 3, 4, 5, 6, 7, 8] and group size is 3, we want to reverse every group of 3 elements in the array and the remaining ones. Something like: 1 2 3 4 5 6 7 8 -&amp;gt; input array (3 2 1) 4 5 6 7 8 -&amp;gt; first group of 3 elements reversed; group denoted by (..) (3 2 1) (6 5 4) 7 8 -&amp;gt; second group of 3 elements reversed (3 2 1) (6 5 4) (8 7) -&amp;gt; remaining elements (less than group size) reversed The algorithm is very similar to the earlier one, just that we need to take care of the group boundaries while traversal and reversing, just like how we took care of boundaries while reversing subarrays. void reverse_in_groups(int arr[], int n, int g) { for (int i = 0; i &amp;lt; n; i += g) { int lo = i; int hi = min(i + g - 1, n - 1); while (lo &amp;lt; hi) { swap(&amp;amp;arr[lo++], &amp;amp;arr[hi--]); } } } Here, n denotes the size of the input array arr and g denotes the size of the group.</summary>
       
 
       
@@ -1111,81 +1177,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">In our previous post, we looked at an iterative function to reverse a linked list. I believe it was a lot of fun. Now, we shall look at a recursive function to do the same. As before, whenever you hear recursion, you should just think of the base case and the recursive steps (i.e. what is to be done in each recursive step - like printing the node’s data in our recursive print function) - once this is clear, the rest would be straight forward. For reversing a linked list, at each recursive step, we need to update the pointer directions - if there is a pointer C --&amp;gt; D, after the recursive call it would be C &amp;lt;-- D. We keep track of two pointers, head and rest (everything following head) - and recursively call the function. void LinkedList::reverse_list_r () { Node *rest = NULL; Node *first = NULL; first = this-&amp;gt;head; rest = first-&amp;gt;next; if (first == NULL || rest == NULL) return; // base case this-&amp;gt;head = rest; // move forward this-&amp;gt;reverse_list_r (); // recursive call rest-&amp;gt;next = first; // update pointers first-&amp;gt;next = NULL; } I will leave it as an (interesting) exercise for the reader to work out this function as we did for the iterative case.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Linked Lists - Reverse me! →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/07/linked-list-print-reverse/" rel="alternate" type="text/html" title="Linked Lists - Reverse me!" />
-      <published>2017-11-07T00:00:00+00:00</published>
-      <updated>2017-11-07T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/07/linked-list-print-reverse</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/07/linked-list-print-reverse/">&lt;p&gt;In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an &lt;em&gt;iterative&lt;/em&gt; fashion. Suppose we start with the following input list:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1  --&amp;gt;  2  --&amp;gt;  3  --&amp;gt;  NULL
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;After performing a reversal we should end up with the following result:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3  --&amp;gt;  2  --&amp;gt;  1  --&amp;gt;  NULL
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Conceptually, we are reversing the pointers (turing around the arrows). In our data structure, these are denoted by the &lt;em&gt;next&lt;/em&gt; pointer of each node. So, it is actually just setting the &lt;em&gt;next&lt;/em&gt; pointer of the current node to point to the previous node in the list. For example, if our current node is &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; and its &lt;em&gt;next&lt;/em&gt; pointer is pointing to node &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; originally, we want our function to make the next pointer of &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; to point to &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;. We are remembering the previous node just as in our &lt;a href=&quot;https://dotkay.github.io/2017/11/04/linked-list-delete&quot;&gt;previous example&lt;/a&gt; to delete a node. It looks like that’s all to it:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curr-&amp;gt;next = prev
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;But as soon as we set the &lt;em&gt;next&lt;/em&gt; pointer of &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; to point to &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;, we lost the connection to the rest of the list following &lt;code class=&quot;highlighter-rouge&quot;&gt;2&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;3  --&amp;gt;  NULL&lt;/code&gt;). Intuitively, to get over this, we need to remember more than just the previous node in the list - we also need to keep track of the next node (a handle to the next node so that we do not lose the rest of the list after we turn the current node’s &lt;em&gt;next&lt;/em&gt; pointer). Once you have a grasp of this intuition the coding it up is straight-forward. For better clarity, let us also work through a simple example (with 3 elements as above) following the function definition below:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reverse_list&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// get the next element
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// link in reverse direction 
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// move ahead - set new prev, curr  
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;curr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_structures/linked_list_reverse_iter.png&quot; alt=&quot;Linked List&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Now, you get it!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="linked lists" />
-      
-
-      
-
-      
-        <summary type="html">In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an iterative fashion. Suppose we start with the following input list: 1 --&amp;gt; 2 --&amp;gt; 3 --&amp;gt; NULL After performing a reversal we should end up with the following result: 3 --&amp;gt; 2 --&amp;gt; 1 --&amp;gt; NULL Conceptually, we are reversing the pointers (turing around the arrows). In our data structure, these are denoted by the next pointer of each node. So, it is actually just setting the next pointer of the current node to point to the previous node in the list. For example, if our current node is 2 and its next pointer is pointing to node 3 originally, we want our function to make the next pointer of 2 to point to 1. We are remembering the previous node just as in our previous example to delete a node. It looks like that’s all to it: curr-&amp;gt;next = prev But as soon as we set the next pointer of 2 to point to 1, we lost the connection to the rest of the list following 2 (3 --&amp;gt; NULL). Intuitively, to get over this, we need to remember more than just the previous node in the list - we also need to keep track of the next node (a handle to the next node so that we do not lose the rest of the list after we turn the current node’s next pointer). Once you have a grasp of this intuition the coding it up is straight-forward. For better clarity, let us also work through a simple example (with 3 elements as above) following the function definition below: void LinkedList::reverse_list () { Node *prev = NULL; Node *next; Node *curr = this-&amp;gt;head; while (curr != NULL) { next = curr-&amp;gt;next; // get the next element curr-&amp;gt;next = prev; // link in reverse direction prev = curr; // move ahead - set new prev, curr curr = next; } this-&amp;gt;head = prev; } Now, you get it!</summary>
       
 
       

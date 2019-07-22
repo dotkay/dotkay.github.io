@@ -102,6 +102,242 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/21/learning-to-count-set-bits/">Learning to count set bits &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 21, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s take a break from recursion and learn to count the number of bits set in an integer. For example, in an integer say <code class="highlighter-rouge">9</code> there are two set bits. Of course, we will be dealing with unsigned integers and the number of bits set is in the binary representation (the language that our computers understand and speak). We already saw how to convert an integer to binary in one of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">previous posts</a>. You may want to refer to that in case you want to quickly refresh your memory.</p>
+
+<p>Let’s work out the first technique we would use. Let’s take the integer <code class="highlighter-rouge">9</code>. It’s binary representation is <code class="highlighter-rouge">1001</code>. So, there are two set bits. Looks very intuitive - start from the right-most bit, have a counter and start counting the set bits, while right shifting our bit string. We just need a counter to keep track of the count and two operations - right shift and an operation to identify a set bit. Let’s see how to do that.</p>
+
+<ol>
+  <li>We initialize a counter, call it <code class="highlighter-rouge">count</code> to 0.</li>
+  <li>We do a bitwise <code class="highlighter-rouge">&amp;</code> with <code class="highlighter-rouge">1</code>. This would identify if a bit is set. If it’s set, we would increment <code class="highlighter-rouge">count</code>.</li>
+  <li>Right shift our original input and continue till we encounter 0 (terminating condition for our loop).</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
+   1001	       			  0
+               0001		  1
+   0100	       0000		  1
+   0010	       0000		  1
+   0001	       0001		  2
+   0000	        -		  2
+</code></pre>
+</div>
+
+<p>final result = 2</p>
+
+<p>Let’s write a quick C function:</p>
+
+<figure class="highlight">
+  <pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
+1001     1000     1000          1
+1000     0111     0000          2
+0000      --       --           2
+
+</code></pre>
+</div>
+
+<p>final result = 2. Note that we loop only as many times as the number of set bits, unlike the previous case.</p>
+
+<p>Let’s write a quick C function:</p>
+
+<figure class="highlight">
+  <pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">BK_count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">n</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>That’s all for now. Let me get my head around other bits and pieces before my next post.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/20/recursions-just-dont-get-over/">Recursions just don&#39;t get over ... &rarr;</a>
           </h1>
 
@@ -1200,263 +1436,6 @@
 
 <p>That’s all folks. If you have reached this line of this post (assuming you didn’t start reading from the last line), Congratulations for sticking around!</p>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/16/interesting-podcast-on-education/">An interesting podcast on education &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 16, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/education/">education</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/npr/">NPR</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/ted/">TED</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>A break from recursions and algorithms for today! But still sticking to the broader goal of education and learning. I am a big fan of radio programs and in particular NPR. Over the weekend, I happened to listen to a very interesting program on education. Hosted by <a href="http://www.npr.org/people/6597623/guy-raz">Guy Raz</a>, last week’s episode of <a href="http://www.npr.org/programs/ted-radio-hour/">TED Radio Hour</a> focussed on education and learning - specifically how it is changing with technology. It was a very interesting podcast and I really encourage all of you to make some time to listen to it. Below is a link to the podcast.</p>
-
-<audio controls="">
-<source src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2017/08/20170811_ted_tedpod.mp3" />
-</audio>
-<p><br />
-It is an added motivation for me to use more avenues to share my knowledge with the many in this world, as much as I learn through the many channels and from the many wonderful people on this planet.</p>
 
         </div>
         
