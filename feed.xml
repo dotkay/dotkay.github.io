@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-22T00:21:10+00:00</updated>
+  <updated>2019-07-22T01:37:34+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -377,6 +377,65 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Finding the minimum absolute difference among array elements →</title>
+      
+      <link href="https://dotkay.github.io/2018/04/14/array-min-abs-diff/" rel="alternate" type="text/html" title="Finding the minimum absolute difference among array elements" />
+      <published>2018-04-14T00:00:00+00:00</published>
+      <updated>2018-04-14T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/04/14/array-min-abs-diff</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/04/14/array-min-abs-diff/">&lt;p&gt;Let us see how do we compute the minimum absolute difference among elements of an array. Given that we are concerened about all the elements of the array tells us that we need to&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Traverse all the elements of the array (so complexity is already O(n))&lt;/li&gt;
+  &lt;li&gt;Maintain a running counter that captures the minimum difference as we traverse the array - the idea is also to initialize this variable to MAX value so that we can record the minimum difference easily&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;min_abs_diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min_diff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INT8_MAX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min_diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;min_diff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min_diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Note how we try not to overflow the array index (while evaluating &lt;code class=&quot;highlighter-rouge&quot;&gt;arr[i+1]&lt;/code&gt;) by computing modulo &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; - the size of the array.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="arrays" />
+      
+
+      
+
+      
+        <summary type="html">Let us see how do we compute the minimum absolute difference among elements of an array. Given that we are concerened about all the elements of the array tells us that we need to Traverse all the elements of the array (so complexity is already O(n)) Maintain a running counter that captures the minimum difference as we traverse the array - the idea is also to initialize this variable to MAX value so that we can record the minimum difference easily int min_abs_diff(int arr[], int n) { int min_diff = INT8_MAX; for (int i = 0; i &amp;lt; n; i++) { int diff = abs(arr[i] - arr[(i+1) % n]); if (diff &amp;lt; min_diff) min_diff = diff; } return min_diff; } Note how we try not to overflow the array index (while evaluating arr[i+1]) by computing modulo n - the size of the array.</summary>
       
 
       
@@ -1127,67 +1186,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an iterative fashion. Suppose we start with the following input list: 1 --&amp;gt; 2 --&amp;gt; 3 --&amp;gt; NULL After performing a reversal we should end up with the following result: 3 --&amp;gt; 2 --&amp;gt; 1 --&amp;gt; NULL Conceptually, we are reversing the pointers (turing around the arrows). In our data structure, these are denoted by the next pointer of each node. So, it is actually just setting the next pointer of the current node to point to the previous node in the list. For example, if our current node is 2 and its next pointer is pointing to node 3 originally, we want our function to make the next pointer of 2 to point to 1. We are remembering the previous node just as in our previous example to delete a node. It looks like that’s all to it: curr-&amp;gt;next = prev But as soon as we set the next pointer of 2 to point to 1, we lost the connection to the rest of the list following 2 (3 --&amp;gt; NULL). Intuitively, to get over this, we need to remember more than just the previous node in the list - we also need to keep track of the next node (a handle to the next node so that we do not lose the rest of the list after we turn the current node’s next pointer). Once you have a grasp of this intuition the coding it up is straight-forward. For better clarity, let us also work through a simple example (with 3 elements as above) following the function definition below: void LinkedList::reverse_list () { Node *prev = NULL; Node *next; Node *curr = this-&amp;gt;head; while (curr != NULL) { next = curr-&amp;gt;next; // get the next element curr-&amp;gt;next = prev; // link in reverse direction prev = curr; // move ahead - set new prev, curr curr = next; } this-&amp;gt;head = prev; } Now, you get it!</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Linked Lists - Print me (R)! →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/06/linked-list-print-rec/" rel="alternate" type="text/html" title="Linked Lists - Print me (R)!" />
-      <published>2017-11-06T00:00:00+00:00</published>
-      <updated>2017-11-06T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/06/linked-list-print-rec</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/06/linked-list-print-rec/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/11/05/linked-list-print&quot;&gt;previous post&lt;/a&gt; we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do it in a fancy recursive way. This should remind you of our &lt;a href=&quot;https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/&quot;&gt;earlier posts&lt;/a&gt; on recursion, just that now we are in C++ world.&lt;/p&gt;
-
-&lt;p&gt;As we saw when we taught ourselves recursion using a more intuitive programming paradigm (functional programming using OCaml programming language), in any recursive function, we need to take care of:&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;Base case&lt;/li&gt;
-  &lt;li&gt;Recursive step&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;In this example, the base case is just an empty list (&lt;em&gt;NULL&lt;/em&gt;) and the recursive step is to just print the item as long as the list doesn’t fall into the base case.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LinkedList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_list_r&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;// base case
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;NULL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// move forward
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print_list_r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;// recursive call
-&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &amp;lt;- &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// print 
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;It is very important to understand this and our &lt;a href=&quot;https://dotkay.github.io/2017/11/05/linked-list-print&quot;&gt;previous post&lt;/a&gt; as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="linked lists" />
-      
-
-      
-
-      
-        <summary type="html">In our previous post we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do it in a fancy recursive way. This should remind you of our earlier posts on recursion, just that now we are in C++ world. As we saw when we taught ourselves recursion using a more intuitive programming paradigm (functional programming using OCaml programming language), in any recursive function, we need to take care of: Base case Recursive step In this example, the base case is just an empty list (NULL) and the recursive step is to just print the item as long as the list doesn’t fall into the base case. void LinkedList::print_list_r () { Node *it = this-&amp;gt;head; if (it == NULL) { // base case cout &amp;lt;&amp;lt; &quot;NULL&quot;; return; } this-&amp;gt;head = it-&amp;gt;next; // move forward this-&amp;gt;print_list_r(); // recursive call cout &amp;lt;&amp;lt; &quot; &amp;lt;- &quot; &amp;lt;&amp;lt; it-&amp;gt;data; // print } It is very important to understand this and our previous post as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!</summary>
       
 
       

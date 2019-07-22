@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Finding the minimum absolute difference among array elements</title>
+  <meta name="description" content="Let us see how do we compute the minimum absolute difference among elements of an array. Given that we are concerened about all the elements of the array tells us that we need to Traverse all the elements of the array (so complexity is already O(n)) Maintain a running counter that captures the minimum difference as we traverse the array - the idea is also to initialize this variable to MAX value so that we can record the minimum difference easily int min_abs_diff(int arr[], int n) { int min_diff = INT8_MAX; for (int i = 0; i &amp;lt; n; i++) { int diff = abs(arr[i] - arr[(i+1) % n]); if (diff &amp;lt; min_diff) min_diff = diff; } return min_diff; } Note how we try not to overflow the array index (while evaluating arr[i+1]) by computing modulo n - the size of the array.">
+  
+    
+    <meta name="keywords" content="C++, data structures, arrays">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/04/14/array-min-abs-diff/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Finding the minimum absolute difference among array elements">
+  <meta name="twitter:description" content="Let us see how do we compute the minimum absolute difference among elements of an array. Given that we are concerened about all the elements of the array tells us that we need to Traverse all the e...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/04/14/array-min-abs-diff">Finding the minimum absolute difference among array elements &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-04-14T00:00:00+00:00" itemprop="datePublished">Apr 14, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Let us see how do we compute the minimum absolute difference among elements of an array. Given that we are concerened about all the elements of the array tells us that we need to</p>
+
+<ol>
+  <li>Traverse all the elements of the array (so complexity is already O(n))</li>
+  <li>Maintain a running counter that captures the minimum difference as we traverse the array - the idea is also to initialize this variable to MAX value so that we can record the minimum difference easily</li>
+</ol>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">min_abs_diff</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">min_diff</span> <span class="o">=</span> <span class="n">INT8_MAX</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">abs</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">arr</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">]);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">diff</span> <span class="o">&lt;</span> <span class="n">min_diff</span><span class="p">)</span>
+      <span class="n">min_diff</span> <span class="o">=</span> <span class="n">diff</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">min_diff</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Note how we try not to overflow the array index (while evaluating <code class="highlighter-rouge">arr[i+1]</code>) by computing modulo <code class="highlighter-rouge">n</code> - the size of the array.</p>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -102,6 +102,271 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/04/05/reverse-a-subarray/">Reversing a sub-array of an array in place &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 5, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In an <a href="https://dotkay.github.io/2018/04/02/reverse-an-array/">earlier post</a>, we saw how to reverse a given input array. But, it reversed the entire array. What if we want to pick a fragment of the input array and reverse only that?</p>
+
+<p>Let us assume we are given the <code class="highlighter-rouge">start</code> and <code class="highlighter-rouge">end</code> indices - the window that we want to reverse. It is very similar to our previous approach, except that we need to be careful computing the indices to iterate on.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">reverse_arr</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="p">((</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">));</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">mid</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">end</span> <span class="o">-</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="n">start</span><span class="p">)]);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>There is an <a href="https://thebittheories.com/the-curious-case-of-binary-search-the-famous-bug-that-remained-undetected-for-20-years-973e89fc212">interesting story</a> about computation of mid-point given two window boundaries. At first glance, it would seem tempting to write it as <code class="highlighter-rouge">(start + end) / 2</code> but it is safer (and more correct) to write it as <code class="highlighter-rouge">start + ((end - start) / 2)</code>.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/04/02/reverse-an-array/">Reversing an array in place &rarr;</a>
           </h1>
 
@@ -1234,298 +1499,6 @@
 </figure>
 
 <p>That’s all there is in Queues!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/11/queues_linked_list/">Queues using Linked List &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 11, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/queues/">queues</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2017/11/09/queues">earlier post</a>, we saw implementation of Queues using arrays. Now, we will use a <em>Linked List</em> to store the elements instead of an array. Since we are all linked list champs by now, we already know how to go about building a linked list given an input set of elements - create nodes that contain our elements and join the nodes using <em>next</em> pointers.</p>
-
-<p>We will also use this example to introduce the notion of a <em>friend</em> class in C++.</p>
-
-<blockquote>
-  <p>A <em>friend class</em> F is a C++ class that can access private and protected members of another class A in which F is declared as friend. Here, a <em>Queue</em> class (F) may be allowed to access private members of a Node class (A).</p>
-</blockquote>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
-    <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
-    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Queue</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
-    <span class="n">Node</span> <span class="o">*</span><span class="n">front</span><span class="p">,</span> <span class="o">*</span><span class="n">rear</span><span class="p">;</span>
-  <span class="k">public</span><span class="o">:</span>
-    <span class="n">Queue</span> <span class="p">();</span>
-    <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-    <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
-    <span class="kt">int</span> <span class="n">dequeue</span> <span class="p">();</span>
-<span class="p">};</span>
-
-<span class="n">Queue</span><span class="o">::</span><span class="n">Queue</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">this</span><span class="o">-&gt;</span><span class="n">front</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="k">this</span><span class="o">-&gt;</span><span class="n">rear</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>There is also a notion of <em>friend function</em>, very similar to <em>friend class</em>:</p>
-<blockquote>
-  <p>A <em>friend function</em> f can be used to access private and protected members of a class A and it can be either:</p>
-  <ul>
-    <li>a method of a class A</li>
-    <li>a global function</li>
-  </ul>
-</blockquote>
-
-<p>In the following post, we will see how to implement the methods <em>enqueue()</em> and <em>dequeue()</em> for the Queue class above.</p>
 
         </div>
         

@@ -102,6 +102,302 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/19/list-partitioning-and-quick-sort/">List Partitioning and Quicksort &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 19, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Before we try to come up with a better solution for the problem in the <a href="https://dotkay.github.io/2017/09/18/minimum-missing-natural-number">previous post</a>, let us look at another familiar problem - Quicksort. A quick refresher of mergesort from one of the <a href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort">earlier posts</a> will make this exercise much simpler. In mergesort, we essentially wrote a <code class="highlighter-rouge">split</code> function to split an input list into two lists and recursively called the mergesort algorithm on each of the sub-lists produced by <code class="highlighter-rouge">split</code> and eventually merged them using a <code class="highlighter-rouge">merge</code> function that merges two lists by comparing the element at the head of the sub-lists.</p>
+
+<p>The idea behind quicksort is similar. Instead of just splitting the list into two sub-lists, we are going to choose a <em>pivot</em> element (a fancy name for <em>just an element</em> from our input list) and split the list into two sub-lists in such a way that all the elements in the input list that are less than the pivot element would fall into one sub-list and the rest of the elements will fall into the other. Now that we are very much comfortable with writing recursive functions using accumulators, let us go ahead and write one for partitioning the list into a pair of lists (two sub-lists) given a pivot element. So, the inputs to our function are a list <code class="highlighter-rouge">lst</code> (to split) and a <code class="highlighter-rouge">pivot</code> element.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">partition</span> <span class="n">pivot</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="p">(</span><span class="n">acc1</span><span class="p">,</span> <span class="n">acc2</span><span class="p">)</span> <span class="n">l</span> <span class="p">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">(</span><span class="n">acc1</span><span class="p">,</span> <span class="n">acc2</span><span class="p">)</span>
+    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> 
+      <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="p">&lt;</span> <span class="n">pivot</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">acc1</span><span class="p">,</span> <span class="n">acc2</span><span class="p">)</span> <span class="n">t</span>
+      <span class="k">else</span> <span class="n">aux</span> <span class="p">(</span><span class="n">acc1</span><span class="p">,</span> <span class="n">h</span><span class="p">::</span><span class="n">acc2</span><span class="p">)</span> <span class="n">t</span>
+  <span class="k">in</span>
+  <span class="n">aux</span> <span class="o">([],</span> <span class="bp">[]</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Let’s go ahead and see what it does on a sample list <code class="highlighter-rouge">lst1</code> which contains <code class="highlighter-rouge">[1; 11; 9; 3; 6; 7; 2; 29]</code>. Let’s pick <code class="highlighter-rouge">7</code> to be our pivot element.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">lst1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">6</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">29</span><span class="o">];;</span>
+<span class="n">partition</span> <span class="mi">7</span> <span class="n">lst1</span><span class="p">;;</span>
+<span class="c">(* - : int list * int list = ([2; 6; 3; 1], [29; 7; 9; 11]) *)</span></code></pre>
+</figure>
+
+<p>As we see, all the elements less than our pivot element, <code class="highlighter-rouge">7</code> in this case, are in one of the sub-lists generated by <code class="highlighter-rouge">partition</code> function.</p>
+
+<p>Now, quicksort is just choosing the head element as the pivot, generating two sub-lists <code class="highlighter-rouge">l1</code> and <code class="highlighter-rouge">l2</code> and calling quicksort recursively on each of the sub-lists. Since each recursive call pushes the smaller element further towards the left, eventually when all recursive calls return, the list would be sorted in acsending order.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">quicksort</span> <span class="n">lst</span> <span class="p">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+   <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
+   <span class="p">|</span> <span class="n">x</span><span class="o">::[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+   <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="p">=</span> <span class="n">partition</span> <span class="n">h</span> <span class="n">t</span> <span class="k">in</span>
+     <span class="n">quicksort</span> <span class="n">l1</span> <span class="o">@</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">quicksort</span> <span class="n">l2</span><span class="o">);;</span></code></pre>
+</figure>
+
+<p>And let us try it on <code class="highlighter-rouge">lst1</code>:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">quicksort</span> <span class="n">lst1</span><span class="p">;;</span>
+<span class="c">(* - : int list = [1; 2; 3; 6; 7; 9; 11; 29] *)</span></code></pre>
+</figure>
+
+<p>This exercise will help us find a better solution to the problem of finding the minimum missing natural number from an unsorted list. Does this ring any bell?</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/18/minimum-missing-natural-number/">Let&#39;s find the minimum missing natural number... &rarr;</a>
           </h1>
 
@@ -943,220 +1239,6 @@
 </figure>
 
 <p>That’s all folks!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/04/prime-or-not/">Prime or not? &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 4, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s look at a simple problem if figuring out if a given number is a prime number or not? And how best we can compute it.</p>
-
-<blockquote>
-  <p>A prime number is a whole number greater than 1, that are <em>only</em> divisible by itself and 1.</p>
-</blockquote>
-
-<p>A naïve approach is to check if the number is divisble by all the numbers starting from 2 to itself. We start from <code class="highlighter-rouge">2</code> as it is our first prime number.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">is_prime</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>But, can we do better? Notice that we need to check for numbers only less than or equal to the square root, say <code class="highlighter-rouge">sq</code> of the given number <code class="highlighter-rouge">n</code> to be tested. If there’s a number that divides <code class="highlighter-rouge">n</code> and which is greater than <code class="highlighter-rouge">sq</code>, the result of that division would be a number less than <code class="highlighter-rouge">sq</code>. For example let’s say <code class="highlighter-rouge">n = 26</code> and we want to figure out if <code class="highlighter-rouge">n</code> is prime. We are claiming that we need to check only until the square root of <code class="highlighter-rouge">26</code> - rounded down to <code class="highlighter-rouge">5</code>. Let’s pick a number that divides <code class="highlighter-rouge">26</code>, say <code class="highlighter-rouge">13</code> and this number on dividing <code class="highlighter-rouge">26</code> yields <code class="highlighter-rouge">2</code>. So when we start to check from <code class="highlighter-rouge">2</code> to <code class="highlighter-rouge">5</code>, we would have already figured out that it is divisible by <code class="highlighter-rouge">2</code> and is not a prime. We just ran into another beautiful fact:</p>
-
-<blockquote>
-  <p>there are no even primes greater than 2</p>
-</blockquote>
-
-<p>That would let us optimize our loop further - if we initially checked whether <code class="highlighter-rouge">n</code> is not <code class="highlighter-rouge">2</code>, we would check only every other (odd) number to see if it divides.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">is_prime</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">+=</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>Primes are beautiful. Hopefully, I will write more posts on them in future.</p>
 
         </div>
         
