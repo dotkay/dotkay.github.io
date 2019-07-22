@@ -3,7 +3,7 @@ layout: post
 title: Rotating an array counter clockwise around a given index
 categories: [algorithms, data structures, arrays]
 keywords: C++, data structures, arrays
-external-url: https://dotkay.github.io/2018/14/08/rotate-array-ccw
+external-url: https://dotkay.github.io/2018/04/08/rotate-array-ccw
 ---
 
 Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was `[1, 2, 3, 4, 5, 6, 7, 8]`, the result of rotation around index `3` (that has the element 4) in the counter clockwise direction would be `[5, 6, 7, 8, 1, 2, 3, 4]`. The sequence of transformations the array goes through as each of the elements until the given index rotates would be:
