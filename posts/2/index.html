@@ -785,6 +785,293 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/04/08/rotate-array-ccw/">Rotating an array counter clockwise around a given index &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 8, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was <code class="highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code>, the result of rotation around index <code class="highlighter-rouge">3</code> (that has the element 4) in the counter clockwise direction would be <code class="highlighter-rouge">[5, 6, 7, 8, 1, 2, 3, 4]</code>. The sequence of transformations the array goes through as each of the elements until the given index rotates would be:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+2 3 4 5 6 7 8 1            --&gt; 1 has rotated away to the end of the array
+3 4 5 6 7 8 1 2            --&gt; 2 has rotated away following 1
+4 5 6 7 8 1 2 3            --&gt; now, it's 3's turn
+5 6 7 8 1 2 3 4            --&gt; the element at index 3 (i.e. 4) around which we
+                               wanted to rotate has also completed.
+</code></pre>
+</div>
+
+<p>We can use the <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">algorithm we developed to reverse a sub-array</a>, in order to achieve this rotation. The idea is simple:</p>
+
+<ol>
+  <li>First, reverse the sub-array consisting of elements from the beginning of the array until the pivot (around which we want to rotate the array) in place</li>
+  <li>Now, rotate the remaining sub-array alone (i.e. from the pivot until the end of the array</li>
+  <li>Complete it by reversing the entire array once</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+4 3 2 1 5 6 7 8            --&gt; step-1 first sub-array reversed
+4 3 2 1 8 7 6 5            --&gt; step-2 second sub-array reversed
+5 6 7 8 1 2 3 4            --&gt; step-3 rotation of the entire array 
+</code></pre>
+</div>
+
+<p>An implementation would look like:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rotate_arr_ccw</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pivot</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pivot</span><span class="p">);</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">pivot</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/04/05/reverse-a-subarray/">Reversing a sub-array of an array in place &rarr;</a>
           </h1>
 
@@ -1039,269 +1326,6 @@
 
 <p>There is an <a href="https://thebittheories.com/the-curious-case-of-binary-search-the-famous-bug-that-remained-undetected-for-20-years-973e89fc212">interesting story</a> about computation of mid-point given two window boundaries. At first glance, it would seem tempting to write it as <code class="highlighter-rouge">(start + end) / 2</code> but it is safer (and more correct) to write it as <code class="highlighter-rouge">start + ((end - start) / 2)</code>.</p>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/04/02/reverse-an-array/">Reversing an array in place &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Apr 2, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/arrays/">arrays</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is <code class="highlighter-rouge">[1, 3, 4, 11, 2, 6]</code>, in the output array, the elements would be in reverse order - i.e. <code class="highlighter-rouge">[6, 2, 11, 4, 3, 1]</code>. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array.</p>
-
-<p>We traverse the array from the beginning and swap the elements with those from the end of the array. This way, by the time we are at the mid-point of the array, we would have swapped all the elements and the array would be in reverse order.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rev_arr</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>where <code class="highlighter-rouge">swap(arr[a], arr[b])</code> would swap the elements at array locations <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> and <code class="highlighter-rouge">n</code> is the size of the input array <code class="highlighter-rouge">arr</code>.</p>
 
         </div>
         
