@@ -1024,7 +1024,7 @@
         </header>
 
         <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2018/04/20/array-equillibrium-naive">earlier post</a>, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - <code class="highlighter-rouge">O(n^2)</code>. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array.</p>
+          <p>In an <a href="https://dotkay.github.io/2018/04/20/arr-equillibrium-naive">earlier post</a>, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - <code class="highlighter-rouge">O(n^2)</code>. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array.</p>
 
 <p>Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the <em>prefix sum</em> of the elements in the array and store it in this auxiliary array (<code class="highlighter-rouge">left_sum</code> in the code fragment below). Now, <code class="highlighter-rouge">left sum</code> can be used to query, for example, the sum of elements to the left of any index <code class="highlighter-rouge">i</code> as we traverse the array.</p>
 
