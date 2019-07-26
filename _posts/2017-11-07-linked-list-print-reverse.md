@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists - Reverse me!
+title: Reversing a linked list
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/07/linked-list-reverse

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists - Find me!
+title: Searching for an element in a linked list
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/03/linked-list-find

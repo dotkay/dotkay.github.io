@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists - Reverse me (R)!
+title: Reversing a linked list using a recursive algorithm
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/08/linked-list-reverse-rec

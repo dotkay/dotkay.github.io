@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists - Print me (R)!
+title: Finding an element in a linked list using a recursive algorithm and printing it out
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/06/linked-list-print-rec

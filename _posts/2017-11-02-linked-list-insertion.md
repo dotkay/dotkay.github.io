@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists - Add me!
+title: Adding an element to a linked list
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/02/linked-list-insertion

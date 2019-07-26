@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists
+title: Getting started with linked lists
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/01/linked-lists-intro

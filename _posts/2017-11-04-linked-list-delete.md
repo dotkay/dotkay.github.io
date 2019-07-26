@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Linked Lists - Delete me!
+title: Deleting an element in a linked list
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/04/linked-list-delete
