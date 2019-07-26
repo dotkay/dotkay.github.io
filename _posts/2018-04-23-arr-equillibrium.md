@@ -6,7 +6,7 @@ keywords: C++, data structures, arrays
 external-url: https://dotkay.github.io/2018/04/23/array-equillibrium
 ---
 
-In an [earlier post](https://dotkay.github.io/2018/04/20/array-equillibrium-naive), we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - `O(n^2)`. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array. 
+In an [earlier post](https://dotkay.github.io/2018/04/20/arr-equillibrium-naive), we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - `O(n^2)`. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array. 
 
 Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the _prefix sum_ of the elements in the array and store it in this auxiliary array (`left_sum` in the code fragment below). Now, `left sum` can be used to query, for example, the sum of elements to the left of any index `i` as we traverse the array.
 

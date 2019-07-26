@@ -3,7 +3,7 @@ layout: post
 title: Finding the equillibrium index in an array
 categories: [algorithms, data structures, arrays]
 keywords: C++, data structures, arrays
-external-url: https://dotkay.github.io/2018/04/20/array-equillibrium-naive
+external-url: https://dotkay.github.io/2018/04/20/arr-equillibrium-naive
 ---
 
 > The equillibrium point in a given array is said to be the index such that the sum of all the elements before the index equals the sum of all the elements to the right of the index.
