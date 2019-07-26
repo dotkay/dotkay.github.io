@@ -8,7 +8,7 @@
   
   
   
-  <title>Linked Lists - Delete me!</title>
+  <title>Deleting an element in a linked list</title>
   <meta name="description" content="Now, let us progress with looking at slightly more complicated operations. In our previous post, we saw find operation that required us to traverse the list, but we needed to keep track of only one element while traversing - just match the element with the item we are trying to find and see if we found. But in some cases, we may have to keep track of more than one element - this is because we need to rearrange the pointers. Suppose, we have the following linked list with 4 elements: 19 -&amp;gt; 49 -&amp;gt; 21 -&amp;gt; 17 -&amp;gt; NULL (0) (1) (2) (3) and we are asked to delete the element at index 2 (its data being 21). We not only need to keep track of the current element to be deleted, we need to remember the previous element (in this case the one at index 1 with value 49) because this would point to 17 after deleting the one at index 2. Specifically, after the deletion, the linked list would look like this: 19 -&amp;gt; 49 -&amp;gt; 17 -&amp;gt; NULL (0) (1) (2) In order to do this algorithmically, we keep track of two nodes, the current one (iterator denoted it in code below) and the previous node (denoted prev in code fragment below). As we traverse the list looking for the item at index, we decrement the index and once we find it, we rearrange the pointers - in particular, we set delete the node and attach prev to the rest of the linked list that followed the deleted node (i.e., the list pointed to by the deleted node’s next). Besides, we also need to handle cases when the index is ‘0’, i.e. we are trying to delete the first node or if the given index does not exist at all. A visual sketch is given below, followed by the method to perform the deletion. void LinkedList::delete_at_index (int index) { if (index &amp;gt;= this-&amp;gt;length || index &amp;lt; 0) throw out_of_range(&quot;Index out of range for the linkedlist&quot;); Node *it = this-&amp;gt;head; Node *prev = NULL; while (it != NULL) { cout &amp;lt;&amp;lt; &quot;:: index: &quot; &amp;lt;&amp;lt; index &amp;lt;&amp;lt; &quot;:&quot;; if (index == 0) break; index--; prev = it; it = it-&amp;gt;next; cout &amp;lt;&amp;lt; &quot; (prev-&amp;gt;data, it-&amp;gt;data) : &quot; &amp;lt;&amp;lt; prev-&amp;gt;data &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; it-&amp;gt;data &amp;lt;&amp;lt; endl; } if (prev == NULL) { this-&amp;gt;head = it-&amp;gt;next; delete it; } else { prev-&amp;gt;next = it-&amp;gt;next; delete it; } }">
   
     
@@ -26,7 +26,7 @@
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Linked Lists - Delete me!">
+  <meta name="twitter:title" content="Deleting an element in a linked list">
   <meta name="twitter:description" content="Now, let us progress with looking at slightly more complicated operations. In our previous post, we saw find operation that required us to traverse the list, but we needed to keep track of only one...">
   
   
@@ -95,7 +95,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/11/04/linked-list-delete">Linked Lists - Delete me! &rarr;</a></h1>
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/11/04/linked-list-delete">Deleting an element in a linked list &rarr;</a></h1>
     
     <p class="post-meta"><time datetime="2017-11-04T00:00:00+00:00" itemprop="datePublished">Nov 4, 2017</time> • 
   

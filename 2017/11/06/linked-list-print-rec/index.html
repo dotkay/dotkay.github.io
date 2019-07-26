@@ -8,7 +8,7 @@
   
   
   
-  <title>Linked Lists - Print me (R)!</title>
+  <title>Finding an element in a linked list using a recursive algorithm and printing it out</title>
   <meta name="description" content="In our previous post we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do it in a fancy recursive way. This should remind you of our earlier posts on recursion, just that now we are in C++ world. As we saw when we taught ourselves recursion using a more intuitive programming paradigm (functional programming using OCaml programming language), in any recursive function, we need to take care of: Base case Recursive step In this example, the base case is just an empty list (NULL) and the recursive step is to just print the item as long as the list doesn’t fall into the base case. void LinkedList::print_list_r () { Node *it = this-&amp;gt;head; if (it == NULL) { // base case cout &amp;lt;&amp;lt; &quot;NULL&quot;; return; } this-&amp;gt;head = it-&amp;gt;next; // move forward this-&amp;gt;print_list_r(); // recursive call cout &amp;lt;&amp;lt; &quot; &amp;lt;- &quot; &amp;lt;&amp;lt; it-&amp;gt;data; // print } It is very important to understand this and our previous post as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!">
   
     
@@ -26,7 +26,7 @@
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Linked Lists - Print me (R)!">
+  <meta name="twitter:title" content="Finding an element in a linked list using a recursive algorithm and...">
   <meta name="twitter:description" content="In our previous post we saw how to traverse and print the elements of a linked list in an iterative fashion. In this post, we will do the same (printing the elements of a linked list) but will do i...">
   
   
@@ -95,7 +95,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/11/06/linked-list-print-rec">Linked Lists - Print me (R)! &rarr;</a></h1>
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2017/11/06/linked-list-print-rec">Finding an element in a linked list using a recursive algorithm and printing it out &rarr;</a></h1>
     
     <p class="post-meta"><time datetime="2017-11-06T00:00:00+00:00" itemprop="datePublished">Nov 6, 2017</time> • 
   
