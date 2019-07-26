@@ -13,7 +13,7 @@ For example, if the input array is `[0, -3, 5, -4, -2, 3, 1, 0]`, the equillibri
 Let us look at a very straight-forward solution. We could just traverse the array and for each element compute the sum of elements to the left and the sum of elements to the right (`lsum` and `rsum` in the code fragment below) and check if they are equal as we traverse the array. 
 
 {% highlight cpp %}
-void eq_index_On_2(int arr[], int n)
+void eq_index(int arr[], int n)
 {
   int lsum, rsum;
   for (int i = 0; i < n; i++)
