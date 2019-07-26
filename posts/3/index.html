@@ -102,6 +102,279 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/04/14/array-min-abs-diff/">Finding the minimum absolute difference among array elements &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 14, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let us see how do we compute the minimum absolute difference among elements of an array. Given that we are concerened about all the elements of the array tells us that we need to</p>
+
+<ol>
+  <li>Traverse all the elements of the array (so complexity is already O(n))</li>
+  <li>Maintain a running counter that captures the minimum difference as we traverse the array - the idea is also to initialize this variable to MAX value so that we can record the minimum difference easily</li>
+</ol>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">min_abs_diff</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">min_diff</span> <span class="o">=</span> <span class="n">INT8_MAX</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">abs</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">arr</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">]);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">diff</span> <span class="o">&lt;</span> <span class="n">min_diff</span><span class="p">)</span>
+      <span class="n">min_diff</span> <span class="o">=</span> <span class="n">diff</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">min_diff</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Note how we try not to overflow the array index (while evaluating <code class="highlighter-rouge">arr[i+1]</code>) by computing modulo <code class="highlighter-rouge">n</code> - the size of the array.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/04/08/rotate-array-ccw/">Rotating an array counter clockwise around a given index &rarr;</a>
           </h1>
 
@@ -1202,288 +1475,6 @@
 </figure>
 
 <p>That was easy!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/13/stacks/">Stacks &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 13, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/stacks/">stacks</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In this post, we introduce <em>Stack</em> - a data structure closely related to <em>Queue</em>. It differs however in the order of operations that we perform on the constituent elements. While queue provided a <em>FIFO</em> (First-In-First-Out) order of processing, stack provides us <em>LIFO</em> (Last-In-First-Out), just as you would pick the last element that you put on the stack before picking out the other elements - just like in the stack of books below, it is very likely you added the blue book on the top very recently (Last-In) and you would pick out this book (on the <em>top of the stack</em> - First-Out) before picking out, say, the green books.</p>
-
-<p><br /></p>
-<div class="img_container">
-  <p><img src="/assets/images/data_structures/stack_of_books.png" alt="Stack of Books" class="img=responsive" /></p>
-</div>
-
-<p>Again, as with queues, we can use an <em>array</em> or a <em>linked list</em> to store our elements. Let use see how to define a Stack class using an array implementation.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
-</span><span class="k">class</span> <span class="nc">Stack</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">top</span><span class="p">;</span>           <span class="c1">// top of the stack
-</span>  <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>  <span class="c1">// array that implements the stack
-</span>  
-  <span class="k">public</span><span class="o">:</span>
-    <span class="n">Stack</span> <span class="p">();</span>
-
-    <span class="kt">bool</span> <span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">pop</span> <span class="p">();</span>
-    <span class="kt">int</span> <span class="n">top_of_stack</span> <span class="p">();</span>
-    <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
-<span class="p">};</span>
-
-<span class="n">Stack</span><span class="o">::</span><span class="n">Stack</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="n">top</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>We add elements to our stack using the <em>push()</em> method, remove elements from the stack (actually from the top of our stack) using <em>pop()</em> method, and we also keep track of the top of the stack because that’s where interesting actions happen.</p>
-
-<p>We will see the different methods in the following posts. Stay tuned!.</p>
 
         </div>
         
