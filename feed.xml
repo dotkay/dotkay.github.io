@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-26T14:34:48+00:00</updated>
+  <updated>2019-07-26T14:37:23+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -377,6 +377,72 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">More efficient computation of equillibrium index in an array →</title>
+      
+      <link href="https://dotkay.github.io/2018/04/23/arr-equillibrium/" rel="alternate" type="text/html" title="More efficient computation of equillibrium index in an array" />
+      <published>2018-04-23T00:00:00+00:00</published>
+      <updated>2018-04-23T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/04/23/arr-equillibrium</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/04/23/arr-equillibrium/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2018/04/20/array-equillibrium-naive&quot;&gt;earlier post&lt;/a&gt;, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n^2)&lt;/code&gt;. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array.&lt;/p&gt;
+
+&lt;p&gt;Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the &lt;em&gt;prefix sum&lt;/em&gt; of the elements in the array and store it in this auxiliary array (&lt;code class=&quot;highlighter-rouge&quot;&gt;left_sum&lt;/code&gt; in the code fragment below). Now, &lt;code class=&quot;highlighter-rouge&quot;&gt;left sum&lt;/code&gt; can be used to query, for example, the sum of elements to the left of any index &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; as we traverse the array.&lt;/p&gt;
+
+&lt;p&gt;We now traverse the input array, this time from right to left, and keep a running sum of the elements in a single variable (&lt;code class=&quot;highlighter-rouge&quot;&gt;right_sum&lt;/code&gt; in code fragment below). As we traverse, we check for a match in the auxiliary array we had built earlier for the left sum, and if there is a match we have found an equillibrium point. Since we do array traversal only twice, this becomes an &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n)&lt;/code&gt; solution with &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n)&lt;/code&gt; auxiliary space for storing the prefix sums.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;eq_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// compute the left sum
+&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;left_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;left_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// traverse input array from the right,
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// computing right_sum and matching it with
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// left sum (i.e. looking for equillibrium)
+&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;right_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;equillibrium found at index: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;right_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Power of prefix sums!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="arrays" />
+      
+
+      
+
+      
+        <summary type="html">In an earlier post, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - O(n^2). We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array. Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the prefix sum of the elements in the array and store it in this auxiliary array (left_sum in the code fragment below). Now, left sum can be used to query, for example, the sum of elements to the left of any index i as we traverse the array. We now traverse the input array, this time from right to left, and keep a running sum of the elements in a single variable (right_sum in code fragment below). As we traverse, we check for a match in the auxiliary array we had built earlier for the left sum, and if there is a match we have found an equillibrium point. Since we do array traversal only twice, this becomes an O(n) solution with O(n) auxiliary space for storing the prefix sums. void eq_index(int arr[], int n) { // compute the left sum int* left_sum = new int[n]; left_sum[0] = arr[0]; for (int i = 1; i &amp;lt; n; i++) left_sum[i] = left_sum[i-1] + arr[i-1]; // traverse input array from the right, // computing right_sum and matching it with // left sum (i.e. looking for equillibrium) int right_sum = 0; for (int i = n-1; i &amp;gt;= 0; i--) { if (right_sum == left_sum[i]) std::cout &amp;lt;&amp;lt; &quot;equillibrium found at index: &quot; &amp;lt;&amp;lt; i &amp;lt;&amp;lt; std::endl; right_sum += arr[i]; } } Power of prefix sums!</summary>
       
 
       
@@ -1127,65 +1193,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">In our previous post, we looked at the modelling of the Queue class using an array as the container to hold the queue elements. front and rear indicate the boundary of the queue (the first and the last elements). When we want to add a new element, we add it at the rear. Likewise, when we want to remove and process an element, we remove it from the front. That is, enqueue increments the rear member and dequeue increments the front member. void Queue::enqueue (int item) { if (rear &amp;gt;= MAXSIZE - 1) throw out_of_range(&quot;Queue is full. Nothing can be enqueued now.&quot;); else { arr[++rear] = item; } } int Queue::dequeue () { if (rear == -1) throw out_of_range(&quot;Can not dequeue from empty queue&quot;); return arr[front++]; } So, when front = rear there is only one element and if front &amp;gt; rear, the queue is empty (recollect that the front is initialized to 0 and rear is initialized to -1). bool Queue::is_empty () { return (front &amp;gt; rear); } Although pretty straight-forward, Queues have a variety of applications. We will soon see some applications when we discuss Graph data structures.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Queues →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/09/queues/" rel="alternate" type="text/html" title="Queues" />
-      <published>2017-11-09T00:00:00+00:00</published>
-      <updated>2017-11-09T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/09/queues</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/09/queues/">&lt;p&gt;Let’s look at another important data structure - the &lt;em&gt;Queue&lt;/em&gt;. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called &lt;em&gt;FIFO&lt;/em&gt; (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#define MAXSIZE 100
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Queue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAXSIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;We have two private members - &lt;em&gt;front&lt;/em&gt; and &lt;em&gt;rear&lt;/em&gt; - &lt;em&gt;front&lt;/em&gt; gets served first. Objects get added to the container using the &lt;em&gt;enqueue()&lt;/em&gt; method and they get processed in FIFO order using &lt;em&gt;dequeue()&lt;/em&gt; method. We will look at these operations in future posts.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="queues" />
-      
-
-      
-
-      
-        <summary type="html">Let’s look at another important data structure - the Queue. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called FIFO (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array: #define MAXSIZE 100 class Queue { private: int front, rear; int arr[MAXSIZE]; public: Queue (); void enqueue (int item); int dequeue (); bool is_empty (); }; Queue::Queue () { front = 0; rear = -1; } We have two private members - front and rear - front gets served first. Objects get added to the container using the enqueue() method and they get processed in FIFO order using dequeue() method. We will look at these operations in future posts.</summary>
       
 
       

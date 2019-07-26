@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>More efficient computation of equillibrium index in an array</title>
+  <meta name="description" content="In an earlier post, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - O(n^2). We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array. Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the prefix sum of the elements in the array and store it in this auxiliary array (left_sum in the code fragment below). Now, left sum can be used to query, for example, the sum of elements to the left of any index i as we traverse the array. We now traverse the input array, this time from right to left, and keep a running sum of the elements in a single variable (right_sum in code fragment below). As we traverse, we check for a match in the auxiliary array we had built earlier for the left sum, and if there is a match we have found an equillibrium point. Since we do array traversal only twice, this becomes an O(n) solution with O(n) auxiliary space for storing the prefix sums. void eq_index(int arr[], int n) { // compute the left sum int* left_sum = new int[n]; left_sum[0] = arr[0]; for (int i = 1; i &amp;lt; n; i++) left_sum[i] = left_sum[i-1] + arr[i-1]; // traverse input array from the right, // computing right_sum and matching it with // left sum (i.e. looking for equillibrium) int right_sum = 0; for (int i = n-1; i &amp;gt;= 0; i--) { if (right_sum == left_sum[i]) std::cout &amp;lt;&amp;lt; &quot;equillibrium found at index: &quot; &amp;lt;&amp;lt; i &amp;lt;&amp;lt; std::endl; right_sum += arr[i]; } } Power of prefix sums!">
+  
+    
+    <meta name="keywords" content="C++, data structures, arrays">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/04/23/arr-equillibrium/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="More efficient computation of equillibrium index in an array">
+  <meta name="twitter:description" content="In an earlier post, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - O(n^2). We could do much better with some auxiliary space spent, i.e. we ma...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/04/23/array-equillibrium">More efficient computation of equillibrium index in an array &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-04-23T00:00:00+00:00" itemprop="datePublished">Apr 23, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In an <a href="https://dotkay.github.io/2018/04/20/array-equillibrium-naive">earlier post</a>, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - <code class="highlighter-rouge">O(n^2)</code>. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array.</p>
+
+<p>Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the <em>prefix sum</em> of the elements in the array and store it in this auxiliary array (<code class="highlighter-rouge">left_sum</code> in the code fragment below). Now, <code class="highlighter-rouge">left sum</code> can be used to query, for example, the sum of elements to the left of any index <code class="highlighter-rouge">i</code> as we traverse the array.</p>
+
+<p>We now traverse the input array, this time from right to left, and keep a running sum of the elements in a single variable (<code class="highlighter-rouge">right_sum</code> in code fragment below). As we traverse, we check for a match in the auxiliary array we had built earlier for the left sum, and if there is a match we have found an equillibrium point. Since we do array traversal only twice, this becomes an <code class="highlighter-rouge">O(n)</code> solution with <code class="highlighter-rouge">O(n)</code> auxiliary space for storing the prefix sums.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">eq_index</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// compute the left sum
+</span>  <span class="kt">int</span><span class="o">*</span> <span class="n">left_sum</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+  <span class="n">left_sum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="c1">// traverse input array from the right,
+</span>  <span class="c1">// computing right_sum and matching it with
+</span>  <span class="c1">// left sum (i.e. looking for equillibrium)
+</span>  <span class="kt">int</span> <span class="n">right_sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">right_sum</span> <span class="o">==</span> <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"equillibrium found at index: "</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="n">right_sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="p">}</span> 
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Power of prefix sums!</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
