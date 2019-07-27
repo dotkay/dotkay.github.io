@@ -3,7 +3,7 @@ layout: post
 title: Reversing a linked list
 categories: [algorithms, data structures, linked lists]
 keywords: C++, data structures, linked lists
-external-url: https://dotkay.github.io/2017/11/07/linked-list-reverse
+external-url: https://dotkay.github.io/2017/11/07/linked-list-print-reverse
 ---
 
 In this post, let us try to write a function to reverse our linked list. In particular, we will do it in an _iterative_ fashion. Suppose we start with the following input list:
