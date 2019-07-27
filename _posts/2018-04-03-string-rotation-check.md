@@ -18,7 +18,7 @@ A very simple algorithm would just concatenate one of the input strings with its
 
 1. Concatenate one of the strings with itself. Say, we choose `anna` to concatenate and form the concatenated one `annaanna`
 2. Search for the occurence of the second string `naan` in the concatenation,
-3. We see that `naan` is indeed a substring of the concatenation_an_**naan**_na_ and a rotation of `anna`. 
+3. We see that `naan` is indeed a substring of the concatenation _an_**naan**_na_ and a rotation of `anna`. 
 
 {% highlight cpp %}
 bool str_rotation(std::string s1, std::string s2)
