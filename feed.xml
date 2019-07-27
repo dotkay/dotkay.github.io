@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-27T01:16:28+00:00</updated>
+  <updated>2019-07-27T22:53:09+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -766,6 +766,75 @@ help me understand?&lt;/p&gt;</content>
   
     <entry>
       
+      <title type="html">Checking for string rotations →</title>
+      
+      <link href="https://dotkay.github.io/2018/04/03/string-rotation-check/" rel="alternate" type="text/html" title="Checking for string rotations" />
+      <published>2018-04-03T00:00:00+00:00</published>
+      <updated>2018-04-03T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/04/03/string-rotation-check</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/04/03/string-rotation-check/">&lt;p&gt;Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; are rotations of each other while &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;nana&lt;/code&gt; are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a-n-n-a                --&amp;gt; 0. original string
+n-n-a-a                --&amp;gt; 1. rotated by 1 (starting 'a' moves to the end)
+n-a-a-n                --&amp;gt; 2. rotated by 1 (starting 'n' from 2. moves to the end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Concatenate one of the strings with itself. Say, we choose &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; to concatenate and form the concatenated one &lt;code class=&quot;highlighter-rouge&quot;&gt;annaanna&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Search for the occurence of the second string &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; in the concatenation,&lt;/li&gt;
+  &lt;li&gt;We see that &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; is indeed a substring of the concatenation_an_&lt;strong&gt;naan&lt;/strong&gt;&lt;em&gt;na&lt;/em&gt; and a rotation of &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;str_rotation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;concat_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;npos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;A caveat here is to check for the length of the two strings &lt;em&gt;a priori&lt;/em&gt;. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce &lt;code class=&quot;highlighter-rouge&quot;&gt;ann&lt;/code&gt; to be a rotation of &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt;.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="strings" />
+      
+
+      
+
+      
+        <summary type="html">Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, anna and naan are rotations of each other while anna and nana are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping): a-n-n-a --&amp;gt; 0. original string n-n-a-a --&amp;gt; 1. rotated by 1 (starting 'a' moves to the end) n-a-a-n --&amp;gt; 2. rotated by 1 (starting 'n' from 2. moves to the end A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be: Concatenate one of the strings with itself. Say, we choose anna to concatenate and form the concatenated one annaanna Search for the occurence of the second string naan in the concatenation, We see that naan is indeed a substring of the concatenation_an_naanna and a rotation of anna. bool str_rotation(std::string s1, std::string s2) { if (s1.length() != s2.length()) return false; std::string concat_str; concat_str = s1 + s1; int res_pos = concat_str.find(s2); if (res_pos == std::string::npos) return false; else return true; } A caveat here is to check for the length of the two strings a priori. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce ann to be a rotation of anna.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Reversing an array in place →</title>
       
       <link href="https://dotkay.github.io/2018/04/02/reverse-an-array/" rel="alternate" type="text/html" title="Reversing an array in place" />
@@ -1126,73 +1195,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">In an earlier post, we saw implementation of Queues using arrays. Now, we will use a Linked List to store the elements instead of an array. Since we are all linked list champs by now, we already know how to go about building a linked list given an input set of elements - create nodes that contain our elements and join the nodes using next pointers. We will also use this example to introduce the notion of a friend class in C++. A friend class F is a C++ class that can access private and protected members of another class A in which F is declared as friend. Here, a Queue class (F) may be allowed to access private members of a Node class (A). class Node { private: int data; Node *next; friend class Queue; }; class Queue { private: Node *front, *rear; public: Queue (); void enqueue (int item); bool is_empty (); int dequeue (); }; Queue::Queue () { this-&amp;gt;front = NULL; this-&amp;gt;rear = NULL; } There is also a notion of friend function, very similar to friend class: A friend function f can be used to access private and protected members of a class A and it can be either: a method of a class A a global function In the following post, we will see how to implement the methods enqueue() and dequeue() for the Queue class above.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Queue using Arrays - Operations →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/10/queue_operations/" rel="alternate" type="text/html" title="Queue using Arrays - Operations" />
-      <published>2017-11-10T00:00:00+00:00</published>
-      <updated>2017-11-10T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/10/queue_operations</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/10/queue_operations/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/11/09/queues&quot;&gt;previous post&lt;/a&gt;, we looked at the modelling of the Queue class using an &lt;em&gt;array&lt;/em&gt; as the container to hold the queue elements. &lt;em&gt;front&lt;/em&gt; and &lt;em&gt;rear&lt;/em&gt; indicate the boundary of the queue (the first and the last elements). When we want to add a new element, we add it at the &lt;em&gt;rear&lt;/em&gt;. Likewise, when we want to remove and process an element, we remove it from the &lt;em&gt;front&lt;/em&gt;. That is, enqueue increments the &lt;code class=&quot;highlighter-rouge&quot;&gt;rear&lt;/code&gt; member and dequeue increments the &lt;code class=&quot;highlighter-rouge&quot;&gt;front&lt;/code&gt; member.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_structures/queue_arr.png&quot; alt=&quot;Queue Operations&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAXSIZE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Queue is full. Nothing can be enqueued now.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Can not dequeue from empty queue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;So, when &lt;em&gt;front = rear&lt;/em&gt; there is only one element and if &lt;em&gt;front &amp;gt; rear&lt;/em&gt;, the queue is empty (recollect that the &lt;code class=&quot;highlighter-rouge&quot;&gt;front&lt;/code&gt; is initialized to 0 and &lt;code class=&quot;highlighter-rouge&quot;&gt;rear&lt;/code&gt; is initialized to -1).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Although pretty straight-forward, Queues have a variety of applications. We will soon see some applications when we discuss Graph data structures.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="queues" />
-      
-
-      
-
-      
-        <summary type="html">In our previous post, we looked at the modelling of the Queue class using an array as the container to hold the queue elements. front and rear indicate the boundary of the queue (the first and the last elements). When we want to add a new element, we add it at the rear. Likewise, when we want to remove and process an element, we remove it from the front. That is, enqueue increments the rear member and dequeue increments the front member. void Queue::enqueue (int item) { if (rear &amp;gt;= MAXSIZE - 1) throw out_of_range(&quot;Queue is full. Nothing can be enqueued now.&quot;); else { arr[++rear] = item; } } int Queue::dequeue () { if (rear == -1) throw out_of_range(&quot;Can not dequeue from empty queue&quot;); return arr[front++]; } So, when front = rear there is only one element and if front &amp;gt; rear, the queue is empty (recollect that the front is initialized to 0 and rear is initialized to -1). bool Queue::is_empty () { return (front &amp;gt; rear); } Although pretty straight-forward, Queues have a variety of applications. We will soon see some applications when we discuss Graph data structures.</summary>
       
 
       
