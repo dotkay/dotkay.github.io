@@ -1231,10 +1231,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/03/string-rotation-check/">Checking for string rotations &rarr;</a>
+            <a class="post-link" href="/2018/04/04/string-rotation-by-n-check/">Checking for string rotations by a fixed length &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 3, 2018 • 
+          <p class="post-meta">Apr 4, 2018 • 
   
   
     
@@ -1476,38 +1476,31 @@
         </header>
 
         <div class="post-content">
-          <p>Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">naan</code> are rotations of each other while <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">nana</code> are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):</p>
+          <p>In <a href="https://dotkay.github.io/2018/04/03/string-rotation-check">yesterday’s post</a> we saw how to check if two given strings are rotations of each other. Today, we will add one other restriction to the problem and try to solve it. What if the algorithm needs to check if the two input strings are rotations of each other by a fixed length <code class="highlighter-rouge">n</code> which is also provided as an input to the function? For example, <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">naan</code> are rotations of each other by <code class="highlighter-rouge">2</code> as we need to make two rotations (each rotation moves only 1 character) to get from one string to the other and similarly one cannot be obtained from the other by rotation of just 1.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>a-n-n-a   --&gt; 0. original string
-n-n-a-a   --&gt; 1. rotated by 1 ('a' moves to the end)
-n-a-a-n   --&gt; 2. rotated by 1
-</code></pre>
-</div>
-
-<p>A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be:</p>
-
-<ol>
-  <li>Concatenate one of the strings with itself. Say, we choose <code class="highlighter-rouge">anna</code> to concatenate and form the concatenated one <code class="highlighter-rouge">annaanna</code></li>
-  <li>Search for the occurence of the second string <code class="highlighter-rouge">naan</code> in the concatenation,</li>
-  <li>We see that <code class="highlighter-rouge">naan</code> is indeed a substring of the concatenation <em>an</em><strong>naan</strong><em>na</em> and a rotation of <code class="highlighter-rouge">anna</code>.</li>
-</ol>
+<p>We use the same algorithm as before, but this time we will be careful to store the index position (when we search for one of the strings in the concatenation) and match it against the input <code class="highlighter-rouge">n</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">str_rotation</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">)</span>
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">str_rot_by_n</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">.</span><span class="n">length</span><span class="p">())</span>
     <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">concat_str</span><span class="p">;</span>
-  <span class="n">concat_str</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">res_pos</span> <span class="o">=</span> <span class="n">concat_str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">res_pos</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+  <span class="kt">int</span> <span class="n">index</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s1</span><span class="p">;</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="k">else</span> 
-    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">-</span> <span class="n">n</span><span class="p">)))</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>A caveat here is to check for the length of the two strings <em>a priori</em>. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce <code class="highlighter-rouge">ann</code> to be a rotation of <code class="highlighter-rouge">anna</code>.</p>
+<p>Again, we have to check if the lengths of the input strings are the same. Without this check, we migth deduce that <code class="highlighter-rouge">ello</code> can be obtained from <code class="highlighter-rouge">hello</code> by rotating through <code class="highlighter-rouge">1</code> character position.</p>
 
         </div>
         
