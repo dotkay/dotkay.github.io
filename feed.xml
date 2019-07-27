@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-27T22:53:09+00:00</updated>
+  <updated>2019-07-27T23:14:06+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -774,9 +774,9 @@ help me understand?&lt;/p&gt;</content>
       <id>https://dotkay.github.io/2018/04/03/string-rotation-check</id>
       <content type="html" xml:base="https://dotkay.github.io/2018/04/03/string-rotation-check/">&lt;p&gt;Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; are rotations of each other while &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;nana&lt;/code&gt; are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a-n-n-a                --&amp;gt; 0. original string
-n-n-a-a                --&amp;gt; 1. rotated by 1 (starting 'a' moves to the end)
-n-a-a-n                --&amp;gt; 2. rotated by 1 (starting 'n' from 2. moves to the end
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a-n-n-a   --&amp;gt; 0. original string
+n-n-a-a   --&amp;gt; 1. rotated by 1 ('a' moves to the end)
+n-a-a-n   --&amp;gt; 2. rotated by 1
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -824,7 +824,7 @@ n-a-a-n                --&amp;gt; 2. rotated by 1 (starting 'n' from 2. moves to
       
 
       
-        <summary type="html">Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, anna and naan are rotations of each other while anna and nana are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping): a-n-n-a --&amp;gt; 0. original string n-n-a-a --&amp;gt; 1. rotated by 1 (starting 'a' moves to the end) n-a-a-n --&amp;gt; 2. rotated by 1 (starting 'n' from 2. moves to the end A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be: Concatenate one of the strings with itself. Say, we choose anna to concatenate and form the concatenated one annaanna Search for the occurence of the second string naan in the concatenation, We see that naan is indeed a substring of the concatenation_an_naanna and a rotation of anna. bool str_rotation(std::string s1, std::string s2) { if (s1.length() != s2.length()) return false; std::string concat_str; concat_str = s1 + s1; int res_pos = concat_str.find(s2); if (res_pos == std::string::npos) return false; else return true; } A caveat here is to check for the length of the two strings a priori. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce ann to be a rotation of anna.</summary>
+        <summary type="html">Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, anna and naan are rotations of each other while anna and nana are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping): a-n-n-a --&amp;gt; 0. original string n-n-a-a --&amp;gt; 1. rotated by 1 ('a' moves to the end) n-a-a-n --&amp;gt; 2. rotated by 1 A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be: Concatenate one of the strings with itself. Say, we choose anna to concatenate and form the concatenated one annaanna Search for the occurence of the second string naan in the concatenation, We see that naan is indeed a substring of the concatenation_an_naanna and a rotation of anna. bool str_rotation(std::string s1, std::string s2) { if (s1.length() != s2.length()) return false; std::string concat_str; concat_str = s1 + s1; int res_pos = concat_str.find(s2); if (res_pos == std::string::npos) return false; else return true; } A caveat here is to check for the length of the two strings a priori. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce ann to be a rotation of anna.</summary>
       
 
       
