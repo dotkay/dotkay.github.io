@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-27T23:26:40+00:00</updated>
+  <updated>2019-07-28T14:10:28+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -715,6 +715,101 @@ help me understand?&lt;/p&gt;</content>
   
     <entry>
       
+      <title type="html">Checking if two strings are isomorphic →</title>
+      
+      <link href="https://dotkay.github.io/2018/04/06/isomorphic-strings/" rel="alternate" type="text/html" title="Checking if two strings are isomorphic" />
+      <published>2018-04-06T00:00:00+00:00</published>
+      <updated>2018-04-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/04/06/isomorphic-strings</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/04/06/isomorphic-strings/">&lt;p&gt;Today, let us see how we can figure out if two given input strings are &lt;em&gt;isomorphic&lt;/em&gt; using a time-efficient algorithm.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Given two strings s1 and s2 if there is a unique mapping from each of the characters of one to the other, then they are isomorphic&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; are isomorphic with the mapping &lt;code class=&quot;highlighter-rouge&quot;&gt;a -&amp;gt; n&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;n -&amp;gt; a&lt;/code&gt;. Similarly &lt;code class=&quot;highlighter-rouge&quot;&gt;aab&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;xxy&lt;/code&gt; are isomorphic with the mapping &lt;code class=&quot;highlighter-rouge&quot;&gt;a -&amp;gt; x&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;b -&amp;gt; y&lt;/code&gt;, while &lt;code class=&quot;highlighter-rouge&quot;&gt;aab&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;xyz&lt;/code&gt; are not isomorphic. However, &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;naa&lt;/code&gt; are not isomorphic as there is no direct mapping for the last &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; of &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; (a hint that the strings should be of equal length for them to be isomorphic).&lt;/p&gt;
+
+&lt;p&gt;An approach is to traverse one of the strings and mark the occurence of the character in the string. The nice thing about character strings is that there are only 256 &lt;a href=&quot;https://en.wikipedia.org/wiki/ASCII&quot;&gt;ASCII characters&lt;/a&gt; and hence we can have a character array of size 256 to mark the occurence of characters in a string. Along with marking the occurence, we need to store the mapping of this character to the corresponding (array index) character of the second string.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;During the very first encounter of a character, say the first &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; (index 0) in &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt;, we check if the corresponding index in the other string &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; has already been visited.&lt;/li&gt;
+  &lt;li&gt;We visit it (i.e. remember it in some algorithmic way).&lt;/li&gt;
+  &lt;li&gt;We store the mapping of this visit (i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;a -&amp;gt; n&lt;/code&gt;).&lt;/li&gt;
+  &lt;li&gt;If we encounter a character again, say the last &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt;, we check for the mapping to see if the corresponding index in the second string is as per our expectations (i.e. obeys the mapping).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The way we maintain the mapping is through an array &lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt; and we also maintain whether we already visited a particular character using an array &lt;code class=&quot;highlighter-rouge&quot;&gt;visited&lt;/code&gt;. Since we need two additional arrays of size 256 each, there is some cost we pay for this space. However, we traverse the input array only once and so it would be &lt;em&gt;O(n)&lt;/em&gt; time algorithm. These four steps are noted in the code fragment below for easier reference.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isomorphic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAX_CHARS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAX_CHARS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// initialize map
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MAX_CHARS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// check if both strings are of equal length
+&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;slen1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// traverse s1 and update marked and visited
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// (1) first occurence
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// check if corresponding s2 char is visited
+&lt;/span&gt;      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+      &lt;span class=&quot;c1&quot;&gt;// (2) update visited
+&lt;/span&gt;      &lt;span class=&quot;n&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                          
+
+      &lt;span class=&quot;c1&quot;&gt;// (3) store mapping
+&lt;/span&gt;      &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;                             
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// (4) not the first occurence? check the mapping
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; 
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="strings" />
+      
+
+      
+
+      
+        <summary type="html">Today, let us see how we can figure out if two given input strings are isomorphic using a time-efficient algorithm. Given two strings s1 and s2 if there is a unique mapping from each of the characters of one to the other, then they are isomorphic For example, anna and naan are isomorphic with the mapping a -&amp;gt; n and n -&amp;gt; a. Similarly aab and xxy are isomorphic with the mapping a -&amp;gt; x and b -&amp;gt; y, while aab and xyz are not isomorphic. However, anna and naa are not isomorphic as there is no direct mapping for the last a of anna (a hint that the strings should be of equal length for them to be isomorphic). An approach is to traverse one of the strings and mark the occurence of the character in the string. The nice thing about character strings is that there are only 256 ASCII characters and hence we can have a character array of size 256 to mark the occurence of characters in a string. Along with marking the occurence, we need to store the mapping of this character to the corresponding (array index) character of the second string. During the very first encounter of a character, say the first a (index 0) in anna, we check if the corresponding index in the other string naan has already been visited. We visit it (i.e. remember it in some algorithmic way). We store the mapping of this visit (i.e. a -&amp;gt; n). If we encounter a character again, say the last a in anna, we check for the mapping to see if the corresponding index in the second string is as per our expectations (i.e. obeys the mapping). The way we maintain the mapping is through an array map and we also maintain whether we already visited a particular character using an array visited. Since we need two additional arrays of size 256 each, there is some cost we pay for this space. However, we traverse the input array only once and so it would be O(n) time algorithm. These four steps are noted in the code fragment below for easier reference. bool isomorphic(std::string s1, std::string s2) { bool visited[MAX_CHARS] = { false }; int map[MAX_CHARS]; // initialize map for (int i = 0; i &amp;lt; MAX_CHARS; i++) map[i] = -1; // check if both strings are of equal length int slen1 = s1.length(); int slen2 = s2.length(); if (slen1 != slen2) return false; // traverse s1 and update marked and visited for (int i = 0; i &amp;lt; slen1; i++) { // (1) first occurence if (map[s1[i]] == -1) { // check if corresponding s2 char is visited if (visited[s2[i]] == true) return false; // (2) update visited visited[s2[i]] = true; // (3) store mapping map[s1[i]] = s2[i]; } // (4) not the first occurence? check the mapping else if (map[s1[i]] != s2[i]) return false; } return true; }</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Reversing a sub-array of an array in place →</title>
       
       <link href="https://dotkay.github.io/2018/04/05/reverse-a-subarray/" rel="alternate" type="text/html" title="Reversing a sub-array of an array in place" />
@@ -1089,95 +1184,6 @@ n-a-a-n   --&amp;gt; 2. rotated by 1
 
       
         <summary type="html">In this post, we introduce Stack - a data structure closely related to Queue. It differs however in the order of operations that we perform on the constituent elements. While queue provided a FIFO (First-In-First-Out) order of processing, stack provides us LIFO (Last-In-First-Out), just as you would pick the last element that you put on the stack before picking out the other elements - just like in the stack of books below, it is very likely you added the blue book on the top very recently (Last-In) and you would pick out this book (on the top of the stack - First-Out) before picking out, say, the green books. Again, as with queues, we can use an array or a linked list to store our elements. Let use see how to define a Stack class using an array implementation. #define MAXSIZE 100 class Stack { int top; // top of the stack int arr[MAXSIZE]; // array that implements the stack public: Stack (); bool push (int item); int pop (); int top_of_stack (); bool is_empty (); }; Stack::Stack () { top = -1; } We add elements to our stack using the push() method, remove elements from the stack (actually from the top of our stack) using pop() method, and we also keep track of the top of the stack because that’s where interesting actions happen. We will see the different methods in the following posts. Stay tuned!.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Queue using Linked List - Operations →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/12/queue_linked_list_methods/" rel="alternate" type="text/html" title="Queue using Linked List - Operations" />
-      <published>2017-11-12T00:00:00+00:00</published>
-      <updated>2017-11-12T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/12/queue_linked_list_methods</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/12/queue_linked_list_methods/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/11/11/queues_linked_list&quot;&gt;previous post&lt;/a&gt;, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods &lt;em&gt;enqueue()&lt;/em&gt; and &lt;em&gt;dequeue()&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is very similar to inserting a new element to a linked list as we saw &lt;a href=&quot;https://dotkay.github.io/2017/11/02/linked-list-insertion&quot;&gt;earlier&lt;/a&gt;. To insert a new item, we construct a node with that item and a &lt;em&gt;next&lt;/em&gt; pointer, add it to the list and adjust the pointers.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;enqueue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// if the queue is empty
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// front and rear are the same, i.e the new item
-&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// else add it to the rear end 
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// of the queue
-&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/data_structures/queue_ll.png&quot; alt=&quot;Queue Operations&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dequeue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// check if the queue is empty
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Empty queue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  
-  &lt;span class=&quot;c1&quot;&gt;// get the item to dequeue
-&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;Node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dequeue_item&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// now, if there was only one node
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// to pop front would point to NULL
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;rear&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dequeue_item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;That’s all there is in Queues!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="queues" />
-      
-
-      
-
-      
-        <summary type="html">In our previous post, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods enqueue() and dequeue(). This is very similar to inserting a new element to a linked list as we saw earlier. To insert a new item, we construct a node with that item and a next pointer, add it to the list and adjust the pointers. void Queue::enqueue (int item) { // if the queue is empty // front and rear are the same, i.e the new item Node *new_item = new Node; new_item-&amp;gt;data = item; new_item-&amp;gt;next = NULL; if (rear == NULL) { front = rear = new_item; return; } // else add it to the rear end // of the queue rear-&amp;gt;next = new_item; rear = new_item; } int Queue::dequeue () { int res; // check if the queue is empty if (front == NULL) throw out_of_range(&quot;Empty queue&quot;); // get the item to dequeue Node *dequeue_item = front; res = front-&amp;gt;data; front = front-&amp;gt;next; // now, if there was only one node // to pop front would point to NULL if (front == NULL) rear = NULL; delete (dequeue_item); return res; } bool Queue::is_empty () { return (front == NULL); } That’s all there is in Queues!</summary>
       
 
       

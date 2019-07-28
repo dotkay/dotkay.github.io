@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Checking if two strings are isomorphic</title>
+  <meta name="description" content="Today, let us see how we can figure out if two given input strings are isomorphic using a time-efficient algorithm. Given two strings s1 and s2 if there is a unique mapping from each of the characters of one to the other, then they are isomorphic For example, anna and naan are isomorphic with the mapping a -&amp;gt; n and n -&amp;gt; a. Similarly aab and xxy are isomorphic with the mapping a -&amp;gt; x and b -&amp;gt; y, while aab and xyz are not isomorphic. However, anna and naa are not isomorphic as there is no direct mapping for the last a of anna (a hint that the strings should be of equal length for them to be isomorphic). An approach is to traverse one of the strings and mark the occurence of the character in the string. The nice thing about character strings is that there are only 256 ASCII characters and hence we can have a character array of size 256 to mark the occurence of characters in a string. Along with marking the occurence, we need to store the mapping of this character to the corresponding (array index) character of the second string. During the very first encounter of a character, say the first a (index 0) in anna, we check if the corresponding index in the other string naan has already been visited. We visit it (i.e. remember it in some algorithmic way). We store the mapping of this visit (i.e. a -&amp;gt; n). If we encounter a character again, say the last a in anna, we check for the mapping to see if the corresponding index in the second string is as per our expectations (i.e. obeys the mapping). The way we maintain the mapping is through an array map and we also maintain whether we already visited a particular character using an array visited. Since we need two additional arrays of size 256 each, there is some cost we pay for this space. However, we traverse the input array only once and so it would be O(n) time algorithm. These four steps are noted in the code fragment below for easier reference. bool isomorphic(std::string s1, std::string s2) { bool visited[MAX_CHARS] = { false }; int map[MAX_CHARS]; // initialize map for (int i = 0; i &amp;lt; MAX_CHARS; i++) map[i] = -1; // check if both strings are of equal length int slen1 = s1.length(); int slen2 = s2.length(); if (slen1 != slen2) return false; // traverse s1 and update marked and visited for (int i = 0; i &amp;lt; slen1; i++) { // (1) first occurence if (map[s1[i]] == -1) { // check if corresponding s2 char is visited if (visited[s2[i]] == true) return false; // (2) update visited visited[s2[i]] = true; // (3) store mapping map[s1[i]] = s2[i]; } // (4) not the first occurence? check the mapping else if (map[s1[i]] != s2[i]) return false; } return true; }">
+  
+    
+    <meta name="keywords" content="C++, data structures, strings">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/04/06/isomorphic-strings/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Checking if two strings are isomorphic">
+  <meta name="twitter:description" content="Today, let us see how we can figure out if two given input strings are isomorphic using a time-efficient algorithm. Given two strings s1 and s2 if there is a unique mapping from each of the charact...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/04/06/isomorphic-strings">Checking if two strings are isomorphic &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-04-06T00:00:00+00:00" itemprop="datePublished">Apr 6, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Today, let us see how we can figure out if two given input strings are <em>isomorphic</em> using a time-efficient algorithm.</p>
+
+<blockquote>
+  <p>Given two strings s1 and s2 if there is a unique mapping from each of the characters of one to the other, then they are isomorphic</p>
+</blockquote>
+
+<p>For example, <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">naan</code> are isomorphic with the mapping <code class="highlighter-rouge">a -&gt; n</code> and <code class="highlighter-rouge">n -&gt; a</code>. Similarly <code class="highlighter-rouge">aab</code> and <code class="highlighter-rouge">xxy</code> are isomorphic with the mapping <code class="highlighter-rouge">a -&gt; x</code> and <code class="highlighter-rouge">b -&gt; y</code>, while <code class="highlighter-rouge">aab</code> and <code class="highlighter-rouge">xyz</code> are not isomorphic. However, <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">naa</code> are not isomorphic as there is no direct mapping for the last <code class="highlighter-rouge">a</code> of <code class="highlighter-rouge">anna</code> (a hint that the strings should be of equal length for them to be isomorphic).</p>
+
+<p>An approach is to traverse one of the strings and mark the occurence of the character in the string. The nice thing about character strings is that there are only 256 <a href="https://en.wikipedia.org/wiki/ASCII">ASCII characters</a> and hence we can have a character array of size 256 to mark the occurence of characters in a string. Along with marking the occurence, we need to store the mapping of this character to the corresponding (array index) character of the second string.</p>
+
+<ol>
+  <li>During the very first encounter of a character, say the first <code class="highlighter-rouge">a</code> (index 0) in <code class="highlighter-rouge">anna</code>, we check if the corresponding index in the other string <code class="highlighter-rouge">naan</code> has already been visited.</li>
+  <li>We visit it (i.e. remember it in some algorithmic way).</li>
+  <li>We store the mapping of this visit (i.e. <code class="highlighter-rouge">a -&gt; n</code>).</li>
+  <li>If we encounter a character again, say the last <code class="highlighter-rouge">a</code> in <code class="highlighter-rouge">anna</code>, we check for the mapping to see if the corresponding index in the second string is as per our expectations (i.e. obeys the mapping).</li>
+</ol>
+
+<p>The way we maintain the mapping is through an array <code class="highlighter-rouge">map</code> and we also maintain whether we already visited a particular character using an array <code class="highlighter-rouge">visited</code>. Since we need two additional arrays of size 256 each, there is some cost we pay for this space. However, we traverse the input array only once and so it would be <em>O(n)</em> time algorithm. These four steps are noted in the code fragment below for easier reference.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">isomorphic</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="n">MAX_CHARS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="nb">false</span> <span class="p">};</span>
+  <span class="kt">int</span> <span class="n">map</span><span class="p">[</span><span class="n">MAX_CHARS</span><span class="p">];</span>
+
+  <span class="c1">// initialize map
+</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_CHARS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+  <span class="c1">// check if both strings are of equal length
+</span>  <span class="kt">int</span> <span class="n">slen1</span> <span class="o">=</span> <span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">slen2</span> <span class="o">=</span> <span class="n">s2</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">slen1</span> <span class="o">!=</span> <span class="n">slen2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+  <span class="c1">// traverse s1 and update marked and visited
+</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">slen1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// (1) first occurence
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> 
+    <span class="p">{</span>
+      <span class="c1">// check if corresponding s2 char is visited
+</span>      <span class="k">if</span> <span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+      <span class="c1">// (2) update visited
+</span>      <span class="n">visited</span><span class="p">[</span><span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>                          
+
+      <span class="c1">// (3) store mapping
+</span>      <span class="n">map</span><span class="p">[</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>                             
+    <span class="p">}</span>
+    <span class="c1">// (4) not the first occurence? check the mapping
+</span>    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> 
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
