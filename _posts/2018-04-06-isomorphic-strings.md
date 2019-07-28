@@ -22,6 +22,7 @@ An approach is to traverse one of the strings and mark the occurence of the char
 The way we maintain the mapping is through an array `map` and we also maintain whether we already visited a particular character using an array `visited`. Since we need two additional arrays of size 256 each, there is some cost we pay for this space. However, we traverse the input array only once and so it would be _O(n)_ time algorithm. These four steps are noted in the code fragment below for easier reference. 
 
 {% highlight cpp %}
+#define MAX_CHARS 26
 bool isomorphic(std::string s1, std::string s2)
 {
   bool visited[MAX_CHARS] = { false };
