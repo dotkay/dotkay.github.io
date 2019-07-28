@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-28T14:56:58+00:00</updated>
+  <updated>2019-07-28T17:52:41+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -642,6 +642,77 @@ help me understand?&lt;/p&gt;</content>
   
     <entry>
       
+      <title type="html">Searching for occurence of a pattern in a string →</title>
+      
+      <link href="https://dotkay.github.io/2018/04/09/string-pattern-search/" rel="alternate" type="text/html" title="Searching for occurence of a pattern in a string" />
+      <published>2018-04-09T00:00:00+00:00</published>
+      <updated>2018-04-09T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/04/09/string-pattern-search</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/04/09/string-pattern-search/">&lt;p&gt;Let us write a very simple program to implement a simple variant of &lt;em&gt;str.find()&lt;/em&gt; that we used in our &lt;a href=&quot;https://dotkay.github.io/2018/04/04/string-rotation-by-n-check&quot;&gt;previous post&lt;/a&gt;. Basically, we want to write a function that accepts an input string and a pattern string and identifies if the pattern forms a substring of the input string and if it does tells us the &lt;em&gt;first&lt;/em&gt; index position of occurence in the input string.&lt;/p&gt;
+
+&lt;p&gt;The naïve way is to traverse the input string looking for the pattern string. In order to do this, whenever we encounter the first character of the pattern string in the input string, we need to remember it and check if the following characters in the input string are the subsequent characters in the pattern string as well. We need to do this check (if successful) for as many characters as the length of the pattern string - quite intuitive.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;1. Traverse the input string
+_2. As we traverse the input string, check if we encounter the first character of the pattern string
+__2.1  If the pattern string’s first character _does not&lt;/em&gt; match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.
+&lt;em&gt;_2.2 If the pattern string’s first character _does&lt;/em&gt; match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string
+__2.3 If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)&lt;/p&gt;
+
+&lt;p&gt;Let us write it down as a C++ function:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;pat_search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;This algorithm however matches only the first occurence of the pattern and not all occurences (there might be more than one occurence of the pattern in the input string). How do we modify the above algorithm to handle this case?&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="strings" />
+      
+
+      
+
+      
+        <summary type="html">Let us write a very simple program to implement a simple variant of str.find() that we used in our previous post. Basically, we want to write a function that accepts an input string and a pattern string and identifies if the pattern forms a substring of the input string and if it does tells us the first index position of occurence in the input string. The naïve way is to traverse the input string looking for the pattern string. In order to do this, whenever we encounter the first character of the pattern string in the input string, we need to remember it and check if the following characters in the input string are the subsequent characters in the pattern string as well. We need to do this check (if successful) for as many characters as the length of the pattern string - quite intuitive. 1. Traverse the input string _2. As we traverse the input string, check if we encounter the first character of the pattern string __2.1 If the pattern string’s first character _does not match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string. _2.2 If the pattern string’s first character _does match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string __2.3 If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2) Let us write it down as a C++ function: int pat_search(std::string s, std::string pat) { int slen = s.length(); int plen = pat.length(); int res = -1; for (int i = 0; i &amp;lt; slen; i++) { int j; for (j = 0; j &amp;lt; plen; j++) { if (s[i+j] != pat[j]) break; } if (j == plen) return i; } return res; } This algorithm however matches only the first occurence of the pattern and not all occurences (there might be more than one occurence of the pattern in the input string). How do we modify the above algorithm to handle this case?</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Rotating an array counter clockwise around a given index →</title>
       
       <link href="https://dotkay.github.io/2018/04/08/rotate-array-ccw/" rel="alternate" type="text/html" title="Rotating an array counter clockwise around a given index" />
@@ -1107,89 +1178,6 @@ n-a-a-n   --&amp;gt; 2. rotated by 1
 
       
         <summary type="html">Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is [1, 3, 4, 11, 2, 6], in the output array, the elements would be in reverse order - i.e. [6, 2, 11, 4, 3, 1]. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array. We traverse the array from the beginning and swap the elements with those from the end of the array. This way, by the time we are at the mid-point of the array, we would have swapped all the elements and the array would be in reverse order. void rev_arr(int arr[], int n) { for (int i = 0; i &amp;lt; n/2; i++) swap(&amp;amp;arr[i], &amp;amp;arr[n - i - 1]); } where swap(arr[a], arr[b]) would swap the elements at array locations a and b and n is the size of the input array arr.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Stack using Arrays - Operations →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/14/stack_operations/" rel="alternate" type="text/html" title="Stack using Arrays - Operations" />
-      <published>2017-11-14T00:00:00+00:00</published>
-      <updated>2017-11-14T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/14/stack_operations</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/14/stack_operations/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2017/11/13/stacks&quot;&gt;previous post&lt;/a&gt; we introduced the &lt;em&gt;Stack&lt;/em&gt; data structure implemented using arrays. Now, we will see how to implement the operations on such a Stack - in particular we will learn how to implement the following methods:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Push(item) - to push the input item into the stack&lt;/li&gt;
-  &lt;li&gt;Pop() - to pop an item from the stack&lt;/li&gt;
-  &lt;li&gt;top_of_stack() - to track the item in the top of the stack&lt;/li&gt;
-  &lt;li&gt;is_empty() - to check if the stack is empty&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for &lt;em&gt;top of stack&lt;/em&gt;) to &lt;code class=&quot;highlighter-rouge&quot;&gt;-1&lt;/code&gt; and we shall use that while performing our operations. We are tracking only &lt;em&gt;top&lt;/em&gt;, so we increment the index when we &lt;em&gt;push()&lt;/em&gt;, decrement it when we &lt;em&gt;pop()&lt;/em&gt; and check the value to determine when the stack is empty as shown in the code fragment below:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Stack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// check if there's place to push
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAXSIZE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Stack overflow!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// if there's place store the item
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Stack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// check if there's anything to pop
-&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// or if the stack is empty
-&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;out_of_range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Stack underflow!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Stack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top_of_stack&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Stack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;That was easy!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="stacks" />
-      
-
-      
-
-      
-        <summary type="html">In our previous post we introduced the Stack data structure implemented using arrays. Now, we will see how to implement the operations on such a Stack - in particular we will learn how to implement the following methods: Push(item) - to push the input item into the stack Pop() - to pop an item from the stack top_of_stack() - to track the item in the top of the stack is_empty() - to check if the stack is empty As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for top of stack) to -1 and we shall use that while performing our operations. We are tracking only top, so we increment the index when we push(), decrement it when we pop() and check the value to determine when the stack is empty as shown in the code fragment below: bool Stack::push (int item) { // check if there's place to push if (top &amp;gt;= (MAXSIZE-1)) { cout &amp;lt;&amp;lt; &quot;Stack overflow!&quot;; return false; } // if there's place store the item else { arr[++top] = item; return true; } } int Stack::pop () { // check if there's anything to pop // or if the stack is empty if (top &amp;lt; 0) { throw out_of_range(&quot;Stack underflow!&quot;); } else { return arr[top--]; } } int Stack::top_of_stack () { return arr[top]; } bool Stack::is_empty () { return (top == -1); } That was easy!</summary>
       
 
       
