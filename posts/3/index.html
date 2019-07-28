@@ -1225,7 +1225,8 @@
 <p>The way we maintain the mapping is through an array <code class="highlighter-rouge">map</code> and we also maintain whether we already visited a particular character using an array <code class="highlighter-rouge">visited</code>. Since we need two additional arrays of size 256 each, there is some cost we pay for this space. However, we traverse the input array only once and so it would be <em>O(n)</em> time algorithm. These four steps are noted in the code fragment below for easier reference.</p>
 
 <figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">isomorphic</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">)</span>
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAX_CHARS 26
+</span><span class="kt">bool</span> <span class="nf">isomorphic</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="n">MAX_CHARS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="nb">false</span> <span class="p">};</span>
   <span class="kt">int</span> <span class="n">map</span><span class="p">[</span><span class="n">MAX_CHARS</span><span class="p">];</span>
