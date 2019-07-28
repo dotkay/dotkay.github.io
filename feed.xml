@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-28T14:32:28+00:00</updated>
+  <updated>2019-07-28T14:38:45+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -715,6 +715,80 @@ help me understand?&lt;/p&gt;</content>
   
     <entry>
       
+      <title type="html">Checking if a string is an isogram →</title>
+      
+      <link href="https://dotkay.github.io/2018/04/07/string-isogram/" rel="alternate" type="text/html" title="Checking if a string is an isogram" />
+      <published>2018-04-07T00:00:00+00:00</published>
+      <updated>2018-04-07T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/04/07/string-isogram</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/04/07/string-isogram/">&lt;blockquote&gt;
+  &lt;p&gt;A string is an isogram if no character in it appears more than once.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Let us write a simple algorithm to identify if a given input string is an isogram. For simplicity let us consider only strings that have small characters and no spaces or special characters i.e. - only characters from &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In our previous post, we learnt how to keep track of characters that appear in a string as we traverse the input string. We use the same idea here, just this time we simplify it to be 26 characters (&lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt;) instead of 256.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We traverse the input string and maintain a counter for each of the occurences in the string. Note that we subtract ‘a’ from the ASCII value as our strings contain only &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;z&lt;/code&gt; and we want our index &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; to correspond to &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;. The intention of this simplification was precisely to learn how to modify our algorithm for such specific use cases.&lt;/li&gt;
+  &lt;li&gt;we traverse the counter array (which is essentially a mapping &lt;code class=&quot;highlighter-rouge&quot;&gt;seen: character -&amp;gt; count&lt;/code&gt; to see if any of the characters appeared more than once (i.e. their count mapping is greater than 1).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#define MAX_CHARS 26
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isogram&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAX_CHARS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// (1)
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// (2)
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="data structures" />
+      
+        <category term="strings" />
+      
+
+      
+
+      
+        <summary type="html">A string is an isogram if no character in it appears more than once. Let us write a simple algorithm to identify if a given input string is an isogram. For simplicity let us consider only strings that have small characters and no spaces or special characters i.e. - only characters from a to z. In our previous post, we learnt how to keep track of characters that appear in a string as we traverse the input string. We use the same idea here, just this time we simplify it to be 26 characters (a to z) instead of 256. We traverse the input string and maintain a counter for each of the occurences in the string. Note that we subtract ‘a’ from the ASCII value as our strings contain only a to z and we want our index 0 to correspond to a. The intention of this simplification was precisely to learn how to modify our algorithm for such specific use cases. we traverse the counter array (which is essentially a mapping seen: character -&amp;gt; count to see if any of the characters appeared more than once (i.e. their count mapping is greater than 1). #define MAX_CHARS 26 bool isogram(std::string s) { int seen[MAX_CHARS] = {0}; int slen = s.length(); bool res = true; // (1) for (int i = 0; i &amp;lt; slen; i++) seen[s[i] - 'a']++; // (2) for (int i = 0; i &amp;lt; 26; i++) { if (seen[i] &amp;gt; 1) { res = false; break; } } return res; }</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Checking if two strings are isomorphic →</title>
       
       <link href="https://dotkay.github.io/2018/04/06/isomorphic-strings/" rel="alternate" type="text/html" title="Checking if two strings are isomorphic" />
@@ -1116,75 +1190,6 @@ n-a-a-n   --&amp;gt; 2. rotated by 1
 
       
         <summary type="html">In our previous post we introduced the Stack data structure implemented using arrays. Now, we will see how to implement the operations on such a Stack - in particular we will learn how to implement the following methods: Push(item) - to push the input item into the stack Pop() - to pop an item from the stack top_of_stack() - to track the item in the top of the stack is_empty() - to check if the stack is empty As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for top of stack) to -1 and we shall use that while performing our operations. We are tracking only top, so we increment the index when we push(), decrement it when we pop() and check the value to determine when the stack is empty as shown in the code fragment below: bool Stack::push (int item) { // check if there's place to push if (top &amp;gt;= (MAXSIZE-1)) { cout &amp;lt;&amp;lt; &quot;Stack overflow!&quot;; return false; } // if there's place store the item else { arr[++top] = item; return true; } } int Stack::pop () { // check if there's anything to pop // or if the stack is empty if (top &amp;lt; 0) { throw out_of_range(&quot;Stack underflow!&quot;); } else { return arr[top--]; } } int Stack::top_of_stack () { return arr[top]; } bool Stack::is_empty () { return (top == -1); } That was easy!</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Stacks →</title>
-      
-      <link href="https://dotkay.github.io/2017/11/13/stacks/" rel="alternate" type="text/html" title="Stacks" />
-      <published>2017-11-13T00:00:00+00:00</published>
-      <updated>2017-11-13T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2017/11/13/stacks</id>
-      <content type="html" xml:base="https://dotkay.github.io/2017/11/13/stacks/">&lt;p&gt;In this post, we introduce &lt;em&gt;Stack&lt;/em&gt; - a data structure closely related to &lt;em&gt;Queue&lt;/em&gt;. It differs however in the order of operations that we perform on the constituent elements. While queue provided a &lt;em&gt;FIFO&lt;/em&gt; (First-In-First-Out) order of processing, stack provides us &lt;em&gt;LIFO&lt;/em&gt; (Last-In-First-Out), just as you would pick the last element that you put on the stack before picking out the other elements - just like in the stack of books below, it is very likely you added the blue book on the top very recently (Last-In) and you would pick out this book (on the &lt;em&gt;top of the stack&lt;/em&gt; - First-Out) before picking out, say, the green books.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;p&gt;&lt;img src=&quot;/assets/images/data_structures/stack_of_books.png&quot; alt=&quot;Stack of Books&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Again, as with queues, we can use an &lt;em&gt;array&lt;/em&gt; or a &lt;em&gt;linked list&lt;/em&gt; to store our elements. Let use see how to define a Stack class using an array implementation.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#define MAXSIZE 100
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Stack&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;           &lt;span class=&quot;c1&quot;&gt;// top of the stack
-&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAXSIZE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// array that implements the stack
-&lt;/span&gt;  
-  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Stack&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;top_of_stack&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is_empty&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;Stack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stack&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;top&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;We add elements to our stack using the &lt;em&gt;push()&lt;/em&gt; method, remove elements from the stack (actually from the top of our stack) using &lt;em&gt;pop()&lt;/em&gt; method, and we also keep track of the top of the stack because that’s where interesting actions happen.&lt;/p&gt;
-
-&lt;p&gt;We will see the different methods in the following posts. Stay tuned!.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="stacks" />
-      
-
-      
-
-      
-        <summary type="html">In this post, we introduce Stack - a data structure closely related to Queue. It differs however in the order of operations that we perform on the constituent elements. While queue provided a FIFO (First-In-First-Out) order of processing, stack provides us LIFO (Last-In-First-Out), just as you would pick the last element that you put on the stack before picking out the other elements - just like in the stack of books below, it is very likely you added the blue book on the top very recently (Last-In) and you would pick out this book (on the top of the stack - First-Out) before picking out, say, the green books. Again, as with queues, we can use an array or a linked list to store our elements. Let use see how to define a Stack class using an array implementation. #define MAXSIZE 100 class Stack { int top; // top of the stack int arr[MAXSIZE]; // array that implements the stack public: Stack (); bool push (int item); int pop (); int top_of_stack (); bool is_empty (); }; Stack::Stack () { top = -1; } We add elements to our stack using the push() method, remove elements from the stack (actually from the top of our stack) using pop() method, and we also keep track of the top of the stack because that’s where interesting actions happen. We will see the different methods in the following posts. Stay tuned!.</summary>
       
 
       
