@@ -24,7 +24,7 @@ int pat_search(std::string s, std::string pat)
   int slen = s.length();
   int plen = pat.length();
   int res = -1;
-  for (int i = 0; i < slen; i++)
+  for (int i = 0; i <= slen - plen; i++)
   {
     int j;
     for (j = 0; j < plen; j++)
