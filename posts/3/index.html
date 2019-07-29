@@ -918,10 +918,13 @@
 
 <ol>
   <li>Traverse the input string</li>
-  <li>As we traverse the input string, check if we encounter the first character of the pattern string</li>
-  <li>If the pattern string’s first character <em>does not</em> match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.</li>
-  <li>If the pattern string’s first character <em>does</em> match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string</li>
-  <li>If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)</li>
+  <li>As we traverse the input string, check if we encounter the first character of the pattern string
+    <ol>
+      <li>If the pattern string’s first character <em>does not</em> match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.</li>
+      <li>If the pattern string’s first character <em>does</em> match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string</li>
+      <li>If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)</li>
+    </ol>
+  </li>
 </ol>
 
 <p>Let us write it down as a C++ function:</p>

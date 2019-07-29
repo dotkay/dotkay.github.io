@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-07-29T00:04:30+00:00</updated>
+  <updated>2019-07-29T00:09:15+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -654,10 +654,13 @@ help me understand?&lt;/p&gt;</content>
 
 &lt;ol&gt;
   &lt;li&gt;Traverse the input string&lt;/li&gt;
-  &lt;li&gt;As we traverse the input string, check if we encounter the first character of the pattern string&lt;/li&gt;
-  &lt;li&gt;If the pattern string’s first character &lt;em&gt;does not&lt;/em&gt; match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.&lt;/li&gt;
-  &lt;li&gt;If the pattern string’s first character &lt;em&gt;does&lt;/em&gt; match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string&lt;/li&gt;
-  &lt;li&gt;If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)&lt;/li&gt;
+  &lt;li&gt;As we traverse the input string, check if we encounter the first character of the pattern string
+    &lt;ol&gt;
+      &lt;li&gt;If the pattern string’s first character &lt;em&gt;does not&lt;/em&gt; match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.&lt;/li&gt;
+      &lt;li&gt;If the pattern string’s first character &lt;em&gt;does&lt;/em&gt; match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string&lt;/li&gt;
+      &lt;li&gt;If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Let us write it down as a C++ function:&lt;/p&gt;
