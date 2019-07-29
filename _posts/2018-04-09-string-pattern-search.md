@@ -12,9 +12,9 @@ The naïve way is to traverse the input string looking for the pattern string. I
 
 1. Traverse the input string
 2. As we traverse the input string, check if we encounter the first character of the pattern string
-  2.1  If the pattern string's first character _does not_ match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.
-  2.2 If the pattern string's first character _does_ match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string
-  2.3 If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)
+  1. If the pattern string's first character _does not_ match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.
+  2. If the pattern string's first character _does_ match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string
+  3. If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)
 
 Let us write it down as a C++ function:
 
