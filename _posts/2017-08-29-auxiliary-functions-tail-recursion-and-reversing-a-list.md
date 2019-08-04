@@ -3,7 +3,7 @@ layout: post
 title: Tail recursions and reversing a list
 categories: [recursion, ocaml]
 keywords: [recursion, ocaml]
-external-url: https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursions-and-reversing-a-list
+external-url: https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list
 ---
 
 So, how about reversing a list using our `leftee` function from our [previous post](https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions)?
