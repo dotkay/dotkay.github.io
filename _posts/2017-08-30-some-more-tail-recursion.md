@@ -6,7 +6,7 @@ keywords: [recursion, ocaml]
 external-url: https://dotkay.github.io/2017/08/30/some-more-tail-recursion
 ---
 
-Let's continue with tail recursion and folding (recollect our [previous post](https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursions-and-reversing-a-list). Let's use those concepts to write insertion sort algorithm. In an [earlier post](https://dotkay.github.io/2017/08/19/some-more-recursion) we wrote a recursive implementation of insertion sort algorithm as below:
+Let's continue with tail recursion and folding (recollect our [previous post](https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list). Let's use those concepts to write insertion sort algorithm. In an [earlier post](https://dotkay.github.io/2017/08/19/some-more-recursion) we wrote a recursive implementation of insertion sort algorithm as below:
 
 {% highlight ocaml %}
 let rec insert x lst =
