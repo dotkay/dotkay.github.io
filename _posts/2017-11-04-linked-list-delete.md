@@ -6,7 +6,7 @@ keywords: C++, data structures, linked lists
 external-url: https://dotkay.github.io/2017/11/04/linked-list-delete
 ---
 
-Now, let us progress with looking at slightly more complicated operations. In our [previous post](), we saw _find_ operation that required us to traverse the list, but we needed to keep track of only one element while traversing - just match the element with the item we are trying to find and see if we found. But in some cases, we may have to keep track of more than one element - this is because we need to rearrange the pointers. Suppose, we have the following linked list with 4 elements:
+Now, let us progress with looking at slightly more complicated operations. In our [previous post](https://dotkay.github.io/2017/11/03/linked-list-find), we saw _find_ operation that required us to traverse the list, but we needed to keep track of only one element while traversing - just match the element with the item we are trying to find and see if we found. But in some cases, we may have to keep track of more than one element - this is because we need to rearrange the pointers. Suppose, we have the following linked list with 4 elements:
 
 ```
 19  ->  49  ->  21  ->  17  ->  NULL
