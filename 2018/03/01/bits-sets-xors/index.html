@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Of bits, sets and xors...</title>
+  <meta name="description" content="As ambiguous as the title may sound the contents of this topic would also surprise you every now and then. Yes, we are going to talk about bit-vectors and bitwise operations in C or C++. As we have been taught several times since childhood, computers can understand only 1s and 0s. We humans have 10 fingers and so we started counting in decimal number system (10 digits 0..9 and every other number is made of these 10 digits). However as present day computers use digital circuits one needed to invent a number system for the underlying functionality of transistors. To make things simple, they decided to interpret a voltage above a certain threshold as 1 and the voltage below a certain other threshold as 0 and all our computations revolve around it. For those interested in technology history, ENIAC was actually a decimal machine. Since our computers (as of now) are binary machines, everything - chars, strings, structs, music and videos are all represented as 0s and 1s. And we have primitive operations on these bits. Sounds like we are moving back to stone age, but be patient - we use these low level operations in system software even today due to the speed of such operations. We will concern ourselves with the most basic bitwise operations as below: &amp;amp; - Bitwise AND | - Bitwise OR ~ - Bitwise complement (i.e. negation) ^ - Bitwise XOR &amp;gt;&amp;gt; - Bitwise right-shift &amp;lt;&amp;lt; - Bitwise left-shift As a quick note, &amp;gt;&amp;gt; can also be used for division by 2. For example 4 is 0100 in binary and 4 &amp;gt;&amp;gt; 1 would amount to 0010 which is 2 (4 / 2 = 2) and this on further shift 2 &amp;gt;&amp;gt; 1 results in 0001 which is 1 (2 /2 = 1). Similarly, &amp;lt;&amp;lt; can also be used for multiplication by 2. For example 2 is 0010 in binary and 2 &amp;lt;&amp;lt; 1 would result in 0100 which is 4 (2 * 2 = 4). One more quick aside is 2’s complement - which is just a way of representing negative numbers. For example -2 would be represented (if we are allowed only 3-bits to represent) as 110 which is 2^3 - 2. In general, -n in 2’s complement is just 2^k - n where k is the number of bits used to represent it.">
+  
+    
+    <meta name="keywords" content="C++, bitwise operators, bit-vectors">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/03/01/bits-sets-xors/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Of bits, sets and xors...">
+  <meta name="twitter:description" content="As ambiguous as the title may sound the contents of this topic would also surprise you every now and then. Yes, we are going to talk about bit-vectors and bitwise operations in C or C++. As we have...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/03/01/bits-sets-xors">Of bits, sets and xors... &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-03-01T00:00:00+00:00" itemprop="datePublished">Mar 1, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bit-vectors/">bit-vectors</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>As ambiguous as the title may sound the contents of this topic would also surprise you every now and then. Yes, we are going to talk about bit-vectors and bitwise operations in C or C++.</p>
+
+<p>As we have been taught several times since childhood, computers can understand only 1s and 0s. We humans have 10 fingers and so we started counting in decimal number system (10 digits 0..9 and every other number is made of these 10 digits). However as present day computers use digital circuits one needed to invent a number system for the underlying functionality of transistors. To make things simple, they decided to interpret a voltage above a certain threshold as 1 and the voltage below a certain other threshold as 0 and all our computations revolve around it. For those interested in technology history, <a href="https://history-computer.com/ModernComputer/Electronic/ENIAC.html">ENIAC was actually a decimal machine</a>.</p>
+
+<p>Since our computers (as of now) are binary machines, everything - chars, strings, structs, music and videos are all represented as 0s and 1s. And we have primitive operations on these bits. Sounds like we are moving back to stone age, but be patient - we use these low level operations in system software even today due to the speed of such operations. We will concern ourselves with the most basic bitwise operations as below:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&amp;      -  Bitwise AND
+|      -  Bitwise OR
+~      -  Bitwise complement (i.e. negation)
+^      -  Bitwise XOR
+&gt;&gt;     -  Bitwise right-shift
+&lt;&lt;     -  Bitwise left-shift
+</code></pre>
+</div>
+
+<p>As a quick note, <code class="highlighter-rouge">&gt;&gt;</code> can also be used for division by 2. For example 4 is <code class="highlighter-rouge">0100</code> in binary and <code class="highlighter-rouge">4 &gt;&gt; 1</code> would amount to <code class="highlighter-rouge">0010</code> which is 2 (4 / 2 = 2) and this on further shift <code class="highlighter-rouge">2 &gt;&gt; 1</code> results in <code class="highlighter-rouge">0001</code> which is 1 (2 /2 = 1).</p>
+
+<p>Similarly, <code class="highlighter-rouge">&lt;&lt;</code> can also be used for multiplication by 2. For example 2 is <code class="highlighter-rouge">0010</code> in binary and <code class="highlighter-rouge">2 &lt;&lt; 1</code> would result in <code class="highlighter-rouge">0100</code> which is 4 (2 * 2 = 4).</p>
+
+<p>One more quick aside is <em>2’s complement</em> - which is just a way of representing negative numbers. For example -2 would be represented (if we are allowed only 3-bits to represent) as <code class="highlighter-rouge">110</code> which is 2^3 - 2. In general, <em>-n</em> in 2’s complement is just <code class="highlighter-rouge">2^k - n</code> where <em>k</em> is the number of bits used to represent it.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

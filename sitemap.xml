@@ -245,6 +245,10 @@
 <lastmod>2017-11-14T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://dotkay.github.io/2018/03/01/bits-sets-xors/</loc>
+<lastmod>2018-03-01T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://dotkay.github.io/2018/04/02/reverse-an-array/</loc>
 <lastmod>2018-04-02T00:00:00+00:00</lastmod>
 </url>
@@ -389,6 +393,12 @@
 </url>
 <url>
 <loc>https://dotkay.github.io/categories/stacks/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/categories/bitwise-operations/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/categories/bit-vectors/</loc>
 </url>
 <url>
 <loc>https://dotkay.github.io/categories/arrays/</loc>
