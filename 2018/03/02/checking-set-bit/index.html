@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Checking if a kth bit in a bit-vector is set</title>
+  <meta name="description" content="Armed with the primitive bitwise operators, let us starting playing with some bit-vectors and use these opertors to do some fancy computations. As a first example, let us see how to check if the k-th bit is set in a given bit-vector n and an integer k. For example, in the binary representation of 10 which is 1010, 2nd and 4th bits are set. Here’s the approach We first want to generate a number whose only k-th bit is set. For example, if the given k is 4, we want to generate a number whose only 4th bit is set. Now, we bitwise AND the number generated above with the given bit-vector. If the result is non-zero then the k-th bit is set. Let us work out an example: Say we are given the number 9 and asked if the 1st bit is set (so n is 5 (101) and k is 3). we see that the 3rd bit is indeed set - our algorithm should return true. Let us choose 100 since k is set. i.e., we generated this bit-vector where only the k-th (3rd here) bit is set. In a short while, we will see how to generate this bit-vector We do a bitwise AND of this generated vector with input bit-vector n. 101 &amp;amp; 100 which yields 100 100 is non-zero and so our algorithm returns true. Coming to step 1., how do we go about generating a bit-vector whose only k-th bit is set? The intuition lies in the way numbers are represented in binary. The bit positions are essentially powers of 2. For example, 1 is represented as 0001 (assuming we use 4 bits to represent a decimal number) - only the bit in the first position is set and this corresponds to 2^0. The second position corresponds to 2^1, third 2^2 and so on. 10 is represented as 1010 where second and fourth bits are set - i.e 2^1 and 2^3 bits are set (2^1 + 2^3 = 10). (Please refer to the conversions between decimal and binary here). And we have this other weapon &amp;lt;&amp;lt; that we can use to move a set bit towards the left. So, if we left-shift (&amp;lt;&amp;lt;) 0001 by 1, we get 0010 (2) and further left-shift yeilds 4 (as each left-shift is just multiplication by 2). We start with 1 and consecutive left shifts gives us bit-vectors where only the bit in a specific location is set and all others are unset. This is the intuition behind generating a bit-vector with a single bit set. So, if we want a bit-vector whose 3rd bit is set, we left-shift 0001 twice. In general if we want a bit-vector whose k-th bit is set, we left-shift by (k-1). The following code fragment illustrates the algorithm: int main() { int N; // no. of test cases std::cin &amp;gt;&amp;gt; N; while (N--) { int n, k; // input number, k std::cin &amp;gt;&amp;gt; n; std::cin &amp;gt;&amp;gt; k; int res; res = n &amp;amp; (1 &amp;lt;&amp;lt; (k-1)); if (res != 0) std::cout &amp;lt;&amp;lt; &quot;bit at position &quot; &amp;lt;&amp;lt; k &amp;lt;&amp;lt; &quot; is set in &quot; &amp;lt;&amp;lt; n &amp;lt;&amp;lt; std::endl; else std::cout &amp;lt;&amp;lt; &quot;bit at position &quot; &amp;lt;&amp;lt; k &amp;lt;&amp;lt; &quot; is not set in &quot; &amp;lt;&amp;lt; n &amp;lt;&amp;lt; std::endl; } return 0; }">
+  
+    
+    <meta name="keywords" content="C++, bitwise operators, bit-vectors">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/03/02/checking-set-bit/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Checking if a kth bit in a bit-vector is set">
+  <meta name="twitter:description" content="Armed with the primitive bitwise operators, let us starting playing with some bit-vectors and use these opertors to do some fancy computations. As a first example, let us see how to check if the k-...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/03/02/checking-set-bit">Checking if a kth bit in a bit-vector is set &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-03-02T00:00:00+00:00" itemprop="datePublished">Mar 2, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bit-vectors/">bit-vectors</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Armed with the primitive bitwise operators, let us starting playing with some bit-vectors and use these opertors to do some fancy computations. As a first example, let us see how to check if the <em>k</em>-th bit is set in a given bit-vector <em>n</em> and an integer <em>k</em>. For example, in the binary representation of 10 which is <code class="highlighter-rouge">1010</code>, 2nd and 4th bits are set.</p>
+
+<p>Here’s the approach</p>
+
+<ol>
+  <li>We first want to generate a number whose only <em>k</em>-th bit is set. For example, if the given <em>k</em> is 4, we want to generate a number whose only 4th bit is set.</li>
+  <li>Now, we <em>bitwise AND</em> the number generated above with the given bit-vector.</li>
+  <li>If the result is non-zero then the k-th bit is set.</li>
+</ol>
+
+<p>Let us work out an example: Say we are given the number 9 and asked if the 1st bit is set (so <em>n</em> is 5 (<code class="highlighter-rouge">101</code>) and <em>k</em> is 3). we see that the 3rd bit is indeed set - our algorithm should return <code class="highlighter-rouge">true</code>.</p>
+
+<ol>
+  <li>Let us choose <code class="highlighter-rouge">100</code> since <em>k</em> is set. i.e., we generated this bit-vector where <em>only</em> the <em>k</em>-th (3rd here) bit is set. In a short while, we will see how to generate this bit-vector</li>
+  <li>We do a bitwise AND of this generated vector with input bit-vector <em>n</em>. <code class="highlighter-rouge">101 &amp; 100</code> which yields <code class="highlighter-rouge">100</code></li>
+  <li><code class="highlighter-rouge">100</code> is non-zero and so our algorithm returns <code class="highlighter-rouge">true</code>.</li>
+</ol>
+
+<p>Coming to step 1., how do we go about generating a bit-vector whose only <em>k</em>-th bit is set? The intuition lies in the way numbers are represented in binary. The bit positions are essentially powers of 2. For example, 1 is represented as <code class="highlighter-rouge">0001</code> (assuming we use 4 bits to represent a decimal number) - only the bit in the first position is set and this corresponds to 2^0. The second position corresponds to 2^1, third 2^2 and so on. 10 is represented as <code class="highlighter-rouge">1010</code> where second and fourth bits are set - i.e 2^1 and 2^3 bits are set (2^1 + 2^3 = 10). (Please refer to the conversions between decimal and binary <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">here</a>).</p>
+
+<p>And we have this other weapon <code class="highlighter-rouge">&lt;&lt;</code> that we can use to move a set bit towards the left. So, if we left-shift (<code class="highlighter-rouge">&lt;&lt;</code>) <code class="highlighter-rouge">0001</code> by 1, we get <code class="highlighter-rouge">0010</code> (2) and further left-shift yeilds 4 (as each left-shift is just multiplication by 2). We start with 1 and consecutive left shifts gives us bit-vectors where only the bit in a specific location is set and all others are unset. This is the intuition behind generating a bit-vector with a single bit set. So, if we want a bit-vector whose 3rd bit is set, we left-shift <code class="highlighter-rouge">0001</code> twice. In general if we want a bit-vector whose <em>k</em>-th bit is set, we left-shift by <em>(k-1)</em>.</p>
+
+<p>The following code fragment illustrates the algorithm:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">N</span><span class="p">;</span> <span class="c1">// no. of test cases
+</span>  <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">N</span><span class="o">--</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span> <span class="c1">// input number, k
+</span>    <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">res</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"bit at position "</span> <span class="o">&lt;&lt;</span> <span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="s">" is set in "</span> <span class="o">&lt;&lt;</span> <span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"bit at position "</span> <span class="o">&lt;&lt;</span> <span class="n">k</span> <span class="o">&lt;&lt;</span> <span class="s">" is not set in "</span> <span class="o">&lt;&lt;</span> <span class="n">n</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
