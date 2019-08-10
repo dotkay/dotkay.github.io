@@ -11,7 +11,7 @@ In our previous post, we found a way to compute the position of the right-most s
 We mentioned about 2's complement notation for negative numbers in a [previous post](https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit). For example, the number 2 represented using 4 bits would be `0010` while -2 represented using 4 bits would be `1110`, where the bit position corresponding to right-most set bit in in the positive equivalent (+2) is set, while all the bits to the left are flipped. 
 
 <br>
-![isolating right-most set bit](/assets/images/algorithms/cpp/rm_set_bit.jpg){:class="img=responsive"}
+![isolating right-most set bit](/assets/images/algorithms/cpp/rm_set_bit.png){:class="img=responsive" }{:height="25%" width="25%"}
 
 Now, if we `&` (bit-wise AND) our input number (_x_) with the negation of it (_-x_), we will be left with only one bit set, which corresponds to the position of the right-most set bit. So, the bit-wise operation we were looking for is `&` with the negation of the input number. Let us put all this together in a C algorithm (not that we already know the later part of the algorithm from the [previous post](https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit)):
 
