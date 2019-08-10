@@ -102,6 +102,251 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/22/computing-maxium-subarray-sum/">Computing maximum subarray sum &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 22, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s look at one of my favourite algorithm problems from my younger days - Computing the maximum subarray sum of a given array. That is, if you are given an array, find the maximum sum formed by the subarrays of the array. For example, if the array is <code class="highlighter-rouge">[-1; 2; 6; 4; 2]</code>, the maximum subarray sum is <code class="highlighter-rouge">12</code> contributed by the subarray <code class="highlighter-rouge">[2; 6; 4]</code>. Let’s look at how to solve this.</p>
+
+<p>The straight-forward approach is to go through all possible subarrays, compute their sum and pick the maximum of those.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_On3</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">b</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">b</span><span class="p">;</span> <span class="n">c</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">c</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Here, <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> denote the window of the subarray. We use the loop with the index <code class="highlighter-rouge">c</code> to compute the sum in the subarray defined by the window between <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code>. We then compute the max of the accumulated sum <code class="highlighter-rouge">sum</code> from this window and the saved result <code class="highlighter-rouge">res</code>. The time complexity of this algorithm is O(n<sup>3</sup>).</p>
+
+<p>Let’s do it a little better. What if we compute the sum at the same time as we extend the window to the right - i.e., move <code class="highlighter-rouge">b</code> to the right (the second for loop that increments <code class="highlighter-rouge">b</code>)? Let’s try that.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_On2</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">;</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">b</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">b</span><span class="p">];</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We initialize <code class="highlighter-rouge">sum</code> before entering the loop and compute the <code class="highlighter-rouge">sum</code> and the max of <code class="highlighter-rouge">sum</code> and the saved result (max-so-far) within this loop. The time complexity of this algorithm is O(n<sup>2</sup>).</p>
+
+<p>Can we do better? I initially thought ‘No’. And it was too hard to convince myself the simple and elegant algorithm by <a href="http://tepper.cmu.edu/our-faculty-and-research/about-our-faculty/faculty-profiles/kadane/kadane-joseph">Joseph Kadene</a>.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">max_subarray_sum_3</span> <span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">a</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sum</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">a</span><span class="p">]);</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>The idea is to look at the first loop (indexed by <code class="highlighter-rouge">a</code>) as a subarray consisting of elements upto <code class="highlighter-rouge">a-1</code> followed by element at <code class="highlighter-rouge">a</code>. As we traverse the array, we keep computing the max of the element we are currently at <code class="highlighter-rouge">arr[a]</code> and (the sum-so-far + the element we are currently at - which is actually the boundary of the subarray, meaning max-until-this-point) - <code class="highlighter-rouge">sum + arr[a]</code>. <code class="highlighter-rouge">res</code> indicates the maximum value seen so far and we update it after comparing against the max-until-this-point (the max we computed after moving the window one element to the right, which is now in <code class="highlighter-rouge">sum</code>). Since we iterate over the array only once (one for loop), the time complexity of this algorithm is O(n). Isn’t it awesome?</p>
+
+<p>I don’t know how clearly I managed to explain it. Someday, I will add intuitive images working out the above three and see if it is any more intuitive.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/21/learning-to-count-set-bits/">Learning to count set bits &rarr;</a>
           </h1>
 
@@ -1214,300 +1459,6 @@
 <img src="/assets/images/data_science/pokemon_generations.png" alt="Pokemons of each generation" class="img=responsive" /></p>
 
 <p>That was pretty quick. Let me stop here and let you all digest the information presented. We will analyze the Pokemon dataset more in the coming posts.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/17/lets-practice-some-more-examples/">Let&#39;s practice some more recursion! &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 17, 2017 • 
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s continue from our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples">earlier post</a> and practice some more simple problems just to get more and more familiar with recursion.</p>
-
-<p>Let’s start by writing a simple function to find the last element of a given list <code class="highlighter-rouge">lst</code>:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_elem</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="nc">None</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="nc">Some</span> <span class="n">x</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">last_elem</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* val last_elem : 'a list -&gt; 'a option = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<p>This is also a nice way to introduce <code class="highlighter-rouge">Some</code> and <code class="highlighter-rouge">None</code> in OCaml. Just like how we have <code class="highlighter-rouge">'a list</code> which can be an <code class="highlighter-rouge">int list</code> or a <code class="highlighter-rouge">string list</code> or <code class="highlighter-rouge">char list</code>, OCaml also has this wonderful <code class="highlighter-rouge">'a option</code> type that can be nothing (<code class="highlighter-rouge">None</code>) or some type (<code class="highlighter-rouge">Some</code>). Note however that <code class="highlighter-rouge">'a option</code> type is not the same as <code class="highlighter-rouge">'a</code>. So, if the type is <code class="highlighter-rouge">'a</code> you can ask the compiler to treat it as an <code class="highlighter-rouge">int</code>, for example. But you can’t do the same with <code class="highlighter-rouge">'a option</code> type. For friends of Java, C programming languages, you can think of <code class="highlighter-rouge">None</code> as similar to <code class="highlighter-rouge">null</code> type.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="p">=</span> <span class="nc">Some</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="p">|</span> <span class="nc">None</span></code></pre>
-</figure>
-
-<p>For those JavaScript fans wondering if they can use similar <code class="highlighter-rouge">Some</code> and <code class="highlighter-rouge">None</code> in JavaScript, I found an <a href="https://github.com/mwilliamson/node-options">option type implementation here</a> that provides this. I should admit that I have never used this implementation but it seems to serve the same purpose for JavaScript.</p>
-
-<p>Let’s test our <code class="highlighter-rouge">last_elem</code> function on an example.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="o">];;</span>
-<span class="n">last_elem</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int option = Some 4 *)</span></code></pre>
-</figure>
-
-<p>Let’s move on and practice some more examples. Let’s now try and grab the last and the last-but-one elements from a list.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_two</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">|</span> <span class="o">[_]</span> <span class="p">-&gt;</span> <span class="nc">None</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">;</span> <span class="n">y</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="nc">Some</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-  <span class="p">|</span> <span class="o">_::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">last_two</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* val last_two : 'a list -&gt; ('a * 'a) option = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<p><code class="highlighter-rouge">('a * 'a)</code> indicates a tuple - a pair in this case. For example, <code class="highlighter-rouge">(3, 4)</code> would be of type <code class="highlighter-rouge">(int * int)</code>. Let’s check our implementation:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">last_two</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : (int * int) option = Some (3, 4) *)</span></code></pre>
-</figure>
-
-<p>Let’s now make it more generic and write a function to find the k<sup>th</sup> element of a list and let’s give our function a very creative name <code class="highlighter-rouge">kth</code>.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">kth</span> <span class="n">lst</span> <span class="n">k</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="nc">None</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="p">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span> <span class="p">(</span><span class="nc">Some</span> <span class="n">h</span><span class="p">)</span>
-     <span class="k">else</span> <span class="n">kth</span> <span class="n">t</span> <span class="p">(</span><span class="n">k</span><span class="p">-</span><span class="mi">1</span><span class="o">);;</span>
-<span class="c">(* val kth : 'a list -&gt; int -&gt; 'a option = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<p>Let’s check our implementation on <code class="highlighter-rouge">l1</code> again:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">kth</span> <span class="n">l1</span> <span class="mi">2</span><span class="p">;;</span>
-<span class="c">(* - : int option = Some 2 *)</span>
-<span class="n">kth</span> <span class="n">l1</span> <span class="mi">6</span><span class="p">;;</span>
-<span class="c">(* - : int option = None *)</span></code></pre>
-</figure>
-
-<p>When we try to find the 6<sup>th</sup> element of the list <code class="highlighter-rouge">l1</code>, we get <code class="highlighter-rouge">None</code> type as a result as the list contains only 4 elements.</p>
-
-<p>Let’s now try to reverse an input list. Relax! It just sounds complicated. It is actually super simple when you think in terms of recursion.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="p">(</span><span class="n">lst_rev</span> <span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">h</span><span class="o">];;</span>
-<span class="c">(* val lst_rev : 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<p>Recall from our previous post that <code class="highlighter-rouge">@</code> is the OCaml operator for list concatenation. It is a straight forward observation that after the first recursive call to <code class="highlighter-rouge">rev_lst</code>, the head element <code class="highlighter-rouge">h</code> is pushed to the last and in each recursive call the first element would keep getting pushed to the end of the result list.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_rev</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int list = [4; 3; 2; 1] *)</span></code></pre>
-</figure>
-
-<p>This post is getting long. Please don’t stop reading it! I promise, just one more example to finish this post! Let’s write a function to remove an element from k<sup>th</sup> position in a given list:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem_kth</span> <span class="n">k</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="p">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">then</span> <span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">rem_kth</span> <span class="p">(</span><span class="n">k</span><span class="p">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">t</span><span class="o">);;</span>
-<span class="c">(* val rem_kth : int -&gt; 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">rem_kth</span> <span class="mi">1</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int list = [2; 3; 4] *)</span>
-<span class="n">rem_kth</span> <span class="mi">6</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int list = [1; 2; 3; 4] *)</span></code></pre>
-</figure>
-
-<p>That’s all folks. If you have reached this line of this post (assuming you didn’t start reading from the last line), Congratulations for sticking around!</p>
-
 
         </div>
         
