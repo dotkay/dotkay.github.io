@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>How to find out the position of the right-most set bit in a bit-vector?</title>
+  <meta name="description" content="As we are getting comfortable thinking in terms of bits and bit-wise operators, let us play with them some more. Let us see how to find the position of the right-most set bit, given a bit-vector? Note that this is different from the previous problem of checking if the bit in a specific bit position is set. Here, we want to just find the right most set bit, and the position in the bit-vector is not given - we are to find that position. For example, 10 in binary is 1010 and the right-most set bit is at position 2 (second from the right most digit). Given 10, our algorithm has to output 2. Similarly, 8 in binary is 1000 and given this, our algorithm has to output 4. The intuition is that since multiple bits may be set in a bit-vector (unless it is a power of 2) we need to find a way of isolating the right-most set bit and then traverse the vector to find its position in the vector. For example, suppose a bit-vector (with the right-most bit of 10 isolated) is given to us, it would look like 0010. Now we can write a simple algorithm to check the bit-position of the only bit (the lonely, isolated bit) set in the vector. We already know that we could use right shift operator repeatedly on this bit-vector, until it becomes 0, as follows: 0010 -&amp;gt; given bit-vector with only one bit set 0010 &amp;gt;&amp;gt; 1 -&amp;gt; right-shift by 1 position (once) 0001 &amp;gt;&amp;gt; 1 -&amp;gt; right-shift by 1 position (twice) 0000 Quite intuitively, the number of right-shifts we needed to apply is the position of the only set bit. Let us write that as a C algorithm: int count = 0; while (x != 0) // check for 0 { x = x &amp;gt;&amp;gt; 1; // right-shift count++; // maintain count } return count; Now, what operation do we use to find this x above? Or referring to our example, how do we find the vector 0010 that gave us the right-most set bit for our input vector which was 1010? Think about the properties of bit-vectors, especially negative numbers. Stay tuned for a post describing it.">
+  
+    
+    <meta name="keywords" content="C++, bitwise operators, bit-vectors">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="How to find out the position of the right-most set bit in a bit-vec...">
+  <meta name="twitter:description" content="As we are getting comfortable thinking in terms of bits and bit-wise operators, let us play with them some more. Let us see how to find the position of the right-most set bit, given a bit-vector? N...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">How to find out the position of the right-most set bit in a bit-vector? &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-03-03T00:00:00+00:00" itemprop="datePublished">Mar 3, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bit-vectors/">bit-vectors</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>As we are getting comfortable thinking in terms of bits and bit-wise operators, let us play with them some more. Let us see how to find the position of the right-most set bit, given a bit-vector? Note that this is different from the <a href="https://dotkay.github.io/2018/03/02/checking-set-bit">previous</a> problem of checking if the bit in a specific bit position is set. Here, we want to just find the right most set bit, and the position in the bit-vector is not given - we are to find that position.</p>
+
+<p>For example, 10 in binary is <code class="highlighter-rouge">1010</code> and the right-most set bit is at position 2 (second from the right most digit). Given 10, our algorithm has to output 2. Similarly, 8 in binary is <code class="highlighter-rouge">1000</code> and given this, our algorithm has to output 4.</p>
+
+<p>The intuition is that since multiple bits may be set in a bit-vector (unless it is a power of 2) we need to find a way of isolating the right-most set bit and then traverse the vector to find its position in the vector. For example, suppose a bit-vector (with the right-most bit of 10 isolated) is given to us, it would look like <code class="highlighter-rouge">0010</code>. Now we can write a simple algorithm to check the bit-position of the only bit (the lonely, isolated bit) set in the vector. We already know that we could use right shift operator repeatedly on this bit-vector, until it becomes 0, as follows:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>0010           -&gt; given bit-vector with only one bit set
+0010 &gt;&gt; 1      -&gt; right-shift by 1 position (once)
+0001 &gt;&gt; 1      -&gt; right-shift by 1 position (twice)
+0000  
+</code></pre>
+</div>
+<p>Quite intuitively, the number of right-shifts we needed to apply is the position of the only set bit.</p>
+
+<p>Let us write that as a C algorithm:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">// check for 0
+</span>  <span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// right-shift
+</span>    <span class="n">count</span><span class="o">++</span><span class="p">;</span>    <span class="c1">// maintain count
+</span>  <span class="p">}</span>
+<span class="k">return</span> <span class="n">count</span><span class="p">;</span></code></pre>
+</figure>
+
+<p>Now, what operation do we use to find this x above? Or referring to our example, how do we find the vector <code class="highlighter-rouge">0010</code> that gave us the right-most set bit for our input vector which was <code class="highlighter-rouge">1010</code>? Think about the properties of bit-vectors, especially negative numbers.</p>
+
+<p>Stay tuned for a post describing it.</p>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
