@@ -439,7 +439,7 @@
 <p>We mentioned about 2’s complement notation for negative numbers in a <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>. For example, the number 2 represented using 4 bits would be <code class="highlighter-rouge">0010</code> while -2 represented using 4 bits would be <code class="highlighter-rouge">1110</code>, where the bit position corresponding to right-most set bit in in the positive equivalent (+2) is set, while all the bits to the left are flipped.</p>
 
 <p><br />
-<img src="/assets/images/algorithms/cpp/rm_set_bit.jpg" alt="isolating right-most set bit" class="img=responsive" /></p>
+<img src="/assets/images/algorithms/cpp/rm_set_bit.png" alt="isolating right-most set bit" class="img=responsive" height="25%" width="25%" /></p>
 
 <p>Now, if we <code class="highlighter-rouge">&amp;</code> (bit-wise AND) our input number (<em>x</em>) with the negation of it (<em>-x</em>), we will be left with only one bit set, which corresponds to the position of the right-most set bit. So, the bit-wise operation we were looking for is <code class="highlighter-rouge">&amp;</code> with the negation of the input number. Let us put all this together in a C algorithm (not that we already know the later part of the algorithm from the <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>):</p>
 
