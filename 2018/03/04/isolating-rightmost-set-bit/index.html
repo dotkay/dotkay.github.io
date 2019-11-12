@@ -446,8 +446,8 @@
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rightmost_set_bit</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="c1">// isolate the rightmost set bit
-</span>  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">);</span>
+  <span class="c1">// isolate the rightmost set bit</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">);</span>
   <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
   <span class="p">{</span>

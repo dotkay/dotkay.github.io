@@ -270,18 +270,18 @@
 <p>Let’s start by writing a simple function to find the last element of a given list <code class="highlighter-rouge">lst</code>:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_elem</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_elem</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="nc">None</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="nc">Some</span> <span class="n">x</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">last_elem</span> <span class="n">t</span><span class="p">;;</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="nc">Some</span> <span class="n">x</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">last_elem</span> <span class="n">t</span><span class="p">;;</span>
 <span class="c">(* val last_elem : 'a list -&gt; 'a option = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
 <p>This is also a nice way to introduce <code class="highlighter-rouge">Some</code> and <code class="highlighter-rouge">None</code> in OCaml. Just like how we have <code class="highlighter-rouge">'a list</code> which can be an <code class="highlighter-rouge">int list</code> or a <code class="highlighter-rouge">string list</code> or <code class="highlighter-rouge">char list</code>, OCaml also has this wonderful <code class="highlighter-rouge">'a option</code> type that can be nothing (<code class="highlighter-rouge">None</code>) or some type (<code class="highlighter-rouge">Some</code>). Note however that <code class="highlighter-rouge">'a option</code> type is not the same as <code class="highlighter-rouge">'a</code>. So, if the type is <code class="highlighter-rouge">'a</code> you can ask the compiler to treat it as an <code class="highlighter-rouge">int</code>, for example. But you can’t do the same with <code class="highlighter-rouge">'a option</code> type. For friends of Java, C programming languages, you can think of <code class="highlighter-rouge">None</code> as similar to <code class="highlighter-rouge">null</code> type.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="p">=</span> <span class="nc">Some</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="p">|</span> <span class="nc">None</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">=</span> <span class="nc">Some</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="o">|</span> <span class="nc">None</span></code></pre>
 </figure>
 
 <p>For those JavaScript fans wondering if they can use similar <code class="highlighter-rouge">Some</code> and <code class="highlighter-rouge">None</code> in JavaScript, I found an <a href="https://github.com/mwilliamson/node-options">option type implementation here</a> that provides this. I should admit that I have never used this implementation but it seems to serve the same purpose for JavaScript.</p>
@@ -289,7 +289,7 @@
 <p>Let’s test our <code class="highlighter-rouge">last_elem</code> function on an example.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="o">];;</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">];;</span>
 <span class="n">last_elem</span> <span class="n">l1</span><span class="p">;;</span>
 <span class="c">(* - : int option = Some 4 *)</span></code></pre>
 </figure>
@@ -297,11 +297,11 @@
 <p>Let’s move on and practice some more examples. Let’s now try and grab the last and the last-but-one elements from a list.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_two</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_two</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">|</span> <span class="o">[_]</span> <span class="p">-&gt;</span> <span class="nc">None</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">;</span> <span class="n">y</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="nc">Some</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-  <span class="p">|</span> <span class="o">_::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">last_two</span> <span class="n">t</span><span class="p">;;</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">|</span> <span class="p">[</span><span class="n">_</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">;</span> <span class="n">y</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="nc">Some</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="p">)</span>
+  <span class="o">|</span> <span class="n">_</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">last_two</span> <span class="n">t</span><span class="p">;;</span>
 <span class="c">(* val last_two : 'a list -&gt; ('a * 'a) option = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
@@ -315,12 +315,12 @@
 <p>Let’s now make it more generic and write a function to find the k<sup>th</sup> element of a list and let’s give our function a very creative name <code class="highlighter-rouge">kth</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">kth</span> <span class="n">lst</span> <span class="n">k</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">kth</span> <span class="n">lst</span> <span class="n">k</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="nc">None</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="p">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span> <span class="p">(</span><span class="nc">Some</span> <span class="n">h</span><span class="p">)</span>
-     <span class="k">else</span> <span class="n">kth</span> <span class="n">t</span> <span class="p">(</span><span class="n">k</span><span class="p">-</span><span class="mi">1</span><span class="o">);;</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span> <span class="p">(</span><span class="nc">Some</span> <span class="n">h</span><span class="p">)</span>
+     <span class="k">else</span> <span class="n">kth</span> <span class="n">t</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">);;</span>
 <span class="c">(* val kth : 'a list -&gt; int -&gt; 'a option = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
@@ -338,11 +338,11 @@
 <p>Let’s now try to reverse an input list. Relax! It just sounds complicated. It is actually super simple when you think in terms of recursion.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_rev</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="p">(</span><span class="n">lst_rev</span> <span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">h</span><span class="o">];;</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="p">(</span><span class="n">lst_rev</span> <span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">h</span><span class="p">];;</span>
 <span class="c">(* val lst_rev : 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
@@ -356,12 +356,12 @@
 <p>This post is getting long. Please don’t stop reading it! I promise, just one more example to finish this post! Let’s write a function to remove an element from k<sup>th</sup> position in a given list:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem_kth</span> <span class="n">k</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem_kth</span> <span class="n">k</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="p">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">then</span> <span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">rem_kth</span> <span class="p">(</span><span class="n">k</span><span class="p">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">t</span><span class="o">);;</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">then</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::</span><span class="p">(</span><span class="n">rem_kth</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">t</span><span class="p">);;</span>
 <span class="c">(* val rem_kth : int -&gt; 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
 </figure>
 

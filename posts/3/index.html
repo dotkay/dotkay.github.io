@@ -361,14 +361,13 @@
         <div class="post-content">
           <p>Earlier, we <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">saw how to reverse a sub-array</a> given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is <code class="highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code> and group size is <code class="highlighter-rouge">3</code>, we want to reverse every group of 3 elements in the array and the remaining ones. Something like:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8                 -&gt; input array
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8                 -&gt; input array
 (3 2 1) 4 5 6 7 8               -&gt; first group of 3 elements reversed;
                                    group denoted by (..)
 (3 2 1) (6 5 4) 7 8             -&gt; second group of 3 elements reversed
 (3 2 1) (6 5 4) (8 7)           -&gt; remaining elements (less than group size)
                                    reversed
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The algorithm is very similar to the earlier one, just that we need to take care of the group boundaries while traversal and reversing, just like how we took care of boundaries while reversing subarrays.</p>
 
@@ -1258,14 +1257,13 @@
         <div class="post-content">
           <p>Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was <code class="highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code>, the result of rotation around index <code class="highlighter-rouge">3</code> (that has the element 4) in the counter clockwise direction would be <code class="highlighter-rouge">[5, 6, 7, 8, 1, 2, 3, 4]</code>. The sequence of transformations the array goes through as each of the elements until the given index rotates would be:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
 2 3 4 5 6 7 8 1            --&gt; 1 has rotated away to the end of the array
 3 4 5 6 7 8 1 2            --&gt; 2 has rotated away following 1
 4 5 6 7 8 1 2 3            --&gt; now, it's 3's turn
 5 6 7 8 1 2 3 4            --&gt; the element at index 3 (i.e. 4) around which we
                                wanted to rotate has also completed.
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>We can use the <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">algorithm we developed to reverse a sub-array</a>, in order to achieve this rotation. The idea is simple:</p>
 
@@ -1275,12 +1273,11 @@
   <li>Complete it by reversing the entire array once</li>
 </ol>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
 4 3 2 1 5 6 7 8            --&gt; step-1 first sub-array reversed
 4 3 2 1 8 7 6 5            --&gt; step-2 second sub-array reversed
 5 6 7 8 1 2 3 4            --&gt; step-3 rotation of the entire array 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>An implementation would look like:</p>
 
@@ -1582,12 +1579,12 @@
   <span class="kt">int</span> <span class="n">slen</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
   <span class="kt">bool</span> <span class="n">res</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
 
-  <span class="c1">// (1)
-</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">slen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="c1">// (1)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">slen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
     <span class="n">seen</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
 
-  <span class="c1">// (2)
-</span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="c1">// (2)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
   <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">seen</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
     <span class="p">{</span>

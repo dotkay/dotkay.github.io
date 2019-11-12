@@ -364,22 +364,22 @@
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// check if there's place to push
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">MAXSIZE</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+  <span class="c1">// check if there's place to push</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">MAXSIZE</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Stack overflow!"</span><span class="p">;</span>
     <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
   <span class="p">}</span>
-  <span class="c1">// if there's place store the item
-</span>  <span class="k">else</span> <span class="p">{</span>
+  <span class="c1">// if there's place store the item</span>
+  <span class="k">else</span> <span class="p">{</span>
     <span class="n">arr</span><span class="p">[</span><span class="o">++</span><span class="n">top</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
     <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">Stack</span><span class="o">::</span><span class="n">pop</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="c1">// check if there's anything to pop
-</span>  <span class="c1">// or if the stack is empty
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// check if there's anything to pop</span>
+  <span class="c1">// or if the stack is empty</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Stack underflow!"</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">else</span> <span class="p">{</span>

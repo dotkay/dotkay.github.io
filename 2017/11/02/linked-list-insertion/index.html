@@ -356,11 +356,11 @@ let us look at some operations on such a data structure. Specifically, let us lo
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="n">Node</span> <span class="o">*</span><span class="n">LinkedList</span><span class="o">::</span><span class="n">insert_item</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">item</span><span class="p">);</span> <span class="c1">// form the building block
-</span>  <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>     <span class="c1">// set the next pointer
-</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>           <span class="c1">// make new node the head
-</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span><span class="o">++</span><span class="p">;</span>                  <span class="c1">// update the length
-</span><span class="p">}</span></code></pre>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">new_node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">(</span><span class="n">item</span><span class="p">);</span> <span class="c1">// form the building block</span>
+  <span class="n">new_node</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>     <span class="c1">// set the next pointer</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">new_node</span><span class="p">;</span>           <span class="c1">// make new node the head</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span><span class="o">++</span><span class="p">;</span>                  <span class="c1">// update the length</span>
+<span class="p">}</span></code></pre>
 </figure>
 
 

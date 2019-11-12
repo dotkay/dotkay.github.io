@@ -454,8 +454,8 @@
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rightmost_set_bit</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="c1">// isolate the rightmost set bit
-</span>  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">);</span>
+  <span class="c1">// isolate the rightmost set bit</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">);</span>
   <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
   <span class="p">{</span>
@@ -823,23 +823,22 @@
 
 <p>The intuition is that since multiple bits may be set in a bit-vector (unless it is a power of 2) we need to find a way of isolating the right-most set bit and then traverse the vector to find its position in the vector. For example, suppose a bit-vector (with the right-most bit of 10 isolated) is given to us, it would look like <code class="highlighter-rouge">0010</code>. Now we can write a simple algorithm to check the bit-position of the only bit (the lonely, isolated bit) set in the vector. We already know that we could use right shift operator repeatedly on this bit-vector, until it becomes 0, as follows:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>0010           -&gt; given bit-vector with only one bit set
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0010           -&gt; given bit-vector with only one bit set
 0010 &gt;&gt; 1      -&gt; right-shift by 1 position (once)
 0001 &gt;&gt; 1      -&gt; right-shift by 1 position (twice)
 0000  
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Quite intuitively, the number of right-shifts we needed to apply is the position of the only set bit.</p>
 
 <p>Let us write that as a C algorithm:</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">// check for 0
-</span>  <span class="p">{</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// right-shift
-</span>    <span class="n">count</span><span class="o">++</span><span class="p">;</span>    <span class="c1">// maintain count
-</span>  <span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">// check for 0</span>
+  <span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// right-shift</span>
+    <span class="n">count</span><span class="o">++</span><span class="p">;</span>    <span class="c1">// maintain count</span>
+  <span class="p">}</span>
 <span class="k">return</span> <span class="n">count</span><span class="p">;</span></code></pre>
 </figure>
 
@@ -1225,12 +1224,12 @@
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">N</span><span class="p">;</span> <span class="c1">// no. of test cases
-</span>  <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">N</span><span class="p">;</span> <span class="c1">// no. of test cases</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">N</span><span class="p">;</span>
   <span class="k">while</span> <span class="p">(</span><span class="n">N</span><span class="o">--</span><span class="p">)</span>
   <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span> <span class="c1">// input number, k
-</span>    <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span> <span class="c1">// input number, k</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">k</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
@@ -1600,14 +1599,13 @@
 
 <p>Since our computers (as of now) are binary machines, everything - chars, strings, structs, music and videos are all represented as 0s and 1s. And we have primitive operations on these bits. Sounds like we are moving back to stone age, but be patient - we use these low level operations in system software even today due to the speed of such operations. We will concern ourselves with the most basic bitwise operations as below:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&amp;      -  Bitwise AND
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp;      -  Bitwise AND
 |      -  Bitwise OR
 ~      -  Bitwise complement (i.e. negation)
 ^      -  Bitwise XOR
 &gt;&gt;     -  Bitwise right-shift
 &lt;&lt;     -  Bitwise left-shift
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As a quick note, <code class="highlighter-rouge">&gt;&gt;</code> can also be used for division by 2. For example 4 is <code class="highlighter-rouge">0100</code> in binary and <code class="highlighter-rouge">4 &gt;&gt; 1</code> would amount to <code class="highlighter-rouge">0010</code> which is 2 (4 / 2 = 2) and this on further shift <code class="highlighter-rouge">2 &gt;&gt; 1</code> results in <code class="highlighter-rouge">0001</code> which is 1 (2 /2 = 1).</p>
 
@@ -1895,22 +1893,22 @@
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// check if there's place to push
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">MAXSIZE</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+  <span class="c1">// check if there's place to push</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">MAXSIZE</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Stack overflow!"</span><span class="p">;</span>
     <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
   <span class="p">}</span>
-  <span class="c1">// if there's place store the item
-</span>  <span class="k">else</span> <span class="p">{</span>
+  <span class="c1">// if there's place store the item</span>
+  <span class="k">else</span> <span class="p">{</span>
     <span class="n">arr</span><span class="p">[</span><span class="o">++</span><span class="n">top</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
     <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="n">Stack</span><span class="o">::</span><span class="n">pop</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="c1">// check if there's anything to pop
-</span>  <span class="c1">// or if the stack is empty
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// check if there's anything to pop</span>
+  <span class="c1">// or if the stack is empty</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Stack underflow!"</span><span class="p">);</span>
   <span class="p">}</span>
   <span class="k">else</span> <span class="p">{</span>

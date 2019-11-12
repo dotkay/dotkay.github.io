@@ -364,14 +364,14 @@
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list_r</span> <span class="p">()</span> <span class="p">{</span>
   <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// base case
-</span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NULL"</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// base case</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NULL"</span><span class="p">;</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
-  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>       <span class="c1">// move forward
-</span>  <span class="k">this</span><span class="o">-&gt;</span><span class="n">print_list_r</span><span class="p">();</span>        <span class="c1">// recursive call
-</span>  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>  <span class="c1">// print 
-</span><span class="p">}</span></code></pre>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>       <span class="c1">// move forward</span>
+  <span class="k">this</span><span class="o">-&gt;</span><span class="n">print_list_r</span><span class="p">();</span>        <span class="c1">// recursive call</span>
+  <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" &lt;- "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>  <span class="c1">// print </span>
+<span class="p">}</span></code></pre>
 </figure>
 
 <p>It is very important to understand this and our <a href="https://dotkay.github.io/2017/11/05/linked-list-print">previous post</a> as we will use the same idea to perform a more fancy operation on our linked list - to reverse it!</p>

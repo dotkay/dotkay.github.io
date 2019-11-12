@@ -531,15 +531,14 @@
   <li>Right shift our original input and continue till we encounter 0 (terminating condition for our loop).</li>
 </ol>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
    1001	       			  0
                0001		  1
    0100	       0000		  1
    0010	       0000		  1
    0001	       0001		  2
    0000	        -		  2
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>final result = 2</p>
 
@@ -559,13 +558,12 @@
 
 <p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
 1001     1000     1000          1
 1000     0111     0000          2
 0000      --       --           2
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>final result = 2. Note that we loop only as many times as the number of set bits, unlike the previous case.</p>
 
@@ -864,30 +862,30 @@
 <p>Let’s implement the above ingredients that we need for selection sort recipe.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem</span> <span class="n">x</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="p">=</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">rem</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">)</span> <span class="k">then</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::</span><span class="p">(</span><span class="n">rem</span> <span class="n">x</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">failwith</span><span class="p">(</span><span class="s2">"empty list"</span><span class="p">)</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">x</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">min</span> <span class="n">h</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">failwith</span><span class="p">(</span><span class="s2">"empty list"</span><span class="p">)</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">x</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">min</span> <span class="n">h</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>Now, let’s use the above two to implement selection sort. We will call the function <code class="highlighter-rouge">ssort</code>. Recollect that, we will find the minimum element <code class="highlighter-rouge">m</code> of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">ssort</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">ssort</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="k">let</span> <span class="n">m</span> <span class="p">=</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="k">in</span>
-         <span class="n">m</span><span class="o">::(</span><span class="n">ssort</span> <span class="p">(</span><span class="n">rem</span> <span class="n">m</span> <span class="n">lst</span><span class="o">));;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">m</span> <span class="o">=</span> <span class="n">find_min</span> <span class="n">lst</span> <span class="k">in</span>
+         <span class="n">m</span><span class="o">::</span><span class="p">(</span><span class="n">ssort</span> <span class="p">(</span><span class="n">rem</span> <span class="n">m</span> <span class="n">lst</span><span class="p">));;</span></code></pre>
 </figure>
 
 <p>That’s all folks! Have a great week ahead!</p>
@@ -1175,13 +1173,13 @@
 </ol>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">x1</span> <span class="p">::</span> <span class="p">(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
-     <span class="k">else</span> <span class="n">x1</span> <span class="p">::</span> <span class="n">compress</span> <span class="n">t</span>
-  <span class="p">|</span> <span class="n">smth_else</span> <span class="p">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">x1</span> <span class="o">::</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">x1</span> <span class="o">::</span> <span class="n">compress</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="n">smth_else</span> <span class="o">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>It turned out to be pretty simple, right?</p>
@@ -1194,12 +1192,12 @@
 </ol>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="p">::</span><span class="n">h</span><span class="p">::</span><span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="o">::</span><span class="n">h</span><span class="o">::</span><span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::</span><span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>Now, we will use the above function to write our insertion sort function <code class="highlighter-rouge">isort</code>. Just think what would happen if <code class="highlighter-rouge">lst</code> was already sorted in the above case. In that case, we would be inserting <code class="highlighter-rouge">x</code> to <code class="highlighter-rouge">lst</code> to maintain sorted order (just because of the rules that we imposed for inserting <code class="highlighter-rouge">x</code>). Let’s write down the algorithm.</p>
@@ -1211,17 +1209,17 @@
 </ol>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
 </figure>
 
 <p>Let’s check if it works on a simple test example:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">10</span><span class="o">];;</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">10</span><span class="p">];;</span>
 <span class="n">isort</span> <span class="n">l1</span><span class="p">;;</span>
 <span class="c">(* - : int list = [1; 2; 3; 7; 9; 10; 11] *)</span></code></pre>
 </figure>
@@ -1421,9 +1419,9 @@
 <p>Let’s get started right away. First, we import the libraries we will use for this short tutorial.</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span></code></pre>
+  <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span></code></pre>
 </figure>
 
 <p>We will use these libraries only very minimally for this short post, but they are very powerful and we will see more of their features in future posts. If you create a (free) account in Kaggle, you can download the Pokemon dataset. I have downloaded it and saved it in a file named <code class="highlighter-rouge">Pokemon.csv</code>. We will use Pandas <code class="highlighter-rouge">read_csv</code> function to read the downloaded csv file.</p>

@@ -361,16 +361,16 @@
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">Queue</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">front</span><span class="p">,</span> <span class="o">*</span><span class="n">rear</span><span class="p">;</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
     <span class="n">Queue</span> <span class="p">();</span>
     <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
     <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>

@@ -273,21 +273,21 @@
 <p>Let’s write the standard explode function <code class="highlighter-rouge">explode</code> that explodes a string into a list of characters. i.e., if you pass the string <code class="highlighter-rouge">"hello"</code>, it would explode it and return the list <code class="highlighter-rouge">['h'; 'e'; 'l'; 'l'; 'o']</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">explode</span> <span class="n">s</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_expl</span> <span class="n">n</span> <span class="n">acc</span> <span class="p">=</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="n">acc</span>
-    <span class="k">else</span> <span class="n">aux_expl</span> <span class="p">(</span><span class="n">n</span><span class="p">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="o">.[</span><span class="n">n</span><span class="o">]::</span><span class="n">acc</span><span class="p">)</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">explode</span> <span class="n">s</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_expl</span> <span class="n">n</span> <span class="n">acc</span> <span class="o">=</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="n">acc</span>
+    <span class="k">else</span> <span class="n">aux_expl</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span>
   <span class="k">in</span>
-  <span class="n">aux_expl</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">length</span> <span class="n">s</span> <span class="p">-</span> <span class="mi">1</span><span class="p">)</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
+  <span class="n">aux_expl</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">length</span> <span class="n">s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>Let’s write another function <code class="highlighter-rouge">prime_factors</code> that would return all the prime factors of an input number <code class="highlighter-rouge">n</code>. Again, we shall use an auxiliary function to do the intermediate computations.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">prime_factors</span> <span class="n">n</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_factors</span> <span class="n">d</span> <span class="n">n</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">prime_factors</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_factors</span> <span class="n">d</span> <span class="n">n</span> <span class="o">=</span>
     <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">then</span> <span class="bp">[]</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="ow">mod</span> <span class="n">d</span> <span class="p">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">then</span> <span class="n">d</span><span class="o">::(</span><span class="n">aux_factors</span> <span class="n">d</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">d</span><span class="o">))</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="ow">mod</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">then</span> <span class="n">d</span><span class="o">::</span><span class="p">(</span><span class="n">aux_factors</span> <span class="n">d</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">d</span><span class="p">))</span>
     <span class="k">else</span> <span class="n">aux_factors</span> <span class="p">(</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">n</span>
   <span class="k">in</span>
   <span class="n">aux_factors</span> <span class="mi">2</span> <span class="n">n</span><span class="p">;;</span></code></pre>

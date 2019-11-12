@@ -371,10 +371,10 @@
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
 </span><span class="k">class</span> <span class="nc">Stack</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">top</span><span class="p">;</span>           <span class="c1">// top of the stack
-</span>  <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>  <span class="c1">// array that implements the stack
-</span>  
-  <span class="k">public</span><span class="o">:</span>
+  <span class="kt">int</span> <span class="n">top</span><span class="p">;</span>           <span class="c1">// top of the stack</span>
+  <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>  <span class="c1">// array that implements the stack</span>
+  
+  <span class="nl">public:</span>
     <span class="n">Stack</span> <span class="p">();</span>
 
     <span class="kt">bool</span> <span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
@@ -665,18 +665,18 @@
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// if the queue is empty
-</span>  <span class="c1">// front and rear are the same, i.e the new item
-</span>  <span class="n">Node</span> <span class="o">*</span><span class="n">new_item</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
+  <span class="c1">// if the queue is empty</span>
+  <span class="c1">// front and rear are the same, i.e the new item</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">new_item</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
   <span class="n">new_item</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
   <span class="n">new_item</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">rear</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">front</span> <span class="o">=</span> <span class="n">rear</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
     <span class="k">return</span><span class="p">;</span>
   <span class="p">}</span>
-  <span class="c1">// else add it to the rear end 
-</span>  <span class="c1">// of the queue
-</span>  <span class="n">rear</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
+  <span class="c1">// else add it to the rear end </span>
+  <span class="c1">// of the queue</span>
+  <span class="n">rear</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
   <span class="n">rear</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
 <span class="p">}</span></code></pre>
 </figure>
@@ -687,18 +687,18 @@
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">Queue</span><span class="o">::</span><span class="n">dequeue</span> <span class="p">()</span> <span class="p">{</span>
   <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
-  <span class="c1">// check if the queue is empty
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+  <span class="c1">// check if the queue is empty</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Empty queue"</span><span class="p">);</span>
   
-  <span class="c1">// get the item to dequeue
-</span>  <span class="n">Node</span> <span class="o">*</span><span class="n">dequeue_item</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
+  <span class="c1">// get the item to dequeue</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">dequeue_item</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
   <span class="n">res</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
   <span class="n">front</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 
-  <span class="c1">// now, if there was only one node
-</span>  <span class="c1">// to pop front would point to NULL
-</span>  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+  <span class="c1">// now, if there was only one node</span>
+  <span class="c1">// to pop front would point to NULL</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
     <span class="n">rear</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 
   <span class="k">delete</span> <span class="p">(</span><span class="n">dequeue_item</span><span class="p">);</span>
@@ -989,16 +989,16 @@
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Node</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
     <span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
     <span class="k">friend</span> <span class="k">class</span> <span class="nc">Queue</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
     <span class="n">Node</span> <span class="o">*</span><span class="n">front</span><span class="p">,</span> <span class="o">*</span><span class="n">rear</span><span class="p">;</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
     <span class="n">Queue</span> <span class="p">();</span>
     <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
     <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
@@ -1592,10 +1592,10 @@
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
 </span><span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
-  <span class="k">private</span><span class="o">:</span>
+  <span class="nl">private:</span>
     <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="n">rear</span><span class="p">;</span>
     <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>
-  <span class="k">public</span><span class="o">:</span>
+  <span class="nl">public:</span>
     <span class="n">Queue</span> <span class="p">();</span>
     <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
     <span class="kt">int</span> <span class="n">dequeue</span> <span class="p">();</span>

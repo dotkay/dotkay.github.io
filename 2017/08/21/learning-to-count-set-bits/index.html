@@ -278,15 +278,14 @@
   <li>Right shift our original input and continue till we encounter 0 (terminating condition for our loop).</li>
 </ol>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
    1001	       			  0
                0001		  1
    0100	       0000		  1
    0010	       0000		  1
    0001	       0001		  2
    0000	        -		  2
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>final result = 2</p>
 
@@ -306,13 +305,12 @@
 
 <p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
 1001     1000     1000          1
 1000     0111     0000          2
 0000      --       --           2
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>final result = 2. Note that we loop only as many times as the number of set bits, unlike the previous case.</p>
 

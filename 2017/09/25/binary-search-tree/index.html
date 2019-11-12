@@ -354,30 +354,30 @@
     <p>In a <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw binary trees. Today, we will see Binary <em>Search</em> Trees (BST). The key difference is that when we insert nodes into our tree, we make sure the items whose values are less than that of the root are added to the left sub-tree and the ones whose values are greater than that of the root are added to the right sub-tree. Let’s start by defining our data structure. The definition is the same as our earlier <em>tree</em> definition. Just for the sake of clarity let’s call our type <code class="highlighter-rouge">bst</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">bst</span> <span class="p">=</span>
-  <span class="p">|</span> <span class="nc">Leaf</span>
-  <span class="p">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">bst</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Leaf</span>
+  <span class="o">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>Now, for inserting an element into our tree, we wouldn’t just insert the element as we did earlier, but we shall compare the element to the root and decide which of the sub-trees (left or right) we want to insert our new item to. This looks like a very small difference - but it has huge implications for search.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">bst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">bst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">bst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="nc">Leaf</span> <span class="p">-&gt;</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nc">Leaf</span><span class="p">)</span>
-  <span class="p">|</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="k">then</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
-     <span class="k">else</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">right</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="nc">Leaf</span> <span class="o">-&gt;</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="nc">Leaf</span><span class="p">)</span>
+  <span class="o">|</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">right</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="k">then</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">right</span><span class="p">)</span>
+     <span class="k">else</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">right</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>Let’s also write the function to create a bst from an input list, which again is the same as before:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_bst</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_bst</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">empty</span> <span class="o">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">empty</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_bst</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">empty</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_bst</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>In future posts, we will see the different ways we can traverse this tree.</p>

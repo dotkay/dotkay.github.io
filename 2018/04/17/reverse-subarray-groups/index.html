@@ -353,14 +353,13 @@
   <div class="post-content" itemprop="articleBody">
     <p>Earlier, we <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">saw how to reverse a sub-array</a> given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is <code class="highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code> and group size is <code class="highlighter-rouge">3</code>, we want to reverse every group of 3 elements in the array and the remaining ones. Something like:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>1 2 3 4 5 6 7 8                 -&gt; input array
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8                 -&gt; input array
 (3 2 1) 4 5 6 7 8               -&gt; first group of 3 elements reversed;
                                    group denoted by (..)
 (3 2 1) (6 5 4) 7 8             -&gt; second group of 3 elements reversed
 (3 2 1) (6 5 4) (8 7)           -&gt; remaining elements (less than group size)
                                    reversed
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The algorithm is very similar to the earlier one, just that we need to take care of the group boundaries while traversal and reversing, just like how we took care of boundaries while reversing subarrays.</p>
 

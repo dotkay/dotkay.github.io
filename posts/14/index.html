@@ -279,28 +279,28 @@
           <p>In one of our [earlier posts] we saw how to eliminate consecutive repetitions in a list. Let’s refresh our memory and take a look at the <code class="highlighter-rouge">compress</code> function we saw earlier:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">x1</span> <span class="p">::</span> <span class="p">(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
-     <span class="k">else</span> <span class="n">x1</span> <span class="p">::</span> <span class="n">compress</span> <span class="n">t</span>
-  <span class="p">|</span> <span class="n">smth_else</span> <span class="p">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">x1</span> <span class="o">::</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">x1</span> <span class="o">::</span> <span class="n">compress</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="n">smth_else</span> <span class="o">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>This is a straight forward recursive function. Let’s first rewrite it using auxiliary function.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">compress</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">l</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">l</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">x</span><span class="o">::[]</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">acc</span>
-    <span class="p">|</span> <span class="n">x1</span><span class="o">::(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
-       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">t</span>
-       <span class="k">else</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="p">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x</span><span class="o">::</span><span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">t</span>
+       <span class="k">else</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
   <span class="k">in</span>
-  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="n">lst</span><span class="o">);;</span></code></pre>
+  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>I think it is pretty straight forward - if we see repetition <code class="highlighter-rouge">(x1 = x2)</code> we ignore the element and call the auxiliary function on the remaining part of the list. (Note that we do not eliminate <code class="highlighter-rouge">x2</code> as we want to retain a copy of each repeating element).</p>
@@ -315,16 +315,16 @@
 </ul>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">pack</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">cur</span> <span class="n">acc</span> <span class="n">l</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">pack</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">cur</span> <span class="n">acc</span> <span class="n">l</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">(</span><span class="n">x</span><span class="p">::</span><span class="n">cur</span><span class="o">)::</span><span class="n">acc</span>
-    <span class="p">|</span> <span class="n">x1</span><span class="o">::(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
-       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="p">::</span><span class="n">cur</span><span class="p">)</span> <span class="n">acc</span> <span class="n">t</span>
-       <span class="k">else</span> <span class="n">aux</span> <span class="bp">[]</span> <span class="o">((</span><span class="n">x1</span><span class="p">::</span><span class="n">cur</span><span class="o">)::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span><span class="o">::</span><span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span> <span class="n">acc</span> <span class="n">t</span>
+       <span class="k">else</span> <span class="n">aux</span> <span class="bp">[]</span> <span class="p">((</span><span class="n">x1</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
   <span class="k">in</span>
-  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="o">);;</span></code></pre>
+  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>In both the <code class="highlighter-rouge">compress</code> and <code class="highlighter-rouge">pack</code> functions that use auxiliary function, we reverse the result using OCaml <code class="highlighter-rouge">List</code> module’s  built-in <code class="highlighter-rouge">rev</code> function.</p>
@@ -620,13 +620,13 @@
 <p>So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">split</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">a1</span> <span class="n">a2</span> <span class="n">l</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">split</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">a1</span> <span class="n">a2</span> <span class="n">l</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span>
-    <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span>
-    <span class="p">|</span> <span class="n">x1</span><span class="o">::(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span><span class="p">)</span> <span class="p">-&gt;</span>
-       <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="p">::</span><span class="n">a1</span><span class="p">)</span> <span class="p">(</span><span class="n">x2</span><span class="p">::</span><span class="n">a2</span><span class="p">)</span> <span class="n">x3</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
+    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">a1</span><span class="p">)</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">a2</span><span class="p">)</span> <span class="n">x3</span>
   <span class="k">in</span>
   <span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
@@ -634,24 +634,24 @@
 <p>Now, let’s prepare the second item in our list - the <code class="highlighter-rouge">merge</code> function. This is just pattern matching and even simpler than our <code class="highlighter-rouge">split</code> function.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge</span> <span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">)</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span><span class="p">,</span> <span class="n">l</span> <span class="p">-&gt;</span> <span class="n">l</span>
-  <span class="p">|</span> <span class="n">l</span><span class="p">,</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">l</span>
-  <span class="p">|</span> <span class="p">(</span><span class="n">h1</span><span class="p">::</span><span class="n">t1</span> <span class="k">as</span> <span class="n">l1</span><span class="o">),</span> <span class="p">(</span><span class="n">h2</span><span class="p">::</span><span class="n">t2</span> <span class="k">as</span> <span class="n">l2</span><span class="p">)</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">h1</span> <span class="p">&lt;</span> <span class="n">h2</span><span class="p">)</span> <span class="k">then</span> <span class="n">h1</span> <span class="p">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">l2</span><span class="p">)</span>
-     <span class="k">else</span> <span class="n">h2</span> <span class="p">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">t2</span><span class="o">);;</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge</span> <span class="p">(</span><span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span><span class="p">)</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span><span class="o">,</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="n">l</span><span class="o">,</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="p">(</span><span class="n">h1</span><span class="o">::</span><span class="n">t1</span> <span class="k">as</span> <span class="n">l1</span><span class="p">)</span><span class="o">,</span> <span class="p">(</span><span class="n">h2</span><span class="o">::</span><span class="n">t2</span> <span class="k">as</span> <span class="n">l2</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">h1</span> <span class="o">&lt;</span> <span class="n">h2</span><span class="p">)</span> <span class="k">then</span> <span class="n">h1</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">l2</span><span class="p">)</span>
+     <span class="k">else</span> <span class="n">h2</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">l1</span><span class="o">,</span> <span class="n">t2</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>Finally, let’s prepare the merge_sort function that takes a list <code class="highlighter-rouge">lst</code> as input. First we would split the input list into two lists using our <code class="highlighter-rouge">split</code> function. Then, we would recursively call <code class="highlighter-rouge">merge_sort</code> on the two sub-lists (result of <code class="highlighter-rouge">split</code> function) and merge the results of these recursive calls using our <code class="highlighter-rouge">merge</code> function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge_sort</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge_sort</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">l</span> <span class="p">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="p">=</span> <span class="n">split</span> <span class="n">l</span> <span class="k">in</span>
-         <span class="n">merge</span> <span class="p">(</span><span class="n">merge_sort</span> <span class="n">l1</span><span class="p">,</span> <span class="n">merge_sort</span> <span class="n">l2</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="o">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">split</span> <span class="n">l</span> <span class="k">in</span>
+         <span class="n">merge</span> <span class="p">(</span><span class="n">merge_sort</span> <span class="n">l1</span><span class="o">,</span> <span class="n">merge_sort</span> <span class="n">l2</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</p>
@@ -926,30 +926,30 @@
           <p>Let’s continue with tail recursion and folding (recollect our <a href="https://dotkay.github.io/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list">previous post</a>. Let’s use those concepts to write insertion sort algorithm. In an <a href="https://dotkay.github.io/2017/08/19/some-more-recursion">earlier post</a> we wrote a recursive implementation of insertion sort algorithm as below:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="p">::</span><span class="n">h</span><span class="p">::</span><span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="o">::</span><span class="n">h</span><span class="o">::</span><span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::</span><span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
 </figure>
 
 <p>Now, let’s write a tail recursive version of insertion sort. Let’s just call it <code class="highlighter-rouge">tr_isort</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_isort</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_isort</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux</span> <span class="n">t</span> <span class="p">(</span><span class="n">insert</span> <span class="n">h</span> <span class="n">acc</span><span class="p">)</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux</span> <span class="n">t</span> <span class="p">(</span><span class="n">insert</span> <span class="n">h</span> <span class="n">acc</span><span class="p">)</span>
   <span class="k">in</span>
   <span class="n">aux</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
 </figure>
@@ -1145,11 +1145,11 @@
 <p>Let’s work it out now. Here’s the original tail recursive function for your reference:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_rev</span> <span class="n">t</span> <span class="p">(</span><span class="n">h</span><span class="p">::</span><span class="n">acc</span><span class="p">)</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_rev</span> <span class="n">t</span> <span class="p">(</span><span class="n">h</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span>
   <span class="k">in</span>
   <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
 </figure>
@@ -1157,7 +1157,7 @@
 <p>All you need to observe is how the accumulator <code class="highlighter-rouge">acc</code> changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator <code class="highlighter-rouge">acc</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">a</span> <span class="n">x</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">a</span><span class="p">)</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span> </code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">a</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">a</span><span class="p">)</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span> </code></pre>
 </figure>
 
 <p>In most functional programming languages our <code class="highlighter-rouge">leftee</code> is actually called <code class="highlighter-rouge">fold_left</code> and is tail recursive. There’s also a <code class="highlighter-rouge">fold_right</code> which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!</p>
@@ -1351,11 +1351,11 @@
 <p>Here’s the tail recursive version of <code class="highlighter-rouge">lst_sum</code> to sum an input list <code class="highlighter-rouge">lst</code> of elements.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_sum</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_sum</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
   <span class="k">in</span>
   <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
 </figure>
@@ -1363,11 +1363,11 @@
 <p>And here’s the tail recursive version of <code class="highlighter-rouge">lst_len</code> to compute the length of an input list <code class="highlighter-rouge">lst</code> of elements.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="n">acc</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">aux_lst_len</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_len</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
   <span class="k">in</span>
   <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
 </figure>
@@ -1384,10 +1384,10 @@
 <p>Now, if we just denote the auxiliary function by <code class="highlighter-rouge">faux</code>, it has a general shape - <code class="highlighter-rouge">faux acc lst</code> - we do traverse the list <code class="highlighter-rouge">lst</code>, but this is the general shape that we observe - call <code class="highlighter-rouge">faux</code> on the initial value of the accumulator <code class="highlighter-rouge">acc</code> and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are <code class="highlighter-rouge">(acc + h)</code> and <code class="highlighter-rouge">(acc + 1)</code>. Now, let’s try to wrap this all into a single function, which we would call a <code class="highlighter-rouge">leftee</code> - which would take three parameters - an accumulator <code class="highlighter-rouge">acc</code>, a function <code class="highlighter-rouge">f</code> to apply (to the accumulator and list element), and of course a list <code class="highlighter-rouge">lst</code> to work on and will look like <code class="highlighter-rouge">leftee f acc lst</code>. We call it <code class="highlighter-rouge">leftee</code> for a reason… (I think readers are already getting a hint as to where this is headed. Good!).</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">leftee</span> <span class="n">f</span> <span class="n">acc</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">leftee</span> <span class="n">f</span> <span class="n">acc</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">leftee</span> <span class="n">f</span> <span class="p">(</span><span class="n">f</span> <span class="n">acc</span> <span class="n">h</span><span class="p">)</span> <span class="n">t</span><span class="p">;;</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">leftee</span> <span class="n">f</span> <span class="p">(</span><span class="n">f</span> <span class="n">acc</span> <span class="n">h</span><span class="p">)</span> <span class="n">t</span><span class="p">;;</span>
 <span class="c">(* ('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b list -&gt; 'a = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
@@ -1396,13 +1396,13 @@
 <p>Now, let’s rewrite <code class="highlighter-rouge">tr_lst_sum</code> and <code class="highlighter-rouge">tr_lst_len</code> using our <code class="highlighter-rouge">leftee</code>:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="p">(</span> <span class="o">+</span> <span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span> <span class="o">+</span> <span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>Here <code class="highlighter-rouge">( + )</code> is the function - just the addition operator. Isn’t it super concise? Aren’t you in love with this already?</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="p">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="p">_</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>Food for thought - how would you use <code class="highlighter-rouge">leftee</code> to reverse an input list?</p>

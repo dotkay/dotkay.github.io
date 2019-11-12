@@ -440,23 +440,22 @@
 
 <p>The intuition is that since multiple bits may be set in a bit-vector (unless it is a power of 2) we need to find a way of isolating the right-most set bit and then traverse the vector to find its position in the vector. For example, suppose a bit-vector (with the right-most bit of 10 isolated) is given to us, it would look like <code class="highlighter-rouge">0010</code>. Now we can write a simple algorithm to check the bit-position of the only bit (the lonely, isolated bit) set in the vector. We already know that we could use right shift operator repeatedly on this bit-vector, until it becomes 0, as follows:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>0010           -&gt; given bit-vector with only one bit set
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0010           -&gt; given bit-vector with only one bit set
 0010 &gt;&gt; 1      -&gt; right-shift by 1 position (once)
 0001 &gt;&gt; 1      -&gt; right-shift by 1 position (twice)
 0000  
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Quite intuitively, the number of right-shifts we needed to apply is the position of the only set bit.</p>
 
 <p>Let us write that as a C algorithm:</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">// check for 0
-</span>  <span class="p">{</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// right-shift
-</span>    <span class="n">count</span><span class="o">++</span><span class="p">;</span>    <span class="c1">// maintain count
-</span>  <span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">// check for 0</span>
+  <span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// right-shift</span>
+    <span class="n">count</span><span class="o">++</span><span class="p">;</span>    <span class="c1">// maintain count</span>
+  <span class="p">}</span>
 <span class="k">return</span> <span class="n">count</span><span class="p">;</span></code></pre>
 </figure>
 

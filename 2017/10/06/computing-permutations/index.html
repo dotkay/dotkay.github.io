@@ -355,14 +355,13 @@
 
 <p>Let us compute the permutations of say characters in a string. A string of <em>n</em> characters would have <em>n!</em> permutations. For example, if we have the string “ABC”, the permutations (6 in all) are:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ABC
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABC
 ACB
 BAC
 BCA
 CBA
 CAB
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>We shall do it by going through the string of characters and iteratively swapping each character with the neighbouring character to get the permutation. For example, for the string “ABC”:</p>
 
 <p><br />
@@ -387,14 +386,13 @@ CAB
 
 <p>What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>AAB
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AAB
 ABA
 AAB  (*)
 ABA  (*)
 BAA
 BAA  (*)
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As you can see, we are computing the same permutation more than once (marked with *). How can we modify the above function to handle duplicates?</p>
 

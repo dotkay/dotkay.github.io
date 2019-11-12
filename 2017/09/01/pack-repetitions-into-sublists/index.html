@@ -271,28 +271,28 @@
     <p>In one of our [earlier posts] we saw how to eliminate consecutive repetitions in a list. Let’s refresh our memory and take a look at the <code class="highlighter-rouge">compress</code> function we saw earlier:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">x1</span> <span class="p">::</span> <span class="p">(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
-     <span class="k">else</span> <span class="n">x1</span> <span class="p">::</span> <span class="n">compress</span> <span class="n">t</span>
-  <span class="p">|</span> <span class="n">smth_else</span> <span class="p">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">x1</span> <span class="o">::</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">x1</span> <span class="o">::</span> <span class="n">compress</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="n">smth_else</span> <span class="o">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>This is a straight forward recursive function. Let’s first rewrite it using auxiliary function.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">compress</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">l</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">l</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="n">x</span><span class="o">::[]</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">acc</span>
-    <span class="p">|</span> <span class="n">x1</span><span class="o">::(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
-       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">t</span>
-       <span class="k">else</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="p">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x</span><span class="o">::</span><span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">t</span>
+       <span class="k">else</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
   <span class="k">in</span>
-  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="n">lst</span><span class="o">);;</span></code></pre>
+  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>I think it is pretty straight forward - if we see repetition <code class="highlighter-rouge">(x1 = x2)</code> we ignore the element and call the auxiliary function on the remaining part of the list. (Note that we do not eliminate <code class="highlighter-rouge">x2</code> as we want to retain a copy of each repeating element).</p>
@@ -307,16 +307,16 @@
 </ul>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">pack</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">cur</span> <span class="n">acc</span> <span class="n">l</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">pack</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">cur</span> <span class="n">acc</span> <span class="n">l</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">acc</span>
-    <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">(</span><span class="n">x</span><span class="p">::</span><span class="n">cur</span><span class="o">)::</span><span class="n">acc</span>
-    <span class="p">|</span> <span class="n">x1</span><span class="o">::(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
-       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="p">::</span><span class="n">cur</span><span class="p">)</span> <span class="n">acc</span> <span class="n">t</span>
-       <span class="k">else</span> <span class="n">aux</span> <span class="bp">[]</span> <span class="o">((</span><span class="n">x1</span><span class="p">::</span><span class="n">cur</span><span class="o">)::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span><span class="o">::</span><span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span> <span class="n">acc</span> <span class="n">t</span>
+       <span class="k">else</span> <span class="n">aux</span> <span class="bp">[]</span> <span class="p">((</span><span class="n">x1</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
   <span class="k">in</span>
-  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="o">);;</span></code></pre>
+  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>In both the <code class="highlighter-rouge">compress</code> and <code class="highlighter-rouge">pack</code> functions that use auxiliary function, we reverse the result using OCaml <code class="highlighter-rouge">List</code> module’s  built-in <code class="highlighter-rouge">rev</code> function.</p>

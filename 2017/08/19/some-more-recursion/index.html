@@ -364,13 +364,13 @@
 </ol>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="n">x1</span> <span class="p">::</span> <span class="p">(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="p">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
-     <span class="k">else</span> <span class="n">x1</span> <span class="p">::</span> <span class="n">compress</span> <span class="n">t</span>
-  <span class="p">|</span> <span class="n">smth_else</span> <span class="p">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">x1</span> <span class="o">::</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">x1</span> <span class="o">::</span> <span class="n">compress</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="n">smth_else</span> <span class="o">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>It turned out to be pretty simple, right?</p>
@@ -383,12 +383,12 @@
 </ol>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="p">::</span><span class="n">h</span><span class="p">::</span><span class="n">t</span>
-     <span class="k">else</span> <span class="n">h</span><span class="o">::(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="o">::</span><span class="n">h</span><span class="o">::</span><span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::</span><span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>Now, we will use the above function to write our insertion sort function <code class="highlighter-rouge">isort</code>. Just think what would happen if <code class="highlighter-rouge">lst</code> was already sorted in the above case. In that case, we would be inserting <code class="highlighter-rouge">x</code> to <code class="highlighter-rouge">lst</code> to maintain sorted order (just because of the rules that we imposed for inserting <code class="highlighter-rouge">x</code>). Let’s write down the algorithm.</p>
@@ -400,17 +400,17 @@
 </ol>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
 </figure>
 
 <p>Let’s check if it works on a simple test example:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">10</span><span class="o">];;</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">10</span><span class="p">];;</span>
 <span class="n">isort</span> <span class="n">l1</span><span class="p">;;</span>
 <span class="c">(* - : int list = [1; 2; 3; 7; 9; 10; 11] *)</span></code></pre>
 </figure>

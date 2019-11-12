@@ -281,24 +281,24 @@
 <p>Let’s do the initial imports as before, this time also importing <code class="highlighter-rouge">seaborn</code></p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span></code></pre>
+  <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span></code></pre>
 </figure>
 
 <p>Let’s grab the data-set and try to see the <code class="highlighter-rouge">Attack</code> and <code class="highlighter-rouge">Defense</code> scores of the different generations of Pokemons.</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="c"># read the dataset</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre>
+  <pre><code class="language-python" data-lang="python"><span class="c1"># read the dataset
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre>
 </figure>
 
 <figure class="highlight">
   <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Defense'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
            <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
            <span class="n">hue</span><span class="o">=</span><span class="s">'Generation'</span><span class="p">)</span>
-<span class="c"># specify the axes limits</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
+<span class="c1"># specify the axes limits
+</span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span></code></pre>
 </figure>
 
@@ -577,30 +577,30 @@
           <p>In a <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw binary trees. Today, we will see Binary <em>Search</em> Trees (BST). The key difference is that when we insert nodes into our tree, we make sure the items whose values are less than that of the root are added to the left sub-tree and the ones whose values are greater than that of the root are added to the right sub-tree. Let’s start by defining our data structure. The definition is the same as our earlier <em>tree</em> definition. Just for the sake of clarity let’s call our type <code class="highlighter-rouge">bst</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">bst</span> <span class="p">=</span>
-  <span class="p">|</span> <span class="nc">Leaf</span>
-  <span class="p">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">bst</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Leaf</span>
+  <span class="o">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>Now, for inserting an element into our tree, we wouldn’t just insert the element as we did earlier, but we shall compare the element to the root and decide which of the sub-trees (left or right) we want to insert our new item to. This looks like a very small difference - but it has huge implications for search.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">bst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">bst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">bst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="nc">Leaf</span> <span class="p">-&gt;</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="nc">Leaf</span><span class="p">)</span>
-  <span class="p">|</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="p">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="k">then</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">right</span><span class="p">)</span>
-     <span class="k">else</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">right</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="nc">Leaf</span> <span class="o">-&gt;</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="nc">Leaf</span><span class="p">)</span>
+  <span class="o">|</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">right</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="k">then</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">right</span><span class="p">)</span>
+     <span class="k">else</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">right</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>Let’s also write the function to create a bst from an input list, which again is the same as before:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_bst</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_bst</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">empty</span> <span class="o">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">empty</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_bst</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">empty</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_bst</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>In future posts, we will see the different ways we can traverse this tree.</p>
@@ -1154,13 +1154,13 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
           <p>In the <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an <code class="highlighter-rouge">insert</code> function to do that:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">tree</span> <span class="p">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tree</span><span class="o">);;</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">tree</span> <span class="o">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">tree</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>If we want to insert an element <code class="highlighter-rouge">0</code> into an empty tree, we just do the following:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">empty</span> <span class="o">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
 <span class="c">(* val empty : 'a tree = Leaf *)</span>
 <span class="n">insert</span> <span class="mi">0</span> <span class="n">empty</span><span class="p">;;</span>
 <span class="c">(* - : int tree = Node (Leaf, 0, Leaf) *)</span></code></pre>
@@ -1169,17 +1169,17 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 <p>Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function <code class="highlighter-rouge">make_tree</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_tree</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="n">empty</span> <span class="p">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_tree</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">empty</span> <span class="o">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">empty</span>
-  <span class="p">|</span> <span class="n">h</span><span class="p">::</span><span class="n">t</span> <span class="p">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_tree</span> <span class="n">t</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">empty</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_tree</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>Let us use our new function to create a tree from the list <code class="highlighter-rouge">[0; 1; 2]</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">make_tree</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="o">];;</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">make_tree</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];;</span>
 <span class="c">(* - : int tree = Node (Leaf, 0, Node (Leaf, 1, Node (Leaf, 2, Leaf))) *)</span></code></pre>
 </figure>
 
@@ -1460,7 +1460,7 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 
 <p>A binary tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example,</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>             node-0
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             node-0
 	      /  \
  	     /    \
 	 node-1  node-2
@@ -1468,46 +1468,44 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
          /   \    /   \
        leaf leaf leaf leaf	 
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>is how they generally look. Here, <code class="highlighter-rouge">node-0</code> has <code class="highlighter-rouge">node-1</code> and <code class="highlighter-rouge">node-2</code> as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>            Mother
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            Mother
 	     /  \
             /    \
        daughter  Son
                  / \
                 _  daughter  
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Let’s first define the type <em>binary tree</em> - we would call it just <code class="highlighter-rouge">tree</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">=</span>
-  <span class="p">|</span> <span class="nc">Leaf</span>
-  <span class="p">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="p">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Leaf</span>
+  <span class="o">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
 </figure>
 
 <p>This just defines the type <code class="highlighter-rouge">'a tree</code> - as noted in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/">earlier posts</a> ‘a is like <em>any</em> - we could have integer trees, string trees, etc. that would take different type values. So, a <code class="highlighter-rouge">tree</code> could either be a <code class="highlighter-rouge">Leaf</code> or another <code class="highlighter-rouge">tree</code> composed of two child trees and a root node (<code class="highlighter-rouge">'a</code>). Now we can create a new empty tree with just a Leaf:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t</span> <span class="p">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
 <span class="c">(* val t : 'a tree = Leaf *)</span></code></pre>
 </figure>
 
 <p>Or we could create a tree with a root node and two child nodes, which themselves are trees with children:</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t2</span> <span class="p">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="nc">Leaf</span><span class="o">)));;</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t2</span> <span class="o">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="nc">Leaf</span><span class="p">)));;</span>
 <span class="c">(* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *)</span></code></pre>
 </figure>
 
 <p>I know it looks awkward, but let’s decompose it and understand. <code class="highlighter-rouge">Node (Leaf, 3, Leaf)</code> is one tree. Let’s call it C. <code class="highlighter-rouge">Node (Leaf, 2, C)</code> is the next tree - Let’s call this guy B. <code class="highlighter-rouge">Node (Leaf, 1, B)</code> is the other one. So, we have something like this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>             1
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             1
 	    / \          
            /   \
 	 leaf   2                  |
@@ -1518,8 +1516,7 @@ Hopefully, I will keep learning and continue to improve my work-in-progress proj
 		 /   \     |       |
 	       leaf leaf   |       |
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In the following post, we will write a functions to interact with this structure.</p>
 

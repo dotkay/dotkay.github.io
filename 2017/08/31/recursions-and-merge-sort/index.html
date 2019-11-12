@@ -370,13 +370,13 @@
 <p>So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">split</span> <span class="n">lst</span> <span class="p">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">a1</span> <span class="n">a2</span> <span class="n">l</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">split</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">a1</span> <span class="n">a2</span> <span class="n">l</span> <span class="o">=</span>
     <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span>
-    <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="n">x</span><span class="p">::</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span>
-    <span class="p">|</span> <span class="n">x1</span><span class="o">::(</span><span class="n">x2</span><span class="p">::</span><span class="n">x3</span><span class="p">)</span> <span class="p">-&gt;</span>
-       <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="p">::</span><span class="n">a1</span><span class="p">)</span> <span class="p">(</span><span class="n">x2</span><span class="p">::</span><span class="n">a2</span><span class="p">)</span> <span class="n">x3</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
+    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">a1</span><span class="p">)</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">a2</span><span class="p">)</span> <span class="n">x3</span>
   <span class="k">in</span>
   <span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
@@ -384,24 +384,24 @@
 <p>Now, let’s prepare the second item in our list - the <code class="highlighter-rouge">merge</code> function. This is just pattern matching and even simpler than our <code class="highlighter-rouge">split</code> function.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge</span> <span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">)</span> <span class="p">=</span>
-  <span class="k">match</span> <span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span><span class="p">,</span> <span class="n">l</span> <span class="p">-&gt;</span> <span class="n">l</span>
-  <span class="p">|</span> <span class="n">l</span><span class="p">,</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="n">l</span>
-  <span class="p">|</span> <span class="p">(</span><span class="n">h1</span><span class="p">::</span><span class="n">t1</span> <span class="k">as</span> <span class="n">l1</span><span class="o">),</span> <span class="p">(</span><span class="n">h2</span><span class="p">::</span><span class="n">t2</span> <span class="k">as</span> <span class="n">l2</span><span class="p">)</span> <span class="p">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">h1</span> <span class="p">&lt;</span> <span class="n">h2</span><span class="p">)</span> <span class="k">then</span> <span class="n">h1</span> <span class="p">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">t1</span><span class="p">,</span> <span class="n">l2</span><span class="p">)</span>
-     <span class="k">else</span> <span class="n">h2</span> <span class="p">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">t2</span><span class="o">);;</span></code></pre>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge</span> <span class="p">(</span><span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span><span class="p">)</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span><span class="o">,</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="n">l</span><span class="o">,</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="p">(</span><span class="n">h1</span><span class="o">::</span><span class="n">t1</span> <span class="k">as</span> <span class="n">l1</span><span class="p">)</span><span class="o">,</span> <span class="p">(</span><span class="n">h2</span><span class="o">::</span><span class="n">t2</span> <span class="k">as</span> <span class="n">l2</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">h1</span> <span class="o">&lt;</span> <span class="n">h2</span><span class="p">)</span> <span class="k">then</span> <span class="n">h1</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">l2</span><span class="p">)</span>
+     <span class="k">else</span> <span class="n">h2</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">l1</span><span class="o">,</span> <span class="n">t2</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>Finally, let’s prepare the merge_sort function that takes a list <code class="highlighter-rouge">lst</code> as input. First we would split the input list into two lists using our <code class="highlighter-rouge">split</code> function. Then, we would recursively call <code class="highlighter-rouge">merge_sort</code> on the two sub-lists (result of <code class="highlighter-rouge">split</code> function) and merge the results of these recursive calls using our <code class="highlighter-rouge">merge</code> function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward.</p>
 
 <figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge_sort</span> <span class="n">lst</span> <span class="p">=</span>
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge_sort</span> <span class="n">lst</span> <span class="o">=</span>
   <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="p">|</span> <span class="bp">[]</span> <span class="p">-&gt;</span> <span class="bp">[]</span>
-  <span class="p">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="p">|</span> <span class="n">l</span> <span class="p">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="p">,</span> <span class="n">l2</span> <span class="p">=</span> <span class="n">split</span> <span class="n">l</span> <span class="k">in</span>
-         <span class="n">merge</span> <span class="p">(</span><span class="n">merge_sort</span> <span class="n">l1</span><span class="p">,</span> <span class="n">merge_sort</span> <span class="n">l2</span><span class="o">);;</span></code></pre>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="o">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">split</span> <span class="n">l</span> <span class="k">in</span>
+         <span class="n">merge</span> <span class="p">(</span><span class="n">merge_sort</span> <span class="n">l1</span><span class="o">,</span> <span class="n">merge_sort</span> <span class="n">l2</span><span class="p">);;</span></code></pre>
 </figure>
 
 <p>That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</p>

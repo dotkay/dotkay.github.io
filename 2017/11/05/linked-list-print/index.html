@@ -360,11 +360,11 @@
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">print_list</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>          <span class="c1">// get the head
-</span>  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// traverse till the end
-</span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" -&gt; "</span><span class="p">;</span>   <span class="c1">// print node data
-</span>    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>                <span class="c1">// move forward
-</span>  <span class="p">}</span>
+  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>          <span class="c1">// get the head</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>            <span class="c1">// traverse till the end</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" -&gt; "</span><span class="p">;</span>   <span class="c1">// print node data</span>
+    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>                <span class="c1">// move forward</span>
+  <span class="p">}</span>
   <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"NULL</span><span class="se">\n</span><span class="s">"</span><span class="p">;</span>
 <span class="p">}</span></code></pre>
 </figure>

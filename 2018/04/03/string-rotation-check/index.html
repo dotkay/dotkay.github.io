@@ -353,11 +353,10 @@
   <div class="post-content" itemprop="articleBody">
     <p>Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">naan</code> are rotations of each other while <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">nana</code> are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>a-n-n-a   --&gt; 0. original string
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a-n-n-a   --&gt; 0. original string
 n-n-a-a   --&gt; 1. rotated by 1 ('a' moves to the end)
 n-a-a-n   --&gt; 2. rotated by 1
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be:</p>
 
