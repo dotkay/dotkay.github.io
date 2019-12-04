@@ -833,6 +833,323 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/05/05/climbing-stairs-recursively/">Climbing stairs recursively &rarr;</a>
+          </h1>
+
+          <p class="post-meta">May 5, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <blockquote>
+  <p>How many different ways can you reach atop a fleet of <em>n</em> step stairs taking one or two step jumps at a time?</p>
+</blockquote>
+
+<p>This question might ring a bell for some who have heard about an Italian mathematician who computed a similar sequence for counting rabbits in his garden. Let us think about it using a smaller example and generalize the solution. Let us say we have only 2 steps to climb. Given the constraints (1 step or 2 step climbs only), we can complete 2 steps in the following ways:</p>
+
+<ol>
+  <li>1 step, 1 step</li>
+  <li>2 steps</li>
+</ol>
+
+<p>2 possible ways. How about 3 steps?</p>
+
+<ol>
+  <li>1 step, 1 step, 1 step</li>
+  <li>1 step, 2 steps</li>
+  <li>2 steps, 1 step</li>
+</ol>
+
+<p><br />
+<img src="/assets/images/algorithms/cpp/three_steps.png" alt="3 steps" class="img=responsive" /></p>
+
+<p>So, 3 possible ways. What about if we have an additional one to climb (i.e. total of 4 steps to climb)? We can do it in the following ways:</p>
+
+<ol>
+  <li>1 step, 1 step, 1 step, 1 step</li>
+  <li>1 step, 2 steps, 1 step</li>
+  <li>1 step, 1 step, 2 steps</li>
+  <li>2 steps, 1 step, 1 step</li>
+  <li>2 steps, 2 steps</li>
+</ol>
+
+<p><br />
+<img src="/assets/images/algorithms/cpp/four_steps.png" alt="4 steps" class="img=responsive" /></p>
+
+<p>We also notice that the number of ways of climbing 4 steps is the number of ways of climbing 2 steps + the number of ways we could climb 3 steps. Recursively, we could compute for any <em>n</em> steps, given the constraints, we could climb it by computing the number of ways of climbing <em>n-1</em> and <em>n-2</em> steps.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">stairs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// base cases</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">stairs</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">stairs</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/04/23/arr-equillibrium/">More efficient computation of equillibrium index in an array &rarr;</a>
           </h1>
 
@@ -1119,301 +1436,6 @@
 </figure>
 
 <p>Power of prefix sums!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/04/20/arr-equillibrium-naive/">Finding the equillibrium index in an array &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Apr 20, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/arrays/">arrays</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <blockquote>
-  <p>The equillibrium point in a given array is said to be the index such that the sum of all the elements before the index equals the sum of all the elements to the right of the index.</p>
-</blockquote>
-
-<p>For example, if the input array is <code class="highlighter-rouge">[0, -3, 5, -4, -2, 3, 1, 0]</code>, the equillibrium indices are 7, 3 and 0. Note that <code class="highlighter-rouge">0</code> is an equillibrium index if the sum of all the elements until the end of the array are 0 and similarly, <code class="highlighter-rouge">n-1</code> is an equillibrium index of all the elements from 0 until <code class="highlighter-rouge">n-1</code> add up to 0.</p>
-
-<p>Let us look at a very straight-forward solution. We could just traverse the array and for each element compute the sum of elements to the left and the sum of elements to the right (<code class="highlighter-rouge">lsum</code> and <code class="highlighter-rouge">rsum</code> in the code fragment below) and check if they are equal as we traverse the array.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">eq_index</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">lsum</span><span class="p">,</span> <span class="n">rsum</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">lsum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">rsum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-      <span class="n">lsum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-      <span class="n">rsum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">lsum</span> <span class="o">==</span> <span class="n">rsum</span><span class="p">)</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"equillibrium found at index: "</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>As you can realize immediately, this is an <code class="highlighter-rouge">O(n^2)</code> solution. Can we do better?</p>
 
         </div>
         

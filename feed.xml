@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-11-12T14:42:08+00:00</updated>
+  <updated>2019-12-04T14:26:27+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -377,6 +377,91 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Climbing stairs recursively →</title>
+      
+      <link href="https://dotkay.github.io/2018/05/05/climbing-stairs-recursively/" rel="alternate" type="text/html" title="Climbing stairs recursively" />
+      <published>2018-05-05T00:00:00+00:00</published>
+      <updated>2018-05-05T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/05/05/climbing-stairs-recursively</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/05/05/climbing-stairs-recursively/">&lt;blockquote&gt;
+  &lt;p&gt;How many different ways can you reach atop a fleet of &lt;em&gt;n&lt;/em&gt; step stairs taking one or two step jumps at a time?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This question might ring a bell for some who have heard about an Italian mathematician who computed a similar sequence for counting rabbits in his garden. Let us think about it using a smaller example and generalize the solution. Let us say we have only 2 steps to climb. Given the constraints (1 step or 2 step climbs only), we can complete 2 steps in the following ways:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;1 step, 1 step&lt;/li&gt;
+  &lt;li&gt;2 steps&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;2 possible ways. How about 3 steps?&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;1 step, 1 step, 1 step&lt;/li&gt;
+  &lt;li&gt;1 step, 2 steps&lt;/li&gt;
+  &lt;li&gt;2 steps, 1 step&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/algorithms/cpp/three_steps.png&quot; alt=&quot;3 steps&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So, 3 possible ways. What about if we have an additional one to climb (i.e. total of 4 steps to climb)? We can do it in the following ways:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;1 step, 1 step, 1 step, 1 step&lt;/li&gt;
+  &lt;li&gt;1 step, 2 steps, 1 step&lt;/li&gt;
+  &lt;li&gt;1 step, 1 step, 2 steps&lt;/li&gt;
+  &lt;li&gt;2 steps, 1 step, 1 step&lt;/li&gt;
+  &lt;li&gt;2 steps, 2 steps&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/algorithms/cpp/four_steps.png&quot; alt=&quot;4 steps&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We also notice that the number of ways of climbing 4 steps is the number of ways of climbing 2 steps + the number of ways we could climb 3 steps. Recursively, we could compute for any &lt;em&gt;n&lt;/em&gt; steps, given the constraints, we could climb it by computing the number of ways of climbing &lt;em&gt;n-1&lt;/em&gt; and &lt;em&gt;n-2&lt;/em&gt; steps.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;stairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// base cases&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="recursion" />
+      
+        <category term="C++" />
+      
+
+      
+
+      
+        <summary type="html">How many different ways can you reach atop a fleet of n step stairs taking one or two step jumps at a time? This question might ring a bell for some who have heard about an Italian mathematician who computed a similar sequence for counting rabbits in his garden. Let us think about it using a smaller example and generalize the solution. Let us say we have only 2 steps to climb. Given the constraints (1 step or 2 step climbs only), we can complete 2 steps in the following ways: 1 step, 1 step 2 steps 2 possible ways. How about 3 steps? 1 step, 1 step, 1 step 1 step, 2 steps 2 steps, 1 step So, 3 possible ways. What about if we have an additional one to climb (i.e. total of 4 steps to climb)? We can do it in the following ways: 1 step, 1 step, 1 step, 1 step 1 step, 2 steps, 1 step 1 step, 1 step, 2 steps 2 steps, 1 step, 1 step 2 steps, 2 steps We also notice that the number of ways of climbing 4 steps is the number of ways of climbing 2 steps + the number of ways we could climb 3 steps. Recursively, we could compute for any n steps, given the constraints, we could climb it by computing the number of ways of climbing n-1 and n-2 steps. int stairs(int n) { // base cases if (n &amp;lt;= 2) return n; int res = stairs(n-1) + stairs(n-2); return res; }</summary>
       
 
       
@@ -1129,56 +1214,6 @@ n-a-a-n   --&amp;gt; 2. rotated by 1
 
       
         <summary type="html">Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, anna and naan are rotations of each other while anna and nana are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping): a-n-n-a --&amp;gt; 0. original string n-n-a-a --&amp;gt; 1. rotated by 1 ('a' moves to the end) n-a-a-n --&amp;gt; 2. rotated by 1 A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be: Concatenate one of the strings with itself. Say, we choose anna to concatenate and form the concatenated one annaanna Search for the occurence of the second string naan in the concatenation, We see that naan is indeed a substring of the concatenation annaanna and a rotation of anna. bool str_rotation(std::string s1, std::string s2) { if (s1.length() != s2.length()) return false; std::string concat_str; concat_str = s1 + s1; int res_pos = concat_str.find(s2); if (res_pos == std::string::npos) return false; else return true; } A caveat here is to check for the length of the two strings a priori. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce ann to be a rotation of anna.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Reversing an array in place →</title>
-      
-      <link href="https://dotkay.github.io/2018/04/02/reverse-an-array/" rel="alternate" type="text/html" title="Reversing an array in place" />
-      <published>2018-04-02T00:00:00+00:00</published>
-      <updated>2018-04-02T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/04/02/reverse-an-array</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/04/02/reverse-an-array/">&lt;p&gt;Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is &lt;code class=&quot;highlighter-rouge&quot;&gt;[1, 3, 4, 11, 2, 6]&lt;/code&gt;, in the output array, the elements would be in reverse order - i.e. &lt;code class=&quot;highlighter-rouge&quot;&gt;[6, 2, 11, 4, 3, 1]&lt;/code&gt;. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array.&lt;/p&gt;
-
-&lt;p&gt;We traverse the array from the beginning and swap the elements with those from the end of the array. This way, by the time we are at the mid-point of the array, we would have swapped all the elements and the array would be in reverse order.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rev_arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;where &lt;code class=&quot;highlighter-rouge&quot;&gt;swap(arr[a], arr[b])&lt;/code&gt; would swap the elements at array locations &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;b&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; is the size of the input array &lt;code class=&quot;highlighter-rouge&quot;&gt;arr&lt;/code&gt;.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="arrays" />
-      
-
-      
-
-      
-        <summary type="html">Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is [1, 3, 4, 11, 2, 6], in the output array, the elements would be in reverse order - i.e. [6, 2, 11, 4, 3, 1]. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array. We traverse the array from the beginning and swap the elements with those from the end of the array. This way, by the time we are at the mid-point of the array, we would have swapped all the elements and the array would be in reverse order. void rev_arr(int arr[], int n) { for (int i = 0; i &amp;lt; n/2; i++) swap(&amp;amp;arr[i], &amp;amp;arr[n - i - 1]); } where swap(arr[a], arr[b]) would swap the elements at array locations a and b and n is the size of the input array arr.</summary>
       
 
       
