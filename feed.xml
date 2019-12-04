@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-12-04T14:30:21+00:00</updated>
+  <updated>2019-12-04T15:01:13+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -377,6 +377,75 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Climbing stairs and remembering the past… →</title>
+      
+      <link href="https://dotkay.github.io/2018/05/06/climbing-stairs-dp/" rel="alternate" type="text/html" title="Climbing stairs and remembering the past..." />
+      <published>2018-05-06T00:00:00+00:00</published>
+      <updated>2018-05-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/05/06/climbing-stairs-dp</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/05/06/climbing-stairs-dp/">&lt;blockquote&gt;
+  &lt;p&gt;Those who cannot remember the past are condemned to repeat it!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2018/05/05/climbing-stairs-recursively&quot;&gt;previous post&lt;/a&gt; we saw a recursive algorithm to compute the number of ways one can climb a fleet of &lt;em&gt;n&lt;/em&gt; steps. If you draw the recursion tree for such an algorithm, we would soon find that we are computing some of the sub-problems repeatedly. We can do better by remembering (i.e. storing in some data structure) what we computed so that we can retrieve it and reuse it when needed again. Or in other fancy computer science parlance, we can use &lt;em&gt;dynamic programming&lt;/em&gt; technique to solve such recursive problems more efficiently.&lt;/p&gt;
+
+&lt;p&gt;Here is the recursion tree for a hypothetical problem, similar to climbing stairs from our &lt;a href=&quot;https://dotkay.github.io/2018/05/05/climbing-stairs-recursively&quot;&gt;previous post&lt;/a&gt; where each function call for an input parameter value &lt;em&gt;n&lt;/em&gt; leads to two calls for values &lt;em&gt;n-1&lt;/em&gt; and &lt;em&gt;n-2&lt;/em&gt;. We can readily see, even in this very small example, that the all the function calls in the sub-tree rooted at &lt;em&gt;2&lt;/em&gt; is computed again unnecessarily. One of the main ideas in dynamic programming is to store such computations so that we can reuse them when needed again.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/assets/images/algorithms/cpp/rec_tree.jpg&quot; alt=&quot;recursion tree&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us try to use dynamic programming and rewrite our algorithm for computing the number of ways of climbing &lt;em&gt;n&lt;/em&gt; steps. We shall use a simple array (a C++ vector) to store intermediate computations. More concretely, we will store the number of ways of climbing 1 step, the number of ways of climbing 2 steps, and so on. So, our array &lt;code class=&quot;highlighter-rouge&quot;&gt;ways&lt;/code&gt; stores the number of ways - &lt;code class=&quot;highlighter-rouge&quot;&gt;ways[i]&lt;/code&gt; gives us the number of ways of climbing &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; steps. As we saw in our previous post, the algorithm just needs to compute &lt;code class=&quot;highlighter-rouge&quot;&gt;ways[i-1] + ways[i-2]&lt;/code&gt; for different values of &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; upto &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; and finally return &lt;code class=&quot;highlighter-rouge&quot;&gt;ways[n]&lt;/code&gt; as the result.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;stairs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// base case&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;An astute reader would start thinking how this is different from divide-and-conquer approaches for solving recursive problems. I will let you think about it for now and find out for yourself what  technique is beneficial for what specific structure of the recursive problem - that was already a hint there!&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="dynamic programming" />
+      
+        <category term="C++" />
+      
+
+      
+
+      
+        <summary type="html">Those who cannot remember the past are condemned to repeat it! In our previous post we saw a recursive algorithm to compute the number of ways one can climb a fleet of n steps. If you draw the recursion tree for such an algorithm, we would soon find that we are computing some of the sub-problems repeatedly. We can do better by remembering (i.e. storing in some data structure) what we computed so that we can retrieve it and reuse it when needed again. Or in other fancy computer science parlance, we can use dynamic programming technique to solve such recursive problems more efficiently. Here is the recursion tree for a hypothetical problem, similar to climbing stairs from our previous post where each function call for an input parameter value n leads to two calls for values n-1 and n-2. We can readily see, even in this very small example, that the all the function calls in the sub-tree rooted at 2 is computed again unnecessarily. One of the main ideas in dynamic programming is to store such computations so that we can reuse them when needed again. Let us try to use dynamic programming and rewrite our algorithm for computing the number of ways of climbing n steps. We shall use a simple array (a C++ vector) to store intermediate computations. More concretely, we will store the number of ways of climbing 1 step, the number of ways of climbing 2 steps, and so on. So, our array ways stores the number of ways - ways[i] gives us the number of ways of climbing i steps. As we saw in our previous post, the algorithm just needs to compute ways[i-1] + ways[i-2] for different values of i upto n and finally return ways[n] as the result. int stairs(int n) { std::vector&amp;lt;int&amp;gt; ways(n+1); // base case if (n &amp;lt;= 1) return 1; ways[0] = 1; ways[1] = 1; for (int i = 2; i &amp;lt;= n; i++) ways[i] = ways[i-1] + ways[i-2]; return ways[n]; } An astute reader would start thinking how this is different from divide-and-conquer approaches for solving recursive problems. I will let you think about it for now and find out for yourself what technique is beneficial for what specific structure of the recursive problem - that was already a hint there!</summary>
       
 
       
@@ -1146,74 +1215,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">In yesterday’s post we saw how to check if two given strings are rotations of each other. Today, we will add one other restriction to the problem and try to solve it. What if the algorithm needs to check if the two input strings are rotations of each other by a fixed length n which is also provided as an input to the function? For example, anna and naan are rotations of each other by 2 as we need to make two rotations (each rotation moves only 1 character) to get from one string to the other and similarly one cannot be obtained from the other by rotation of just 1. We use the same algorithm as before, but this time we will be careful to store the index position (when we search for one of the strings in the concatenation) and match it against the input n. bool str_rot_by_n(std::string s1, std::string s2, int n) { if (s1.length() != s2.length()) return false; int index; std::string s = s1 + s1; index = s.find(s2); if (index == std::string::npos) return false; else { if (index == n || (index == (s1.length() - n))) return true; else return false; } } Again, we have to check if the lengths of the input strings are the same. Without this check, we migth deduce that ello can be obtained from hello by rotating through 1 character position.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Checking for string rotations →</title>
-      
-      <link href="https://dotkay.github.io/2018/04/03/string-rotation-check/" rel="alternate" type="text/html" title="Checking for string rotations" />
-      <published>2018-04-03T00:00:00+00:00</published>
-      <updated>2018-04-03T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/04/03/string-rotation-check</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/04/03/string-rotation-check/">&lt;p&gt;Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; are rotations of each other while &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;nana&lt;/code&gt; are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a-n-n-a   --&amp;gt; 0. original string
-n-n-a-a   --&amp;gt; 1. rotated by 1 ('a' moves to the end)
-n-a-a-n   --&amp;gt; 2. rotated by 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Concatenate one of the strings with itself. Say, we choose &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt; to concatenate and form the concatenated one &lt;code class=&quot;highlighter-rouge&quot;&gt;annaanna&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Search for the occurence of the second string &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; in the concatenation,&lt;/li&gt;
-  &lt;li&gt;We see that &lt;code class=&quot;highlighter-rouge&quot;&gt;naan&lt;/code&gt; is indeed a substring of the concatenation &lt;em&gt;an&lt;/em&gt;&lt;strong&gt;naan&lt;/strong&gt;&lt;em&gt;na&lt;/em&gt; and a rotation of &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;str_rotation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;concat_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;concat_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;npos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; 
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;A caveat here is to check for the length of the two strings &lt;em&gt;a priori&lt;/em&gt;. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce &lt;code class=&quot;highlighter-rouge&quot;&gt;ann&lt;/code&gt; to be a rotation of &lt;code class=&quot;highlighter-rouge&quot;&gt;anna&lt;/code&gt;.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="strings" />
-      
-
-      
-
-      
-        <summary type="html">Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, anna and naan are rotations of each other while anna and nana are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping): a-n-n-a --&amp;gt; 0. original string n-n-a-a --&amp;gt; 1. rotated by 1 ('a' moves to the end) n-a-a-n --&amp;gt; 2. rotated by 1 A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be: Concatenate one of the strings with itself. Say, we choose anna to concatenate and form the concatenated one annaanna Search for the occurence of the second string naan in the concatenation, We see that naan is indeed a substring of the concatenation annaanna and a rotation of anna. bool str_rotation(std::string s1, std::string s2) { if (s1.length() != s2.length()) return false; std::string concat_str; concat_str = s1 + s1; int res_pos = concat_str.find(s2); if (res_pos == std::string::npos) return false; else return true; } A caveat here is to check for the length of the two strings a priori. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce ann to be a rotation of anna.</summary>
       
 
       
