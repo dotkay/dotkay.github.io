@@ -20,7 +20,7 @@ This question might ring a bell for some who have heard about an Italian mathema
 3. 2 steps, 1 step
 
 <br>
-![3 steps](/assets/images/algorithms/cpp/three_steps.png){:class="img=responsive"}
+![3 steps](/assets/images/algorithms/cpp/three_steps.jpg){:class="img=responsive"}
 
 So, 3 possible ways. What about if we have an additional one to climb (i.e. total of 4 steps to climb)? We can do it in the following ways:
 
@@ -31,7 +31,7 @@ So, 3 possible ways. What about if we have an additional one to climb (i.e. tota
 5. 2 steps, 2 steps
 
 <br>
-![4 steps](/assets/images/algorithms/cpp/four_steps.png){:class="img=responsive"}
+![4 steps](/assets/images/algorithms/cpp/four_steps.jpg){:class="img=responsive"}
 
 We also notice that the number of ways of climbing 4 steps is the number of ways of climbing 2 steps + the number of ways we could climb 3 steps. Recursively, we could compute for any *n* steps, given the constraints, we could climb it by computing the number of ways of climbing *n-1* and *n-2* steps.
 
