@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2019-12-04T14:26:27+00:00</updated>
+  <updated>2019-12-04T14:30:21+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -413,7 +413,7 @@ help me understand?&lt;/p&gt;</content>
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/algorithms/cpp/three_steps.png&quot; alt=&quot;3 steps&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/images/algorithms/cpp/three_steps.jpg&quot; alt=&quot;3 steps&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;So, 3 possible ways. What about if we have an additional one to climb (i.e. total of 4 steps to climb)? We can do it in the following ways:&lt;/p&gt;
 
@@ -426,7 +426,7 @@ help me understand?&lt;/p&gt;</content>
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/algorithms/cpp/four_steps.png&quot; alt=&quot;4 steps&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;/assets/images/algorithms/cpp/four_steps.jpg&quot; alt=&quot;4 steps&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We also notice that the number of ways of climbing 4 steps is the number of ways of climbing 2 steps + the number of ways we could climb 3 steps. Recursively, we could compute for any &lt;em&gt;n&lt;/em&gt; steps, given the constraints, we could climb it by computing the number of ways of climbing &lt;em&gt;n-1&lt;/em&gt; and &lt;em&gt;n-2&lt;/em&gt; steps.&lt;/p&gt;
 
