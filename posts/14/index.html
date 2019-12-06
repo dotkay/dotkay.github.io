@@ -102,6 +102,226 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/05/computing-many-primes/">Computing many primes... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 5, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In our <a href="https://dotkay.github.io/2017/09/04/prime-or-not">previous post</a> we saw how to check if a given number is prime. Now, what if we want to find all the primes from <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">1000</code>? Sure, we can call our <code class="highlighter-rouge">is_prime()</code> function on every number from <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">1000</code> and list out the ones that pass the test. Is there a better way? There absolutely is! And it turns out that it was invented by a Greek mathematician <a href="https://en.wikipedia.org/wiki/Eratosthenes">Etatosthenes</a>, who by the way also happened to invent Geography. The algorithm is commonly referred to as <em>Sieve of Eratosthenes</em>.</p>
+
+<p>We start by assuming that all the numbers, say <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">n</code> are primes. Assume we have an array of size <code class="highlighter-rouge">n</code> and we marked all the elements as prime. Now, we traverse the array and start marking out all the multiples, say <code class="highlighter-rouge">2, 4 ,6, 8, 10, ...</code> as not prime, and similarly <code class="highlighter-rouge">3, 9, 15,...</code>. Once we are done, we are left only with primes. I am still amazed at the simplicity of this algorithm given that it was invented more than a couple of thousand years ago.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">eratosthenes</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
+  <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">prime</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+  <span class="n">prime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="n">prime</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">sqrt</span><span class="p">((</span><span class="kt">double</span><span class="p">)</span><span class="n">n</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">fast_is_prime</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+      <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">k</span> <span class="o">+=</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">prime</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>That’s all folks!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/04/prime-or-not/">Prime or not? &rarr;</a>
           </h1>
 
@@ -1068,346 +1288,6 @@
 
 <p>That’s all for today. Enjoy your weekend!</p>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/31/recursions-and-merge-sort/">Recursions and merge sort &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 31, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe</p>
-
-<ul>
-  <li><code class="highlighter-rouge">split</code> function that would take a list and split it into two lists</li>
-  <li><code class="highlighter-rouge">merge</code> function that would merge a pair of sorted lists</li>
-  <li><code class="highlighter-rouge">merge_sort</code> function that would use the above two to build the sorted list recursively.</li>
-</ul>
-
-<p>Let’s prepare the above one by one. First, the <code class="highlighter-rouge">split</code> function that takes a list <code class="highlighter-rouge">lst</code> as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it <code class="highlighter-rouge">a1</code> and <code class="highlighter-rouge">a2</code>. Next, we will think about the possible cases (patterns).</p>
-
-<ol>
-  <li>The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use).</li>
-  <li>If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result).</li>
-  <li>If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list.</li>
-</ol>
-
-<p>So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">split</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">a1</span> <span class="n">a2</span> <span class="n">l</span> <span class="o">=</span>
-    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
-    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
-    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
-    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span><span class="p">)</span> <span class="o">-&gt;</span>
-       <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">a1</span><span class="p">)</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">a2</span><span class="p">)</span> <span class="n">x3</span>
-  <span class="k">in</span>
-  <span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Now, let’s prepare the second item in our list - the <code class="highlighter-rouge">merge</code> function. This is just pattern matching and even simpler than our <code class="highlighter-rouge">split</code> function.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge</span> <span class="p">(</span><span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span><span class="p">)</span> <span class="o">=</span>
-  <span class="k">match</span> <span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="bp">[]</span><span class="o">,</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="n">l</span>
-  <span class="o">|</span> <span class="n">l</span><span class="o">,</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">l</span>
-  <span class="o">|</span> <span class="p">(</span><span class="n">h1</span><span class="o">::</span><span class="n">t1</span> <span class="k">as</span> <span class="n">l1</span><span class="p">)</span><span class="o">,</span> <span class="p">(</span><span class="n">h2</span><span class="o">::</span><span class="n">t2</span> <span class="k">as</span> <span class="n">l2</span><span class="p">)</span> <span class="o">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">h1</span> <span class="o">&lt;</span> <span class="n">h2</span><span class="p">)</span> <span class="k">then</span> <span class="n">h1</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">l2</span><span class="p">)</span>
-     <span class="k">else</span> <span class="n">h2</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">l1</span><span class="o">,</span> <span class="n">t2</span><span class="p">);;</span></code></pre>
-</figure>
-
-<p>Finally, let’s prepare the merge_sort function that takes a list <code class="highlighter-rouge">lst</code> as input. First we would split the input list into two lists using our <code class="highlighter-rouge">split</code> function. Then, we would recursively call <code class="highlighter-rouge">merge_sort</code> on the two sub-lists (result of <code class="highlighter-rouge">split</code> function) and merge the results of these recursive calls using our <code class="highlighter-rouge">merge</code> function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge_sort</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
-  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
-  <span class="o">|</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="o">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">split</span> <span class="n">l</span> <span class="k">in</span>
-         <span class="n">merge</span> <span class="p">(</span><span class="n">merge_sort</span> <span class="n">l1</span><span class="o">,</span> <span class="n">merge_sort</span> <span class="n">l2</span><span class="p">);;</span></code></pre>
-</figure>
-
-<p>That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</p>
 
         </div>
         

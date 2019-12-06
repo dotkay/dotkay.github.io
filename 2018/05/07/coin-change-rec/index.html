@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Do you have some change?</title>
+  <meta name="description" content="In a previous post, we saw a recursive algorithm for computing the number of ways to reach atop n stairs. Let’s do a similar computation, this time for computing the number of ways you can combine coin denominations to arrive at a given amount. More precisely: Given a set of coin denominations and a target amount, how many ways can you combine the denominations in such a way that the combination sums up to the target amount? You can assume that you have unlimited supply of denominations. For example, if you have unlimited supply of $1 and $2 currency bills, how many ways can you combine them to return a change for $3? You could give three $1 bills, or a $1 bill along with a $2 bill (or alternately, a $2 bill along with a $1 bill, which is just a duplicate of the previous case just that I kept the $2 bill upon the $1 bill while giving). Let us think recursively. Given a set S = { $1, $2 } of bills, we could pick a $1 bill (to give) and now we have to think how many ways you can pick bills from our set S for the remaining amount of $2 ($3 the target amount - $1, the bill we already picked). Now, if you choose to pick another $1 bill, you have to think how many ways you can pick bills from our set S for the remaining amount of $1 ($3 the target amount - our first picked $1 - our second $1 pick). Now, we cannot pick $2 as we need only $1 and are just left with one choice - to pick another $1 from the set. This gives us one solution { $1, $1, $1 }. Alternately, we could have first picked a $2 bill and then we would be left with no choice but to pick another $1, so that it adds up to $3. What we are essentially doing is picking a bill whose value is less than the target amount and then computing the number of ways you can pick bills for the remaining amount, i.e. target amount - picked bill amount (our recursive step). And if this difference becomes 0, then we have a solution that sums up to the target amount (our base case for recursion). int coin_ways(std::vector&amp;lt;int&amp;gt;&amp;amp; S, int n, int target) { // base case if (target &amp;lt; 0) return 0; if (target == 0) return 1; int ways = 0; for (int i = 0; i &amp;lt; n; i++) { ways += coin_ways(S, n, target - S[i]); } return ways; }">
+  
+    
+    <meta name="keywords" content="recursion,algorithms,C++">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/05/07/coin-change-rec/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Do you have some change?">
+  <meta name="twitter:description" content="In a previous post, we saw a recursive algorithm for computing the number of ways to reach atop n stairs. Let’s do a similar computation, this time for computing the number of ways you can combine ...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/05/07/coin-change-rec">Do you have some change? &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-05-07T00:00:00+00:00" itemprop="datePublished">May 7, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2018/05/05/climbing-stairs-recursively">previous post</a>, we saw a recursive algorithm for computing the number of ways to reach atop <em>n</em> stairs. Let’s do a similar computation, this time for computing the number of ways you can combine coin denominations to arrive at a given amount. More precisely:</p>
+
+<blockquote>
+  <p>Given a set of coin denominations and a target amount, how many ways can you combine the denominations in such a way that the combination sums up to the target amount? You can assume that you have unlimited supply of denominations.</p>
+</blockquote>
+
+<p>For example, if you have unlimited supply of $1 and $2 currency bills, how many ways can you combine them to return a change for $3? You could give three $1 bills, or a $1 bill along with a $2 bill (or alternately, a $2 bill along with a $1 bill, which is just a duplicate of the previous case just that I kept the $2 bill upon the $1 bill while giving).</p>
+
+<p>Let us think recursively. Given a set S = { $1, $2 } of bills, we could pick a $1 bill (to give) and now we have to think how many ways you can pick bills from our set S for the remaining amount of $2 ($3 the target amount - $1, the bill we already picked). Now, if you choose to pick another $1 bill, you have to think how many ways you can pick bills from our set S for the remaining amount of $1 ($3 the target amount - our first picked $1 - our second $1 pick). Now, we cannot pick $2 as we need only $1 and are just left with one choice - to pick another $1 from the set. This gives us one solution { $1, $1, $1 }. Alternately, we could have first picked a $2 bill and then we would be left with no choice but to pick another $1, so that it adds up to $3. What we are essentially doing is picking a bill whose value is less than the target amount and then computing the number of ways you can pick bills for the remaining amount, i.e. target amount - picked bill amount (our recursive step). And if this difference becomes 0, then we have a solution that sums up to the target amount (our base case for recursion).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">coin_ways</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">S</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// base case</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">ways</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">ways</span> <span class="o">+=</span> <span class="n">coin_ways</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">target</span> <span class="o">-</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">ways</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

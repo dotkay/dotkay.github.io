@@ -102,6 +102,410 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/03/03/checking-rightmost-set-bit/">How to find out the position of the right-most set bit in a bit-vector? &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Mar 3, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bit-vectors/">bit-vectors</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>As we are getting comfortable thinking in terms of bits and bit-wise operators, let us play with them some more. Let us see how to find the position of the right-most set bit, given a bit-vector? Note that this is different from the <a href="https://dotkay.github.io/2018/03/02/checking-set-bit">previous</a> problem of checking if the bit in a specific bit position is set. Here, we want to just find the right most set bit, and the position in the bit-vector is not given - we are to find that position.</p>
+
+<p>For example, 10 in binary is <code class="highlighter-rouge">1010</code> and the right-most set bit is at position 2 (second from the right most digit). Given 10, our algorithm has to output 2. Similarly, 8 in binary is <code class="highlighter-rouge">1000</code> and given this, our algorithm has to output 4.</p>
+
+<p>The intuition is that since multiple bits may be set in a bit-vector (unless it is a power of 2) we need to find a way of isolating the right-most set bit and then traverse the vector to find its position in the vector. For example, suppose a bit-vector (with the right-most bit of 10 isolated) is given to us, it would look like <code class="highlighter-rouge">0010</code>. Now we can write a simple algorithm to check the bit-position of the only bit (the lonely, isolated bit) set in the vector. We already know that we could use right shift operator repeatedly on this bit-vector, until it becomes 0, as follows:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0010           -&gt; given bit-vector with only one bit set
+0010 &gt;&gt; 1      -&gt; right-shift by 1 position (once)
+0001 &gt;&gt; 1      -&gt; right-shift by 1 position (twice)
+0000  
+</code></pre></div></div>
+<p>Quite intuitively, the number of right-shifts we needed to apply is the position of the only set bit.</p>
+
+<p>Let us write that as a C algorithm:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">// check for 0</span>
+  <span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// right-shift</span>
+    <span class="n">count</span><span class="o">++</span><span class="p">;</span>    <span class="c1">// maintain count</span>
+  <span class="p">}</span>
+<span class="k">return</span> <span class="n">count</span><span class="p">;</span></code></pre>
+</figure>
+
+<p>Now, what operation do we use to find this x above? Or referring to our example, how do we find the vector <code class="highlighter-rouge">0010</code> that gave us the right-most set bit for our input vector which was <code class="highlighter-rouge">1010</code>? Think about the properties of bit-vectors, especially negative numbers.</p>
+
+<p>Stay tuned for a post describing it.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/03/02/checking-set-bit/">Checking if a kth bit in a bit-vector is set &rarr;</a>
           </h1>
 
@@ -1555,344 +1959,6 @@
 <p>We add elements to our stack using the <em>push()</em> method, remove elements from the stack (actually from the top of our stack) using <em>pop()</em> method, and we also keep track of the top of the stack because that’s where interesting actions happen.</p>
 
 <p>We will see the different methods in the following posts. Stay tuned!.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/12/queue_linked_list_methods/">Queue using Linked List - Operations &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 12, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/queues/">queues</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In our <a href="https://dotkay.github.io/2017/11/11/queues_linked_list">previous post</a>, we saw how to model a Queue data structure using Linked List as a container for elements. Now, we will see how to implement the methods <em>enqueue()</em> and <em>dequeue()</em>.</p>
-
-<p>This is very similar to inserting a new element to a linked list as we saw <a href="https://dotkay.github.io/2017/11/02/linked-list-insertion">earlier</a>. To insert a new item, we construct a node with that item and a <em>next</em> pointer, add it to the list and adjust the pointers.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Queue</span><span class="o">::</span><span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// if the queue is empty</span>
-  <span class="c1">// front and rear are the same, i.e the new item</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">new_item</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="p">;</span>
-  <span class="n">new_item</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
-  <span class="n">new_item</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">rear</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">front</span> <span class="o">=</span> <span class="n">rear</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// else add it to the rear end </span>
-  <span class="c1">// of the queue</span>
-  <span class="n">rear</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
-  <span class="n">rear</span> <span class="o">=</span> <span class="n">new_item</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p><br />
-<img src="/assets/images/data_structures/queue_ll.png" alt="Queue Operations" class="img=responsive" /></p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">Queue</span><span class="o">::</span><span class="n">dequeue</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
-  <span class="c1">// check if the queue is empty</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Empty queue"</span><span class="p">);</span>
-  
-  <span class="c1">// get the item to dequeue</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">dequeue_item</span> <span class="o">=</span> <span class="n">front</span><span class="p">;</span>
-  <span class="n">res</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
-  <span class="n">front</span> <span class="o">=</span> <span class="n">front</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-
-  <span class="c1">// now, if there was only one node</span>
-  <span class="c1">// to pop front would point to NULL</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
-    <span class="n">rear</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-
-  <span class="k">delete</span> <span class="p">(</span><span class="n">dequeue_item</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">bool</span> <span class="n">Queue</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span><span class="n">front</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>That’s all there is in Queues!</p>
 
         </div>
         
