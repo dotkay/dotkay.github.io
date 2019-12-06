@@ -63,6 +63,6 @@ Further the numbers below from Microsoft's earnings and LinkedIn newsroom valida
 <br>
 ![LinkedIn Stats](/assets/images/products/linkedin_worldwide.png){:class="img=responsive"}
 
-And that shows the opportunity for LinkedIn. Along with the above, GitHub - the world's largest software development platform or the playground for developers was snapped up by Microsoft. This indicates a very huge potential. The data from _HIRE_ theme above combined with _LEARN_ theme and fueled by GitHub platform is a wonderful growth opportunity. GitHub + LinkedIn for developers would be Instagram for fashionistas and for businesses and recruiters this would be the Instagram for fashion brands seeking ambassadors and influencers. Let me write about the opportunity for data science and AI in stitching all the above products together as one awesome fabric. 
+And that shows the opportunity for LinkedIn. Along with the above, GitHub - the world's largest software development platform or the playground for developers was snapped up by Microsoft. This indicates a very huge potential. The data from _HIRE_ theme above combined with _LEARN_ theme and fueled by GitHub platform is a wonderful growth opportunity. GitHub + LinkedIn for developers would be Instagram for fashionistas and for businesses and recruiters this would be the Instagram for fashion brands seeking ambassadors and influencers. Probably some day very soon let me write about the opportunity for data science and AI in stitching all the above products together as one awesome fabric. 
 
 Thats all for now!
