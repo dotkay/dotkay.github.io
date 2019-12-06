@@ -14,6 +14,7 @@ Lately, I have been reading about several businesses and trying to understand th
 > Create economic opportunity for every member of the global workforce.
 
 I liked the simple and clear vision statement but was wondering why it mentions only *economic opportunity* while LinkedIn's products offer much more or could it be the case that all the benefits the products offer can be tied to economic opportunity? I started researching about what this term *economic opportunity* entails and found [this answer](https://www.quora.com/How-are-economic-opportunities-defined) in Quora:
+<br>
 
 : _When somebody is willing to pay you money for doing something that you are willing and able to do, that is an "economic opportunity". It can be a small business idea or a job.If you can produce a product or provide a service that people are willing to pay for, that is a small business opportunity. If you have an ability or skill that an employer needs, that is a job opportunity._
 
@@ -47,7 +48,9 @@ It is difficult to categorize each of the products into *advertisement-based* or
 
 LinkedIn has become a significant business unit of Microsoft. According to a [source](https://www.businessofapps.com/data/linkedin-statistics/)
 
-: In the 2019 fiscal year, LinkedIn brought in $6.8 billion worth of revenue, contributing to $38.1 billion of commercial cloud revenue for Microsoft, which in turn made up part of $126 billion total revenue. 
+<br>
+
+: _In the 2019 fiscal year, LinkedIn brought in $6.8 billion worth of revenue, contributing to $38.1 billion of commercial cloud revenue for Microsoft, which in turn made up part of $126 billion total revenue._
 
 Further the numbers below from Microsoft's earnings and LinkedIn newsroom validate the importance of LinkedIn and its potential.
 
