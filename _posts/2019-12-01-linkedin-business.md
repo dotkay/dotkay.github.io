@@ -47,6 +47,7 @@ It is difficult to categorize each of the products into *advertisement-based* or
 **LinkedIn's business**
 
 LinkedIn has become a significant business unit of Microsoft. According to a [source](https://www.businessofapps.com/data/linkedin-statistics/)
+<br>
 
 : _In the 2019 fiscal year, LinkedIn brought in $6.8 billion worth of revenue, contributing to $38.1 billion of commercial cloud revenue for Microsoft, which in turn made up part of $126 billion total revenue._
 
