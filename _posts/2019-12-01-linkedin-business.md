@@ -53,10 +53,10 @@ LinkedIn has become a significant business unit of Microsoft. According to a [so
 Further the numbers below from Microsoft's earnings and LinkedIn newsroom validate the importance of LinkedIn and its potential.
 
 <br>
-![LinkedIn FY20 Q1](/assets/images/products/linkedin_fy20_q1.png){:class="img=responsive"}
+![LinkedIn FY20 Q1](/assets/images/products/linkedin_fy20_q1.PNG){:class="img=responsive"}
 
 <br>
-![LinkedIn impact](/assets/images/products/linkedin_stats.png){:class="img=responsive"}
+![LinkedIn impact](/assets/images/products/linkedin_stats.PNG){:class="img=responsive"}
 
 **LinkedIn's Opportunity**
 
