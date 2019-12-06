@@ -56,7 +56,6 @@ Further the numbers below from Microsoft's earnings and LinkedIn newsroom valida
 <br>
 ![LinkedIn FY20 Q1](/assets/images/products/linkedin_fy20_q1.PNG){:class="img=responsive"}
 
-<br>
 ![LinkedIn impact](/assets/images/products/linkedin_stats.PNG){:class="img=responsive"}
 
 **LinkedIn's Opportunity**
