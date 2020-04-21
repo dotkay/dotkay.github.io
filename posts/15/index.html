@@ -102,6 +102,272 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/01/pack-repetitions-into-sublists/">Packing consecutive repetitions in a list into sublists &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 1, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In one of our [earlier posts] we saw how to eliminate consecutive repetitions in a list. Let’s refresh our memory and take a look at the <code class="highlighter-rouge">compress</code> function we saw earlier:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">x1</span> <span class="o">::</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">x1</span> <span class="o">::</span> <span class="n">compress</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="n">smth_else</span> <span class="o">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>This is a straight forward recursive function. Let’s first rewrite it using auxiliary function.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">l</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x</span><span class="o">::</span><span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">t</span>
+       <span class="k">else</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
+  <span class="k">in</span>
+  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>I think it is pretty straight forward - if we see repetition <code class="highlighter-rouge">(x1 = x2)</code> we ignore the element and call the auxiliary function on the remaining part of the list. (Note that we do not eliminate <code class="highlighter-rouge">x2</code> as we want to retain a copy of each repeating element).</p>
+
+<p>Today, we shall not eliminate, but collect the consecutive repeating elements into sublists. For example, if we have the list <code class="highlighter-rouge">[1;1;1;2;2;3;4;5;5;6;1]</code> we want to make it into this list <code class="highlighter-rouge">[[1; 1; 1];[2; 2];[3];[4];[5; 5];[6];[1]]</code></p>
+
+<p>We will again use recursive calls to auxiliary function, very creatively called <code class="highlighter-rouge">aux</code>. Apart from keeping track of repetitions, we also need to collect them into sublists. So, in this case, as we traverse the input list and process element by element, we will collect the repeating ones in a sublist and collect the ones that are not consecutive repetitions in another (as this will also be a part of our final result). We know that we usually return the accumulator as the result - so in this case, we may want to maintain two accumulators - one <code class="highlighter-rouge">cur</code> to collect the consecutive repeating elements, and another <code class="highlighter-rouge">acc</code> to collect the remaining.</p>
+
+<ul>
+  <li>When we encounter repetitions, we will push the repeating entries into <code class="highlighter-rouge">cur</code> sublist</li>
+  <li>When there are no repetitions, we will keep merging <code class="highlighter-rouge">cur</code> with <code class="highlighter-rouge">acc</code> and eventually return <code class="highlighter-rouge">acc</code> as the result.</li>
+</ul>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">pack</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">cur</span> <span class="n">acc</span> <span class="n">l</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span><span class="o">::</span><span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span> <span class="n">acc</span> <span class="n">t</span>
+       <span class="k">else</span> <span class="n">aux</span> <span class="bp">[]</span> <span class="p">((</span><span class="n">x1</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
+  <span class="k">in</span>
+  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>In both the <code class="highlighter-rouge">compress</code> and <code class="highlighter-rouge">pack</code> functions that use auxiliary function, we reverse the result using OCaml <code class="highlighter-rouge">List</code> module’s  built-in <code class="highlighter-rouge">rev</code> function.</p>
+
+<p>Food for thought - why is the result getting reversed? If you work out a small example, it would become apparent.</p>
+
+<p>That’s all for today. Enjoy your weekend!</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/31/recursions-and-merge-sort/">Recursions and merge sort &rarr;</a>
           </h1>
 
@@ -116,6 +382,12 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -283,6 +555,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -290,6 +568,12 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -534,6 +818,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -623,6 +913,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -630,6 +926,12 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -852,6 +1154,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -859,6 +1167,12 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1070,6 +1384,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1077,6 +1397,12 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1225,299 +1551,6 @@
 
 <p>Food for thought - how would you use <code class="highlighter-rouge">leftee</code> to reverse an input list?</p>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/27/interesting-podcast-on-work/">An interesting podcast on work &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 27, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/work/">work</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/npr/">NPR</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/ted/">TED</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Lately, I have been thinking a lot about my work - my daily job. Most of us have one, where we slog every day, working late into the night or all night. We may have complaints, dissatisfactions, pleasant and unpleasant experiences, awesome career growths or non-existence of such a thing, lots of learning or nothing at all, great colleagues, teams, workplace issues, and the list goes on. I listened to an interesting podcast on “Meaning of work” from <a href="http://www.npr.org/programs/ted-radio-hour/">TED Radio Hour</a> several months ago and listened to it once again over this weekend.</p>
-
-<audio controls="">
-<source src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2015/10/20151002_ted_tedpod.mp3" />
-</audio>
-<p><br />
-Whatever your situation is, this is a great podcast to listen to. And if you’re a manager, there are important lessons for you too, if you are someone willing to listen and learn.</p>
 
         </div>
         
