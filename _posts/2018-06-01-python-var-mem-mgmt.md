@@ -22,6 +22,11 @@ Now, let us see what is the memory referenced by our variable (actually a Python
 print('memory referenced by a: {0}'.format(hex(id(a))))
 ```
 
+<br>
+<div class="img_container">
+![Python Memory Management](/assets/images/py/var_mem_mgmt_2.PNG){:class="img=responsive"}
+</div>
+
 and it returns `0x7ffd06a5a2b0`. Now, let us reassign `a` to value `20`. Now, we see that memory referenced has changed to `0x7ffd06a5a3f0`, instead of changing the value in the location referenced earlier. 
 
 ```python
@@ -31,7 +36,7 @@ print('memory referenced by a: {0}'.format(hex(id(a))))
 
 <br>
 <div class="img_container">
-![Python Memory Management](/assets/images/py/var_mem_mgmt_2.PNG){:class="img=responsive"}
+![Python Memory Management](/assets/images/py/var_mem_mgmt_1.PNG){:class="img=responsive"}
 </div>
 
 In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value `20`. Now our previous int object is not referencing anything and Python's garbage collector would reclaim it. 
