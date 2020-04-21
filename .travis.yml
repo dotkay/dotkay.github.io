@@ -7,6 +7,7 @@ env:
   global:
     - secure: "PcdYOwaOEgmJ2wAifRZGK8kH/nGgWU13vO6RBknfjHjvUjGDwXsw3z8oSjAS8Fmx+oMGjDnEnMncDcc4h2ztuRws5ODuQQLLKIJQ/9WSjTFwsody9xCrVWWKad8YRmTM1qKQYm11S+K8K2n0iR5XNJWOYK2iLJxviubhKNwkKgH0Tkak5I4mU79zWm6GQK+SyeihhoQy0EG7fPktK0+IkwKooSSbRXeJqlCRaV+Y1F55Gx7r5NI/xnGAlRUB/xAom8qaWnMXBJw+mYyHJ9RzA5pyPH7e5wxx9RgwUOuGCGxCYSrbx/Dua4Ce99gz/4hocQUX93PzCxpTINCafdA2cGlWDK6RSOTbMD6Ad/q0EAVWKPWIH5uJM2HPYWmBq1NkR0FVF/py20HoIxGdbzpq4vHZ63rYJ7msNCNb7/2KkJKGb5smk6lgngzZKr9CglhoJHvGH1pGwGitFgv12GS25+nWliQCPt1nj/Died13NwSE+Ujf0ozxPHJnQnYHHdKCSnVoyxskxr397yUkU6gJDvKxnDdrW8DS/cObPY2j0kZYRIEu/bThO0OnTsKorItwUeMot1FdNb7l4sBRpiZw/N0k7VTmwhWO5uI/C/79iFh28vBI3ep50ysxLd83Zaz5M+b3OzcnP1vogXJdhypo8+iYCyFV4nv/PCQFFxDDwVw="
 before_install:
+  - bundle update --bundler
   - gem update --system
   - gem update --remote bundler
 before_script:
