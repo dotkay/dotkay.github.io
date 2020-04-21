@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-04-21T19:27:23+00:00</updated>
+  <updated>2020-04-21T19:32:09+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -518,6 +518,11 @@ help me understand?&lt;/p&gt;</content>
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by a: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;p&gt;&lt;img src=&quot;/assets/images/py/var_mem_mgmt_2.PNG&quot; alt=&quot;Python Memory Management&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
 &lt;p&gt;and it returns &lt;code class=&quot;highlighter-rouge&quot;&gt;0x7ffd06a5a2b0&lt;/code&gt;. Now, let us reassign &lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt; to value &lt;code class=&quot;highlighter-rouge&quot;&gt;20&lt;/code&gt;. Now, we see that memory referenced has changed to &lt;code class=&quot;highlighter-rouge&quot;&gt;0x7ffd06a5a3f0&lt;/code&gt;, instead of changing the value in the location referenced earlier.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;
@@ -526,7 +531,7 @@ help me understand?&lt;/p&gt;</content>
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;div class=&quot;img_container&quot;&gt;
-  &lt;p&gt;&lt;img src=&quot;/assets/images/py/var_mem_mgmt_2.PNG&quot; alt=&quot;Python Memory Management&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;img src=&quot;/assets/images/py/var_mem_mgmt_1.PNG&quot; alt=&quot;Python Memory Management&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;p&gt;In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value &lt;code class=&quot;highlighter-rouge&quot;&gt;20&lt;/code&gt;. Now our previous int object is not referencing anything and Python’s garbage collector would reclaim it.&lt;/p&gt;</content>

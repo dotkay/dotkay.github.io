@@ -401,6 +401,11 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
 </code></pre></div></div>
 
+<p><br /></p>
+<div class="img_container">
+  <p><img src="/assets/images/py/var_mem_mgmt_2.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+</div>
+
 <p>and it returns <code class="highlighter-rouge">0x7ffd06a5a2b0</code>. Now, let us reassign <code class="highlighter-rouge">a</code> to value <code class="highlighter-rouge">20</code>. Now, we see that memory referenced has changed to <code class="highlighter-rouge">0x7ffd06a5a3f0</code>, instead of changing the value in the location referenced earlier.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">20</span>
@@ -409,7 +414,7 @@
 
 <p><br /></p>
 <div class="img_container">
-  <p><img src="/assets/images/py/var_mem_mgmt_2.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+  <p><img src="/assets/images/py/var_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
 <p>In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value <code class="highlighter-rouge">20</code>. Now our previous int object is not referencing anything and Python’s garbage collector would reclaim it.</p>
