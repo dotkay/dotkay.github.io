@@ -102,10 +102,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/11/08/linked-list-print-reverse-rec/">Reversing a linked list using a recursive algorithm &rarr;</a>
+            <a class="post-link" href="/2017/11/09/queues/">Queues &rarr;</a>
           </h1>
 
-          <p class="post-meta">Nov 8, 2017 • 
+          <p class="post-meta">Nov 9, 2017 • 
   
   
     
@@ -116,6 +116,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -295,6 +297,340 @@
   
     
   
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/queues/">queues</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s look at another important data structure - the <em>Queue</em>. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called <em>FIFO</em> (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
+</span><span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
+  <span class="nl">private:</span>
+    <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="n">rear</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>
+  <span class="nl">public:</span>
+    <span class="n">Queue</span> <span class="p">();</span>
+    <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">dequeue</span> <span class="p">();</span>
+    <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
+<span class="p">};</span>
+
+<span class="n">Queue</span><span class="o">::</span><span class="n">Queue</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">front</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">rear</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We have two private members - <em>front</em> and <em>rear</em> - <em>front</em> gets served first. Objects get added to the container using the <em>enqueue()</em> method and they get processed in FIFO order using <em>dequeue()</em> method. We will look at these operations in future posts.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/11/08/linked-list-print-reverse-rec/">Reversing a linked list using a recursive algorithm &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 8, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -332,6 +668,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -522,6 +860,8 @@
   
     
   
+    
+  
 
   
   
@@ -553,6 +893,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -654,6 +996,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -861,6 +1205,8 @@
   
     
   
+    
+  
 
   
   
@@ -892,6 +1238,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -993,6 +1341,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -1189,6 +1539,8 @@
   
     
   
+    
+  
 
   
   
@@ -1220,6 +1572,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -1321,6 +1675,8 @@
   
     
       <a href="/categories/linked-lists/">linked lists</a>
+    
+  
     
   
     
@@ -1403,352 +1759,6 @@
 </figure>
 
 <p>This is an iterative solution. We will soon look at a recursive solution to this. Stay tuned.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/04/linked-list-delete/">Deleting an element in a linked list &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 4, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/linked-lists/">linked lists</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Now, let us progress with looking at slightly more complicated operations. In our <a href="https://dotkay.github.io/2017/11/03/linked-list-find">previous post</a>, we saw <em>find</em> operation that required us to traverse the list, but we needed to keep track of only one element while traversing - just match the element with the item we are trying to find and see if we found. But in some cases, we may have to keep track of more than one element - this is because we need to rearrange the pointers. Suppose, we have the following linked list with 4 elements:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>19  -&gt;  49  -&gt;  21  -&gt;  17  -&gt;  NULL
-(0)     (1)     (2)     (3)
-</code></pre></div></div>
-
-<p>and we are asked to delete the element at index 2 (its data being 21). We not only need to keep track of the current element to be deleted, we need to remember the previous element (in this case the one at index 1 with value 49) because this would point to 17 after deleting the one at index 2. Specifically, after the deletion, the linked list would look like this:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>19  -&gt;  49  -&gt;  17  -&gt;  NULL
-(0)     (1)     (2)
-</code></pre></div></div>
-
-<p>In order to do this algorithmically, we keep track of two nodes, the current one (iterator denoted <em>it</em> in code below) and the previous node (denoted <em>prev</em> in code fragment below). As we traverse the list looking for the item at index, we decrement the index and once we find it, we rearrange the pointers - in particular, we set delete the node and attach <em>prev</em> to the rest of the linked list that followed the deleted node (i.e., the list pointed to by the deleted node’s next). Besides, we also need to handle cases when the index is ‘0’, i.e. we are trying to delete the first node or if the given index does not exist at all. A visual sketch is given below, followed by the method to perform the deletion.</p>
-
-<p><br />
-<img src="/assets/images/data_structures/linked_list_delete.png" alt="Linked List" class="img=responsive" /></p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">LinkedList</span><span class="o">::</span><span class="n">delete_at_index</span> <span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">length</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Index out of range for the linkedlist"</span><span class="p">);</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">it</span> <span class="o">=</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span><span class="p">;</span>
-  <span class="n">Node</span> <span class="o">*</span><span class="n">prev</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">":: index: "</span> <span class="o">&lt;&lt;</span> <span class="n">index</span> <span class="o">&lt;&lt;</span> <span class="s">":"</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-      <span class="k">break</span><span class="p">;</span>
-    <span class="n">index</span><span class="o">--</span><span class="p">;</span>
-    <span class="n">prev</span> <span class="o">=</span> <span class="n">it</span><span class="p">;</span>
-    <span class="n">it</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">" (prev-&gt;data, it-&gt;data) : "</span> <span class="o">&lt;&lt;</span> <span class="n">prev</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">prev</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="o">-&gt;</span><span class="n">head</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-    <span class="k">delete</span> <span class="n">it</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="p">{</span>
-    <span class="n">prev</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-    <span class="k">delete</span> <span class="n">it</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
 
         </div>
         

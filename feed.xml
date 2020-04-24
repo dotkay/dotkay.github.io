@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-04-21T19:32:09+00:00</updated>
+  <updated>2020-04-24T22:51:45+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -488,6 +488,68 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Python, mutable data-types (lists) and memory management →</title>
+      
+      <link href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/" rel="alternate" type="text/html" title="Python, mutable data-types (lists) and memory management" />
+      <published>2018-06-06T00:00:00+00:00</published>
+      <updated>2018-06-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">&lt;p&gt;In one of our &lt;a href=&quot;https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/&quot;&gt;previous posts&lt;/a&gt; we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out.&lt;/p&gt;
+
+&lt;p&gt;Let us consider a list &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt; that contains &lt;code class=&quot;highlighter-rouge&quot;&gt;[1, 2]&lt;/code&gt; and see what memory address it references.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by l1: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In my execution, it seems to reference the memory address &lt;code class=&quot;highlighter-rouge&quot;&gt;0x1d49c799e48&lt;/code&gt;. Now, let us concatenate a list containing a single element &lt;code class=&quot;highlighter-rouge&quot;&gt;[3]&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt;. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by l1: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;p&gt;&lt;img src=&quot;/assets/images/py/list_mem_mgmt_1.PNG&quot; alt=&quot;Python Memory Management&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We see that it references a new memory location (in my case &lt;code class=&quot;highlighter-rouge&quot;&gt;0x1d49c79bc08&lt;/code&gt;) different from the earlier one. What is happening? Aren’t lists &lt;em&gt;mutable&lt;/em&gt; objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="mutable" />
+      
+        <category term="memory management" />
+      
+        <category term="Python" />
+      
+
+      
+
+      
+        <summary type="html">In one of our previous posts we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out. Let us consider a list l1 that contains [1, 2] and see what memory address it references. def mem_addr(item): return hex(id(item)) l1 = [1, 2] print (l1) print ('memory referenced by l1: {0}'.format(mem_addr(l1))) In my execution, it seems to reference the memory address 0x1d49c799e48. Now, let us concatenate a list containing a single element [3] to l1. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out. l1 = l1 + [3] print (l1) print ('memory referenced by l1: {0}'.format(mem_addr(l1))) We see that it references a new memory location (in my case 0x1d49c79bc08) different from the earlier one. What is happening? Aren’t lists mutable objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.</summary>
       
 
       
@@ -1179,80 +1241,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was [1, 2, 3, 4, 5, 6, 7, 8], the result of rotation around index 3 (that has the element 4) in the counter clockwise direction would be [5, 6, 7, 8, 1, 2, 3, 4]. The sequence of transformations the array goes through as each of the elements until the given index rotates would be: 1 2 3 4 5 6 7 8 --&amp;gt; input array 2 3 4 5 6 7 8 1 --&amp;gt; 1 has rotated away to the end of the array 3 4 5 6 7 8 1 2 --&amp;gt; 2 has rotated away following 1 4 5 6 7 8 1 2 3 --&amp;gt; now, it's 3's turn 5 6 7 8 1 2 3 4 --&amp;gt; the element at index 3 (i.e. 4) around which we wanted to rotate has also completed. We can use the algorithm we developed to reverse a sub-array, in order to achieve this rotation. The idea is simple: First, reverse the sub-array consisting of elements from the beginning of the array until the pivot (around which we want to rotate the array) in place Now, rotate the remaining sub-array alone (i.e. from the pivot until the end of the array Complete it by reversing the entire array once 1 2 3 4 5 6 7 8 --&amp;gt; input array 4 3 2 1 5 6 7 8 --&amp;gt; step-1 first sub-array reversed 4 3 2 1 8 7 6 5 --&amp;gt; step-2 second sub-array reversed 5 6 7 8 1 2 3 4 --&amp;gt; step-3 rotation of the entire array An implementation would look like: void rotate_arr_ccw(int arr[], int size, int pivot) { reverse_arr(arr, 0, pivot); reverse_arr(arr, pivot+1, size-1); reverse_arr(arr, 0, size-1); }</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Checking if a string is an isogram →</title>
-      
-      <link href="https://dotkay.github.io/2018/04/07/string-isogram/" rel="alternate" type="text/html" title="Checking if a string is an isogram" />
-      <published>2018-04-07T00:00:00+00:00</published>
-      <updated>2018-04-07T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/04/07/string-isogram</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/04/07/string-isogram/">&lt;blockquote&gt;
-  &lt;p&gt;A string is an isogram if no character in it appears more than once.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Let us write a simple algorithm to identify if a given input string is an isogram. For simplicity let us consider only strings that have small characters and no spaces or special characters i.e. - only characters from &lt;em&gt;a&lt;/em&gt; to &lt;em&gt;z&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;In our previous post, we learnt how to keep track of characters that appear in a string as we traverse the input string. We use the same idea here, just this time we simplify it to be 26 characters (&lt;em&gt;a&lt;/em&gt; to &lt;em&gt;z&lt;/em&gt;) instead of 256.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;We traverse the input string and maintain a counter for each of the occurences in the string. Note that we subtract ‘a’ from the ASCII value as our strings contain only &lt;em&gt;a&lt;/em&gt; to &lt;em&gt;z&lt;/em&gt; and we want our index &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; to correspond to &lt;em&gt;a&lt;/em&gt;. The intention of this simplification was precisely to learn how to modify our algorithm for such specific use cases.&lt;/li&gt;
-  &lt;li&gt;We traverse the counter array (which is essentially a mapping &lt;code class=&quot;highlighter-rouge&quot;&gt;seen: character -&amp;gt; count&lt;/code&gt; to see if any of the characters appeared more than once (i.e. their count mapping is greater than 1).&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;cp&quot;&gt;#define MAX_CHARS 26
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isogram&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAX_CHARS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// (1)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// (2)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="strings" />
-      
-
-      
-
-      
-        <summary type="html">A string is an isogram if no character in it appears more than once. Let us write a simple algorithm to identify if a given input string is an isogram. For simplicity let us consider only strings that have small characters and no spaces or special characters i.e. - only characters from a to z. In our previous post, we learnt how to keep track of characters that appear in a string as we traverse the input string. We use the same idea here, just this time we simplify it to be 26 characters (a to z) instead of 256. We traverse the input string and maintain a counter for each of the occurences in the string. Note that we subtract ‘a’ from the ASCII value as our strings contain only a to z and we want our index 0 to correspond to a. The intention of this simplification was precisely to learn how to modify our algorithm for such specific use cases. We traverse the counter array (which is essentially a mapping seen: character -&amp;gt; count to see if any of the characters appeared more than once (i.e. their count mapping is greater than 1). #define MAX_CHARS 26 bool isogram(std::string s) { int seen[MAX_CHARS] = {0}; int slen = s.length(); bool res = true; // (1) for (int i = 0; i &amp;lt; slen; i++) seen[s[i] - 'a']++; // (2) for (int i = 0; i &amp;lt; 26; i++) { if (seen[i] &amp;gt; 1) { res = false; break; } } return res; }</summary>
       
 
       

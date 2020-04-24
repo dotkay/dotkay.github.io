@@ -102,10 +102,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/06/isomorphic-strings/">Checking if two strings are isomorphic &rarr;</a>
+            <a class="post-link" href="/2018/04/07/string-isogram/">Checking if a string is an isogram &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 6, 2018 • 
+          <p class="post-meta">Apr 7, 2018 • 
   
   
     
@@ -116,6 +116,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -295,6 +297,8 @@
   
     
   
+    
+  
 
   
   
@@ -344,6 +348,356 @@
   
     
       <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <blockquote>
+  <p>A string is an isogram if no character in it appears more than once.</p>
+</blockquote>
+
+<p>Let us write a simple algorithm to identify if a given input string is an isogram. For simplicity let us consider only strings that have small characters and no spaces or special characters i.e. - only characters from <em>a</em> to <em>z</em>.</p>
+
+<p>In our previous post, we learnt how to keep track of characters that appear in a string as we traverse the input string. We use the same idea here, just this time we simplify it to be 26 characters (<em>a</em> to <em>z</em>) instead of 256.</p>
+
+<ol>
+  <li>We traverse the input string and maintain a counter for each of the occurences in the string. Note that we subtract ‘a’ from the ASCII value as our strings contain only <em>a</em> to <em>z</em> and we want our index <code class="highlighter-rouge">0</code> to correspond to <em>a</em>. The intention of this simplification was precisely to learn how to modify our algorithm for such specific use cases.</li>
+  <li>We traverse the counter array (which is essentially a mapping <code class="highlighter-rouge">seen: character -&gt; count</code> to see if any of the characters appeared more than once (i.e. their count mapping is greater than 1).</li>
+</ol>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAX_CHARS 26
+</span><span class="kt">bool</span> <span class="nf">isogram</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">seen</span><span class="p">[</span><span class="n">MAX_CHARS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+  <span class="kt">int</span> <span class="n">slen</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+  <span class="kt">bool</span> <span class="n">res</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+  <span class="c1">// (1)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">slen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">seen</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">'a'</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+
+  <span class="c1">// (2)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">seen</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">res</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+      <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/04/06/isomorphic-strings/">Checking if two strings are isomorphic &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 6, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/strings/">strings</a>
+    
+  
     
   
     
@@ -564,6 +918,8 @@
   
     
   
+    
+  
 
   
   
@@ -595,6 +951,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -706,6 +1064,8 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
     
   
     
@@ -883,6 +1243,8 @@
   
     
   
+    
+  
 
   
   
@@ -914,6 +1276,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -1027,6 +1391,8 @@
   
     
       <a href="/categories/strings/">strings</a>
+    
+  
     
   
     
@@ -1212,6 +1578,8 @@
   
     
   
+    
+  
 
   
   
@@ -1243,6 +1611,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -1402,6 +1772,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -1438,323 +1810,6 @@ n-a-a-n   --&gt; 2. rotated by 1
 </figure>
 
 <p>A caveat here is to check for the length of the two strings <em>a priori</em>. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce <code class="highlighter-rouge">ann</code> to be a rotation of <code class="highlighter-rouge">anna</code>.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/04/02/reverse-an-array/">Reversing an array in place &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Apr 2, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/arrays/">arrays</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is <code class="highlighter-rouge">[1, 3, 4, 11, 2, 6]</code>, in the output array, the elements would be in reverse order - i.e. <code class="highlighter-rouge">[6, 2, 11, 4, 3, 1]</code>. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array.</p>
-
-<p>We traverse the array from the beginning and swap the elements with those from the end of the array. This way, by the time we are at the mid-point of the array, we would have swapped all the elements and the array would be in reverse order.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rev_arr</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">swap</span><span class="p">(</span><span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">&amp;</span><span class="n">arr</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>where <code class="highlighter-rouge">swap(arr[a], arr[b])</code> would swap the elements at array locations <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> and <code class="highlighter-rouge">n</code> is the size of the input array <code class="highlighter-rouge">arr</code>.</p>
 
         </div>
         

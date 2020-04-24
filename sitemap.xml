@@ -325,6 +325,10 @@
 <lastmod>2018-06-01T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/</loc>
+<lastmod>2018-06-06T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://dotkay.github.io/2018/07/15/hidden-brain-languages-mind/</loc>
 <lastmod>2018-07-15T00:00:00+00:00</lastmod>
 </url>
@@ -451,6 +455,9 @@
 <loc>https://dotkay.github.io/categories/python/</loc>
 </url>
 <url>
+<loc>https://dotkay.github.io/categories/mutable/</loc>
+</url>
+<url>
 <loc>https://dotkay.github.io/categories/psychology/</loc>
 </url>
 <url>
@@ -554,5 +561,8 @@
 </url>
 <url>
 <loc>https://dotkay.github.io/posts/18/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/posts/19/</loc>
 </url>
 </urlset>
