@@ -102,6 +102,347 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/06/06/python-lists-mem-mgmt/">Python, mutable data-types (lists) and memory management &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Jun 6, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/mutable/">mutable</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/memory-management/">memory management</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">Python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In one of our <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">previous posts</a> we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out.</p>
+
+<p>Let us consider a list <code class="highlighter-rouge">l1</code> that contains <code class="highlighter-rouge">[1, 2]</code> and see what memory address it references.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+<span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>In my execution, it seems to reference the memory address <code class="highlighter-rouge">0x1d49c799e48</code>. Now, let us concatenate a list containing a single element <code class="highlighter-rouge">[3]</code> to <code class="highlighter-rouge">l1</code>. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p><br /></p>
+<div class="img_container">
+  <p><img src="/assets/images/py/list_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+</div>
+
+<p>We see that it references a new memory location (in my case <code class="highlighter-rouge">0x1d49c79bc08</code>) different from the earlier one. What is happening? Aren’t lists <em>mutable</em> objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/06/01/python-var-mem-mgmt/">Python, immutable data-types and memory management &rarr;</a>
           </h1>
 
@@ -158,6 +499,8 @@
   
     
       <a href="/categories/immutable/">immutable</a>,
+    
+  
     
   
     
@@ -299,6 +642,8 @@
   
     
   
+    
+  
 
   
   
@@ -356,6 +701,8 @@
   
     
       <a href="/categories/python/">Python</a>
+    
+  
     
   
     
@@ -543,6 +890,8 @@
   
     
   
+    
+  
 
   
   
@@ -552,6 +901,8 @@
   
     
       <a href="/categories/recursion/">recursion</a>,
+    
+  
     
   
     
@@ -665,6 +1016,8 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
     
   
     
@@ -884,6 +1237,8 @@
   
     
   
+    
+  
 
   
   
@@ -981,6 +1336,8 @@
   
     
   
+    
+  
 
   
   
@@ -1006,6 +1363,8 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
     
   
     
@@ -1226,6 +1585,8 @@
   
     
   
+    
+  
 
   
   
@@ -1235,6 +1596,8 @@
   
     
       <a href="/categories/recursion/">recursion</a>,
+    
+  
     
   
     
@@ -1420,6 +1783,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -1474,345 +1839,6 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/04/23/arr-equillibrium/">More efficient computation of equillibrium index in an array &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Apr 23, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/arrays/">arrays</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2018/04/20/arr-equillibrium-naive">earlier post</a>, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - <code class="highlighter-rouge">O(n^2)</code>. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array.</p>
-
-<p>Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the <em>prefix sum</em> of the elements in the array and store it in this auxiliary array (<code class="highlighter-rouge">left_sum</code> in the code fragment below). Now, <code class="highlighter-rouge">left sum</code> can be used to query, for example, the sum of elements to the left of any index <code class="highlighter-rouge">i</code> as we traverse the array.</p>
-
-<p>We now traverse the input array, this time from right to left, and keep a running sum of the elements in a single variable (<code class="highlighter-rouge">right_sum</code> in code fragment below). As we traverse, we check for a match in the auxiliary array we had built earlier for the left sum, and if there is a match we have found an equillibrium point. Since we do array traversal only twice, this becomes an <code class="highlighter-rouge">O(n)</code> solution with <code class="highlighter-rouge">O(n)</code> auxiliary space for storing the prefix sums.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">eq_index</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="c1">// compute the left sum</span>
-  <span class="kt">int</span><span class="o">*</span> <span class="n">left_sum</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-  <span class="n">left_sum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-
-  <span class="c1">// traverse input array from the right,</span>
-  <span class="c1">// computing right_sum and matching it with</span>
-  <span class="c1">// left sum (i.e. looking for equillibrium)</span>
-  <span class="kt">int</span> <span class="n">right_sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">right_sum</span> <span class="o">==</span> <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"equillibrium found at index: "</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="n">right_sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-  <span class="p">}</span> 
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>Power of prefix sums!</p>
 
         </div>
         

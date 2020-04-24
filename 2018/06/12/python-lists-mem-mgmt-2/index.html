@@ -8,15 +8,15 @@
   
   
   
-  <title>Python, mutable data-types (lists) and memory management</title>
-  <meta name="description" content="In one of our previous posts we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out. Let us consider a list l1 that contains [1, 2] and see what memory address it references. def mem_addr(item): return hex(id(item)) l1 = [1, 2] print (l1) print (&#39;memory referenced by l1: {0}&#39;.format(mem_addr(l1))) In my execution, it seems to reference the memory address 0x1d49c799e48. Now, let us concatenate a list containing a single element [3] to l1. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out. l1 = l1 + [3] print (l1) print (&#39;memory referenced by l1: {0}&#39;.format(mem_addr(l1))) We see that it references a new memory location (in my case 0x1d49c79bc08) different from the earlier one. What is happening? Aren’t lists mutable objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.">
+  <title>Python, lists and memory management</title>
+  <meta name="description" content="In an earlier post, we saw how lists, despite being mutable objects in Python are somewhat confusing when it comes to certain operations. Let us play some more and see how they behave when we concatenate lists using append(). l1 = [1, 2] print (l1) print (&#39;memory referenced by l1: {0}&#39;.format(mem_addr(l1))) In my execution the memory referenced by l1 seems to be 0x2e70a4bc208. Now, as in our earlier example, let us append 3 to l1, but this time using the append() function. l1.append(3) print (l1) print (&#39;memory referenced by l1: {0}&#39;.format(mem_addr(l1))) Now, we see that the new list object (after appending 3) references the same memory 0x2e70a4bc208 as before. So, when it comes to append() Python’s memory manager seems to treat lists as a real mutable object. Python developers, especially new ones, need to be careful and understand these quirks thoroughly.">
   
     
-    <meta name="keywords" content="mutable,memory management,Python">
+    <meta name="keywords" content="mutable,lists,memory management,Python">
   
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">
+  <link rel="canonical" href="https://dotkay.github.io/2018/06/12/python-lists-mem-mgmt-2/">
   
   
   <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
@@ -26,8 +26,8 @@
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Python, mutable data-types (lists) and memory management">
-  <meta name="twitter:description" content="In one of our previous posts we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out. Let us consider a list l1 that ...">
+  <meta name="twitter:title" content="Python, lists and memory management">
+  <meta name="twitter:description" content="In an earlier post, we saw how lists, despite being mutable objects in Python are somewhat confusing when it comes to certain operations. Let us play some more and see how they behave when we conca...">
   
   
 
@@ -95,9 +95,9 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt">Python, mutable data-types (lists) and memory management &rarr;</a></h1>
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/06/12/python-lists-mem-mgmt-2">Python, lists and memory management &rarr;</a></h1>
     
-    <p class="post-meta"><time datetime="2018-06-06T00:00:00+00:00" itemprop="datePublished">Jun 6, 2018</time> • 
+    <p class="post-meta"><time datetime="2018-06-12T00:00:00+00:00" itemprop="datePublished">Jun 12, 2018</time> • 
   
   
     
@@ -158,6 +158,105 @@
       <a href="/categories/mutable/">mutable</a>,
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/lists/">lists</a>,
     
   
     
@@ -399,31 +498,26 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>In one of our <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">previous posts</a> we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out.</p>
+    <p>In an <a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">earlier post</a>, we saw how lists, despite being <em>mutable</em> objects in Python are somewhat confusing when it comes to certain operations. Let us play some more and see how they behave when we concatenate lists using <code class="highlighter-rouge">append()</code>.</p>
 
-<p>Let us consider a list <code class="highlighter-rouge">l1</code> that contains <code class="highlighter-rouge">[1, 2]</code> and see what memory address it references.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
-
-<span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 <span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
 <span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<p>In my execution, it seems to reference the memory address <code class="highlighter-rouge">0x1d49c799e48</code>. Now, let us concatenate a list containing a single element <code class="highlighter-rouge">[3]</code> to <code class="highlighter-rouge">l1</code>. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out.</p>
+<p>In my execution the memory referenced by <code class="highlighter-rouge">l1</code> seems to be <code class="highlighter-rouge">0x2e70a4bc208</code>. Now, as in <a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">our earlier example</a>, let us append <code class="highlighter-rouge">3</code> to l1, but this time using the <code class="highlighter-rouge">append()</code> function.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
 <span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
 </code></pre></div></div>
 
 <p><br /></p>
 <div class="img_container">
-  <p><img src="/assets/images/py/list_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+  <p><img src="/assets/images/py/list_mem_mgmt_2.PNG" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
-<p>We see that it references a new memory location (in my case <code class="highlighter-rouge">0x1d49c79bc08</code>) different from the earlier one. What is happening? Aren’t lists <em>mutable</em> objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.</p>
+<p>Now, we see that the new list object (after appending <code class="highlighter-rouge">3</code>) references the same memory <code class="highlighter-rouge">0x2e70a4bc208</code> as before. So, when it comes to <code class="highlighter-rouge">append()</code> Python’s memory manager seems to treat lists as a real mutable object. Python developers, especially new ones, need to be careful and understand these quirks thoroughly.</p>
 
   </div>
 

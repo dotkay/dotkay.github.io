@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-04-24T22:51:45+00:00</updated>
+  <updated>2020-04-24T23:26:39+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -488,6 +488,65 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Python, lists and memory management →</title>
+      
+      <link href="https://dotkay.github.io/2018/06/12/python-lists-mem-mgmt-2/" rel="alternate" type="text/html" title="Python, lists and memory management" />
+      <published>2018-06-12T00:00:00+00:00</published>
+      <updated>2018-06-12T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/06/12/python-lists-mem-mgmt-2</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/06/12/python-lists-mem-mgmt-2/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/&quot;&gt;earlier post&lt;/a&gt;, we saw how lists, despite being &lt;em&gt;mutable&lt;/em&gt; objects in Python are somewhat confusing when it comes to certain operations. Let us play some more and see how they behave when we concatenate lists using &lt;code class=&quot;highlighter-rouge&quot;&gt;append()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by l1: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In my execution the memory referenced by &lt;code class=&quot;highlighter-rouge&quot;&gt;l1&lt;/code&gt; seems to be &lt;code class=&quot;highlighter-rouge&quot;&gt;0x2e70a4bc208&lt;/code&gt;. Now, as in &lt;a href=&quot;https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/&quot;&gt;our earlier example&lt;/a&gt;, let us append &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; to l1, but this time using the &lt;code class=&quot;highlighter-rouge&quot;&gt;append()&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by l1: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;p&gt;&lt;img src=&quot;/assets/images/py/list_mem_mgmt_2.PNG&quot; alt=&quot;Python Memory Management&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Now, we see that the new list object (after appending &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt;) references the same memory &lt;code class=&quot;highlighter-rouge&quot;&gt;0x2e70a4bc208&lt;/code&gt; as before. So, when it comes to &lt;code class=&quot;highlighter-rouge&quot;&gt;append()&lt;/code&gt; Python’s memory manager seems to treat lists as a real mutable object. Python developers, especially new ones, need to be careful and understand these quirks thoroughly.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="mutable" />
+      
+        <category term="lists" />
+      
+        <category term="memory management" />
+      
+        <category term="Python" />
+      
+
+      
+
+      
+        <summary type="html">In an earlier post, we saw how lists, despite being mutable objects in Python are somewhat confusing when it comes to certain operations. Let us play some more and see how they behave when we concatenate lists using append(). l1 = [1, 2] print (l1) print ('memory referenced by l1: {0}'.format(mem_addr(l1))) In my execution the memory referenced by l1 seems to be 0x2e70a4bc208. Now, as in our earlier example, let us append 3 to l1, but this time using the append() function. l1.append(3) print (l1) print ('memory referenced by l1: {0}'.format(mem_addr(l1))) Now, we see that the new list object (after appending 3) references the same memory 0x2e70a4bc208 as before. So, when it comes to append() Python’s memory manager seems to treat lists as a real mutable object. Python developers, especially new ones, need to be careful and understand these quirks thoroughly.</summary>
       
 
       
@@ -1170,77 +1229,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Let us write a very simple program to implement a simple variant of str.find() that we used in our previous post. Basically, we want to write a function that accepts an input string and a pattern string and identifies if the pattern forms a substring of the input string and if it does tells us the first index position of occurence in the input string. The naïve way is to traverse the input string looking for the pattern string. In order to do this, whenever we encounter the first character of the pattern string in the input string, we need to remember it and check if the following characters in the input string are the subsequent characters in the pattern string as well. We need to do this check (if successful) for as many characters as the length of the pattern string - quite intuitive. Traverse the input string As we traverse the input string, check if we encounter the first character of the pattern string If the pattern string’s first character does not match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string. If the pattern string’s first character does match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2) Let us write it down as a C++ function: int pat_search(std::string s, std::string pat) { int slen = s.length(); int plen = pat.length(); int res = -1; for (int i = 0; i &amp;lt;= slen - plen; i++) { int j; for (j = 0; j &amp;lt; plen; j++) { if (s[i+j] != pat[j]) break; } if (j == plen) return i; } return res; } This algorithm however matches only the first occurence of the pattern and not all occurences (there might be more than one occurence of the pattern in the input string). How do we modify the above algorithm to handle this case?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Rotating an array counter clockwise around a given index →</title>
-      
-      <link href="https://dotkay.github.io/2018/04/08/rotate-array-ccw/" rel="alternate" type="text/html" title="Rotating an array counter clockwise around a given index" />
-      <published>2018-04-08T00:00:00+00:00</published>
-      <updated>2018-04-08T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/04/08/rotate-array-ccw</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/04/08/rotate-array-ccw/">&lt;p&gt;Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was &lt;code class=&quot;highlighter-rouge&quot;&gt;[1, 2, 3, 4, 5, 6, 7, 8]&lt;/code&gt;, the result of rotation around index &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt; (that has the element 4) in the counter clockwise direction would be &lt;code class=&quot;highlighter-rouge&quot;&gt;[5, 6, 7, 8, 1, 2, 3, 4]&lt;/code&gt;. The sequence of transformations the array goes through as each of the elements until the given index rotates would be:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 2 3 4 5 6 7 8            --&amp;gt; input array
-2 3 4 5 6 7 8 1            --&amp;gt; 1 has rotated away to the end of the array
-3 4 5 6 7 8 1 2            --&amp;gt; 2 has rotated away following 1
-4 5 6 7 8 1 2 3            --&amp;gt; now, it's 3's turn
-5 6 7 8 1 2 3 4            --&amp;gt; the element at index 3 (i.e. 4) around which we
-                               wanted to rotate has also completed.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We can use the &lt;a href=&quot;https://dotkay.github.io/2018/04/05/reverse-a-subarray&quot;&gt;algorithm we developed to reverse a sub-array&lt;/a&gt;, in order to achieve this rotation. The idea is simple:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;First, reverse the sub-array consisting of elements from the beginning of the array until the pivot (around which we want to rotate the array) in place&lt;/li&gt;
-  &lt;li&gt;Now, rotate the remaining sub-array alone (i.e. from the pivot until the end of the array&lt;/li&gt;
-  &lt;li&gt;Complete it by reversing the entire array once&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 2 3 4 5 6 7 8            --&amp;gt; input array
-4 3 2 1 5 6 7 8            --&amp;gt; step-1 first sub-array reversed
-4 3 2 1 8 7 6 5            --&amp;gt; step-2 second sub-array reversed
-5 6 7 8 1 2 3 4            --&amp;gt; step-3 rotation of the entire array 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;An implementation would look like:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rotate_arr_ccw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;reverse_arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;reverse_arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pivot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;reverse_arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="arrays" />
-      
-
-      
-
-      
-        <summary type="html">Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was [1, 2, 3, 4, 5, 6, 7, 8], the result of rotation around index 3 (that has the element 4) in the counter clockwise direction would be [5, 6, 7, 8, 1, 2, 3, 4]. The sequence of transformations the array goes through as each of the elements until the given index rotates would be: 1 2 3 4 5 6 7 8 --&amp;gt; input array 2 3 4 5 6 7 8 1 --&amp;gt; 1 has rotated away to the end of the array 3 4 5 6 7 8 1 2 --&amp;gt; 2 has rotated away following 1 4 5 6 7 8 1 2 3 --&amp;gt; now, it's 3's turn 5 6 7 8 1 2 3 4 --&amp;gt; the element at index 3 (i.e. 4) around which we wanted to rotate has also completed. We can use the algorithm we developed to reverse a sub-array, in order to achieve this rotation. The idea is simple: First, reverse the sub-array consisting of elements from the beginning of the array until the pivot (around which we want to rotate the array) in place Now, rotate the remaining sub-array alone (i.e. from the pivot until the end of the array Complete it by reversing the entire array once 1 2 3 4 5 6 7 8 --&amp;gt; input array 4 3 2 1 5 6 7 8 --&amp;gt; step-1 first sub-array reversed 4 3 2 1 8 7 6 5 --&amp;gt; step-2 second sub-array reversed 5 6 7 8 1 2 3 4 --&amp;gt; step-3 rotation of the entire array An implementation would look like: void rotate_arr_ccw(int arr[], int size, int pivot) { reverse_arr(arr, 0, pivot); reverse_arr(arr, pivot+1, size-1); reverse_arr(arr, 0, size-1); }</summary>
       
 
       
