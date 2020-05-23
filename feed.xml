@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-04-24T23:26:39+00:00</updated>
+  <updated>2020-05-23T00:49:41+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -488,6 +488,70 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Python, immutable data-types again, and memory management →</title>
+      
+      <link href="https://dotkay.github.io/2018/06/18/python-tuple-mem-mgmt/" rel="alternate" type="text/html" title="Python, immutable data-types again, and memory management" />
+      <published>2018-06-18T00:00:00+00:00</published>
+      <updated>2018-06-18T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/06/18/python-tuple-mem-mgmt</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/06/18/python-tuple-mem-mgmt/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/&quot;&gt;earlier post&lt;/a&gt; we saw how Python’s memory management behaves when dealing with immutable objects. In this post, let us see another immutable object, this time a &lt;em&gt;tuple&lt;/em&gt; and examine how Python deals with it.&lt;/p&gt;
+
+&lt;p&gt;Let us consider a tuple of integer objects &lt;code class=&quot;highlighter-rouge&quot;&gt;t = (1, 2, 3)&lt;/code&gt;. We see that it references memory address &lt;code class=&quot;highlighter-rouge&quot;&gt;0x1dd65ac45e8&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by t: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What happens if we try to mutate or update the tuple object above, &lt;code class=&quot;highlighter-rouge&quot;&gt;t&lt;/code&gt;? We see that it creates a new reference to a new object (at &lt;code class=&quot;highlighter-rouge&quot;&gt;0x1dd65a514c8&lt;/code&gt;), instead of updating the earlier object. And the earlier reference would be reclaimed by the garbage collector.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;p&gt;&lt;img src=&quot;/assets/images/py/tup_mem_mgmt_1.png&quot; alt=&quot;Python Memory Management&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by t: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is because &lt;em&gt;tuples&lt;/em&gt; are immutable objects, more like integer objects we saw in an &lt;a href=&quot;https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/&quot;&gt;earlier post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;So, all is clear and good, right? Wait until a future post on tuples again.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="immutable" />
+      
+        <category term="tuples" />
+      
+        <category term="memory management" />
+      
+        <category term="Python" />
+      
+
+      
+
+      
+        <summary type="html">In an earlier post we saw how Python’s memory management behaves when dealing with immutable objects. In this post, let us see another immutable object, this time a tuple and examine how Python deals with it. Let us consider a tuple of integer objects t = (1, 2, 3). We see that it references memory address 0x1dd65ac45e8 def mem_addr(item): return hex(id(item)) t = (1, 2) print('memory referenced by t: {0}'.format(mem_addr(t))) What happens if we try to mutate or update the tuple object above, t? We see that it creates a new reference to a new object (at 0x1dd65a514c8), instead of updating the earlier object. And the earlier reference would be reclaimed by the garbage collector. t = (1, 2, 3) print('memory referenced by t: {0}'.format(mem_addr(t))) This is because tuples are immutable objects, more like integer objects we saw in an earlier post. So, all is clear and good, right? Wait until a future post on tuples again.</summary>
       
 
       
@@ -1153,82 +1217,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Let us see how do we compute the minimum absolute difference among elements of an array. Given that we are concerened about all the elements of the array tells us that we need to Traverse all the elements of the array (so complexity is already O(n)) Maintain a running counter that captures the minimum difference as we traverse the array - the idea is also to initialize this variable to MAX value so that we can record the minimum difference easily int min_abs_diff(int arr[], int n) { int min_diff = INT8_MAX; for (int i = 0; i &amp;lt; n; i++) { int diff = abs(arr[i] - arr[(i+1) % n]); if (diff &amp;lt; min_diff) min_diff = diff; } return min_diff; } Note how we try not to overflow the array index (while evaluating arr[i+1]) by computing modulo n - the size of the array.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Searching for occurence of a pattern in a string →</title>
-      
-      <link href="https://dotkay.github.io/2018/04/09/string-pattern-search/" rel="alternate" type="text/html" title="Searching for occurence of a pattern in a string" />
-      <published>2018-04-09T00:00:00+00:00</published>
-      <updated>2018-04-09T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/04/09/string-pattern-search</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/04/09/string-pattern-search/">&lt;p&gt;Let us write a very simple program to implement a simple variant of &lt;em&gt;str.find()&lt;/em&gt; that we used in our &lt;a href=&quot;https://dotkay.github.io/2018/04/04/string-rotation-by-n-check&quot;&gt;previous post&lt;/a&gt;. Basically, we want to write a function that accepts an input string and a pattern string and identifies if the pattern forms a substring of the input string and if it does tells us the &lt;em&gt;first&lt;/em&gt; index position of occurence in the input string.&lt;/p&gt;
-
-&lt;p&gt;The naïve way is to traverse the input string looking for the pattern string. In order to do this, whenever we encounter the first character of the pattern string in the input string, we need to remember it and check if the following characters in the input string are the subsequent characters in the pattern string as well. We need to do this check (if successful) for as many characters as the length of the pattern string - quite intuitive.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Traverse the input string&lt;/li&gt;
-  &lt;li&gt;As we traverse the input string, check if we encounter the first character of the pattern string
-    &lt;ol&gt;
-      &lt;li&gt;If the pattern string’s first character &lt;em&gt;does not&lt;/em&gt; match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.&lt;/li&gt;
-      &lt;li&gt;If the pattern string’s first character &lt;em&gt;does&lt;/em&gt; match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string&lt;/li&gt;
-      &lt;li&gt;If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Let us write it down as a C++ function:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;pat_search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;slen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;This algorithm however matches only the first occurence of the pattern and not all occurences (there might be more than one occurence of the pattern in the input string). How do we modify the above algorithm to handle this case?&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="strings" />
-      
-
-      
-
-      
-        <summary type="html">Let us write a very simple program to implement a simple variant of str.find() that we used in our previous post. Basically, we want to write a function that accepts an input string and a pattern string and identifies if the pattern forms a substring of the input string and if it does tells us the first index position of occurence in the input string. The naïve way is to traverse the input string looking for the pattern string. In order to do this, whenever we encounter the first character of the pattern string in the input string, we need to remember it and check if the following characters in the input string are the subsequent characters in the pattern string as well. We need to do this check (if successful) for as many characters as the length of the pattern string - quite intuitive. Traverse the input string As we traverse the input string, check if we encounter the first character of the pattern string If the pattern string’s first character does not match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string. If the pattern string’s first character does match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2) Let us write it down as a C++ function: int pat_search(std::string s, std::string pat) { int slen = s.length(); int plen = pat.length(); int res = -1; for (int i = 0; i &amp;lt;= slen - plen; i++) { int j; for (j = 0; j &amp;lt; plen; j++) { if (s[i+j] != pat[j]) break; } if (j == plen) return i; } return res; } This algorithm however matches only the first occurence of the pattern and not all occurences (there might be more than one occurence of the pattern in the input string). How do we modify the above algorithm to handle this case?</summary>
       
 
       
