@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-05-23T01:39:34+00:00</updated>
+  <updated>2020-06-14T03:59:19+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -488,6 +488,79 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Python, dictionaries, mutation and insertion order →</title>
+      
+      <link href="https://dotkay.github.io/2018/06/30/python-dict-order/" rel="alternate" type="text/html" title="Python, dictionaries, mutation and insertion order" />
+      <published>2018-06-30T00:00:00+00:00</published>
+      <updated>2018-06-30T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/06/30/python-dict-order</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/06/30/python-dict-order/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2018/06/24/python-tuple-mem-mgmt/&quot;&gt;earlier post&lt;/a&gt;, we saw tuples, which are immutable data-types in Python, but in the case of a tuple of lists, we were able to modify the contents of the list. Now, we will see dictionary objects in Python and see if they behave as expected. Recall that dictionaries are mutable objects in Python.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;d1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by d1: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The memory referenced by &lt;code class=&quot;highlighter-rouge&quot;&gt;d1&lt;/code&gt; seems to be &lt;code class=&quot;highlighter-rouge&quot;&gt;0x28be6286ee8&lt;/code&gt;. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;d1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'k3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;10.5&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by d1: {0}'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The memory referenced by &lt;code class=&quot;highlighter-rouge&quot;&gt;d1&lt;/code&gt; still seems to be &lt;code class=&quot;highlighter-rouge&quot;&gt;0x28be6286ee8&lt;/code&gt;. So, dictionaries seem to be well behaved. I like them.&lt;/p&gt;
+
+&lt;p&gt;However, for people who are still stuck with an older version (Python &amp;lt;= 3.5) and moving to Python &amp;gt;= 3.6, there are some surprises with dictionaries. For example, let us try with Python 3.6 first:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;d2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'c'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'d'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'e'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'f'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'g'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'h'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'i'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;prints out:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And if you notice, the keys are in order they were specified when &lt;code class=&quot;highlighter-rouge&quot;&gt;d2&lt;/code&gt; was created. With Python &amp;lt;= 3.5 however, this was the output:&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="mutable" />
+      
+        <category term="dict" />
+      
+        <category term="memory management" />
+      
+        <category term="insertion order" />
+      
+        <category term="Python" />
+      
+
+      
+
+      
+        <summary type="html">In an earlier post, we saw tuples, which are immutable data-types in Python, but in the case of a tuple of lists, we were able to modify the contents of the list. Now, we will see dictionary objects in Python and see if they behave as expected. Recall that dictionaries are mutable objects in Python. def mem_addr(item): return hex(id(item)) d1 = dict(k1 = 1, k2 = 'a') print('memory referenced by d1: {0}'.format(mem_addr(d1))) The memory referenced by d1 seems to be 0x28be6286ee8. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value. d1['k3'] = 10.5 print('memory referenced by d1: {0}'.format(mem_addr(d1))) The memory referenced by d1 still seems to be 0x28be6286ee8. So, dictionaries seem to be well behaved. I like them. However, for people who are still stuck with an older version (Python &amp;lt;= 3.5) and moving to Python &amp;gt;= 3.6, there are some surprises with dictionaries. For example, let us try with Python 3.6 first: d2 = { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9 } print(d2) prints out: {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9} And if you notice, the keys are in order they were specified when d2 was created. With Python &amp;lt;= 3.5 however, this was the output: {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9} The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.</summary>
       
 
       
@@ -1170,71 +1243,6 @@ memory referenced by t: 0x2103c874a48
 
       
         <summary type="html">The equillibrium point in a given array is said to be the index such that the sum of all the elements before the index equals the sum of all the elements to the right of the index. For example, if the input array is [0, -3, 5, -4, -2, 3, 1, 0], the equillibrium indices are 7, 3 and 0. Note that 0 is an equillibrium index if the sum of all the elements until the end of the array are 0 and similarly, n-1 is an equillibrium index of all the elements from 0 until n-1 add up to 0. Let us look at a very straight-forward solution. We could just traverse the array and for each element compute the sum of elements to the left and the sum of elements to the right (lsum and rsum in the code fragment below) and check if they are equal as we traverse the array. void eq_index(int arr[], int n) { int lsum, rsum; for (int i = 0; i &amp;lt; n; i++) { lsum = 0; rsum = 0; for (int j = 0; j &amp;lt; i; j++) lsum += arr[j]; for (int j = i+1; j &amp;lt;n; j++) rsum += arr[j]; if (lsum == rsum) std::cout &amp;lt;&amp;lt; &quot;equillibrium found at index: &quot; &amp;lt;&amp;lt; i &amp;lt;&amp;lt; std::endl; } } As you can realize immediately, this is an O(n^2) solution. Can we do better?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Reversing elements of an array in groups →</title>
-      
-      <link href="https://dotkay.github.io/2018/04/17/reverse-subarray-groups/" rel="alternate" type="text/html" title="Reversing elements of an array in groups" />
-      <published>2018-04-17T00:00:00+00:00</published>
-      <updated>2018-04-17T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/04/17/reverse-subarray-groups</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/04/17/reverse-subarray-groups/">&lt;p&gt;Earlier, we &lt;a href=&quot;https://dotkay.github.io/2018/04/05/reverse-a-subarray&quot;&gt;saw how to reverse a sub-array&lt;/a&gt; given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is &lt;code class=&quot;highlighter-rouge&quot;&gt;[1, 2, 3, 4, 5, 6, 7, 8]&lt;/code&gt; and group size is &lt;code class=&quot;highlighter-rouge&quot;&gt;3&lt;/code&gt;, we want to reverse every group of 3 elements in the array and the remaining ones. Something like:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 2 3 4 5 6 7 8                 -&amp;gt; input array
-(3 2 1) 4 5 6 7 8               -&amp;gt; first group of 3 elements reversed;
-                                   group denoted by (..)
-(3 2 1) (6 5 4) 7 8             -&amp;gt; second group of 3 elements reversed
-(3 2 1) (6 5 4) (8 7)           -&amp;gt; remaining elements (less than group size)
-                                   reversed
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The algorithm is very similar to the earlier one, just that we need to take care of the group boundaries while traversal and reversing, just like how we took care of boundaries while reversing subarrays.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;reverse_in_groups&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hi&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Here, &lt;code class=&quot;highlighter-rouge&quot;&gt;n&lt;/code&gt; denotes the size of the input array &lt;code class=&quot;highlighter-rouge&quot;&gt;arr&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;g&lt;/code&gt; denotes the size of the group.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="arrays" />
-      
-
-      
-
-      
-        <summary type="html">Earlier, we saw how to reverse a sub-array given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is [1, 2, 3, 4, 5, 6, 7, 8] and group size is 3, we want to reverse every group of 3 elements in the array and the remaining ones. Something like: 1 2 3 4 5 6 7 8 -&amp;gt; input array (3 2 1) 4 5 6 7 8 -&amp;gt; first group of 3 elements reversed; group denoted by (..) (3 2 1) (6 5 4) 7 8 -&amp;gt; second group of 3 elements reversed (3 2 1) (6 5 4) (8 7) -&amp;gt; remaining elements (less than group size) reversed The algorithm is very similar to the earlier one, just that we need to take care of the group boundaries while traversal and reversing, just like how we took care of boundaries while reversing subarrays. void reverse_in_groups(int arr[], int n, int g) { for (int i = 0; i &amp;lt; n; i += g) { int lo = i; int hi = min(i + g - 1, n - 1); while (lo &amp;lt; hi) { swap(&amp;amp;arr[lo++], &amp;amp;arr[hi--]); } } } Here, n denotes the size of the input array arr and g denotes the size of the group.</summary>
       
 
       

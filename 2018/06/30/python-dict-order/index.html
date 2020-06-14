@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Python, dictionaries, mutation and insertion order</title>
+  <meta name="description" content="In an earlier post, we saw tuples, which are immutable data-types in Python, but in the case of a tuple of lists, we were able to modify the contents of the list. Now, we will see dictionary objects in Python and see if they behave as expected. Recall that dictionaries are mutable objects in Python. def mem_addr(item): return hex(id(item)) d1 = dict(k1 = 1, k2 = &#39;a&#39;) print(&#39;memory referenced by d1: {0}&#39;.format(mem_addr(d1))) The memory referenced by d1 seems to be 0x28be6286ee8. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value. d1[&#39;k3&#39;] = 10.5 print(&#39;memory referenced by d1: {0}&#39;.format(mem_addr(d1))) The memory referenced by d1 still seems to be 0x28be6286ee8. So, dictionaries seem to be well behaved. I like them. However, for people who are still stuck with an older version (Python &amp;lt;= 3.5) and moving to Python &amp;gt;= 3.6, there are some surprises with dictionaries. For example, let us try with Python 3.6 first: d2 = { &#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3, &#39;d&#39;: 4, &#39;e&#39;: 5, &#39;f&#39;: 6, &#39;g&#39;: 7, &#39;h&#39;: 8, &#39;i&#39;: 9 } print(d2) prints out: {&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3, &#39;d&#39;: 4, &#39;e&#39;: 5, &#39;f&#39;: 6, &#39;g&#39;: 7, &#39;h&#39;: 8, &#39;i&#39;: 9} And if you notice, the keys are in order they were specified when d2 was created. With Python &amp;lt;= 3.5 however, this was the output: {&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;c&#39;: 3, &#39;d&#39;: 4, &#39;e&#39;: 5, &#39;f&#39;: 6, &#39;g&#39;: 7, &#39;h&#39;: 8, &#39;i&#39;: 9} The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.">
+  
+    
+    <meta name="keywords" content="mutable,dict,memory management,insertion order,Python">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/06/30/python-dict-order/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Python, dictionaries, mutation and insertion order">
+  <meta name="twitter:description" content="In an earlier post, we saw tuples, which are immutable data-types in Python, but in the case of a tuple of lists, we were able to modify the contents of the list. Now, we will see dictionary object...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/06/30/python-dict-order">Python, dictionaries, mutation and insertion order &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-06-30T00:00:00+00:00" itemprop="datePublished">Jun 30, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/mutable/">mutable</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/dict/">dict</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/memory-management/">memory management</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/insertion-order/">insertion order</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">Python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In an <a href="https://dotkay.github.io/2018/06/24/python-tuple-mem-mgmt/">earlier post</a>, we saw tuples, which are immutable data-types in Python, but in the case of a tuple of lists, we were able to modify the contents of the list. Now, we will see dictionary objects in Python and see if they behave as expected. Recall that dictionaries are mutable objects in Python.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+<span class="n">d1</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">k1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k2</span> <span class="o">=</span> <span class="s">'a'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by d1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">d1</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>The memory referenced by <code class="highlighter-rouge">d1</code> seems to be <code class="highlighter-rouge">0x28be6286ee8</code>. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d1</span><span class="p">[</span><span class="s">'k3'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.5</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by d1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">d1</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>The memory referenced by <code class="highlighter-rouge">d1</code> still seems to be <code class="highlighter-rouge">0x28be6286ee8</code>. So, dictionaries seem to be well behaved. I like them.</p>
+
+<p>However, for people who are still stuck with an older version (Python &lt;= 3.5) and moving to Python &gt;= 3.6, there are some surprises with dictionaries. For example, let us try with Python 3.6 first:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d2</span> <span class="o">=</span> <span class="p">{</span> <span class="s">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">'d'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s">'e'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">'f'</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s">'g'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s">'h'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s">'i'</span><span class="p">:</span> <span class="mi">9</span> <span class="p">}</span>
+<span class="k">print</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>prints out:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
+</code></pre></div></div>
+
+<p>And if you notice, the keys are in order they were specified when <code class="highlighter-rouge">d2</code> was created. With Python &lt;= 3.5 however, this was the output:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
+</code></pre></div></div>
+
+<p>The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

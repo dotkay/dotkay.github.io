@@ -102,10 +102,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/06/18/python-tuple-mem-mgmt/">Python, immutable data-types again, and memory management &rarr;</a>
+            <a class="post-link" href="/2018/06/24/python-tuple-mem-mgmt/">Python, immutable objects and memory management, again &rarr;</a>
           </h1>
 
-          <p class="post-meta">Jun 18, 2018 • 
+          <p class="post-meta">Jun 24, 2018 • 
   
   
     
@@ -158,6 +158,10 @@
   
     
       <a href="/categories/immutable/">immutable</a>,
+    
+  
+    
+  
     
   
     
@@ -307,6 +311,10 @@
   
     
   
+    
+  
+    
+  
 
   
   
@@ -362,6 +370,10 @@
   
     
       <a href="/categories/memory-management/">memory management</a>,
+    
+  
+    
+  
     
   
     
@@ -465,6 +477,487 @@
   
     
       <a href="/categories/python/">Python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In an <a href="https://dotkay.github.io/2018/06/18/python-tuple-mem-mgmt/">earlier post</a>, we saw how immutable objects like tuples are handled by Python’s memory management. It was straight-forward - tuples are immutable and so, when we try to update the tuple object, Python creates a new reference. Or does it? Always?</p>
+
+<p>Let us consider the following tuple, this time a <em>tuple of lists</em>. Recall that lists in Python are mutable objects.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>And our output:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>([1, 2], [4, 5])
+memory referenced by t: 0x2103c874a48
+</code></pre></div></div>
+
+<p>We see that the memory referenced by the object <code class="highlighter-rouge">t</code> which in our case is a tuple is <code class="highlighter-rouge">0x2103c874a48</code>. And we know that tuples are immutable objects in Python. So, let’s try to change the above tuple object <code class="highlighter-rouge">t</code>. This time we are going to do that by updating the individual elements <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> that constitute our tuple object.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>And we get the following printed:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>([1, 2, 3], [4, 5, 6])
+memory referenced by t: 0x2103c874a48
+</code></pre></div></div>
+
+<p><br /></p>
+<div class="img_container">
+  <p><img src="/assets/images/py/tup_mem_mgmt_2.png" alt="Python Memory Management" class="img=responsive" /></p>
+</div>
+
+<p>And what just happened here? Our immutable object <code class="highlighter-rouge">t</code> got updated without a new reference being created. So, it is not just the object itself that matters, the type of the constituent objects also plays a role in memory management. Hope this is enough motivation to play around with different mutable and immutable objects and how Python’s memory management handles them.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/06/18/python-tuple-mem-mgmt/">Python, immutable data-types again, and memory management &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Jun 18, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/immutable/">immutable</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/tuples/">tuples</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/memory-management/">memory management</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">Python</a>
+    
+  
+    
+  
     
   
     
@@ -654,6 +1147,10 @@
   
     
   
+    
+  
+    
+  
 
   
   
@@ -715,6 +1212,10 @@
   
     
       <a href="/categories/lists/">lists</a>,
+    
+  
+    
+  
     
   
     
@@ -856,6 +1357,10 @@
   
     
   
+    
+  
+    
+  
 
   
   
@@ -913,6 +1418,10 @@
   
     
       <a href="/categories/python/">Python</a>
+    
+  
+    
+  
     
   
     
@@ -1097,6 +1606,10 @@
   
     
   
+    
+  
+    
+  
 
   
   
@@ -1152,6 +1665,10 @@
   
     
       <a href="/categories/memory-management/">memory management</a>,
+    
+  
+    
+  
     
   
     
@@ -1255,6 +1772,10 @@
   
     
       <a href="/categories/python/">Python</a>
+    
+  
+    
+  
     
   
     
@@ -1444,6 +1965,10 @@
   
     
   
+    
+  
+    
+  
 
   
   
@@ -1499,6 +2024,10 @@
   
     
       <a href="/categories/memory-management/">memory management</a>,
+    
+  
+    
+  
     
   
     
@@ -1646,6 +2175,10 @@
   
     
   
+    
+  
+    
+  
 
 </p>
         </header>
@@ -1682,359 +2215,6 @@
 </div>
 
 <p>In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value <code class="highlighter-rouge">20</code>. Now our previous int object is not referencing anything and Python’s garbage collector would reclaim it.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/05/07/coin-change-rec/">Do you have some change? &rarr;</a>
-          </h1>
-
-          <p class="post-meta">May 7, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2018/05/05/climbing-stairs-recursively">previous post</a>, we saw a recursive algorithm for computing the number of ways to reach atop <em>n</em> stairs. Let’s do a similar computation, this time for computing the number of ways you can combine coin denominations to arrive at a given amount. More precisely:</p>
-
-<blockquote>
-  <p>Given a set of coin denominations and a target amount, how many ways can you combine the denominations in such a way that the combination sums up to the target amount? You can assume that you have unlimited supply of denominations.</p>
-</blockquote>
-
-<p>For example, if you have unlimited supply of $1 and $2 currency bills, how many ways can you combine them to return a change for $3? You could give three $1 bills, or a $1 bill along with a $2 bill (or alternately, a $2 bill along with a $1 bill, which is just a duplicate of the previous case just that I kept the $2 bill upon the $1 bill while giving).</p>
-
-<p>Let us think recursively. Given a set S = { $1, $2 } of bills, we could pick a $1 bill (to give) and now we have to think how many ways you can pick bills from our set S for the remaining amount of $2 ($3 the target amount - $1, the bill we already picked). Now, if you choose to pick another $1 bill, you have to think how many ways you can pick bills from our set S for the remaining amount of $1 ($3 the target amount - our first picked $1 - our second $1 pick). Now, we cannot pick $2 as we need only $1 and are just left with one choice - to pick another $1 from the set. This gives us one solution { $1, $1, $1 }.</p>
-
-<p>Alternately, we could have first picked a $2 bill and then we would be left with no choice but to pick another $1, so that it adds up to $3. What we are essentially doing is picking a bill whose value is less than the target amount and then computing the number of ways you can pick bills for the remaining amount, i.e. target amount - picked bill amount (our recursive step). And if this difference becomes 0, then we have a solution that sums up to the target amount (our base case for recursion).</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">coin_ways</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">S</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="c1">// base case</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-
-  <span class="kt">int</span> <span class="n">ways</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">ways</span> <span class="o">+=</span> <span class="n">coin_ways</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">target</span> <span class="o">-</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">ways</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>If you try the above implementation on our example with S = { 1, 2 } and target = 3, you will get <em>ways</em> to be 3. And the three ways are { 1, 1, 1 }, { 1, 2 } and { 2, 1 }. What if we want only the unique ways? How would you go about modifying the above algorithm? That is we want to collapse { 1, 2 } and { 2, 1 } as just one count - after all it does not matter if I keep the $1 bill upon $2 bill or the other way around as long as I am returning bills that sum up to $3. Think about it.</p>
 
         </div>
         
