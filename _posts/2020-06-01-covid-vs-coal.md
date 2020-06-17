@@ -17,7 +17,7 @@ Looking at the data, coal production is indeed decreasing and at such a rate tha
 ![Coal vs Renewable Energy](/assets/images/energy/coal_vs_renewable.PNG){:class="img=responsive"}
 </div>
 
-While the above is certainly positive news, there are several other fossil fuels (natural gas, crude oil, etc.) just like there are several renewable energy sources (hydroelectric,  solar, wind, etc.). 
+While the above is certainly positive news, there are several other fossil fuels (natural gas, crude oil, etc.) just like there are several renewable energy sources (hydroelectric,  solar, wind, etc.). Looking at more details at the different sources of fossil fuels, although coal production has reduced, total fossil fuel production is still way more than renewable energy production as the following chart shows.
 
 <br>
 <div class="img_container">
