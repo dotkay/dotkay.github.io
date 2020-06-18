@@ -102,10 +102,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/02/reverse-an-array/">Reversing an array in place &rarr;</a>
+            <a class="post-link" href="/2018/04/03/string-rotation-check/">Checking for string rotations &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 2, 2018 • 
+          <p class="post-meta">Apr 3, 2018 • 
   
   
     
@@ -116,6 +116,14 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -331,6 +339,427 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">naan</code> are rotations of each other while <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">nana</code> are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a-n-n-a   --&gt; 0. original string
+n-n-a-a   --&gt; 1. rotated by 1 ('a' moves to the end)
+n-a-a-n   --&gt; 2. rotated by 1
+</code></pre></div></div>
+
+<p>A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be:</p>
+
+<ol>
+  <li>Concatenate one of the strings with itself. Say, we choose <code class="highlighter-rouge">anna</code> to concatenate and form the concatenated one <code class="highlighter-rouge">annaanna</code></li>
+  <li>Search for the occurence of the second string <code class="highlighter-rouge">naan</code> in the concatenation,</li>
+  <li>We see that <code class="highlighter-rouge">naan</code> is indeed a substring of the concatenation <em>an</em><strong>naan</strong><em>na</em> and a rotation of <code class="highlighter-rouge">anna</code>.</li>
+</ol>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">str_rotation</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">.</span><span class="n">length</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">concat_str</span><span class="p">;</span>
+  <span class="n">concat_str</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">res_pos</span> <span class="o">=</span> <span class="n">concat_str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">res_pos</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="k">else</span> 
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>A caveat here is to check for the length of the two strings <em>a priori</em>. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce <code class="highlighter-rouge">ann</code> to be a rotation of <code class="highlighter-rouge">anna</code>.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/04/02/reverse-an-array/">Reversing an array in place &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 2, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -444,6 +873,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
 </p>
         </header>
@@ -487,6 +924,14 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -702,6 +1147,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -815,6 +1268,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -840,6 +1301,14 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1084,6 +1553,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1127,6 +1604,14 @@
   
     
       <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1310,6 +1795,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1335,6 +1828,14 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1584,6 +2085,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1627,6 +2136,14 @@
   
     
       <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1810,6 +2327,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1835,6 +2360,14 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1973,496 +2506,6 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/03/01/bits-sets-xors/">Of bits, sets and xors... &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Mar 1, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/bitwise-operations/">bitwise operations</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/bit-vectors/">bit-vectors</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>As ambiguous as the title may sound the contents of this topic would also surprise you every now and then. Yes, we are going to talk about bit-vectors and bitwise operations in C or C++.</p>
-
-<p>As we have been taught several times since childhood, computers can understand only 1s and 0s. We humans have 10 fingers and so we started counting in decimal number system (10 digits 0..9 and every other number is made of these 10 digits). However as present day computers use digital circuits one needed to invent a number system for the underlying functionality of transistors. To make things simple, they decided to interpret a voltage above a certain threshold as 1 and the voltage below a certain other threshold as 0 and all our computations revolve around it. For those interested in technology history, <a href="https://history-computer.com/ModernComputer/Electronic/ENIAC.html">ENIAC was actually a decimal machine</a>.</p>
-
-<p>Since our computers (as of now) are binary machines, everything - chars, strings, structs, music and videos are all represented as 0s and 1s. And we have primitive operations on these bits. Sounds like we are moving back to stone age, but be patient - we use these low level operations in system software even today due to the speed of such operations. We will concern ourselves with the most basic bitwise operations as below:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp;      -  Bitwise AND
-|      -  Bitwise OR
-~      -  Bitwise complement (i.e. negation)
-^      -  Bitwise XOR
-&gt;&gt;     -  Bitwise right-shift
-&lt;&lt;     -  Bitwise left-shift
-</code></pre></div></div>
-
-<p>As a quick note, <code class="highlighter-rouge">&gt;&gt;</code> can also be used for division by 2. For example 4 is <code class="highlighter-rouge">0100</code> in binary and <code class="highlighter-rouge">4 &gt;&gt; 1</code> would amount to <code class="highlighter-rouge">0010</code> which is 2 (4 / 2 = 2) and this on further shift <code class="highlighter-rouge">2 &gt;&gt; 1</code> results in <code class="highlighter-rouge">0001</code> which is 1 (2 /2 = 1).</p>
-
-<p>Similarly, <code class="highlighter-rouge">&lt;&lt;</code> can also be used for multiplication by 2. For example 2 is <code class="highlighter-rouge">0010</code> in binary and <code class="highlighter-rouge">2 &lt;&lt; 1</code> would result in <code class="highlighter-rouge">0100</code> which is 4 (2 * 2 = 4).</p>
-
-<p>One more quick aside is <em>2’s complement</em> - which is just a way of representing negative numbers. For example -2 would be represented (if we are allowed only 3-bits to represent) as <code class="highlighter-rouge">110</code> which is 2^3 - 2. In general, <em>-n</em> in 2’s complement is just <code class="highlighter-rouge">2^k - n</code> where <em>k</em> is the number of bits used to represent it.</p>
 
         </div>
         
