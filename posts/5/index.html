@@ -102,6 +102,473 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/05/05/climbing-stairs-recursively/">Climbing stairs recursively &rarr;</a>
+          </h1>
+
+          <p class="post-meta">May 5, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <blockquote>
+  <p>How many different ways can you reach atop a fleet of <em>n</em> step stairs taking one or two step jumps at a time?</p>
+</blockquote>
+
+<p>This question might ring a bell for some who have heard about an Italian mathematician who computed a similar sequence for counting rabbits in his garden. Let us think about it using a smaller example and generalize the solution. Let us say we have only 2 steps to climb. Given the constraints (1 step or 2 step climbs only), we can complete 2 steps in the following ways:</p>
+
+<ol>
+  <li>1 step, 1 step</li>
+  <li>2 steps</li>
+</ol>
+
+<p>2 possible ways. How about 3 steps?</p>
+
+<ol>
+  <li>1 step, 1 step, 1 step</li>
+  <li>1 step, 2 steps</li>
+  <li>2 steps, 1 step</li>
+</ol>
+
+<p><br />
+<img src="/assets/images/algorithms/cpp/three_steps.jpg" alt="3 steps" class="img=responsive" /></p>
+
+<p>So, 3 possible ways. What about if we have an additional one to climb (i.e. total of 4 steps to climb)? We can do it in the following ways:</p>
+
+<ol>
+  <li>1 step, 1 step, 1 step, 1 step</li>
+  <li>1 step, 2 steps, 1 step</li>
+  <li>1 step, 1 step, 2 steps</li>
+  <li>2 steps, 1 step, 1 step</li>
+  <li>2 steps, 2 steps</li>
+</ol>
+
+<p><br />
+<img src="/assets/images/algorithms/cpp/four_steps.jpg" alt="4 steps" class="img=responsive" /></p>
+
+<p>We also notice that the number of ways of climbing 4 steps is the number of ways of climbing 2 steps + the number of ways we could climb 3 steps. Recursively, we could compute for any <em>n</em> steps, given the constraints, we could climb it by computing the number of ways of climbing <em>n-1</em> and <em>n-2</em> steps.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">stairs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// base cases</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+
+  <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="n">stairs</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">stairs</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/04/23/arr-equillibrium/">More efficient computation of equillibrium index in an array &rarr;</a>
           </h1>
 
@@ -116,6 +583,18 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -347,6 +826,18 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -394,6 +885,18 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -637,6 +1140,18 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -668,6 +1183,18 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -805,6 +1332,18 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1046,6 +1585,18 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1077,6 +1628,18 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1214,6 +1777,18 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1457,6 +2032,18 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1488,6 +2075,18 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1699,6 +2298,18 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
 </p>
         </header>
@@ -1726,428 +2337,6 @@
 </figure>
 
 <p>Note how we try not to overflow the array index (while evaluating <code class="highlighter-rouge">arr[i+1]</code>) by computing modulo <code class="highlighter-rouge">n</code> - the size of the array.</p>
-
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/04/09/string-pattern-search/">Searching for occurence of a pattern in a string &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Apr 9, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/strings/">strings</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let us write a very simple program to implement a simple variant of <em>str.find()</em> that we used in our <a href="https://dotkay.github.io/2018/04/04/string-rotation-by-n-check">previous post</a>. Basically, we want to write a function that accepts an input string and a pattern string and identifies if the pattern forms a substring of the input string and if it does tells us the <em>first</em> index position of occurence in the input string.</p>
-
-<p>The naïve way is to traverse the input string looking for the pattern string. In order to do this, whenever we encounter the first character of the pattern string in the input string, we need to remember it and check if the following characters in the input string are the subsequent characters in the pattern string as well. We need to do this check (if successful) for as many characters as the length of the pattern string - quite intuitive.</p>
-
-<ol>
-  <li>Traverse the input string</li>
-  <li>As we traverse the input string, check if we encounter the first character of the pattern string
-    <ol>
-      <li>If the pattern string’s first character <em>does not</em> match the current index character of the input string, keep moving forward in the input string while still waiting for a match for the first character of the pattern string.</li>
-      <li>If the pattern string’s first character <em>does</em> match the current index character of the input string, move forward in the pattern string and check if the second character of the pattern string matches the next character in the input string</li>
-      <li>If we successfully match the subsequent characters of input string and we have reached the end of the pattern string (i.e. successfully matched as many characters as the length of the pattern string) return the index of the input string that matched the first character of the input string (from 2.2)</li>
-    </ol>
-  </li>
-</ol>
-
-<p>Let us write it down as a C++ function:</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">pat_search</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">pat</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">slen</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
-  <span class="kt">int</span> <span class="n">plen</span> <span class="o">=</span> <span class="n">pat</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
-  <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">slen</span> <span class="o">-</span> <span class="n">plen</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">plen</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">pat</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-        <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">plen</span><span class="p">)</span>
-      <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>This algorithm however matches only the first occurence of the pattern and not all occurences (there might be more than one occurence of the pattern in the input string). How do we modify the above algorithm to handle this case?</p>
 
 
         </div>
