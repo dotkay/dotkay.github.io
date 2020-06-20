@@ -102,6 +102,333 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/26/more-examples-using-aux-functions/">More examples using auxiliary functions &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 26, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s look at a couple of more examples in order to get us thinking towards using auxiliary functions and accumulators while writing recursive functions. This would help us write tail-recursive functions which are safer and always a good practice. Note that some of the language compilers do not optimize tail recursions and so be aware of this fact in order not to be surprised when you do not see performance improvements while using tail recursive functions.</p>
+
+<p>Let’s write the standard explode function <code class="highlighter-rouge">explode</code> that explodes a string into a list of characters. i.e., if you pass the string <code class="highlighter-rouge">"hello"</code>, it would explode it and return the list <code class="highlighter-rouge">['h'; 'e'; 'l'; 'l'; 'o']</code>.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">explode</span> <span class="n">s</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_expl</span> <span class="n">n</span> <span class="n">acc</span> <span class="o">=</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="n">acc</span>
+    <span class="k">else</span> <span class="n">aux_expl</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span>
+  <span class="k">in</span>
+  <span class="n">aux_expl</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">length</span> <span class="n">s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Let’s write another function <code class="highlighter-rouge">prime_factors</code> that would return all the prime factors of an input number <code class="highlighter-rouge">n</code>. Again, we shall use an auxiliary function to do the intermediate computations.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">prime_factors</span> <span class="n">n</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_factors</span> <span class="n">d</span> <span class="n">n</span> <span class="o">=</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">then</span> <span class="bp">[]</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="ow">mod</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">then</span> <span class="n">d</span><span class="o">::</span><span class="p">(</span><span class="n">aux_factors</span> <span class="n">d</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">d</span><span class="p">))</span>
+    <span class="k">else</span> <span class="n">aux_factors</span> <span class="p">(</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">n</span>
+  <span class="k">in</span>
+  <span class="n">aux_factors</span> <span class="mi">2</span> <span class="n">n</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>That’s all for today! Hope it was enjoyable.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/25/some-more-examples-of-tail-recursion/">More examples of tail recursions &rarr;</a>
           </h1>
 
@@ -238,6 +565,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -245,6 +580,14 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -567,6 +910,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -574,6 +925,14 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -903,6 +1262,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -928,6 +1295,14 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1214,6 +1589,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1239,6 +1622,14 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1412,352 +1803,6 @@
 
 <p>I don’t know how clearly I managed to explain it. Someday, I will add intuitive images working out the above three and see if it is any more intuitive.</p>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/21/learning-to-count-set-bits/">Learning to count set bits &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 21, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s take a break from recursion and learn to count the number of bits set in an integer. For example, in an integer say <code class="highlighter-rouge">9</code> there are two set bits. Of course, we will be dealing with unsigned integers and the number of bits set is in the binary representation (the language that our computers understand and speak). We already saw how to convert an integer to binary in one of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">previous posts</a>. You may want to refer to that in case you want to quickly refresh your memory.</p>
-
-<p>Let’s work out the first technique we would use. Let’s take the integer <code class="highlighter-rouge">9</code>. It’s binary representation is <code class="highlighter-rouge">1001</code>. So, there are two set bits. Looks very intuitive - start from the right-most bit, have a counter and start counting the set bits, while right shifting our bit string. We just need a counter to keep track of the count and two operations - right shift and an operation to identify a set bit. Let’s see how to do that.</p>
-
-<ol>
-  <li>We initialize a counter, call it <code class="highlighter-rouge">count</code> to 0.</li>
-  <li>We do a bitwise <code class="highlighter-rouge">&amp;</code> with <code class="highlighter-rouge">1</code>. This would identify if a bit is set. If it’s set, we would increment <code class="highlighter-rouge">count</code>.</li>
-  <li>Right shift our original input and continue till we encounter 0 (terminating condition for our loop).</li>
-</ol>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
-   1001	       			  0
-               0001		  1
-   0100	       0000		  1
-   0010	       0000		  1
-   0001	       0001		  2
-   0000	        -		  2
-</code></pre></div></div>
-
-<p>final result = 2</p>
-
-<p>Let’s write a quick C function:</p>
-
-<figure class="highlight">
-  <pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
-<span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">count</span> <span class="o">+=</span> <span class="n">n</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">n</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
-1001     1000     1000          1
-1000     0111     0000          2
-0000      --       --           2
-
-</code></pre></div></div>
-
-<p>final result = 2. Note that we loop only as many times as the number of set bits, unlike the previous case.</p>
-
-<p>Let’s write a quick C function:</p>
-
-<figure class="highlight">
-  <pre><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">int</span> <span class="nf">BK_count_set_bits</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> 
-<span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">n</span> <span class="o">&amp;=</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>That’s all for now. Let me get my head around other bits and pieces before my next post.</p>
 
         </div>
         

@@ -102,6 +102,480 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/05/06/climbing-stairs-dp/">Climbing stairs and remembering the past... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">May 6, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/dynamic-programming/">dynamic programming</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <blockquote>
+  <p>Those who cannot remember the past are condemned to repeat it!</p>
+</blockquote>
+
+<p>In our <a href="https://dotkay.github.io/2018/05/05/climbing-stairs-recursively">previous post</a> we saw a recursive algorithm to compute the number of ways one can climb a fleet of <em>n</em> steps. If you draw the recursion tree for such an algorithm, we would soon find that we are computing some of the sub-problems repeatedly. We can do better by remembering (i.e. storing in some data structure) what we computed so that we can retrieve it and reuse it when needed again. Or in other fancy computer science parlance, we can use <em>dynamic programming</em> technique to solve such recursive problems more efficiently.</p>
+
+<p>Here is the recursion tree for a hypothetical problem, similar to climbing stairs from our <a href="https://dotkay.github.io/2018/05/05/climbing-stairs-recursively">previous post</a> where each function call for an input parameter value <em>n</em> leads to two calls for values <em>n-1</em> and <em>n-2</em>. We can readily see, even in this very small example, that the all the function calls in the sub-tree rooted at <em>2</em> is computed again unnecessarily. One of the main ideas in dynamic programming is to store such computations so that we can reuse them when needed again.</p>
+
+<p><br />
+<img src="/assets/images/algorithms/cpp/rec_tree.jpg" alt="recursion tree" class="img=responsive" /></p>
+
+<p>Let us try to use dynamic programming and rewrite our algorithm for computing the number of ways of climbing <em>n</em> steps. We shall use a simple array (a C++ vector) to store intermediate computations. More concretely, we will store the number of ways of climbing 1 step, the number of ways of climbing 2 steps, and so on. So, our array <code class="highlighter-rouge">ways</code> stores the number of ways - <code class="highlighter-rouge">ways[i]</code> gives us the number of ways of climbing <code class="highlighter-rouge">i</code> steps. As we saw in our previous post, the algorithm just needs to compute <code class="highlighter-rouge">ways[i-1] + ways[i-2]</code> for different values of <code class="highlighter-rouge">i</code> upto <code class="highlighter-rouge">n</code> and finally return <code class="highlighter-rouge">ways[n]</code> as the result.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">stairs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ways</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+
+  <span class="c1">// base case</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="n">ways</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">ways</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+
+  <span class="k">return</span> <span class="n">ways</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>An astute reader would start thinking how this is different from divide-and-conquer approaches for solving recursive problems. I will let you think about it for now and find out for yourself what  technique is beneficial for what specific structure of the recursive problem - that was already a hint there!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/05/05/climbing-stairs-recursively/">Climbing stairs recursively &rarr;</a>
           </h1>
 
@@ -116,6 +590,14 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -371,6 +853,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -396,6 +886,14 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -705,6 +1203,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -736,6 +1242,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -885,6 +1399,14 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1152,6 +1674,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1183,6 +1713,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1332,6 +1870,14 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1597,6 +2143,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1628,6 +2182,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1777,6 +2339,14 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1896,447 +2466,6 @@
 </figure>
 
 <p>Here, <code class="highlighter-rouge">n</code> denotes the size of the input array <code class="highlighter-rouge">arr</code> and <code class="highlighter-rouge">g</code> denotes the size of the group.</p>
-
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/04/14/array-min-abs-diff/">Finding the minimum absolute difference among array elements &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Apr 14, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/arrays/">arrays</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let us see how do we compute the minimum absolute difference among elements of an array. Given that we are concerened about all the elements of the array tells us that we need to</p>
-
-<ol>
-  <li>Traverse all the elements of the array (so complexity is already O(n))</li>
-  <li>Maintain a running counter that captures the minimum difference as we traverse the array - the idea is also to initialize this variable to MAX value so that we can record the minimum difference easily</li>
-</ol>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">min_abs_diff</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">min_diff</span> <span class="o">=</span> <span class="n">INT8_MAX</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">abs</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">arr</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">]);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">diff</span> <span class="o">&lt;</span> <span class="n">min_diff</span><span class="p">)</span>
-      <span class="n">min_diff</span> <span class="o">=</span> <span class="n">diff</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">min_diff</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>Note how we try not to overflow the array index (while evaluating <code class="highlighter-rouge">arr[i+1]</code>) by computing modulo <code class="highlighter-rouge">n</code> - the size of the array.</p>
 
 
         </div>

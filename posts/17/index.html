@@ -102,10 +102,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/08/30/some-more-tail-recursion/">Some more tail recursion... &rarr;</a>
+            <a class="post-link" href="/2017/08/31/recursions-and-merge-sort/">Recursions and merge sort &rarr;</a>
           </h1>
 
-          <p class="post-meta">Aug 30, 2017 • 
+          <p class="post-meta">Aug 31, 2017 • 
   
   
     
@@ -116,6 +116,14 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -371,6 +379,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -378,6 +394,510 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe</p>
+
+<ul>
+  <li><code class="highlighter-rouge">split</code> function that would take a list and split it into two lists</li>
+  <li><code class="highlighter-rouge">merge</code> function that would merge a pair of sorted lists</li>
+  <li><code class="highlighter-rouge">merge_sort</code> function that would use the above two to build the sorted list recursively.</li>
+</ul>
+
+<p>Let’s prepare the above one by one. First, the <code class="highlighter-rouge">split</code> function that takes a list <code class="highlighter-rouge">lst</code> as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it <code class="highlighter-rouge">a1</code> and <code class="highlighter-rouge">a2</code>. Next, we will think about the possible cases (patterns).</p>
+
+<ol>
+  <li>The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use).</li>
+  <li>If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result).</li>
+  <li>If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list.</li>
+</ol>
+
+<p>So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">split</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">a1</span> <span class="n">a2</span> <span class="n">l</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
+    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">a1</span><span class="p">)</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">a2</span><span class="p">)</span> <span class="n">x3</span>
+  <span class="k">in</span>
+  <span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Now, let’s prepare the second item in our list - the <code class="highlighter-rouge">merge</code> function. This is just pattern matching and even simpler than our <code class="highlighter-rouge">split</code> function.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge</span> <span class="p">(</span><span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span><span class="p">)</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span><span class="o">,</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="n">l</span><span class="o">,</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="p">(</span><span class="n">h1</span><span class="o">::</span><span class="n">t1</span> <span class="k">as</span> <span class="n">l1</span><span class="p">)</span><span class="o">,</span> <span class="p">(</span><span class="n">h2</span><span class="o">::</span><span class="n">t2</span> <span class="k">as</span> <span class="n">l2</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">h1</span> <span class="o">&lt;</span> <span class="n">h2</span><span class="p">)</span> <span class="k">then</span> <span class="n">h1</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">l2</span><span class="p">)</span>
+     <span class="k">else</span> <span class="n">h2</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">l1</span><span class="o">,</span> <span class="n">t2</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>Finally, let’s prepare the merge_sort function that takes a list <code class="highlighter-rouge">lst</code> as input. First we would split the input list into two lists using our <code class="highlighter-rouge">split</code> function. Then, we would recursively call <code class="highlighter-rouge">merge_sort</code> on the two sub-lists (result of <code class="highlighter-rouge">split</code> function) and merge the results of these recursive calls using our <code class="highlighter-rouge">merge</code> function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge_sort</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="o">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">split</span> <span class="n">l</span> <span class="k">in</span>
+         <span class="n">merge</span> <span class="p">(</span><span class="n">merge_sort</span> <span class="n">l1</span><span class="o">,</span> <span class="n">merge_sort</span> <span class="n">l2</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/08/30/some-more-tail-recursion/">Some more tail recursion... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 30, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -688,6 +1208,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -695,6 +1223,14 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -994,6 +1530,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1001,6 +1545,14 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1340,6 +1892,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1355,6 +1915,14 @@
   
     
       <a href="/categories/npr/">NPR</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1606,290 +2174,6 @@
   
     
   
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Lately, I have been thinking a lot about my work - my daily job. Most of us have one, where we slog every day, working late into the night or all night. We may have complaints, dissatisfactions, pleasant and unpleasant experiences, awesome career growths or non-existence of such a thing, lots of learning or nothing at all, great colleagues, teams, workplace issues, and the list goes on. I listened to an interesting podcast on “Meaning of work” from <a href="http://www.npr.org/programs/ted-radio-hour/">TED Radio Hour</a> several months ago and listened to it once again over this weekend.</p>
-
-<audio controls="">
-<source src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2015/10/20151002_ted_tedpod.mp3" />
-</audio>
-<p><br />
-Whatever your situation is, this is a great podcast to listen to. And if you’re a manager, there are important lessons for you too, if you are someone willing to listen and learn.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/26/more-examples-using-aux-functions/">More examples using auxiliary functions &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 26, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
     
   
     
@@ -1903,32 +2187,13 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
         </header>
 
         <div class="post-content">
-          <p>Let’s look at a couple of more examples in order to get us thinking towards using auxiliary functions and accumulators while writing recursive functions. This would help us write tail-recursive functions which are safer and always a good practice. Note that some of the language compilers do not optimize tail recursions and so be aware of this fact in order not to be surprised when you do not see performance improvements while using tail recursive functions.</p>
+          <p>Lately, I have been thinking a lot about my work - my daily job. Most of us have one, where we slog every day, working late into the night or all night. We may have complaints, dissatisfactions, pleasant and unpleasant experiences, awesome career growths or non-existence of such a thing, lots of learning or nothing at all, great colleagues, teams, workplace issues, and the list goes on. I listened to an interesting podcast on “Meaning of work” from <a href="http://www.npr.org/programs/ted-radio-hour/">TED Radio Hour</a> several months ago and listened to it once again over this weekend.</p>
 
-<p>Let’s write the standard explode function <code class="highlighter-rouge">explode</code> that explodes a string into a list of characters. i.e., if you pass the string <code class="highlighter-rouge">"hello"</code>, it would explode it and return the list <code class="highlighter-rouge">['h'; 'e'; 'l'; 'l'; 'o']</code>.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">explode</span> <span class="n">s</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_expl</span> <span class="n">n</span> <span class="n">acc</span> <span class="o">=</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="n">acc</span>
-    <span class="k">else</span> <span class="n">aux_expl</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_expl</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">length</span> <span class="n">s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Let’s write another function <code class="highlighter-rouge">prime_factors</code> that would return all the prime factors of an input number <code class="highlighter-rouge">n</code>. Again, we shall use an auxiliary function to do the intermediate computations.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">prime_factors</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_factors</span> <span class="n">d</span> <span class="n">n</span> <span class="o">=</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">then</span> <span class="bp">[]</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="ow">mod</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">then</span> <span class="n">d</span><span class="o">::</span><span class="p">(</span><span class="n">aux_factors</span> <span class="n">d</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">d</span><span class="p">))</span>
-    <span class="k">else</span> <span class="n">aux_factors</span> <span class="p">(</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">n</span>
-  <span class="k">in</span>
-  <span class="n">aux_factors</span> <span class="mi">2</span> <span class="n">n</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>That’s all for today! Hope it was enjoyable.</p>
+<audio controls="">
+<source src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2015/10/20151002_ted_tedpod.mp3" />
+</audio>
+<p><br />
+Whatever your situation is, this is a great podcast to listen to. And if you’re a manager, there are important lessons for you too, if you are someone willing to listen and learn.</p>
 
         </div>
         
