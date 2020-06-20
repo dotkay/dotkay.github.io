@@ -10,6 +10,10 @@ I built this page in order to learn the many things of interest by teaching and 
 
 Thanks to the awesome [whiteglass] theme that enabled the design of this page.
 
+<span style="color:gray; font-size: 50%; text-align: center;">
+Opinions expressed in the blog are my own and do not represent my employers.
+</span>
+
 [whiteglass]: https://github.com/yous/whiteglass
 
 
