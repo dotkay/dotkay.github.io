@@ -2738,7 +2738,7 @@
     
   
     
-      <a href="/categories/c/">C++</a>
+      <a href="/categories/c/">C++</a>,
     
   
     
@@ -2773,6 +2773,149 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/power-set/">power set</a>
     
   
     
@@ -2931,8 +3074,7 @@
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">result</span><span class="p">;</span>
 <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">int_result</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">input_set</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">input_set</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="n">find_all_subsets</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">int_result</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre>
+<span class="n">all_subsets_rec</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">int_result</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre>
 </figure>
 
 <p>At the face of it, it looks like a very simple problem and it is. But this is one of those problems which is very easy to get it wrong. Many things could go wrong here - you could overflow some bounds, add the same element twice or more times to the result array and so on.</p>
