@@ -1780,6 +1780,523 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/06/03/subsets-rec/">Computing subsets of a set &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Jun 3, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let us try and compute all subsets of a given set of integers.</p>
+
+<p>Let us try a recursive solution in this post. We will also see how to implement it in a more efficient manner in a later post. Suppose that the user is given the set of elements as a vector of integers and to further simplify, let us assume that there are no duplicates in the input set (and that’s why we call it a set). We want to return the set of all possible subsets that can be formed - a  vector of vectors. At this point, we have some idea of what data-type we could use. If you are programming in C++, one could straight away use a <code class="highlighter-rouge">std::vector</code>. If you are using Python or some other functional language, you could use a list.</p>
+
+<p>Let’s think recursively now. What would be the base condition? That is we are given an empty set as input. We just return. That was simple.</p>
+
+<p>Now, if we had just one element in our input set, what would be our result? The result would have a set containing the one element, and an empty set (as empty set is a valid subset of any set). This already gives us an operational hint - may be, we can start with an empty result set to begin with and traverse the given input set and add elements from it to our result set. In this simple case, let us suppose that the input set is just <code class="highlighter-rouge">[1]</code>. Here’s how we would proceed</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]        - empty result set
+[] [1]    - adding the one element from our input set
+</code></pre></div></div>
+
+<p>Let’s keep going. What happens when there are two elements in our input set? Say, <code class="highlighter-rouge">[1 2]</code>? As we saw above, we will start with an empty result set <code class="highlighter-rouge">[]</code>. We can traverse the input set and pick and add more elements from it to our result set, until we exhaust the input set:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]              - empty result set
+[] [1]          - adding the first element
+[] [1] [1 2]    - adding the second element
+</code></pre></div></div>
+
+<p>At this point, we have exhausted the input set. But we have not captured <code class="highlighter-rouge">[2]</code> as a part of our solution yet. What do we need to do in order to capture that? Just like how we added the first element <code class="highlighter-rouge">1</code> to our initial empty set, we should add only the second element <code class="highlighter-rouge">2</code> to our initial input set. In order words, we backtrack to the state (since we are going to be writing a recursive algorithm, this would correspond to popping from the recursion stack) where we had only the empty set, and add the second element. The entire sequence of operations would now appear like:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]                - empty result set
+[] [1]            - adding the first element
+[] [1] [1 2]      - adding the second element
+                  - ** backtrack **
+[] [1] [1 2] [2]  - adding only the second element
+</code></pre></div></div>
+
+<p>We can keep going. Note that when we have three elements <code class="highlighter-rouge">[1 2 3]</code>, we will need to backtrack to the state where our result had <code class="highlighter-rouge">[1]</code> and add <code class="highlighter-rouge">3</code> to it yielding <code class="highlighter-rouge">[1 3]</code> and later on (when? when we exhaust the rest of the input list) backtrack to the state where our result had <code class="highlighter-rouge">[]</code> and add <code class="highlighter-rouge">2</code>, and similarly <code class="highlighter-rouge">3</code> to the empty result set. I would leave it as an exercise to work out the steps as we did above.</p>
+
+<p>We see there are three major operations:</p>
+
+<ol>
+  <li>insert the intermediate result set to our result set of sets (like how we added empty set in the left most column above</li>
+  <li>traverse the input set starting from the index pointing to the first element, picking elements one by one and adding it to our intermediate result set, until we exhaust all the elements in our input set</li>
+  <li>backtrack (corresponding to moving the index to point to the second element) and pick and add elements one by one as in step 2.</li>
+</ol>
+
+<p>Let’s write it in C++ language.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">all_subsets_rec</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">result</span><span class="p">,</span>
+                     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">int_result</span><span class="p">,</span>
+                     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">input_set</span><span class="p">,</span>
+                     <span class="kt">int</span> <span class="n">start_index</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">input_size</span> <span class="o">=</span> <span class="n">input_set</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="c1">// base case</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">input_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">;</span>
+  
+  <span class="c1">// populate result set of sets</span>
+  <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">int_result</span><span class="p">);</span>
+
+  <span class="c1">// traverse</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start_index</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// populate intermediate result</span>
+    <span class="n">int_result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">input_set</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="c1">// recurse</span>
+    <span class="n">find_all_subsets</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">int_result</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="c1">// backtrack</span>
+    <span class="n">int_result</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>and the above recursive function is called in the driver program as:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">result</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">int_result</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">input_set</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">input_set</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">find_all_subsets</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">int_result</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre>
+</figure>
+
+<p>At the face of it, it looks like a very simple problem and it is. But this is one of those problems which is very easy to get it wrong. Many things could go wrong here - you could overflow some bounds, add the same element twice or more times to the result array and so on.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/06/01/python-var-mem-mgmt/">Python, immutable data-types and memory management &rarr;</a>
           </h1>
 
@@ -2242,479 +2759,6 @@
 </div>
 
 <p>In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value <code class="highlighter-rouge">20</code>. Now our previous int object is not referencing anything and Python’s garbage collector would reclaim it.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/05/07/coin-change-rec/">Do you have some change? &rarr;</a>
-          </h1>
-
-          <p class="post-meta">May 7, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2018/05/05/climbing-stairs-recursively">previous post</a>, we saw a recursive algorithm for computing the number of ways to reach atop <em>n</em> stairs. Let’s do a similar computation, this time for computing the number of ways you can combine coin denominations to arrive at a given amount. More precisely:</p>
-
-<blockquote>
-  <p>Given a set of coin denominations and a target amount, how many ways can you combine the denominations in such a way that the combination sums up to the target amount? You can assume that you have unlimited supply of denominations.</p>
-</blockquote>
-
-<p>For example, if you have unlimited supply of $1 and $2 currency bills, how many ways can you combine them to return a change for $3? You could give three $1 bills, or a $1 bill along with a $2 bill (or alternately, a $2 bill along with a $1 bill, which is just a duplicate of the previous case just that I kept the $2 bill upon the $1 bill while giving).</p>
-
-<p>Let us think recursively. Given a set S = { $1, $2 } of bills, we could pick a $1 bill (to give) and now we have to think how many ways you can pick bills from our set S for the remaining amount of $2 ($3 the target amount - $1, the bill we already picked). Now, if you choose to pick another $1 bill, you have to think how many ways you can pick bills from our set S for the remaining amount of $1 ($3 the target amount - our first picked $1 - our second $1 pick). Now, we cannot pick $2 as we need only $1 and are just left with one choice - to pick another $1 from the set. This gives us one solution { $1, $1, $1 }.</p>
-
-<p>Alternately, we could have first picked a $2 bill and then we would be left with no choice but to pick another $1, so that it adds up to $3. What we are essentially doing is picking a bill whose value is less than the target amount and then computing the number of ways you can pick bills for the remaining amount, i.e. target amount - picked bill amount (our recursive step). And if this difference becomes 0, then we have a solution that sums up to the target amount (our base case for recursion).</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">coin_ways</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">S</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="c1">// base case</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">target</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-
-  <span class="kt">int</span> <span class="n">ways</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">ways</span> <span class="o">+=</span> <span class="n">coin_ways</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">target</span> <span class="o">-</span> <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">ways</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>If you try the above implementation on our example with S = { 1, 2 } and target = 3, you will get <em>ways</em> to be 3. And the three ways are { 1, 1, 1 }, { 1, 2 } and { 2, 1 }. What if we want only the unique ways? How would you go about modifying the above algorithm? That is we want to collapse { 1, 2 } and { 2, 1 } as just one count - after all it does not matter if I keep the $1 bill upon $2 bill or the other way around as long as I am returning bills that sum up to $3. Think about it.</p>
 
         </div>
         
