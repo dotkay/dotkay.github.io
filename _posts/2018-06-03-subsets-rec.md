@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Computing subsets of a set
-categories: [algorithms, recursion, C++]
-keywords: [recursion, algorithms, C++]
+categories: [algorithms, recursion, C++, power set]
+keywords: [recursion, algorithms, C++, power set]
 external-url: https://dotkay.github.io/2018/06/03/subsets-rec
 ---
 
@@ -76,8 +76,7 @@ and the above recursive function is called in the driver program as:
 {% highlight cpp %}
 std::vector<std::vector<int>> result;
 std::vector<int> int_result;
-std::sort(input_set.begin(), input_set.end());
-find_all_subsets(result, int_result, input_set, 0);
+all_subsets_rec(result, int_result, input_set, 0);
 {% endhighlight %}
 
 
