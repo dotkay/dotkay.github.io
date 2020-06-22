@@ -102,6 +102,485 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/06/01/python-var-mem-mgmt/">Python, immutable data-types and memory management &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Jun 1, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/immutable/">immutable</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/memory-management/">memory management</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">Python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>I recently started coding in Python as I was playing around with data science, statistics and machine learning libraries. As I started writing more and more Python (Python 3) code, I also started exploring how different it is from C/C++. Although I am very familiar with programming languages like OCaml, Python is giving me more surprising discoveries than in any other languages I have played with. Let us look at some of those together.</p>
+
+<p>First is how Python’s memory management handles immutable and mutable data-types. For beginners, in Python everything is an object. Something declared like</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+</code></pre></div></div>
+
+<p>results in an <code class="highlighter-rouge">int</code> object <code class="highlighter-rouge">a</code> that references a memory location. The memory location referenced by the object can be determined by using <code class="highlighter-rouge">id()</code> function and by convention you denote it in Hexadecimal number, so one often does <code class="highlighter-rouge">hex(id(a))</code>.</p>
+
+<p>Now, let us see what is the memory referenced by our variable (actually a Python object) <code class="highlighter-rouge">a</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
+</code></pre></div></div>
+
+<p><br /></p>
+<div class="img_container">
+  <p><img src="/assets/images/py/var_mem_mgmt_2.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+</div>
+
+<p>and it returns <code class="highlighter-rouge">0x7ffd06a5a2b0</code>. Now, let us reassign <code class="highlighter-rouge">a</code> to value <code class="highlighter-rouge">20</code>. Now, we see that memory referenced has changed to <code class="highlighter-rouge">0x7ffd06a5a3f0</code>, instead of changing the value in the location referenced earlier.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
+</code></pre></div></div>
+
+<p><br /></p>
+<div class="img_container">
+  <p><img src="/assets/images/py/var_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+</div>
+
+<p>In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value <code class="highlighter-rouge">20</code>. Now our previous int object is not referencing anything and Python’s garbage collector would reclaim it.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/05/07/coin-change-rec/">Do you have some change? &rarr;</a>
           </h1>
 
@@ -116,6 +595,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -387,6 +868,8 @@
   
     
   
+    
+  
 
   
   
@@ -412,6 +895,8 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
     
   
     
@@ -719,6 +1204,8 @@
   
     
   
+    
+  
 
   
   
@@ -860,6 +1347,8 @@
   
     
   
+    
+  
 
   
   
@@ -885,6 +1374,8 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
     
   
     
@@ -1193,6 +1684,8 @@
   
     
   
+    
+  
 
   
   
@@ -1202,6 +1695,8 @@
   
     
       <a href="/categories/recursion/">recursion</a>,
+    
+  
     
   
     
@@ -1359,6 +1854,8 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
     
   
     
@@ -1684,6 +2181,8 @@
   
     
   
+    
+  
 
   
   
@@ -1715,6 +2214,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -1872,6 +2373,8 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
     
   
     
@@ -2000,475 +2503,6 @@
 </figure>
 
 <p>Power of prefix sums!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/04/20/arr-equillibrium-naive/">Finding the equillibrium index in an array &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Apr 20, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/arrays/">arrays</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <blockquote>
-  <p>The equillibrium point in a given array is said to be the index such that the sum of all the elements before the index equals the sum of all the elements to the right of the index.</p>
-</blockquote>
-
-<p>For example, if the input array is <code class="highlighter-rouge">[0, -3, 5, -4, -2, 3, 1, 0]</code>, the equillibrium indices are 7, 3 and 0. Note that <code class="highlighter-rouge">0</code> is an equillibrium index if the sum of all the elements until the end of the array are 0 and similarly, <code class="highlighter-rouge">n-1</code> is an equillibrium index of all the elements from 0 until <code class="highlighter-rouge">n-1</code> add up to 0.</p>
-
-<p>Let us look at a very straight-forward solution. We could just traverse the array and for each element compute the sum of elements to the left and the sum of elements to the right (<code class="highlighter-rouge">lsum</code> and <code class="highlighter-rouge">rsum</code> in the code fragment below) and check if they are equal as we traverse the array.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">eq_index</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">lsum</span><span class="p">,</span> <span class="n">rsum</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">lsum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">rsum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-      <span class="n">lsum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
-      <span class="n">rsum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">lsum</span> <span class="o">==</span> <span class="n">rsum</span><span class="p">)</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"equillibrium found at index: "</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>As you can realize immediately, this is an <code class="highlighter-rouge">O(n^2)</code> solution. Can we do better?</p>
 
         </div>
         

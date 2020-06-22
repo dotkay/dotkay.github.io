@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Computing subsets in the presence of duplicates</title>
+  <meta name="description" content="In our previous post we saw how to compute all possible subsets of a set and we assumed there are no duplicates. Here, we will remove that restriction and see what modifications need to be done to our previous algorithm in order to accomodate the relaxation. The earlier algorithm referred to the input as a set, and I will continue referring to the earlier algorithm (although in strict mathematical terminology, a set does not have duplicates). So, the title of the post itself is misleading if you are a mathematics police. First, let us understand what would be the output of our algorithm on an input set (or a list) that contains duplicates, say [1 2 2]. It is going to be: [] [1] [1 2] [1 2 2] [1 2] [2] [2 2] [2] As you notice, there are duplicates in the result set as well [1 2], [2], etc. A careful observer must have already noticed that it requires just a one line change. Intuitively before we pick elements from our input set (containing duplicates) and insert them into our intermediate result set, we just need to check if we already encountered the element. If we sorted the input set à priori, the duplicates would be staying together and this would allow us to prevent inserting an element to our intermediate set a second time, if the previously inserted element was the same. In our traversal loop, we just need to check for this condition before we insert. for (int i = start_index; i &amp;lt; input_size; i++) { if (i != start_index &amp;amp;&amp;amp; (input_set[i] == input_set[i-1])) break; ... ... Also, we sort the input set before we call the procedure: std::sort(input_set.begin(), input_set.end()); all_subsets_rec(result, int_result, input_set, 0); Try it out and convince yourself.">
+  
+    
+    <meta name="keywords" content="recursion,algorithms,C++,power set">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/06/04/subset-dup-rec/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Computing subsets in the presence of duplicates">
+  <meta name="twitter:description" content="In our previous post we saw how to compute all possible subsets of a set and we assumed there are no duplicates. Here, we will remove that restriction and see what modifications need to be done to ...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/06/04/subsets-dup-rec">Computing subsets in the presence of duplicates &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-06-04T00:00:00+00:00" itemprop="datePublished">Jun 4, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/power-set/">power set</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In our <a href="https://dotkay.github.io/2018/06/03/subsets-rec/">previous post</a> we saw how to compute all possible subsets of a set and we assumed there are no duplicates. Here, we will remove that restriction and see what modifications need to be done to our previous algorithm in order to accomodate the relaxation. The earlier algorithm referred to the input as a set, and I will continue referring to the earlier algorithm (although in strict mathematical terminology, a set does not have duplicates). So, the title of the post itself is misleading if you are a mathematics police.</p>
+
+<p>First, let us understand what would be the output of our algorithm on an input set (or a list) that contains duplicates, say <code class="highlighter-rouge">[1 2 2]</code>. It is going to be:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]
+[1]
+[1 2]
+[1 2 2]
+[1 2]
+[2]
+[2 2]
+[2]
+</code></pre></div></div>
+
+<p>As you notice, there are duplicates in the result set as well <code class="highlighter-rouge">[1 2]</code>, <code class="highlighter-rouge">[2]</code>, etc. A careful observer must have already noticed that it requires just a one line change. Intuitively before we pick elements from our input set (containing duplicates) and insert them into our intermediate result set, we just need to check if we already encountered the element. If we sorted the input set <em>à priori</em>, the duplicates would be staying together and this would allow us to prevent inserting an element to our intermediate set a second time, if the previously inserted element was the same. In our traversal loop, we just need to check for this condition before we insert.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start_index</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">start_index</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">input_set</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">input_set</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+  <span class="k">break</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="p">...</span></code></pre>
+</figure>
+
+<p>Also, we sort the input set before we call the procedure:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">input_set</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">input_set</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+<span class="n">all_subsets_rec</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">int_result</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre>
+</figure>
+
+<p>Try it out and convince yourself.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

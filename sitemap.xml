@@ -329,6 +329,10 @@
 <lastmod>2018-06-03T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://dotkay.github.io/2018/06/04/subset-dup-rec/</loc>
+<lastmod>2018-06-04T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/</loc>
 <lastmod>2018-06-06T00:00:00+00:00</lastmod>
 </url>
@@ -489,6 +493,9 @@
 </url>
 <url>
 <loc>https://dotkay.github.io/categories/python/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/categories/power-set/</loc>
 </url>
 <url>
 <loc>https://dotkay.github.io/categories/mutable/</loc>
@@ -669,5 +676,8 @@
 </url>
 <url>
 <loc>https://dotkay.github.io/posts/20/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/posts/21/</loc>
 </url>
 </urlset>
