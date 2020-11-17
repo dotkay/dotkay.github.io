@@ -9,7 +9,7 @@ env:
 before_install:
   - gem update --system
   - gem update --remote bundler
-  - gem install bundler
+  - gem install bundler:2.1.4
 before_script:
   - git config --global user.name "$(git --no-pager show --no-patch --format='%an')"
   - git config --global user.email "$(git --no-pager show --no-patch --format='%ae')"
