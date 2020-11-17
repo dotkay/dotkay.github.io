@@ -2037,10 +2037,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/25/array-rotation/">Rotating array elements &rarr;</a>
+            <a class="post-link" href="/2018/04/27/array-rotation-On/">Rotating array elements faster &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 25, 2018 • 
+          <p class="post-meta">Apr 27, 2018 • 
   
   
     
@@ -2474,32 +2474,31 @@
         </header>
 
         <div class="post-content">
-          <p>Here is a very simple problem. Given an array of <em>n</em> elements and an integer <em>d</em> (less than <em>n</em>) how would you write a program to rotate (around) the elements of the array to the left by <em>d</em> elements? For example, if the input array (of size 7) is <code class="language-plaintext highlighter-rouge">{1, 2, 3, 4, 5, 6, 7 }</code> and <em>d</em> is 2, the output array would be <code class="language-plaintext highlighter-rouge">{ 3, 4, 5, 6, 7, 1, 2 }</code>.</p>
+          <p>In our <a href="https://dotkay.github.io/2018/04/25/array-rotation">previous post</a>, we saw a simple problem and a simpler solution to the problem. However, the cost was prohibitive (<em>O(nd))</em>. How can we reduce the time complexity? Let’s try to do it at the expense of some space.</p>
 
-<p>Let’s start simple. How would you rotate by 1? We would essentially move all the array elements to the left by one position, while moving the first element to the position of the last element. Essentially we would be moving <em>n</em> elements. Let’s write a function to do that:</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rot_arr_by_1</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-  <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>  
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>The time complexity of the above solution is <em>O(n)</em> while the space complexity is <em>O(1)</em> (one variable to store the initial element). Now, rotating by <em>d</em> is just rotating by 1 done <em>d</em> times.</p>
+<p>The idea here is again very simple. Instead of doing 1 rotation <em>d</em> times, we would copy over <em>d</em> elements at ones and shift them together. Earlier needed only one temporary variable to store the first element of the array before moving it to the position of the last element. But now, we would need a variable that can hold <em>d</em> elements as we are going to move <em>d</em> elements at once. So our space complexity has gone up from <em>O(1)</em> to <em>O(d)</em>.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rot_arr_by_d</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">rot_arr_by_1</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+  <span class="c1">// space: O(d)</span>
+  <span class="kt">int</span><span class="o">*</span> <span class="n">tmp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">d</span><span class="p">];</span>
+  <span class="c1">// copy the first d elements from arr to tmp</span>
+  <span class="c1">// time: O(d)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  <span class="c1">// rotate the remaining n-d elements</span>
+  <span class="c1">// time: ~ O(n)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">-</span><span class="n">d</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">d</span><span class="o">+</span><span class="n">i</span><span class="p">];</span>
+  <span class="c1">// fill the remaining from tmp</span>
+  <span class="c1">// time: O(d)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">arr</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">d</span><span class="o">+</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Now, the time complexity of the above function is <em>O(nd)</em>. Can we do better than this?</p>
+<p>Since we had have <em>d</em> less than <em>n</em> as the problem statement, <em>O(n)</em> would dominate and this would be a <em>O(n)</em> solution. Can we do better than this?</p>
 
 
         </div>
