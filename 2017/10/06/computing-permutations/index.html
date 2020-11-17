@@ -535,7 +535,7 @@
 
 <p>Let us compute the permutations of say characters in a string. A string of <em>n</em> characters would have <em>n!</em> permutations. For example, if we have the string “ABC”, the permutations (6 in all) are:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABC
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABC
 ACB
 BAC
 BCA
@@ -547,7 +547,7 @@ CAB
 <p><br />
 <img src="/assets/images/algorithms/cpp/perm_1.png" alt="Permutations of &quot;ABC&quot;" class="img=responsive" /></p>
 
-<p>Here is a function <code class="highlighter-rouge">permute()</code> implementing the traversal: We are given a string <em>s</em> with starting index <em>start</em> and ending index <em>end</em>.</p>
+<p>Here is a function <code class="language-plaintext highlighter-rouge">permute()</code> implementing the traversal: We are given a string <em>s</em> with starting index <em>start</em> and ending index <em>end</em>.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
@@ -566,7 +566,7 @@ CAB
 
 <p>What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AAB
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AAB
 ABA
 AAB  (*)
 ABA  (*)

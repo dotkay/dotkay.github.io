@@ -676,8 +676,8 @@
   <div class="post-content" itemprop="articleBody">
     <p>In our <a href="https://dotkay.github.io/2018/06/03/subsets-rec/">previous post</a> we saw how to compute all possible subsets of a set and we assumed there are no duplicates. Here, we will remove that restriction and see what modifications need to be done to our previous algorithm in order to accomodate the relaxation. The earlier algorithm referred to the input as a set, and I will continue referring to the earlier algorithm (although in strict mathematical terminology, a set does not have duplicates). So, the title of the post itself is misleading if you are a mathematics police.</p>
 
-<p>First, let us understand what would be the output of our algorithm on an input set (or a list) that contains duplicates, say <code class="highlighter-rouge">[1 2 2]</code>. It is going to be:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]
+<p>First, let us understand what would be the output of our algorithm on an input set (or a list) that contains duplicates, say <code class="language-plaintext highlighter-rouge">[1 2 2]</code>. It is going to be:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]
 [1]
 [1 2]
 [1 2 2]
@@ -687,7 +687,7 @@
 [2]
 </code></pre></div></div>
 
-<p>As you notice, there are duplicates in the result set as well <code class="highlighter-rouge">[1 2]</code>, <code class="highlighter-rouge">[2]</code>, etc. A careful observer must have already noticed that it requires just a one line change. Intuitively before we pick elements from our input set (containing duplicates) and insert them into our intermediate result set, we just need to check if we already encountered the element. If we sorted the input set <em>à priori</em>, the duplicates would be staying together and this would allow us to prevent inserting an element to our intermediate set a second time, if the previously inserted element was the same. In our traversal loop, we just need to check for this condition before we insert.</p>
+<p>As you notice, there are duplicates in the result set as well <code class="language-plaintext highlighter-rouge">[1 2]</code>, <code class="language-plaintext highlighter-rouge">[2]</code>, etc. A careful observer must have already noticed that it requires just a one line change. Intuitively before we pick elements from our input set (containing duplicates) and insert them into our intermediate result set, we just need to check if we already encountered the element. If we sorted the input set <em>à priori</em>, the duplicates would be staying together and this would allow us to prevent inserting an element to our intermediate set a second time, if the previously inserted element was the same. In our traversal loop, we just need to check for this condition before we insert.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start_index</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>

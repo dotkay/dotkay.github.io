@@ -539,11 +539,11 @@
         </header>
 
         <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2018/04/20/arr-equillibrium-naive">earlier post</a>, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - <code class="highlighter-rouge">O(n^2)</code>. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array.</p>
+          <p>In an <a href="https://dotkay.github.io/2018/04/20/arr-equillibrium-naive">earlier post</a>, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - <code class="language-plaintext highlighter-rouge">O(n^2)</code>. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array.</p>
 
-<p>Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the <em>prefix sum</em> of the elements in the array and store it in this auxiliary array (<code class="highlighter-rouge">left_sum</code> in the code fragment below). Now, <code class="highlighter-rouge">left sum</code> can be used to query, for example, the sum of elements to the left of any index <code class="highlighter-rouge">i</code> as we traverse the array.</p>
+<p>Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the <em>prefix sum</em> of the elements in the array and store it in this auxiliary array (<code class="language-plaintext highlighter-rouge">left_sum</code> in the code fragment below). Now, <code class="language-plaintext highlighter-rouge">left sum</code> can be used to query, for example, the sum of elements to the left of any index <code class="language-plaintext highlighter-rouge">i</code> as we traverse the array.</p>
 
-<p>We now traverse the input array, this time from right to left, and keep a running sum of the elements in a single variable (<code class="highlighter-rouge">right_sum</code> in code fragment below). As we traverse, we check for a match in the auxiliary array we had built earlier for the left sum, and if there is a match we have found an equillibrium point. Since we do array traversal only twice, this becomes an <code class="highlighter-rouge">O(n)</code> solution with <code class="highlighter-rouge">O(n)</code> auxiliary space for storing the prefix sums.</p>
+<p>We now traverse the input array, this time from right to left, and keep a running sum of the elements in a single variable (<code class="language-plaintext highlighter-rouge">right_sum</code> in code fragment below). As we traverse, we check for a match in the auxiliary array we had built earlier for the left sum, and if there is a match we have found an equillibrium point. Since we do array traversal only twice, this becomes an <code class="language-plaintext highlighter-rouge">O(n)</code> solution with <code class="language-plaintext highlighter-rouge">O(n)</code> auxiliary space for storing the prefix sums.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">eq_index</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
@@ -1020,9 +1020,9 @@
   <p>The equillibrium point in a given array is said to be the index such that the sum of all the elements before the index equals the sum of all the elements to the right of the index.</p>
 </blockquote>
 
-<p>For example, if the input array is <code class="highlighter-rouge">[0, -3, 5, -4, -2, 3, 1, 0]</code>, the equillibrium indices are 7, 3 and 0. Note that <code class="highlighter-rouge">0</code> is an equillibrium index if the sum of all the elements until the end of the array are 0 and similarly, <code class="highlighter-rouge">n-1</code> is an equillibrium index of all the elements from 0 until <code class="highlighter-rouge">n-1</code> add up to 0.</p>
+<p>For example, if the input array is <code class="language-plaintext highlighter-rouge">[0, -3, 5, -4, -2, 3, 1, 0]</code>, the equillibrium indices are 7, 3 and 0. Note that <code class="language-plaintext highlighter-rouge">0</code> is an equillibrium index if the sum of all the elements until the end of the array are 0 and similarly, <code class="language-plaintext highlighter-rouge">n-1</code> is an equillibrium index of all the elements from 0 until <code class="language-plaintext highlighter-rouge">n-1</code> add up to 0.</p>
 
-<p>Let us look at a very straight-forward solution. We could just traverse the array and for each element compute the sum of elements to the left and the sum of elements to the right (<code class="highlighter-rouge">lsum</code> and <code class="highlighter-rouge">rsum</code> in the code fragment below) and check if they are equal as we traverse the array.</p>
+<p>Let us look at a very straight-forward solution. We could just traverse the array and for each element compute the sum of elements to the left and the sum of elements to the right (<code class="language-plaintext highlighter-rouge">lsum</code> and <code class="language-plaintext highlighter-rouge">rsum</code> in the code fragment below) and check if they are equal as we traverse the array.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">eq_index</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
@@ -1042,7 +1042,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>As you can realize immediately, this is an <code class="highlighter-rouge">O(n^2)</code> solution. Can we do better?</p>
+<p>As you can realize immediately, this is an <code class="language-plaintext highlighter-rouge">O(n^2)</code> solution. Can we do better?</p>
 
         </div>
         
@@ -1491,9 +1491,9 @@
         </header>
 
         <div class="post-content">
-          <p>Earlier, we <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">saw how to reverse a sub-array</a> given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is <code class="highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code> and group size is <code class="highlighter-rouge">3</code>, we want to reverse every group of 3 elements in the array and the remaining ones. Something like:</p>
+          <p>Earlier, we <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">saw how to reverse a sub-array</a> given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code> and group size is <code class="language-plaintext highlighter-rouge">3</code>, we want to reverse every group of 3 elements in the array and the remaining ones. Something like:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8                 -&gt; input array
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8                 -&gt; input array
 (3 2 1) 4 5 6 7 8               -&gt; first group of 3 elements reversed;
                                    group denoted by (..)
 (3 2 1) (6 5 4) 7 8             -&gt; second group of 3 elements reversed
@@ -1518,7 +1518,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Here, <code class="highlighter-rouge">n</code> denotes the size of the input array <code class="highlighter-rouge">arr</code> and <code class="highlighter-rouge">g</code> denotes the size of the group.</p>
+<p>Here, <code class="language-plaintext highlighter-rouge">n</code> denotes the size of the input array <code class="language-plaintext highlighter-rouge">arr</code> and <code class="language-plaintext highlighter-rouge">g</code> denotes the size of the group.</p>
 
 
         </div>
@@ -1989,7 +1989,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Note how we try not to overflow the array index (while evaluating <code class="highlighter-rouge">arr[i+1]</code>) by computing modulo <code class="highlighter-rouge">n</code> - the size of the array.</p>
+<p>Note how we try not to overflow the array index (while evaluating <code class="language-plaintext highlighter-rouge">arr[i+1]</code>) by computing modulo <code class="language-plaintext highlighter-rouge">n</code> - the size of the array.</p>
 
 
         </div>

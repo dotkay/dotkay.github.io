@@ -539,13 +539,13 @@
         </header>
 
         <div class="post-content">
-          <p>In the <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an <code class="highlighter-rouge">insert</code> function to do that:</p>
+          <p>In the <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an <code class="language-plaintext highlighter-rouge">insert</code> function to do that:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">tree</span> <span class="o">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">tree</span><span class="p">);;</span></code></pre>
 </figure>
 
-<p>If we want to insert an element <code class="highlighter-rouge">0</code> into an empty tree, we just do the following:</p>
+<p>If we want to insert an element <code class="language-plaintext highlighter-rouge">0</code> into an empty tree, we just do the following:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">empty</span> <span class="o">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
@@ -554,7 +554,7 @@
 <span class="c">(* - : int tree = Node (Leaf, 0, Leaf) *)</span></code></pre>
 </figure>
 
-<p>Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function <code class="highlighter-rouge">make_tree</code>.</p>
+<p>Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function <code class="language-plaintext highlighter-rouge">make_tree</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_tree</span> <span class="n">lst</span> <span class="o">=</span>
@@ -564,7 +564,7 @@
   <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_tree</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
-<p>Let us use our new function to create a tree from the list <code class="highlighter-rouge">[0; 1; 2]</code>.</p>
+<p>Let us use our new function to create a tree from the list <code class="language-plaintext highlighter-rouge">[0; 1; 2]</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">make_tree</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];;</span>
@@ -1028,7 +1028,7 @@
 
 <p>A binary tree is just a recursive data structure with a root node and two children, which themselves could be trees or leaf nodes (that have no children). Since the children could themselves be trees, we have this recursive data structure. For example,</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             node-0
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             node-0
 	      /  \
  	     /    \
 	 node-1  node-2
@@ -1038,9 +1038,9 @@
 
 </code></pre></div></div>
 
-<p>is how they generally look. Here, <code class="highlighter-rouge">node-0</code> has <code class="highlighter-rouge">node-1</code> and <code class="highlighter-rouge">node-2</code> as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree:</p>
+<p>is how they generally look. Here, <code class="language-plaintext highlighter-rouge">node-0</code> has <code class="language-plaintext highlighter-rouge">node-1</code> and <code class="language-plaintext highlighter-rouge">node-2</code> as child nodes, which themselves are binary trees (as they have two (‘bi’) children). It could use used to represent many things. For example, a family tree:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            Mother
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>            Mother
 	     /  \
             /    \
        daughter  Son
@@ -1049,7 +1049,7 @@
 
 </code></pre></div></div>
 
-<p>Let’s first define the type <em>binary tree</em> - we would call it just <code class="highlighter-rouge">tree</code>.</p>
+<p>Let’s first define the type <em>binary tree</em> - we would call it just <code class="language-plaintext highlighter-rouge">tree</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="o">=</span>
@@ -1057,7 +1057,7 @@
   <span class="o">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>This just defines the type <code class="highlighter-rouge">'a tree</code> - as noted in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/">earlier posts</a> ‘a is like <em>any</em> - we could have integer trees, string trees, etc. that would take different type values. So, a <code class="highlighter-rouge">tree</code> could either be a <code class="highlighter-rouge">Leaf</code> or another <code class="highlighter-rouge">tree</code> composed of two child trees and a root node (<code class="highlighter-rouge">'a</code>). Now we can create a new empty tree with just a Leaf:</p>
+<p>This just defines the type <code class="language-plaintext highlighter-rouge">'a tree</code> - as noted in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples/">earlier posts</a> ‘a is like <em>any</em> - we could have integer trees, string trees, etc. that would take different type values. So, a <code class="language-plaintext highlighter-rouge">tree</code> could either be a <code class="language-plaintext highlighter-rouge">Leaf</code> or another <code class="language-plaintext highlighter-rouge">tree</code> composed of two child trees and a root node (<code class="language-plaintext highlighter-rouge">'a</code>). Now we can create a new empty tree with just a Leaf:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">t</span> <span class="o">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
@@ -1071,9 +1071,9 @@
 <span class="c">(* val t2 : int tree = Node (Leaf, 1, Node (Leaf, 2, Node (Leaf, 3, Leaf))) *)</span></code></pre>
 </figure>
 
-<p>I know it looks awkward, but let’s decompose it and understand. <code class="highlighter-rouge">Node (Leaf, 3, Leaf)</code> is one tree. Let’s call it C. <code class="highlighter-rouge">Node (Leaf, 2, C)</code> is the next tree - Let’s call this guy B. <code class="highlighter-rouge">Node (Leaf, 1, B)</code> is the other one. So, we have something like this:</p>
+<p>I know it looks awkward, but let’s decompose it and understand. <code class="language-plaintext highlighter-rouge">Node (Leaf, 3, Leaf)</code> is one tree. Let’s call it C. <code class="language-plaintext highlighter-rouge">Node (Leaf, 2, C)</code> is the next tree - Let’s call this guy B. <code class="language-plaintext highlighter-rouge">Node (Leaf, 1, B)</code> is the other one. So, we have something like this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>             1
 	    / \          
            /   \
 	 leaf   2                  |
@@ -1392,20 +1392,20 @@
         </header>
 
         <div class="post-content">
-          <p>Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implemented very easily (refer to the end of this post for sample implementations). One of them is the <code class="highlighter-rouge">map</code> function, that accepts an input function and a list and applies that function to each element of the list. For example, if we want to square each element of an input list <code class="highlighter-rouge">lst</code>, call the function <code class="highlighter-rouge">sq_lst</code>:</p>
+          <p>Let’s write a sweet short function to generate all permutations of a list. We will be using some of the built-in functions of the OCaml List module - but these are generic and it could be implemented very easily (refer to the end of this post for sample implementations). One of them is the <code class="language-plaintext highlighter-rouge">map</code> function, that accepts an input function and a list and applies that function to each element of the list. For example, if we want to square each element of an input list <code class="language-plaintext highlighter-rouge">lst</code>, call the function <code class="language-plaintext highlighter-rouge">sq_lst</code>:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">sq_lst</span> <span class="n">lst</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>When we provide the function with a list <code class="highlighter-rouge">[1;2;3]</code>, we would obtain <code class="highlighter-rouge">[1;4;9]</code> as the result.</p>
+<p>When we provide the function with a list <code class="language-plaintext highlighter-rouge">[1;2;3]</code>, we would obtain <code class="language-plaintext highlighter-rouge">[1;4;9]</code> as the result.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">sq_lst</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">];;</span>
 <span class="c">(* - : int list = [1; 4; 9] *)</span></code></pre>
 </figure>
 
-<p>Another built-in function from the List module we would use is <code class="highlighter-rouge">flatten</code>, which just flattens a list of lists into a list. For example, if we want to flatten <code class="highlighter-rouge">[[1; 2]; [3; 4]; [5]]</code> into a single list:</p>
+<p>Another built-in function from the List module we would use is <code class="language-plaintext highlighter-rouge">flatten</code>, which just flattens a list of lists into a list. For example, if we want to flatten <code class="language-plaintext highlighter-rouge">[[1; 2]; [3; 4]; [5]]</code> into a single list:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="nn">List</span><span class="p">.</span><span class="n">flatten</span> <span class="p">[[</span><span class="mi">1</span><span class="p">;</span> <span class="mi">2</span><span class="p">];</span> <span class="p">[</span><span class="mi">3</span><span class="p">;</span> <span class="mi">4</span><span class="p">];</span> <span class="p">[</span><span class="mi">5</span><span class="p">]];;</span>
@@ -1418,7 +1418,7 @@
   <p>Permutation - all possible arrangements of a list of items, where order is important.</p>
 </blockquote>
 
-<p>For example, <code class="highlighter-rouge">{a,b,c} {a,c,b} {b,a,c} {b,c,a} {c,a,b} {c,b,a}</code> are permutations of <code class="highlighter-rouge">{a,b,c}</code>. Let’s approach this problem by first writing a function - let’s call it <code class="highlighter-rouge">insert</code> that would take two arguments - an element <code class="highlighter-rouge">x</code> to insert and a list <code class="highlighter-rouge">lst</code> to insert <code class="highlighter-rouge">x</code> into. And this function <code class="highlighter-rouge">insert</code> would insert <code class="highlighter-rouge">x</code> at all possible positions in <code class="highlighter-rouge">lst</code>. For example, if we have a list <code class="highlighter-rouge">[1;2]</code> and an element <code class="highlighter-rouge">0</code>, we want to insert this <code class="highlighter-rouge">0</code> at all possible positions in the list <code class="highlighter-rouge">[1;2]</code>, producing <code class="highlighter-rouge">[[0; 1; 2], [1; 0; 2], [1; 2; 0]]</code> - note that this is not the permutation, we are just inserting a given element into all possible positions in the list.</p>
+<p>For example, <code class="language-plaintext highlighter-rouge">{a,b,c} {a,c,b} {b,a,c} {b,c,a} {c,a,b} {c,b,a}</code> are permutations of <code class="language-plaintext highlighter-rouge">{a,b,c}</code>. Let’s approach this problem by first writing a function - let’s call it <code class="language-plaintext highlighter-rouge">insert</code> that would take two arguments - an element <code class="language-plaintext highlighter-rouge">x</code> to insert and a list <code class="language-plaintext highlighter-rouge">lst</code> to insert <code class="language-plaintext highlighter-rouge">x</code> into. And this function <code class="language-plaintext highlighter-rouge">insert</code> would insert <code class="language-plaintext highlighter-rouge">x</code> at all possible positions in <code class="language-plaintext highlighter-rouge">lst</code>. For example, if we have a list <code class="language-plaintext highlighter-rouge">[1;2]</code> and an element <code class="language-plaintext highlighter-rouge">0</code>, we want to insert this <code class="language-plaintext highlighter-rouge">0</code> at all possible positions in the list <code class="language-plaintext highlighter-rouge">[1;2]</code>, producing <code class="language-plaintext highlighter-rouge">[[0; 1; 2], [1; 0; 2], [1; 2; 0]]</code> - note that this is not the permutation, we are just inserting a given element into all possible positions in the list.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="o">=</span>
@@ -1428,9 +1428,9 @@
     <span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="n">lst</span><span class="p">)</span> <span class="o">::</span> <span class="p">(</span><span class="nn">List</span><span class="p">.</span><span class="n">map</span> <span class="p">(</span><span class="k">fun</span> <span class="n">el</span> <span class="o">-&gt;</span> <span class="n">h</span><span class="o">::</span><span class="n">el</span><span class="p">)</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="p">));;</span></code></pre>
 </figure>
 
-<p>Since we are producing a list of lists as output, for the base case we create a list of list containing a single element - the input element <code class="highlighter-rouge">x</code>. The second part just applies the function to each element of the list, besides adding the element to the list itself. So, <code class="highlighter-rouge">x::lst</code> produces <code class="highlighter-rouge">[0; 1; 2]</code>, and the <code class="highlighter-rouge">map</code> part produces <code class="highlighter-rouge">[1; 0; 2]</code> (which is applying the function to the first element <code class="highlighter-rouge">1</code> of the list (<code class="highlighter-rouge">h::el</code>) - the function just adds the element <code class="highlighter-rouge">0</code> to the list head item <code class="highlighter-rouge">1</code> giving <code class="highlighter-rouge">1; 0</code>) and similarly <code class="highlighter-rouge">[1; 2; 0]</code>.</p>
+<p>Since we are producing a list of lists as output, for the base case we create a list of list containing a single element - the input element <code class="language-plaintext highlighter-rouge">x</code>. The second part just applies the function to each element of the list, besides adding the element to the list itself. So, <code class="language-plaintext highlighter-rouge">x::lst</code> produces <code class="language-plaintext highlighter-rouge">[0; 1; 2]</code>, and the <code class="language-plaintext highlighter-rouge">map</code> part produces <code class="language-plaintext highlighter-rouge">[1; 0; 2]</code> (which is applying the function to the first element <code class="language-plaintext highlighter-rouge">1</code> of the list (<code class="language-plaintext highlighter-rouge">h::el</code>) - the function just adds the element <code class="language-plaintext highlighter-rouge">0</code> to the list head item <code class="language-plaintext highlighter-rouge">1</code> giving <code class="language-plaintext highlighter-rouge">1; 0</code>) and similarly <code class="language-plaintext highlighter-rouge">[1; 2; 0]</code>.</p>
 
-<p>Now we will use this <code class="highlighter-rouge">insert</code> function to write our <code class="highlighter-rouge">perm</code> (for permutation) function, which is straight-forward given the <code class="highlighter-rouge">insert</code> function. We will just traverse the list and choose each item in the list and insert the item to all the positions of the rest of the list.</p>
+<p>Now we will use this <code class="language-plaintext highlighter-rouge">insert</code> function to write our <code class="language-plaintext highlighter-rouge">perm</code> (for permutation) function, which is straight-forward given the <code class="language-plaintext highlighter-rouge">insert</code> function. We will just traverse the list and choose each item in the list and insert the item to all the positions of the rest of the list.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">perm</span> <span class="n">lst</span> <span class="o">=</span>
@@ -1448,7 +1448,7 @@
 
 <p>Hope this was the most intuitive way to a permutation function.</p>
 
-<p>Here’s a sample implementation of map and flatten functions - I creatively named them <code class="highlighter-rouge">mapp</code> and <code class="highlighter-rouge">flatn</code>:</p>
+<p>Here’s a sample implementation of map and flatten functions - I creatively named them <code class="language-plaintext highlighter-rouge">mapp</code> and <code class="language-plaintext highlighter-rouge">flatn</code>:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">mapp</span> <span class="n">f</span> <span class="n">lst</span> <span class="o">=</span>
@@ -1780,7 +1780,7 @@
   <p>In a perfectly consecutive sequence of natural numbers, any chosen number is also the number of natural numbers less than it.</p>
 </blockquote>
 
-<p>That is, if we consider the consecutive sequence of number <code class="highlighter-rouge">0 1 2 3 4 5</code> and choose <code class="highlighter-rouge">3</code>, we see that there are exactly three natural numbers before it - <code class="highlighter-rouge">0 1 2</code>. A curious mind would have noted that these three numbers actually need not be in order - they should just exist. For example <code class="highlighter-rouge">1 0 2 3 4 5</code> has three numbers before <code class="highlighter-rouge">3</code>, they are not in sequence, but the fact that there are three of them assures us that nothing less than three is missing in the sequence. This is the property we are going to use to come up with a simpler search. Just like how we <a href="https://dotkay.github.io/2017/09/19/list-partitioning-and-quicksort">partitioned a list of numbers around a pivot element for quicksort</a>, we will choose an element <code class="highlighter-rouge">x</code> and push all the numbers less than it (in any order) to the left of it and the rest to the right of it. We will also need to keep track of the number of elements <code class="highlighter-rouge">num</code> to the left of the chosen number (in order to check our fancy property mentioned above). Let’s write the partition function first:</p>
+<p>That is, if we consider the consecutive sequence of number <code class="language-plaintext highlighter-rouge">0 1 2 3 4 5</code> and choose <code class="language-plaintext highlighter-rouge">3</code>, we see that there are exactly three natural numbers before it - <code class="language-plaintext highlighter-rouge">0 1 2</code>. A curious mind would have noted that these three numbers actually need not be in order - they should just exist. For example <code class="language-plaintext highlighter-rouge">1 0 2 3 4 5</code> has three numbers before <code class="language-plaintext highlighter-rouge">3</code>, they are not in sequence, but the fact that there are three of them assures us that nothing less than three is missing in the sequence. This is the property we are going to use to come up with a simpler search. Just like how we <a href="https://dotkay.github.io/2017/09/19/list-partitioning-and-quicksort">partitioned a list of numbers around a pivot element for quicksort</a>, we will choose an element <code class="language-plaintext highlighter-rouge">x</code> and push all the numbers less than it (in any order) to the left of it and the rest to the right of it. We will also need to keep track of the number of elements <code class="language-plaintext highlighter-rouge">num</code> to the left of the chosen number (in order to check our fancy property mentioned above). Let’s write the partition function first:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">partition</span> <span class="n">x</span> <span class="n">lst</span> <span class="o">=</span> 
@@ -1791,7 +1791,7 @@
   <span class="nn">List</span><span class="p">.</span><span class="n">fold_left</span> <span class="n">aux</span> <span class="p">(</span><span class="mi">0</span><span class="o">,</span> <span class="bp">[]</span><span class="o">,</span> <span class="bp">[]</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>If the number of elements tracked is equal to the chosen number, it just means that there is no missing number in the left partition (just like the example above where the number of elements less than <code class="highlighter-rouge">3</code> is equal to three, and we don’t have any missing natural number to the left of <code class="highlighter-rouge">3</code>). Now, we will use this partition function to find the missing natural number:</p>
+<p>If the number of elements tracked is equal to the chosen number, it just means that there is no missing number in the left partition (just like the example above where the number of elements less than <code class="language-plaintext highlighter-rouge">3</code> is equal to three, and we don’t have any missing natural number to the left of <code class="language-plaintext highlighter-rouge">3</code>). Now, we will use this partition function to find the missing natural number:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">min_missing_num</span> <span class="n">lst</span> <span class="o">=</span>
@@ -1810,7 +1810,7 @@
     <span class="n">find_min</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>Think of <code class="highlighter-rouge">m</code> as the accumulator - we know that <code class="highlighter-rouge">0</code> is the first natural number, so in case our input list is an empty one (base case), we just return the first (minimum) natural number that is missing. Is there too much going on in this? If you could work this out in a sample input, say <code class="highlighter-rouge">[0; 3; 2; 9; 1]</code> it would help understand it better.</p>
+<p>Think of <code class="language-plaintext highlighter-rouge">m</code> as the accumulator - we know that <code class="language-plaintext highlighter-rouge">0</code> is the first natural number, so in case our input list is an empty one (base case), we just return the first (minimum) natural number that is missing. Is there too much going on in this? If you could work this out in a sample input, say <code class="language-plaintext highlighter-rouge">[0; 3; 2; 9; 1]</code> it would help understand it better.</p>
 
         </div>
         
@@ -2259,9 +2259,9 @@
         </header>
 
         <div class="post-content">
-          <p>Before we try to come up with a better solution for the problem in the <a href="https://dotkay.github.io/2017/09/18/minimum-missing-natural-number">previous post</a>, let us look at another familiar problem - Quicksort. A quick refresher of mergesort from one of the <a href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort">earlier posts</a> will make this exercise much simpler. In mergesort, we essentially wrote a <code class="highlighter-rouge">split</code> function to split an input list into two lists and recursively called the mergesort algorithm on each of the sub-lists produced by <code class="highlighter-rouge">split</code> and eventually merged them using a <code class="highlighter-rouge">merge</code> function that merges two lists by comparing the element at the head of the sub-lists.</p>
+          <p>Before we try to come up with a better solution for the problem in the <a href="https://dotkay.github.io/2017/09/18/minimum-missing-natural-number">previous post</a>, let us look at another familiar problem - Quicksort. A quick refresher of mergesort from one of the <a href="https://dotkay.github.io/2017/08/31/recursions-and-merge-sort">earlier posts</a> will make this exercise much simpler. In mergesort, we essentially wrote a <code class="language-plaintext highlighter-rouge">split</code> function to split an input list into two lists and recursively called the mergesort algorithm on each of the sub-lists produced by <code class="language-plaintext highlighter-rouge">split</code> and eventually merged them using a <code class="language-plaintext highlighter-rouge">merge</code> function that merges two lists by comparing the element at the head of the sub-lists.</p>
 
-<p>The idea behind quicksort is similar. Instead of just splitting the list into two sub-lists, we are going to choose a <em>pivot</em> element (a fancy name for <em>just an element</em> from our input list) and split the list into two sub-lists in such a way that all the elements in the input list that are less than the pivot element would fall into one sub-list and the rest of the elements will fall into the other. Now that we are very much comfortable with writing recursive functions using accumulators, let us go ahead and write one for partitioning the list into a pair of lists (two sub-lists) given a pivot element. So, the inputs to our function are a list <code class="highlighter-rouge">lst</code> (to split) and a <code class="highlighter-rouge">pivot</code> element.</p>
+<p>The idea behind quicksort is similar. Instead of just splitting the list into two sub-lists, we are going to choose a <em>pivot</em> element (a fancy name for <em>just an element</em> from our input list) and split the list into two sub-lists in such a way that all the elements in the input list that are less than the pivot element would fall into one sub-list and the rest of the elements will fall into the other. Now that we are very much comfortable with writing recursive functions using accumulators, let us go ahead and write one for partitioning the list into a pair of lists (two sub-lists) given a pivot element. So, the inputs to our function are a list <code class="language-plaintext highlighter-rouge">lst</code> (to split) and a <code class="language-plaintext highlighter-rouge">pivot</code> element.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">partition</span> <span class="n">pivot</span> <span class="n">lst</span> <span class="o">=</span>
@@ -2275,7 +2275,7 @@
   <span class="n">aux</span> <span class="p">([]</span><span class="o">,</span> <span class="bp">[]</span><span class="p">)</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>Let’s go ahead and see what it does on a sample list <code class="highlighter-rouge">lst1</code> which contains <code class="highlighter-rouge">[1; 11; 9; 3; 6; 7; 2; 29]</code>. Let’s pick <code class="highlighter-rouge">7</code> to be our pivot element.</p>
+<p>Let’s go ahead and see what it does on a sample list <code class="language-plaintext highlighter-rouge">lst1</code> which contains <code class="language-plaintext highlighter-rouge">[1; 11; 9; 3; 6; 7; 2; 29]</code>. Let’s pick <code class="language-plaintext highlighter-rouge">7</code> to be our pivot element.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">lst1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">6</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">29</span><span class="p">];;</span>
@@ -2283,9 +2283,9 @@
 <span class="c">(* - : int list * int list = ([2; 6; 3; 1], [29; 7; 9; 11]) *)</span></code></pre>
 </figure>
 
-<p>As we see, all the elements less than our pivot element, <code class="highlighter-rouge">7</code> in this case, are in one of the sub-lists generated by <code class="highlighter-rouge">partition</code> function.</p>
+<p>As we see, all the elements less than our pivot element, <code class="language-plaintext highlighter-rouge">7</code> in this case, are in one of the sub-lists generated by <code class="language-plaintext highlighter-rouge">partition</code> function.</p>
 
-<p>Now, quicksort is just choosing the head element as the pivot, generating two sub-lists <code class="highlighter-rouge">l1</code> and <code class="highlighter-rouge">l2</code> and calling quicksort recursively on each of the sub-lists. Since each recursive call pushes the smaller element further towards the left, eventually when all recursive calls return, the list would be sorted in acsending order.</p>
+<p>Now, quicksort is just choosing the head element as the pivot, generating two sub-lists <code class="language-plaintext highlighter-rouge">l1</code> and <code class="language-plaintext highlighter-rouge">l2</code> and calling quicksort recursively on each of the sub-lists. Since each recursive call pushes the smaller element further towards the left, eventually when all recursive calls return, the list would be sorted in acsending order.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">quicksort</span> <span class="n">lst</span> <span class="o">=</span>
@@ -2296,7 +2296,7 @@
      <span class="n">quicksort</span> <span class="n">l1</span> <span class="o">@</span> <span class="p">(</span><span class="n">h</span><span class="o">::</span><span class="n">quicksort</span> <span class="n">l2</span><span class="p">);;</span></code></pre>
 </figure>
 
-<p>And let us try it on <code class="highlighter-rouge">lst1</code>:</p>
+<p>And let us try it on <code class="language-plaintext highlighter-rouge">lst1</code>:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">quicksort</span> <span class="n">lst1</span><span class="p">;;</span>

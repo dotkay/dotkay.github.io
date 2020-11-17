@@ -531,9 +531,9 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>In <a href="https://dotkay.github.io/2018/04/03/string-rotation-check">yesterday’s post</a> we saw how to check if two given strings are rotations of each other. Today, we will add one other restriction to the problem and try to solve it. What if the algorithm needs to check if the two input strings are rotations of each other by a fixed length <code class="highlighter-rouge">n</code> which is also provided as an input to the function? For example, <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">naan</code> are rotations of each other by <code class="highlighter-rouge">2</code> as we need to make two rotations (each rotation moves only 1 character) to get from one string to the other and similarly one cannot be obtained from the other by rotation of just 1.</p>
+    <p>In <a href="https://dotkay.github.io/2018/04/03/string-rotation-check">yesterday’s post</a> we saw how to check if two given strings are rotations of each other. Today, we will add one other restriction to the problem and try to solve it. What if the algorithm needs to check if the two input strings are rotations of each other by a fixed length <code class="language-plaintext highlighter-rouge">n</code> which is also provided as an input to the function? For example, <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">naan</code> are rotations of each other by <code class="language-plaintext highlighter-rouge">2</code> as we need to make two rotations (each rotation moves only 1 character) to get from one string to the other and similarly one cannot be obtained from the other by rotation of just 1.</p>
 
-<p>We use the same algorithm as before, but this time we will be careful to store the index position (when we search for one of the strings in the concatenation) and match it against the input <code class="highlighter-rouge">n</code>.</p>
+<p>We use the same algorithm as before, but this time we will be careful to store the index position (when we search for one of the strings in the concatenation) and match it against the input <code class="language-plaintext highlighter-rouge">n</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">str_rot_by_n</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
@@ -555,7 +555,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Again, we have to check if the lengths of the input strings are the same. Without this check, we migth deduce that <code class="highlighter-rouge">ello</code> can be obtained from <code class="highlighter-rouge">hello</code> by rotating through <code class="highlighter-rouge">1</code> character position.</p>
+<p>Again, we have to check if the lengths of the input strings are the same. Without this check, we migth deduce that <code class="language-plaintext highlighter-rouge">ello</code> can be obtained from <code class="language-plaintext highlighter-rouge">hello</code> by rotating through <code class="language-plaintext highlighter-rouge">1</code> character position.</p>
 
   </div>
 

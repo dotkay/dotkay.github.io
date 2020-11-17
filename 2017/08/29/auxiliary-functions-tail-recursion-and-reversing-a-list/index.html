@@ -388,7 +388,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>So, how about reversing a list using our <code class="highlighter-rouge">leftee</code> function from our <a href="https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions">previous post</a>?</p>
+    <p>So, how about reversing a list using our <code class="language-plaintext highlighter-rouge">leftee</code> function from our <a href="https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions">previous post</a>?</p>
 
 <p>Let’s work it out now. Here’s the original tail recursive function for your reference:</p>
 
@@ -402,13 +402,13 @@
   <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>All you need to observe is how the accumulator <code class="highlighter-rouge">acc</code> changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator <code class="highlighter-rouge">acc</code>.</p>
+<p>All you need to observe is how the accumulator <code class="language-plaintext highlighter-rouge">acc</code> changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator <code class="language-plaintext highlighter-rouge">acc</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">a</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">a</span><span class="p">)</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span> </code></pre>
 </figure>
 
-<p>In most functional programming languages our <code class="highlighter-rouge">leftee</code> is actually called <code class="highlighter-rouge">fold_left</code> and is tail recursive. There’s also a <code class="highlighter-rouge">fold_right</code> which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!</p>
+<p>In most functional programming languages our <code class="language-plaintext highlighter-rouge">leftee</code> is actually called <code class="language-plaintext highlighter-rouge">fold_left</code> and is tail recursive. There’s also a <code class="language-plaintext highlighter-rouge">fold_right</code> which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!</p>
 
   </div>
 

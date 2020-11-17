@@ -531,9 +531,9 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was <code class="highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code>, the result of rotation around index <code class="highlighter-rouge">3</code> (that has the element 4) in the counter clockwise direction would be <code class="highlighter-rouge">[5, 6, 7, 8, 1, 2, 3, 4]</code>. The sequence of transformations the array goes through as each of the elements until the given index rotates would be:</p>
+    <p>Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code>, the result of rotation around index <code class="language-plaintext highlighter-rouge">3</code> (that has the element 4) in the counter clockwise direction would be <code class="language-plaintext highlighter-rouge">[5, 6, 7, 8, 1, 2, 3, 4]</code>. The sequence of transformations the array goes through as each of the elements until the given index rotates would be:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
 2 3 4 5 6 7 8 1            --&gt; 1 has rotated away to the end of the array
 3 4 5 6 7 8 1 2            --&gt; 2 has rotated away following 1
 4 5 6 7 8 1 2 3            --&gt; now, it's 3's turn
@@ -549,7 +549,7 @@
   <li>Complete it by reversing the entire array once</li>
 </ol>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
 4 3 2 1 5 6 7 8            --&gt; step-1 first sub-array reversed
 4 3 2 1 8 7 6 5            --&gt; step-2 second sub-array reversed
 5 6 7 8 1 2 3 4            --&gt; step-3 rotation of the entire array 

@@ -388,7 +388,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Let’s write a program to find the minimum missing natural number. We would be given an unsorted list of natural numbers, say <code class="highlighter-rouge">[0;3;2;9;1;7;5]</code> and we need to return <code class="highlighter-rouge">4</code>. Let’s assume that there are no duplicates. And if we provide a list that does not start with <code class="highlighter-rouge">0</code> (natural numbers start with <code class="highlighter-rouge">0</code> and we assume that we provide proper input), we just return <code class="highlighter-rouge">0</code> as it is the smallest natural number.</p>
+    <p>Let’s write a program to find the minimum missing natural number. We would be given an unsorted list of natural numbers, say <code class="language-plaintext highlighter-rouge">[0;3;2;9;1;7;5]</code> and we need to return <code class="language-plaintext highlighter-rouge">4</code>. Let’s assume that there are no duplicates. And if we provide a list that does not start with <code class="language-plaintext highlighter-rouge">0</code> (natural numbers start with <code class="language-plaintext highlighter-rouge">0</code> and we assume that we provide proper input), we just return <code class="language-plaintext highlighter-rouge">0</code> as it is the smallest natural number.</p>
 
 <p>How do we go about solving this problem. Once we look at <em>unsorted</em>, we can think of sorting the provided list first. Once we sort the list, we just need to go through the elements of the list one by one and find the missing number. As we have sorted the list already, the first missing number we encounter would be the minimum missing number.</p>
 
@@ -411,13 +411,13 @@
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : ('a -&gt; 'a -&gt; int) -&gt; 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
-<p>And <code class="highlighter-rouge">compare</code> is a comparision function that has the following signature:</p>
+<p>And <code class="language-plaintext highlighter-rouge">compare</code> is a comparision function that has the following signature:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : 'a -&gt; 'a -&gt; int = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
-<p>Essentially, <code class="highlighter-rouge">compare x y</code> returns 0 if <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> are equal, <code class="highlighter-rouge">-1</code> if <code class="highlighter-rouge">x &lt; y</code> and <code class="highlighter-rouge">1</code> if <code class="highlighter-rouge">x &gt; y</code>.</p>
+<p>Essentially, <code class="language-plaintext highlighter-rouge">compare x y</code> returns 0 if <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> are equal, <code class="language-plaintext highlighter-rouge">-1</code> if <code class="language-plaintext highlighter-rouge">x &lt; y</code> and <code class="language-plaintext highlighter-rouge">1</code> if <code class="language-plaintext highlighter-rouge">x &gt; y</code>.</p>
 
 <p>Can we do better than this algorithm for finding the minimum missing natural number? Hint: sorting the input list is not very cheap - we could avoid that.</p>
 

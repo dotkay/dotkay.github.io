@@ -540,7 +540,7 @@
   <li>is_empty() - to check if the stack is empty</li>
 </ul>
 
-<p>As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for <em>top of stack</em>) to <code class="highlighter-rouge">-1</code> and we shall use that while performing our operations. We are tracking only <em>top</em>, so we increment the index when we <em>push()</em>, decrement it when we <em>pop()</em> and check the value to determine when the stack is empty as shown in the code fragment below:</p>
+<p>As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for <em>top of stack</em>) to <code class="language-plaintext highlighter-rouge">-1</code> and we shall use that while performing our operations. We are tracking only <em>top</em>, so we increment the index when we <em>push()</em>, decrement it when we <em>pop()</em> and check the value to determine when the stack is empty as shown in the code fragment below:</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>

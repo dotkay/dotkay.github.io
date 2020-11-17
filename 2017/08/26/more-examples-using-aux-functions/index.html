@@ -390,7 +390,7 @@
   <div class="post-content" itemprop="articleBody">
     <p>Let’s look at a couple of more examples in order to get us thinking towards using auxiliary functions and accumulators while writing recursive functions. This would help us write tail-recursive functions which are safer and always a good practice. Note that some of the language compilers do not optimize tail recursions and so be aware of this fact in order not to be surprised when you do not see performance improvements while using tail recursive functions.</p>
 
-<p>Let’s write the standard explode function <code class="highlighter-rouge">explode</code> that explodes a string into a list of characters. i.e., if you pass the string <code class="highlighter-rouge">"hello"</code>, it would explode it and return the list <code class="highlighter-rouge">['h'; 'e'; 'l'; 'l'; 'o']</code>.</p>
+<p>Let’s write the standard explode function <code class="language-plaintext highlighter-rouge">explode</code> that explodes a string into a list of characters. i.e., if you pass the string <code class="language-plaintext highlighter-rouge">"hello"</code>, it would explode it and return the list <code class="language-plaintext highlighter-rouge">['h'; 'e'; 'l'; 'l'; 'o']</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">explode</span> <span class="n">s</span> <span class="o">=</span>
@@ -401,7 +401,7 @@
   <span class="n">aux_expl</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">length</span> <span class="n">s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>Let’s write another function <code class="highlighter-rouge">prime_factors</code> that would return all the prime factors of an input number <code class="highlighter-rouge">n</code>. Again, we shall use an auxiliary function to do the intermediate computations.</p>
+<p>Let’s write another function <code class="language-plaintext highlighter-rouge">prime_factors</code> that would return all the prime factors of an input number <code class="language-plaintext highlighter-rouge">n</code>. Again, we shall use an auxiliary function to do the intermediate computations.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">prime_factors</span> <span class="n">n</span> <span class="o">=</span>

@@ -674,18 +674,18 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>In an <a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">earlier post</a>, we saw how lists, despite being <em>mutable</em> objects in Python are somewhat confusing when it comes to certain operations. Let us play some more and see how they behave when we concatenate lists using <code class="highlighter-rouge">append()</code>.</p>
+    <p>In an <a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">earlier post</a>, we saw how lists, despite being <em>mutable</em> objects in Python are somewhat confusing when it comes to certain operations. Let us play some more and see how they behave when we concatenate lists using <code class="language-plaintext highlighter-rouge">append()</code>.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 <span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<p>In my execution the memory referenced by <code class="highlighter-rouge">l1</code> seems to be <code class="highlighter-rouge">0x2e70a4bc208</code>. Now, as in <a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">our earlier example</a>, let us append <code class="highlighter-rouge">3</code> to l1, but this time using the <code class="highlighter-rouge">append()</code> function.</p>
+<p>In my execution the memory referenced by <code class="language-plaintext highlighter-rouge">l1</code> seems to be <code class="language-plaintext highlighter-rouge">0x2e70a4bc208</code>. Now, as in <a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">our earlier example</a>, let us append <code class="language-plaintext highlighter-rouge">3</code> to l1, but this time using the <code class="language-plaintext highlighter-rouge">append()</code> function.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
 </code></pre></div></div>
 
 <p><br /></p>
@@ -693,7 +693,7 @@
   <p><img src="/assets/images/py/list_mem_mgmt_2.PNG" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
-<p>Now, we see that the new list object (after appending <code class="highlighter-rouge">3</code>) references the same memory <code class="highlighter-rouge">0x2e70a4bc208</code> as before. So, when it comes to <code class="highlighter-rouge">append()</code> Python’s memory manager seems to treat lists as a real mutable object. Python developers, especially new ones, need to be careful and understand these quirks thoroughly.</p>
+<p>Now, we see that the new list object (after appending <code class="language-plaintext highlighter-rouge">3</code>) references the same memory <code class="language-plaintext highlighter-rouge">0x2e70a4bc208</code> as before. So, when it comes to <code class="language-plaintext highlighter-rouge">append()</code> Python’s memory manager seems to treat lists as a real mutable object. Python developers, especially new ones, need to be careful and understand these quirks thoroughly.</p>
 
   </div>
 

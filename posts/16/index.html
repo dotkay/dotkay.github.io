@@ -396,7 +396,7 @@
         </header>
 
         <div class="post-content">
-          <p>Let’s write a program to find the minimum missing natural number. We would be given an unsorted list of natural numbers, say <code class="highlighter-rouge">[0;3;2;9;1;7;5]</code> and we need to return <code class="highlighter-rouge">4</code>. Let’s assume that there are no duplicates. And if we provide a list that does not start with <code class="highlighter-rouge">0</code> (natural numbers start with <code class="highlighter-rouge">0</code> and we assume that we provide proper input), we just return <code class="highlighter-rouge">0</code> as it is the smallest natural number.</p>
+          <p>Let’s write a program to find the minimum missing natural number. We would be given an unsorted list of natural numbers, say <code class="language-plaintext highlighter-rouge">[0;3;2;9;1;7;5]</code> and we need to return <code class="language-plaintext highlighter-rouge">4</code>. Let’s assume that there are no duplicates. And if we provide a list that does not start with <code class="language-plaintext highlighter-rouge">0</code> (natural numbers start with <code class="language-plaintext highlighter-rouge">0</code> and we assume that we provide proper input), we just return <code class="language-plaintext highlighter-rouge">0</code> as it is the smallest natural number.</p>
 
 <p>How do we go about solving this problem. Once we look at <em>unsorted</em>, we can think of sorting the provided list first. Once we sort the list, we just need to go through the elements of the list one by one and find the missing number. As we have sorted the list already, the first missing number we encounter would be the minimum missing number.</p>
 
@@ -419,13 +419,13 @@
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : ('a -&gt; 'a -&gt; int) -&gt; 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
-<p>And <code class="highlighter-rouge">compare</code> is a comparision function that has the following signature:</p>
+<p>And <code class="language-plaintext highlighter-rouge">compare</code> is a comparision function that has the following signature:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : 'a -&gt; 'a -&gt; int = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
-<p>Essentially, <code class="highlighter-rouge">compare x y</code> returns 0 if <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> are equal, <code class="highlighter-rouge">-1</code> if <code class="highlighter-rouge">x &lt; y</code> and <code class="highlighter-rouge">1</code> if <code class="highlighter-rouge">x &gt; y</code>.</p>
+<p>Essentially, <code class="language-plaintext highlighter-rouge">compare x y</code> returns 0 if <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> are equal, <code class="language-plaintext highlighter-rouge">-1</code> if <code class="language-plaintext highlighter-rouge">x &lt; y</code> and <code class="language-plaintext highlighter-rouge">1</code> if <code class="language-plaintext highlighter-rouge">x &gt; y</code>.</p>
 
 <p>Can we do better than this algorithm for finding the minimum missing natural number? Hint: sorting the input list is not very cheap - we could avoid that.</p>
 
@@ -1187,13 +1187,13 @@
         </header>
 
         <div class="post-content">
-          <p>In one of the <a href="https://dotkay.github.io/2017/08/26/more-examples-using-aux-functions/">previous posts</a> we looked at a recursive function <code class="highlighter-rouge">explode</code> to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll call this function <code class="highlighter-rouge">implode</code> that takes a list <code class="highlighter-rouge">lst</code> as input.</p>
+          <p>In one of the <a href="https://dotkay.github.io/2017/08/26/more-examples-using-aux-functions/">previous posts</a> we looked at a recursive function <code class="language-plaintext highlighter-rouge">explode</code> to explode a string into a list of characters. Now, we shall try to implode a list of characters back into a string. We’ll call this function <code class="language-plaintext highlighter-rouge">implode</code> that takes a list <code class="language-plaintext highlighter-rouge">lst</code> as input.</p>
 
-<p>We need an accumulator in order to collect the characters from the input list to prepare our output, so let’s create one <code class="highlighter-rouge">acc</code> whose length would be equal to the length of the input list <code class="highlighter-rouge">lst</code> (of characters).</p>
+<p>We need an accumulator in order to collect the characters from the input list to prepare our output, so let’s create one <code class="language-plaintext highlighter-rouge">acc</code> whose length would be equal to the length of the input list <code class="language-plaintext highlighter-rouge">lst</code> (of characters).</p>
 
 <ol>
-  <li>Base case - if the input list <code class="highlighter-rouge">lst</code> is an empty one, just return the accumulator.</li>
-  <li>If the list is not empty, we pick the head element and push it into the accumulator. We start with index <code class="highlighter-rouge">'0'</code> of the (mutable) String and recursively call the function on the remaining part of the list, incrementing the index for each call.</li>
+  <li>Base case - if the input list <code class="language-plaintext highlighter-rouge">lst</code> is an empty one, just return the accumulator.</li>
+  <li>If the list is not empty, we pick the head element and push it into the accumulator. We start with index <code class="language-plaintext highlighter-rouge">'0'</code> of the (mutable) String and recursively call the function on the remaining part of the list, incrementing the index for each call.</li>
 </ol>
 
 <figure class="highlight">
@@ -1206,9 +1206,9 @@
   <span class="n">aux</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>Note: The latest version of OCaml, my preferred programming language, has a mutable data-type <code class="highlighter-rouge">Bytes</code> while it made the <code class="highlighter-rouge">String</code> data-type immutable.</p>
+<p>Note: The latest version of OCaml, my preferred programming language, has a mutable data-type <code class="language-plaintext highlighter-rouge">Bytes</code> while it made the <code class="language-plaintext highlighter-rouge">String</code> data-type immutable.</p>
 
-<p>Food for thought - how would be implement <code class="highlighter-rouge">implode</code> using the immutable String type, in a purely functional fashion?</p>
+<p>Food for thought - how would be implement <code class="language-plaintext highlighter-rouge">implode</code> using the immutable String type, in a purely functional fashion?</p>
 
         </div>
         
@@ -1514,9 +1514,9 @@
         </header>
 
         <div class="post-content">
-          <p>In our <a href="https://dotkay.github.io/2017/09/04/prime-or-not">previous post</a> we saw how to check if a given number is prime. Now, what if we want to find all the primes from <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">1000</code>? Sure, we can call our <code class="highlighter-rouge">is_prime()</code> function on every number from <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">1000</code> and list out the ones that pass the test. Is there a better way? There absolutely is! And it turns out that it was invented by a Greek mathematician <a href="https://en.wikipedia.org/wiki/Eratosthenes">Etatosthenes</a>, who by the way also happened to invent Geography. The algorithm is commonly referred to as <em>Sieve of Eratosthenes</em>.</p>
+          <p>In our <a href="https://dotkay.github.io/2017/09/04/prime-or-not">previous post</a> we saw how to check if a given number is prime. Now, what if we want to find all the primes from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">1000</code>? Sure, we can call our <code class="language-plaintext highlighter-rouge">is_prime()</code> function on every number from <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">1000</code> and list out the ones that pass the test. Is there a better way? There absolutely is! And it turns out that it was invented by a Greek mathematician <a href="https://en.wikipedia.org/wiki/Eratosthenes">Etatosthenes</a>, who by the way also happened to invent Geography. The algorithm is commonly referred to as <em>Sieve of Eratosthenes</em>.</p>
 
-<p>We start by assuming that all the numbers, say <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">n</code> are primes. Assume we have an array of size <code class="highlighter-rouge">n</code> and we marked all the elements as prime. Now, we traverse the array and start marking out all the multiples, say <code class="highlighter-rouge">2, 4 ,6, 8, 10, ...</code> as not prime, and similarly <code class="highlighter-rouge">3, 9, 15,...</code>. Once we are done, we are left only with primes. I am still amazed at the simplicity of this algorithm given that it was invented more than a couple of thousand years ago.</p>
+<p>We start by assuming that all the numbers, say <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">n</code> are primes. Assume we have an array of size <code class="language-plaintext highlighter-rouge">n</code> and we marked all the elements as prime. Now, we traverse the array and start marking out all the multiples, say <code class="language-plaintext highlighter-rouge">2, 4 ,6, 8, 10, ...</code> as not prime, and similarly <code class="language-plaintext highlighter-rouge">3, 9, 15,...</code>. Once we are done, we are left only with primes. I am still amazed at the simplicity of this algorithm given that it was invented more than a couple of thousand years ago.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">eratosthenes</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
@@ -1848,7 +1848,7 @@
   <p>A prime number is a whole number greater than 1, that are <em>only</em> divisible by itself and 1.</p>
 </blockquote>
 
-<p>A naïve approach is to check if the number is divisble by all the numbers starting from 2 to itself. We start from <code class="highlighter-rouge">2</code> as it is our first prime number.</p>
+<p>A naïve approach is to check if the number is divisble by all the numbers starting from 2 to itself. We start from <code class="language-plaintext highlighter-rouge">2</code> as it is our first prime number.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">is_prime</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
@@ -1860,13 +1860,13 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>But, can we do better? Notice that we need to check for numbers only less than or equal to the square root, say <code class="highlighter-rouge">sq</code> of the given number <code class="highlighter-rouge">n</code> to be tested. If there’s a number that divides <code class="highlighter-rouge">n</code> and which is greater than <code class="highlighter-rouge">sq</code>, the result of that division would be a number less than <code class="highlighter-rouge">sq</code>. For example let’s say <code class="highlighter-rouge">n = 26</code> and we want to figure out if <code class="highlighter-rouge">n</code> is prime. We are claiming that we need to check only until the square root of <code class="highlighter-rouge">26</code> - rounded down to <code class="highlighter-rouge">5</code>. Let’s pick a number that divides <code class="highlighter-rouge">26</code>, say <code class="highlighter-rouge">13</code> and this number on dividing <code class="highlighter-rouge">26</code> yields <code class="highlighter-rouge">2</code>. So when we start to check from <code class="highlighter-rouge">2</code> to <code class="highlighter-rouge">5</code>, we would have already figured out that it is divisible by <code class="highlighter-rouge">2</code> and is not a prime. We just ran into another beautiful fact:</p>
+<p>But, can we do better? Notice that we need to check for numbers only less than or equal to the square root, say <code class="language-plaintext highlighter-rouge">sq</code> of the given number <code class="language-plaintext highlighter-rouge">n</code> to be tested. If there’s a number that divides <code class="language-plaintext highlighter-rouge">n</code> and which is greater than <code class="language-plaintext highlighter-rouge">sq</code>, the result of that division would be a number less than <code class="language-plaintext highlighter-rouge">sq</code>. For example let’s say <code class="language-plaintext highlighter-rouge">n = 26</code> and we want to figure out if <code class="language-plaintext highlighter-rouge">n</code> is prime. We are claiming that we need to check only until the square root of <code class="language-plaintext highlighter-rouge">26</code> - rounded down to <code class="language-plaintext highlighter-rouge">5</code>. Let’s pick a number that divides <code class="language-plaintext highlighter-rouge">26</code>, say <code class="language-plaintext highlighter-rouge">13</code> and this number on dividing <code class="language-plaintext highlighter-rouge">26</code> yields <code class="language-plaintext highlighter-rouge">2</code>. So when we start to check from <code class="language-plaintext highlighter-rouge">2</code> to <code class="language-plaintext highlighter-rouge">5</code>, we would have already figured out that it is divisible by <code class="language-plaintext highlighter-rouge">2</code> and is not a prime. We just ran into another beautiful fact:</p>
 
 <blockquote>
   <p>there are no even primes greater than 2</p>
 </blockquote>
 
-<p>That would let us optimize our loop further - if we initially checked whether <code class="highlighter-rouge">n</code> is not <code class="highlighter-rouge">2</code>, we would check only every other (odd) number to see if it divides.</p>
+<p>That would let us optimize our loop further - if we initially checked whether <code class="language-plaintext highlighter-rouge">n</code> is not <code class="language-plaintext highlighter-rouge">2</code>, we would check only every other (odd) number to see if it divides.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">is_prime</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>

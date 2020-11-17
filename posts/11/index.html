@@ -1008,13 +1008,13 @@
         <div class="post-content">
           <p>Now, let us progress with looking at slightly more complicated operations. In our <a href="https://dotkay.github.io/2017/11/03/linked-list-find">previous post</a>, we saw <em>find</em> operation that required us to traverse the list, but we needed to keep track of only one element while traversing - just match the element with the item we are trying to find and see if we found. But in some cases, we may have to keep track of more than one element - this is because we need to rearrange the pointers. Suppose, we have the following linked list with 4 elements:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>19  -&gt;  49  -&gt;  21  -&gt;  17  -&gt;  NULL
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>19  -&gt;  49  -&gt;  21  -&gt;  17  -&gt;  NULL
 (0)     (1)     (2)     (3)
 </code></pre></div></div>
 
 <p>and we are asked to delete the element at index 2 (its data being 21). We not only need to keep track of the current element to be deleted, we need to remember the previous element (in this case the one at index 1 with value 49) because this would point to 17 after deleting the one at index 2. Specifically, after the deletion, the linked list would look like this:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>19  -&gt;  49  -&gt;  17  -&gt;  NULL
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>19  -&gt;  49  -&gt;  17  -&gt;  NULL
 (0)     (1)     (2)
 </code></pre></div></div>
 

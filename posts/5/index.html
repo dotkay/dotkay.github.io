@@ -546,11 +546,11 @@
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
 </code></pre></div></div>
 
-<p>results in an <code class="highlighter-rouge">int</code> object <code class="highlighter-rouge">a</code> that references a memory location. The memory location referenced by the object can be determined by using <code class="highlighter-rouge">id()</code> function and by convention you denote it in Hexadecimal number, so one often does <code class="highlighter-rouge">hex(id(a))</code>.</p>
+<p>results in an <code class="language-plaintext highlighter-rouge">int</code> object <code class="language-plaintext highlighter-rouge">a</code> that references a memory location. The memory location referenced by the object can be determined by using <code class="language-plaintext highlighter-rouge">id()</code> function and by convention you denote it in Hexadecimal number, so one often does <code class="language-plaintext highlighter-rouge">hex(id(a))</code>.</p>
 
-<p>Now, let us see what is the memory referenced by our variable (actually a Python object) <code class="highlighter-rouge">a</code>.</p>
+<p>Now, let us see what is the memory referenced by our variable (actually a Python object) <code class="language-plaintext highlighter-rouge">a</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
 </code></pre></div></div>
 
 <p><br /></p>
@@ -558,10 +558,10 @@
   <p><img src="/assets/images/py/var_mem_mgmt_2.PNG" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
-<p>and it returns <code class="highlighter-rouge">0x7ffd06a5a2b0</code>. Now, let us reassign <code class="highlighter-rouge">a</code> to value <code class="highlighter-rouge">20</code>. Now, we see that memory referenced has changed to <code class="highlighter-rouge">0x7ffd06a5a3f0</code>, instead of changing the value in the location referenced earlier.</p>
+<p>and it returns <code class="language-plaintext highlighter-rouge">0x7ffd06a5a2b0</code>. Now, let us reassign <code class="language-plaintext highlighter-rouge">a</code> to value <code class="language-plaintext highlighter-rouge">20</code>. Now, we see that memory referenced has changed to <code class="language-plaintext highlighter-rouge">0x7ffd06a5a3f0</code>, instead of changing the value in the location referenced earlier.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
 </code></pre></div></div>
 
 <p><br /></p>
@@ -569,7 +569,7 @@
   <p><img src="/assets/images/py/var_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
-<p>In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value <code class="highlighter-rouge">20</code>. Now our previous int object is not referencing anything and Python’s garbage collector would reclaim it.</p>
+<p>In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value <code class="language-plaintext highlighter-rouge">20</code>. Now our previous int object is not referencing anything and Python’s garbage collector would reclaim it.</p>
 
         </div>
         
@@ -1508,7 +1508,7 @@
 <p><br />
 <img src="/assets/images/algorithms/cpp/rec_tree.jpg" alt="recursion tree" class="img=responsive" /></p>
 
-<p>Let us try to use dynamic programming and rewrite our algorithm for computing the number of ways of climbing <em>n</em> steps. We shall use a simple array (a C++ vector) to store intermediate computations. More concretely, we will store the number of ways of climbing 1 step, the number of ways of climbing 2 steps, and so on. So, our array <code class="highlighter-rouge">ways</code> stores the number of ways - <code class="highlighter-rouge">ways[i]</code> gives us the number of ways of climbing <code class="highlighter-rouge">i</code> steps. As we saw in our previous post, the algorithm just needs to compute <code class="highlighter-rouge">ways[i-1] + ways[i-2]</code> for different values of <code class="highlighter-rouge">i</code> upto <code class="highlighter-rouge">n</code> and finally return <code class="highlighter-rouge">ways[n]</code> as the result.</p>
+<p>Let us try to use dynamic programming and rewrite our algorithm for computing the number of ways of climbing <em>n</em> steps. We shall use a simple array (a C++ vector) to store intermediate computations. More concretely, we will store the number of ways of climbing 1 step, the number of ways of climbing 2 steps, and so on. So, our array <code class="language-plaintext highlighter-rouge">ways</code> stores the number of ways - <code class="language-plaintext highlighter-rouge">ways[i]</code> gives us the number of ways of climbing <code class="language-plaintext highlighter-rouge">i</code> steps. As we saw in our previous post, the algorithm just needs to compute <code class="language-plaintext highlighter-rouge">ways[i-1] + ways[i-2]</code> for different values of <code class="language-plaintext highlighter-rouge">i</code> upto <code class="language-plaintext highlighter-rouge">n</code> and finally return <code class="language-plaintext highlighter-rouge">ways[n]</code> as the result.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">stairs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
@@ -2474,7 +2474,7 @@
         </header>
 
         <div class="post-content">
-          <p>Here is a very simple problem. Given an array of <em>n</em> elements and an integer <em>d</em> (less than <em>n</em>) how would you write a program to rotate (around) the elements of the array to the left by <em>d</em> elements? For example, if the input array (of size 7) is <code class="highlighter-rouge">{1, 2, 3, 4, 5, 6, 7 }</code> and <em>d</em> is 2, the output array would be <code class="highlighter-rouge">{ 3, 4, 5, 6, 7, 1, 2 }</code>.</p>
+          <p>Here is a very simple problem. Given an array of <em>n</em> elements and an integer <em>d</em> (less than <em>n</em>) how would you write a program to rotate (around) the elements of the array to the left by <em>d</em> elements? For example, if the input array (of size 7) is <code class="language-plaintext highlighter-rouge">{1, 2, 3, 4, 5, 6, 7 }</code> and <em>d</em> is 2, the output array would be <code class="language-plaintext highlighter-rouge">{ 3, 4, 5, 6, 7, 1, 2 }</code>.</p>
 
 <p>Let’s start simple. How would you rotate by 1? We would essentially move all the array elements to the left by one position, while moving the first element to the position of the last element. Essentially we would be moving <em>n</em> elements. Let’s write a function to do that:</p>
 

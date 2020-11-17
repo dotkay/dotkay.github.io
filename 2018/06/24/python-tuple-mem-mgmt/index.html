@@ -685,24 +685,24 @@
 <span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
 </code></pre></div></div>
 
 <p>And our output:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>([1, 2], [4, 5])
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>([1, 2], [4, 5])
 memory referenced by t: 0x2103c874a48
 </code></pre></div></div>
 
-<p>We see that the memory referenced by the object <code class="highlighter-rouge">t</code> which in our case is a tuple is <code class="highlighter-rouge">0x2103c874a48</code>. And we know that tuples are immutable objects in Python. So, let’s try to change the above tuple object <code class="highlighter-rouge">t</code>. This time we are going to do that by updating the individual elements <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> that constitute our tuple object.</p>
+<p>We see that the memory referenced by the object <code class="language-plaintext highlighter-rouge">t</code> which in our case is a tuple is <code class="language-plaintext highlighter-rouge">0x2103c874a48</code>. And we know that tuples are immutable objects in Python. So, let’s try to change the above tuple object <code class="language-plaintext highlighter-rouge">t</code>. This time we are going to do that by updating the individual elements <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> that constitute our tuple object.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
 </code></pre></div></div>
 
 <p>And we get the following printed:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>([1, 2, 3], [4, 5, 6])
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>([1, 2, 3], [4, 5, 6])
 memory referenced by t: 0x2103c874a48
 </code></pre></div></div>
 
@@ -711,7 +711,7 @@ memory referenced by t: 0x2103c874a48
   <p><img src="/assets/images/py/tup_mem_mgmt_2.png" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
-<p>And what just happened here? Our immutable object <code class="highlighter-rouge">t</code> got updated without a new reference being created. So, it is not just the object itself that matters, the type of the constituent objects also plays a role in memory management. Hope this is enough motivation to play around with different mutable and immutable objects and how Python’s memory management handles them.</p>
+<p>And what just happened here? Our immutable object <code class="language-plaintext highlighter-rouge">t</code> got updated without a new reference being created. So, it is not just the object itself that matters, the type of the constituent objects also plays a role in memory management. Hope this is enough motivation to play around with different mutable and immutable objects and how Python’s memory management handles them.</p>
 
   </div>
 

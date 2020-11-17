@@ -535,9 +535,9 @@
   <p>The equillibrium point in a given array is said to be the index such that the sum of all the elements before the index equals the sum of all the elements to the right of the index.</p>
 </blockquote>
 
-<p>For example, if the input array is <code class="highlighter-rouge">[0, -3, 5, -4, -2, 3, 1, 0]</code>, the equillibrium indices are 7, 3 and 0. Note that <code class="highlighter-rouge">0</code> is an equillibrium index if the sum of all the elements until the end of the array are 0 and similarly, <code class="highlighter-rouge">n-1</code> is an equillibrium index of all the elements from 0 until <code class="highlighter-rouge">n-1</code> add up to 0.</p>
+<p>For example, if the input array is <code class="language-plaintext highlighter-rouge">[0, -3, 5, -4, -2, 3, 1, 0]</code>, the equillibrium indices are 7, 3 and 0. Note that <code class="language-plaintext highlighter-rouge">0</code> is an equillibrium index if the sum of all the elements until the end of the array are 0 and similarly, <code class="language-plaintext highlighter-rouge">n-1</code> is an equillibrium index of all the elements from 0 until <code class="language-plaintext highlighter-rouge">n-1</code> add up to 0.</p>
 
-<p>Let us look at a very straight-forward solution. We could just traverse the array and for each element compute the sum of elements to the left and the sum of elements to the right (<code class="highlighter-rouge">lsum</code> and <code class="highlighter-rouge">rsum</code> in the code fragment below) and check if they are equal as we traverse the array.</p>
+<p>Let us look at a very straight-forward solution. We could just traverse the array and for each element compute the sum of elements to the left and the sum of elements to the right (<code class="language-plaintext highlighter-rouge">lsum</code> and <code class="language-plaintext highlighter-rouge">rsum</code> in the code fragment below) and check if they are equal as we traverse the array.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">eq_index</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
@@ -557,7 +557,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>As you can realize immediately, this is an <code class="highlighter-rouge">O(n^2)</code> solution. Can we do better?</p>
+<p>As you can realize immediately, this is an <code class="language-plaintext highlighter-rouge">O(n^2)</code> solution. Can we do better?</p>
 
   </div>
 

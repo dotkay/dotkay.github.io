@@ -540,8 +540,8 @@
 <p>In our previous post, we learnt how to keep track of characters that appear in a string as we traverse the input string. We use the same idea here, just this time we simplify it to be 26 characters (<em>a</em> to <em>z</em>) instead of 256.</p>
 
 <ol>
-  <li>We traverse the input string and maintain a counter for each of the occurences in the string. Note that we subtract ‘a’ from the ASCII value as our strings contain only <em>a</em> to <em>z</em> and we want our index <code class="highlighter-rouge">0</code> to correspond to <em>a</em>. The intention of this simplification was precisely to learn how to modify our algorithm for such specific use cases.</li>
-  <li>We traverse the counter array (which is essentially a mapping <code class="highlighter-rouge">seen: character -&gt; count</code> to see if any of the characters appeared more than once (i.e. their count mapping is greater than 1).</li>
+  <li>We traverse the input string and maintain a counter for each of the occurences in the string. Note that we subtract ‘a’ from the ASCII value as our strings contain only <em>a</em> to <em>z</em> and we want our index <code class="language-plaintext highlighter-rouge">0</code> to correspond to <em>a</em>. The intention of this simplification was precisely to learn how to modify our algorithm for such specific use cases.</li>
+  <li>We traverse the counter array (which is essentially a mapping <code class="language-plaintext highlighter-rouge">seen: character -&gt; count</code> to see if any of the characters appeared more than once (i.e. their count mapping is greater than 1).</li>
 </ol>
 
 <figure class="highlight">

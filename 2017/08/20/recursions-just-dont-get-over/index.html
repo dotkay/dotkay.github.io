@@ -533,8 +533,8 @@
 <p>Let’s do a quick example to work out more recursion. This time, we will implement selection sort. Selection sort implementation, again, is very intuitive if we are in this thought process - recursion and a terse and intuitive programming language. Let’s do it. We just need to traverse the list, select the minimum element and append it to the head of the list. And then, proceed by finding the next minimum element (from the rest-of-the-list which contains one element less than the original list as the minimum element has been moved to the head) and push it to the head, and so on. So we need two ingredients.</p>
 
 <ul>
-  <li>A function <code class="highlighter-rouge">rem</code> to remove an element <code class="highlighter-rouge">x</code> from a list <code class="highlighter-rouge">lst</code>. We will write it in recursive fashion</li>
-  <li>A function <code class="highlighter-rouge">find_min</code> to find the minimum element of a list (we already did this in one of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">previous posts</a>)</li>
+  <li>A function <code class="language-plaintext highlighter-rouge">rem</code> to remove an element <code class="language-plaintext highlighter-rouge">x</code> from a list <code class="language-plaintext highlighter-rouge">lst</code>. We will write it in recursive fashion</li>
+  <li>A function <code class="language-plaintext highlighter-rouge">find_min</code> to find the minimum element of a list (we already did this in one of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">previous posts</a>)</li>
 </ul>
 
 <p>Let’s implement the above ingredients that we need for selection sort recipe.</p>
@@ -556,7 +556,7 @@
   <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">min</span> <span class="n">h</span> <span class="p">(</span><span class="n">find_min</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
-<p>Now, let’s use the above two to implement selection sort. We will call the function <code class="highlighter-rouge">ssort</code>. Recollect that, we will find the minimum element <code class="highlighter-rouge">m</code> of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it:</p>
+<p>Now, let’s use the above two to implement selection sort. We will call the function <code class="language-plaintext highlighter-rouge">ssort</code>. Recollect that, we will find the minimum element <code class="language-plaintext highlighter-rouge">m</code> of the list, push it to the head (actually we also have to remove it from the rest-of-the-list otherwise there will be two copies - one at the head and other at the original position) and recursively call the function on the rest-of-the-list. Let’s go for it:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">ssort</span> <span class="n">lst</span> <span class="o">=</span>

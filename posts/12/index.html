@@ -543,7 +543,7 @@
 
 <p>It uses the concept of modular arithmetic as discussed in the <a href="https://dotkay.github.io/2017/10/08/mod-arith">previous post</a>. Put simply, the <em>gcd</em> of two given integers x and y is just the greatest number that divides both x and y. For example, the greatest common divisor of both 6 and 9 is 3. The obvious approach to compute the <em>gcd</em> if two given numbers is to factor both the numbers, pick out the common factors and multiply them. For example, 6 = 1 x 2 x 3 and 9 = 1 x 3 x 3, and the common factors being 1 and 3. Euclid’s algorithm uses the following formula:</p>
 
-<p>If <code class="highlighter-rouge">x &gt;= y</code>, <code class="highlighter-rouge">gcd(x, y) = gcd(x mod y, y)</code>. As you see, the recursion is built in the description itself. Here’s an implementation:</p>
+<p>If <code class="language-plaintext highlighter-rouge">x &gt;= y</code>, <code class="language-plaintext highlighter-rouge">gcd(x, y) = gcd(x mod y, y)</code>. As you see, the recursion is built in the description itself. Here’s an implementation:</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">euclid_gcd</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
@@ -555,10 +555,10 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>One has to note that in the recursive call, the first argument became <code class="highlighter-rouge">y</code> and the second <code class="highlighter-rouge">x mod y</code>. This is because of the following lemma:</p>
+<p>One has to note that in the recursive call, the first argument became <code class="language-plaintext highlighter-rouge">y</code> and the second <code class="language-plaintext highlighter-rouge">x mod y</code>. This is because of the following lemma:</p>
 
 <blockquote>
-  <p>If <code class="highlighter-rouge">x &gt;= y</code>, then <code class="highlighter-rouge">x mod y &lt; x/2</code>.</p>
+  <p>If <code class="language-plaintext highlighter-rouge">x &gt;= y</code>, then <code class="language-plaintext highlighter-rouge">x mod y &lt; x/2</code>.</p>
 </blockquote>
 
 <p>So, the arguments x and y decrease with each recursive call. The applications of modular arithmetic is very wide, some of which we will see in future posts.</p>
@@ -873,7 +873,7 @@
   <p>Suppose you binge watch an entire season of some television show in one sitting, starting at midnight and suppose there are 25 episodes of the show, each lasting 3 hours. At what time of the day will you be done?</p>
 </blockquote>
 
-<p>So, you start at midnight and watch for <code class="highlighter-rouge">25 x 3 = 75</code> hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute <em>modulo 24</em> and <code class="highlighter-rouge">75 mod 24  = 3</code> and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range <code class="highlighter-rouge">{0, 1, ..., N-1}</code>.</p>
+<p>So, you start at midnight and watch for <code class="language-plaintext highlighter-rouge">25 x 3 = 75</code> hours non-stop. Since our clocks reset every 24 hours (Othewise, we would need several million digits to say the time!), we divide 75 into chunks of 24 hours, which is to say we compute <em>modulo 24</em> and <code class="language-plaintext highlighter-rouge">75 mod 24  = 3</code> and so we will finish at 3 am. The way to think about modular arithmetic is to think of something that restricts numbers to a predefined range <code class="language-plaintext highlighter-rouge">{0, 1, ..., N-1}</code>.</p>
 
 <p>Modular arithmetic has some beautiful properties that are very useful in several application domains, especially cryptography. We will get to learn about them in future posts.</p>
 
@@ -1336,17 +1336,17 @@
 
 <ol>
   <li>
-    <p><code class="highlighter-rouge">(start:0, i:0)</code>: The string we are staring with is <code class="highlighter-rouge">AAB</code>, substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AAB</code> and substring starting at <code class="highlighter-rouge">i</code> is also <code class="highlighter-rouge">AAB</code> (as <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">start</code> to begin with). Now we swap <code class="highlighter-rouge">s[start]</code> and <code class="highlighter-rouge">s[i]</code> which are both <code class="highlighter-rouge">A</code>. Now we call the _<code class="highlighter-rouge">permute()</code> with <code class="highlighter-rouge">start</code> incremented by <code class="highlighter-rouge">1</code>.
-  a. <code class="highlighter-rouge">(start:1, i:1..2)</code>: Now the substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AB</code> (as <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">1</code>) and substring starting at <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">AB</code>. Further <code class="highlighter-rouge">s[start]</code> is <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">s[i]</code> is also <code class="highlighter-rouge">A</code>. We hence perform a swap producing <code class="highlighter-rouge">AAB</code> and backtrack. Now, <code class="highlighter-rouge">i:2</code> and so <code class="highlighter-rouge">s[start]</code> is <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">s[i]</code> is <code class="highlighter-rouge">B</code>. We swap <code class="highlighter-rouge">A</code> and <code class="highlighter-rouge">B</code> and get <code class="highlighter-rouge">ABA</code>.</p>
+    <p><code class="language-plaintext highlighter-rouge">(start:0, i:0)</code>: The string we are staring with is <code class="language-plaintext highlighter-rouge">AAB</code>, substring starting at <code class="language-plaintext highlighter-rouge">start</code> is <code class="language-plaintext highlighter-rouge">AAB</code> and substring starting at <code class="language-plaintext highlighter-rouge">i</code> is also <code class="language-plaintext highlighter-rouge">AAB</code> (as <code class="language-plaintext highlighter-rouge">i</code> is <code class="language-plaintext highlighter-rouge">start</code> to begin with). Now we swap <code class="language-plaintext highlighter-rouge">s[start]</code> and <code class="language-plaintext highlighter-rouge">s[i]</code> which are both <code class="language-plaintext highlighter-rouge">A</code>. Now we call the _<code class="language-plaintext highlighter-rouge">permute()</code> with <code class="language-plaintext highlighter-rouge">start</code> incremented by <code class="language-plaintext highlighter-rouge">1</code>.
+  a. <code class="language-plaintext highlighter-rouge">(start:1, i:1..2)</code>: Now the substring starting at <code class="language-plaintext highlighter-rouge">start</code> is <code class="language-plaintext highlighter-rouge">AB</code> (as <code class="language-plaintext highlighter-rouge">start</code> is <code class="language-plaintext highlighter-rouge">1</code>) and substring starting at <code class="language-plaintext highlighter-rouge">i</code> is <code class="language-plaintext highlighter-rouge">AB</code>. Further <code class="language-plaintext highlighter-rouge">s[start]</code> is <code class="language-plaintext highlighter-rouge">A</code> and <code class="language-plaintext highlighter-rouge">s[i]</code> is also <code class="language-plaintext highlighter-rouge">A</code>. We hence perform a swap producing <code class="language-plaintext highlighter-rouge">AAB</code> and backtrack. Now, <code class="language-plaintext highlighter-rouge">i:2</code> and so <code class="language-plaintext highlighter-rouge">s[start]</code> is <code class="language-plaintext highlighter-rouge">A</code> and <code class="language-plaintext highlighter-rouge">s[i]</code> is <code class="language-plaintext highlighter-rouge">B</code>. We swap <code class="language-plaintext highlighter-rouge">A</code> and <code class="language-plaintext highlighter-rouge">B</code> and get <code class="language-plaintext highlighter-rouge">ABA</code>.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">(start:0, i:1)</code>: The string we are staring with is <code class="highlighter-rouge">AAB</code>, substring starting at <code class="highlighter-rouge">start</code> is <code class="highlighter-rouge">AAB</code> and substring starting at <code class="highlighter-rouge">i</code> is also <code class="highlighter-rouge">AB</code> (as <code class="highlighter-rouge">i</code> is <code class="highlighter-rouge">1</code> now). We have <code class="highlighter-rouge">substring_from_start</code> different from <code class="highlighter-rouge">substring_from_i</code> but <code class="highlighter-rouge">s[start]</code> is the same as <code class="highlighter-rouge">s[i]</code> which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this <code class="highlighter-rouge">i</code>. So we avoid going down this path and start working through <code class="highlighter-rouge">start:0, i:2</code>.</p>
+    <p><code class="language-plaintext highlighter-rouge">(start:0, i:1)</code>: The string we are staring with is <code class="language-plaintext highlighter-rouge">AAB</code>, substring starting at <code class="language-plaintext highlighter-rouge">start</code> is <code class="language-plaintext highlighter-rouge">AAB</code> and substring starting at <code class="language-plaintext highlighter-rouge">i</code> is also <code class="language-plaintext highlighter-rouge">AB</code> (as <code class="language-plaintext highlighter-rouge">i</code> is <code class="language-plaintext highlighter-rouge">1</code> now). We have <code class="language-plaintext highlighter-rouge">substring_from_start</code> different from <code class="language-plaintext highlighter-rouge">substring_from_i</code> but <code class="language-plaintext highlighter-rouge">s[start]</code> is the same as <code class="language-plaintext highlighter-rouge">s[i]</code> which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this <code class="language-plaintext highlighter-rouge">i</code>. So we avoid going down this path and start working through <code class="language-plaintext highlighter-rouge">start:0, i:2</code>.</p>
   </li>
 </ol>
 
-<p>So the condition we are looking for traversing is that <code class="highlighter-rouge">substring(start)</code> and <code class="highlighter-rouge">substring(i)</code> are same and further the starting character at <code class="highlighter-rouge">start</code> and <code class="highlighter-rouge">i</code> are the same. Further, if <code class="highlighter-rouge">substring(start)</code> and <code class="highlighter-rouge">substring(i)</code> are different and the starting characters are different, we go ahead with the traversal (as in <code class="highlighter-rouge">start:0, i:2</code>).</p>
+<p>So the condition we are looking for traversing is that <code class="language-plaintext highlighter-rouge">substring(start)</code> and <code class="language-plaintext highlighter-rouge">substring(i)</code> are same and further the starting character at <code class="language-plaintext highlighter-rouge">start</code> and <code class="language-plaintext highlighter-rouge">i</code> are the same. Further, if <code class="language-plaintext highlighter-rouge">substring(start)</code> and <code class="language-plaintext highlighter-rouge">substring(i)</code> are different and the starting characters are different, we go ahead with the traversal (as in <code class="language-plaintext highlighter-rouge">start:0, i:2</code>).</p>
 
-<p>Here is the modified <code class="highlighter-rouge">permute()</code> function with the condition incorporated:</p>
+<p>Here is the modified <code class="language-plaintext highlighter-rouge">permute()</code> function with the condition incorporated:</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
@@ -1821,7 +1821,7 @@
 
 <p>Let us compute the permutations of say characters in a string. A string of <em>n</em> characters would have <em>n!</em> permutations. For example, if we have the string “ABC”, the permutations (6 in all) are:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABC
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ABC
 ACB
 BAC
 BCA
@@ -1833,7 +1833,7 @@ CAB
 <p><br />
 <img src="/assets/images/algorithms/cpp/perm_1.png" alt="Permutations of &quot;ABC&quot;" class="img=responsive" /></p>
 
-<p>Here is a function <code class="highlighter-rouge">permute()</code> implementing the traversal: We are given a string <em>s</em> with starting index <em>start</em> and ending index <em>end</em>.</p>
+<p>Here is a function <code class="language-plaintext highlighter-rouge">permute()</code> implementing the traversal: We are given a string <em>s</em> with starting index <em>start</em> and ending index <em>end</em>.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
@@ -1852,7 +1852,7 @@ CAB
 
 <p>What happens if we use the above algorithms to find permutations of strings that have duplicated characters? For example, the string “AAB” would produce:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AAB
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>AAB
 ABA
 AAB  (*)
 ABA  (*)

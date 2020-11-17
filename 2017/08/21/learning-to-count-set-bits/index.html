@@ -388,17 +388,17 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Let’s take a break from recursion and learn to count the number of bits set in an integer. For example, in an integer say <code class="highlighter-rouge">9</code> there are two set bits. Of course, we will be dealing with unsigned integers and the number of bits set is in the binary representation (the language that our computers understand and speak). We already saw how to convert an integer to binary in one of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">previous posts</a>. You may want to refer to that in case you want to quickly refresh your memory.</p>
+    <p>Let’s take a break from recursion and learn to count the number of bits set in an integer. For example, in an integer say <code class="language-plaintext highlighter-rouge">9</code> there are two set bits. Of course, we will be dealing with unsigned integers and the number of bits set is in the binary representation (the language that our computers understand and speak). We already saw how to convert an integer to binary in one of our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">previous posts</a>. You may want to refer to that in case you want to quickly refresh your memory.</p>
 
-<p>Let’s work out the first technique we would use. Let’s take the integer <code class="highlighter-rouge">9</code>. It’s binary representation is <code class="highlighter-rouge">1001</code>. So, there are two set bits. Looks very intuitive - start from the right-most bit, have a counter and start counting the set bits, while right shifting our bit string. We just need a counter to keep track of the count and two operations - right shift and an operation to identify a set bit. Let’s see how to do that.</p>
+<p>Let’s work out the first technique we would use. Let’s take the integer <code class="language-plaintext highlighter-rouge">9</code>. It’s binary representation is <code class="language-plaintext highlighter-rouge">1001</code>. So, there are two set bits. Looks very intuitive - start from the right-most bit, have a counter and start counting the set bits, while right shifting our bit string. We just need a counter to keep track of the count and two operations - right shift and an operation to identify a set bit. Let’s see how to do that.</p>
 
 <ol>
-  <li>We initialize a counter, call it <code class="highlighter-rouge">count</code> to 0.</li>
-  <li>We do a bitwise <code class="highlighter-rouge">&amp;</code> with <code class="highlighter-rouge">1</code>. This would identify if a bit is set. If it’s set, we would increment <code class="highlighter-rouge">count</code>.</li>
+  <li>We initialize a counter, call it <code class="language-plaintext highlighter-rouge">count</code> to 0.</li>
+  <li>We do a bitwise <code class="language-plaintext highlighter-rouge">&amp;</code> with <code class="language-plaintext highlighter-rouge">1</code>. This would identify if a bit is set. If it’s set, we would increment <code class="language-plaintext highlighter-rouge">count</code>.</li>
   <li>Right shift our original input and continue till we encounter 0 (terminating condition for our loop).</li>
 </ol>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   n  	       n&amp;1 	    	  count
    1001	       			  0
                0001		  1
    0100	       0000		  1
@@ -423,9 +423,9 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="highlighter-rouge">1</code> from <code class="highlighter-rouge">1010</code>, it results in <code class="highlighter-rouge">1001</code> - the last two bits, <code class="highlighter-rouge">0</code> and the right-most set bit <code class="highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="highlighter-rouge">1001</code> (9).</p>
+<p>There’s a better way to do this, thanks to <a href="https://www.cs.princeton.edu/~bwk/">Brian Kernighan</a>’s algorithm. He observed that subtracting a <code class="language-plaintext highlighter-rouge">1</code> toggles all the bits upto and including the right-most set bit. For example, if you subtract <code class="language-plaintext highlighter-rouge">1</code> from <code class="language-plaintext highlighter-rouge">1010</code>, it results in <code class="language-plaintext highlighter-rouge">1001</code> - the last two bits, <code class="language-plaintext highlighter-rouge">0</code> and the right-most set bit <code class="language-plaintext highlighter-rouge">1</code> got flipped. Now, if we perform a bitwise <code class="language-plaintext highlighter-rouge">&amp;</code> of this result with the original number, effectively we would be unsetting the right-most set bit. Let’s work out an example to understand it better. Let’s start again with <code class="language-plaintext highlighter-rouge">1001</code> (9).</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  n       n-1    n&amp;(n-1)      count
 1001     1000     1000          1
 1000     0111     0000          2
 0000      --       --           2

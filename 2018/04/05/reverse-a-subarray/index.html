@@ -533,7 +533,7 @@
   <div class="post-content" itemprop="articleBody">
     <p>In an <a href="https://dotkay.github.io/2018/04/02/reverse-an-array/">earlier post</a>, we saw how to reverse a given input array. But, it reversed the entire array. What if we want to pick a fragment of the input array and reverse only that?</p>
 
-<p>Let us assume we are given the <code class="highlighter-rouge">start</code> and <code class="highlighter-rouge">end</code> indices - the window that we want to reverse. It is very similar to our previous approach, except that we need to be careful computing the indices to iterate on.</p>
+<p>Let us assume we are given the <code class="language-plaintext highlighter-rouge">start</code> and <code class="language-plaintext highlighter-rouge">end</code> indices - the window that we want to reverse. It is very similar to our previous approach, except that we need to be careful computing the indices to iterate on.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">reverse_arr</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span>
@@ -544,7 +544,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>There is an <a href="https://thebittheories.com/the-curious-case-of-binary-search-the-famous-bug-that-remained-undetected-for-20-years-973e89fc212">interesting story</a> about computation of mid-point given two window boundaries. At first glance, it would seem tempting to write it as <code class="highlighter-rouge">(start + end) / 2</code> but it is safer (and more correct) to write it as <code class="highlighter-rouge">start + ((end - start) / 2)</code>.</p>
+<p>There is an <a href="https://thebittheories.com/the-curious-case-of-binary-search-the-famous-bug-that-remained-undetected-for-20-years-973e89fc212">interesting story</a> about computation of mid-point given two window boundaries. At first glance, it would seem tempting to write it as <code class="language-plaintext highlighter-rouge">(start + end) / 2</code> but it is safer (and more correct) to write it as <code class="language-plaintext highlighter-rouge">start + ((end - start) / 2)</code>.</p>
 
 
   </div>

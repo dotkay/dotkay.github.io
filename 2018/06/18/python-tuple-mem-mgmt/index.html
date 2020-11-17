@@ -676,16 +676,16 @@
   <div class="post-content" itemprop="articleBody">
     <p>In an <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">earlier post</a> we saw how Python’s memory management behaves when dealing with immutable objects. In this post, let us see another immutable object, this time a <em>tuple</em> and examine how Python deals with it.</p>
 
-<p>Let us consider a tuple of integer objects <code class="highlighter-rouge">t = (1, 2, 3)</code>. We see that it references memory address <code class="highlighter-rouge">0x1dd65ac45e8</code></p>
+<p>Let us consider a tuple of integer objects <code class="language-plaintext highlighter-rouge">t = (1, 2, 3)</code>. We see that it references memory address <code class="language-plaintext highlighter-rouge">0x1dd65ac45e8</code></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
 
 <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<p>What happens if we try to mutate or update the tuple object above, <code class="highlighter-rouge">t</code>? We see that it creates a new reference to a new object (at <code class="highlighter-rouge">0x1dd65a514c8</code>), instead of updating the earlier object. And the earlier reference would be reclaimed by the garbage collector.</p>
+<p>What happens if we try to mutate or update the tuple object above, <code class="language-plaintext highlighter-rouge">t</code>? We see that it creates a new reference to a new object (at <code class="language-plaintext highlighter-rouge">0x1dd65a514c8</code>), instead of updating the earlier object. And the earlier reference would be reclaimed by the garbage collector.</p>
 
 <p><br /></p>
 <div class="img_container">
@@ -693,7 +693,7 @@
 </div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
 </code></pre></div></div>
 
 <p>This is because <em>tuples</em> are immutable objects, more like integer objects we saw in an <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">earlier post</a>.</p>

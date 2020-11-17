@@ -533,21 +533,21 @@
   <div class="post-content" itemprop="articleBody">
     <p>In one of our <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">previous posts</a> we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out.</p>
 
-<p>Let us consider a list <code class="highlighter-rouge">l1</code> that contains <code class="highlighter-rouge">[1, 2]</code> and see what memory address it references.</p>
+<p>Let us consider a list <code class="language-plaintext highlighter-rouge">l1</code> that contains <code class="language-plaintext highlighter-rouge">[1, 2]</code> and see what memory address it references.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
 
 <span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 <span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<p>In my execution, it seems to reference the memory address <code class="highlighter-rouge">0x1d49c799e48</code>. Now, let us concatenate a list containing a single element <code class="highlighter-rouge">[3]</code> to <code class="highlighter-rouge">l1</code>. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out.</p>
+<p>In my execution, it seems to reference the memory address <code class="language-plaintext highlighter-rouge">0x1d49c799e48</code>. Now, let us concatenate a list containing a single element <code class="language-plaintext highlighter-rouge">[3]</code> to <code class="language-plaintext highlighter-rouge">l1</code>. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
 <span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
 </code></pre></div></div>
 
 <p><br /></p>
@@ -555,7 +555,7 @@
   <p><img src="/assets/images/py/list_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
-<p>We see that it references a new memory location (in my case <code class="highlighter-rouge">0x1d49c79bc08</code>) different from the earlier one. What is happening? Aren’t lists <em>mutable</em> objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.</p>
+<p>We see that it references a new memory location (in my case <code class="language-plaintext highlighter-rouge">0x1d49c79bc08</code>) different from the earlier one. What is happening? Aren’t lists <em>mutable</em> objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.</p>
 
   </div>
 

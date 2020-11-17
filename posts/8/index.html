@@ -539,9 +539,9 @@
         </header>
 
         <div class="post-content">
-          <p>Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">naan</code> are rotations of each other while <code class="highlighter-rouge">anna</code> and <code class="highlighter-rouge">nana</code> are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):</p>
+          <p>Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">naan</code> are rotations of each other while <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">nana</code> are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a-n-n-a   --&gt; 0. original string
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a-n-n-a   --&gt; 0. original string
 n-n-a-a   --&gt; 1. rotated by 1 ('a' moves to the end)
 n-a-a-n   --&gt; 2. rotated by 1
 </code></pre></div></div>
@@ -549,9 +549,9 @@ n-a-a-n   --&gt; 2. rotated by 1
 <p>A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be:</p>
 
 <ol>
-  <li>Concatenate one of the strings with itself. Say, we choose <code class="highlighter-rouge">anna</code> to concatenate and form the concatenated one <code class="highlighter-rouge">annaanna</code></li>
-  <li>Search for the occurence of the second string <code class="highlighter-rouge">naan</code> in the concatenation,</li>
-  <li>We see that <code class="highlighter-rouge">naan</code> is indeed a substring of the concatenation <em>an</em><strong>naan</strong><em>na</em> and a rotation of <code class="highlighter-rouge">anna</code>.</li>
+  <li>Concatenate one of the strings with itself. Say, we choose <code class="language-plaintext highlighter-rouge">anna</code> to concatenate and form the concatenated one <code class="language-plaintext highlighter-rouge">annaanna</code></li>
+  <li>Search for the occurence of the second string <code class="language-plaintext highlighter-rouge">naan</code> in the concatenation,</li>
+  <li>We see that <code class="language-plaintext highlighter-rouge">naan</code> is indeed a substring of the concatenation <em>an</em><strong>naan</strong><em>na</em> and a rotation of <code class="language-plaintext highlighter-rouge">anna</code>.</li>
 </ol>
 
 <figure class="highlight">
@@ -569,7 +569,7 @@ n-a-a-n   --&gt; 2. rotated by 1
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>A caveat here is to check for the length of the two strings <em>a priori</em>. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce <code class="highlighter-rouge">ann</code> to be a rotation of <code class="highlighter-rouge">anna</code>.</p>
+<p>A caveat here is to check for the length of the two strings <em>a priori</em>. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce <code class="language-plaintext highlighter-rouge">ann</code> to be a rotation of <code class="language-plaintext highlighter-rouge">anna</code>.</p>
 
         </div>
         
@@ -1018,7 +1018,7 @@ n-a-a-n   --&gt; 2. rotated by 1
         </header>
 
         <div class="post-content">
-          <p>Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is <code class="highlighter-rouge">[1, 3, 4, 11, 2, 6]</code>, in the output array, the elements would be in reverse order - i.e. <code class="highlighter-rouge">[6, 2, 11, 4, 3, 1]</code>. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array.</p>
+          <p>Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is <code class="language-plaintext highlighter-rouge">[1, 3, 4, 11, 2, 6]</code>, in the output array, the elements would be in reverse order - i.e. <code class="language-plaintext highlighter-rouge">[6, 2, 11, 4, 3, 1]</code>. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array.</p>
 
 <p>We traverse the array from the beginning and swap the elements with those from the end of the array. This way, by the time we are at the mid-point of the array, we would have swapped all the elements and the array would be in reverse order.</p>
 
@@ -1030,7 +1030,7 @@ n-a-a-n   --&gt; 2. rotated by 1
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>where <code class="highlighter-rouge">swap(arr[a], arr[b])</code> would swap the elements at array locations <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> and <code class="highlighter-rouge">n</code> is the size of the input array <code class="highlighter-rouge">arr</code>.</p>
+<p>where <code class="language-plaintext highlighter-rouge">swap(arr[a], arr[b])</code> would swap the elements at array locations <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> and <code class="language-plaintext highlighter-rouge">n</code> is the size of the input array <code class="language-plaintext highlighter-rouge">arr</code>.</p>
 
         </div>
         
@@ -1622,14 +1622,14 @@ n-a-a-n   --&gt; 2. rotated by 1
         </header>
 
         <div class="post-content">
-          <p>In our previous post, we found a way to compute the position of the right-most set bit in a given number. A key ingredient of that algorithm was isolating the right-most set bit. For example, given 10, which is <code class="highlighter-rouge">1010</code> in binary, how do we “isolate the right-most set bit” - i.e. generate a bit-vector where only the bit in the position of the right-most set bit, in our input number, is set. For our input number 10, it would be a bit-vector where only the bit in position 2 is set - <code class="highlighter-rouge">0010</code>. Given <code class="highlighter-rouge">1010</code>, how do we generate <code class="highlighter-rouge">0010</code>?</p>
+          <p>In our previous post, we found a way to compute the position of the right-most set bit in a given number. A key ingredient of that algorithm was isolating the right-most set bit. For example, given 10, which is <code class="language-plaintext highlighter-rouge">1010</code> in binary, how do we “isolate the right-most set bit” - i.e. generate a bit-vector where only the bit in the position of the right-most set bit, in our input number, is set. For our input number 10, it would be a bit-vector where only the bit in position 2 is set - <code class="language-plaintext highlighter-rouge">0010</code>. Given <code class="language-plaintext highlighter-rouge">1010</code>, how do we generate <code class="language-plaintext highlighter-rouge">0010</code>?</p>
 
-<p>We mentioned about 2’s complement notation for negative numbers in a <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>. For example, the number 2 represented using 4 bits would be <code class="highlighter-rouge">0010</code> while -2 represented using 4 bits would be <code class="highlighter-rouge">1110</code>, where the bit position corresponding to right-most set bit in in the positive equivalent (+2) is set, while all the bits to the left are flipped.</p>
+<p>We mentioned about 2’s complement notation for negative numbers in a <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>. For example, the number 2 represented using 4 bits would be <code class="language-plaintext highlighter-rouge">0010</code> while -2 represented using 4 bits would be <code class="language-plaintext highlighter-rouge">1110</code>, where the bit position corresponding to right-most set bit in in the positive equivalent (+2) is set, while all the bits to the left are flipped.</p>
 
 <p><br />
 <img src="/assets/images/algorithms/cpp/rm_set_bit.png" alt="isolating right-most set bit" class="img=responsive" height="50%" width="50%" /></p>
 
-<p>Now, if we <code class="highlighter-rouge">&amp;</code> (bit-wise AND) our input number (<em>x</em>) with the negation of it (<em>-x</em>), we will be left with only one bit set, which corresponds to the position of the right-most set bit. So, the bit-wise operation we were looking for is <code class="highlighter-rouge">&amp;</code> with the negation of the input number. Let us put all this together in a C algorithm (not that we already know the later part of the algorithm from the <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>):</p>
+<p>Now, if we <code class="language-plaintext highlighter-rouge">&amp;</code> (bit-wise AND) our input number (<em>x</em>) with the negation of it (<em>-x</em>), we will be left with only one bit set, which corresponds to the position of the right-most set bit. So, the bit-wise operation we were looking for is <code class="language-plaintext highlighter-rouge">&amp;</code> with the negation of the input number. Let us put all this together in a C algorithm (not that we already know the later part of the algorithm from the <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>):</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rightmost_set_bit</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
@@ -2239,11 +2239,11 @@ n-a-a-n   --&gt; 2. rotated by 1
         <div class="post-content">
           <p>As we are getting comfortable thinking in terms of bits and bit-wise operators, let us play with them some more. Let us see how to find the position of the right-most set bit, given a bit-vector? Note that this is different from the <a href="https://dotkay.github.io/2018/03/02/checking-set-bit">previous</a> problem of checking if the bit in a specific bit position is set. Here, we want to just find the right most set bit, and the position in the bit-vector is not given - we are to find that position.</p>
 
-<p>For example, 10 in binary is <code class="highlighter-rouge">1010</code> and the right-most set bit is at position 2 (second from the right most digit). Given 10, our algorithm has to output 2. Similarly, 8 in binary is <code class="highlighter-rouge">1000</code> and given this, our algorithm has to output 4.</p>
+<p>For example, 10 in binary is <code class="language-plaintext highlighter-rouge">1010</code> and the right-most set bit is at position 2 (second from the right most digit). Given 10, our algorithm has to output 2. Similarly, 8 in binary is <code class="language-plaintext highlighter-rouge">1000</code> and given this, our algorithm has to output 4.</p>
 
-<p>The intuition is that since multiple bits may be set in a bit-vector (unless it is a power of 2) we need to find a way of isolating the right-most set bit and then traverse the vector to find its position in the vector. For example, suppose a bit-vector (with the right-most bit of 10 isolated) is given to us, it would look like <code class="highlighter-rouge">0010</code>. Now we can write a simple algorithm to check the bit-position of the only bit (the lonely, isolated bit) set in the vector. We already know that we could use right shift operator repeatedly on this bit-vector, until it becomes 0, as follows:</p>
+<p>The intuition is that since multiple bits may be set in a bit-vector (unless it is a power of 2) we need to find a way of isolating the right-most set bit and then traverse the vector to find its position in the vector. For example, suppose a bit-vector (with the right-most bit of 10 isolated) is given to us, it would look like <code class="language-plaintext highlighter-rouge">0010</code>. Now we can write a simple algorithm to check the bit-position of the only bit (the lonely, isolated bit) set in the vector. We already know that we could use right shift operator repeatedly on this bit-vector, until it becomes 0, as follows:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0010           -&gt; given bit-vector with only one bit set
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0010           -&gt; given bit-vector with only one bit set
 0010 &gt;&gt; 1      -&gt; right-shift by 1 position (once)
 0001 &gt;&gt; 1      -&gt; right-shift by 1 position (twice)
 0000  
@@ -2262,7 +2262,7 @@ n-a-a-n   --&gt; 2. rotated by 1
 <span class="k">return</span> <span class="n">count</span><span class="p">;</span></code></pre>
 </figure>
 
-<p>Now, what operation do we use to find this x above? Or referring to our example, how do we find the vector <code class="highlighter-rouge">0010</code> that gave us the right-most set bit for our input vector which was <code class="highlighter-rouge">1010</code>? Think about the properties of bit-vectors, especially negative numbers.</p>
+<p>Now, what operation do we use to find this x above? Or referring to our example, how do we find the vector <code class="language-plaintext highlighter-rouge">0010</code> that gave us the right-most set bit for our input vector which was <code class="language-plaintext highlighter-rouge">1010</code>? Think about the properties of bit-vectors, especially negative numbers.</p>
 
 <p>Stay tuned for a post describing it.</p>
 
@@ -2857,7 +2857,7 @@ n-a-a-n   --&gt; 2. rotated by 1
         </header>
 
         <div class="post-content">
-          <p>Armed with the primitive bitwise operators, let us starting playing with some bit-vectors and use these opertors to do some fancy computations. As a first example, let us see how to check if the <em>k</em>-th bit is set in a given bit-vector <em>n</em> and an integer <em>k</em>. For example, in the binary representation of 10 which is <code class="highlighter-rouge">1010</code>, 2nd and 4th bits are set.</p>
+          <p>Armed with the primitive bitwise operators, let us starting playing with some bit-vectors and use these opertors to do some fancy computations. As a first example, let us see how to check if the <em>k</em>-th bit is set in a given bit-vector <em>n</em> and an integer <em>k</em>. For example, in the binary representation of 10 which is <code class="language-plaintext highlighter-rouge">1010</code>, 2nd and 4th bits are set.</p>
 
 <p>Here’s the approach</p>
 
@@ -2867,17 +2867,17 @@ n-a-a-n   --&gt; 2. rotated by 1
   <li>If the result is non-zero then the k-th bit is set.</li>
 </ol>
 
-<p>Let us work out an example: Say we are given the number 9 and asked if the 1st bit is set (so <em>n</em> is 5 (<code class="highlighter-rouge">101</code>) and <em>k</em> is 3). we see that the 3rd bit is indeed set - our algorithm should return <code class="highlighter-rouge">true</code>.</p>
+<p>Let us work out an example: Say we are given the number 9 and asked if the 1st bit is set (so <em>n</em> is 5 (<code class="language-plaintext highlighter-rouge">101</code>) and <em>k</em> is 3). we see that the 3rd bit is indeed set - our algorithm should return <code class="language-plaintext highlighter-rouge">true</code>.</p>
 
 <ol>
-  <li>Let us choose <code class="highlighter-rouge">100</code> since <em>k</em> is set. i.e., we generated this bit-vector where <em>only</em> the <em>k</em>-th (3rd here) bit is set. In a short while, we will see how to generate this bit-vector</li>
-  <li>We do a bitwise AND of this generated vector with input bit-vector <em>n</em>. <code class="highlighter-rouge">101 &amp; 100</code> which yields <code class="highlighter-rouge">100</code></li>
-  <li><code class="highlighter-rouge">100</code> is non-zero and so our algorithm returns <code class="highlighter-rouge">true</code>.</li>
+  <li>Let us choose <code class="language-plaintext highlighter-rouge">100</code> since <em>k</em> is set. i.e., we generated this bit-vector where <em>only</em> the <em>k</em>-th (3rd here) bit is set. In a short while, we will see how to generate this bit-vector</li>
+  <li>We do a bitwise AND of this generated vector with input bit-vector <em>n</em>. <code class="language-plaintext highlighter-rouge">101 &amp; 100</code> which yields <code class="language-plaintext highlighter-rouge">100</code></li>
+  <li><code class="language-plaintext highlighter-rouge">100</code> is non-zero and so our algorithm returns <code class="language-plaintext highlighter-rouge">true</code>.</li>
 </ol>
 
-<p>Coming to step 1., how do we go about generating a bit-vector whose only <em>k</em>-th bit is set? The intuition lies in the way numbers are represented in binary. The bit positions are essentially powers of 2. For example, 1 is represented as <code class="highlighter-rouge">0001</code> (assuming we use 4 bits to represent a decimal number) - only the bit in the first position is set and this corresponds to 2^0. The second position corresponds to 2^1, third 2^2 and so on. 10 is represented as <code class="highlighter-rouge">1010</code> where second and fourth bits are set - i.e 2^1 and 2^3 bits are set (2^1 + 2^3 = 10). (Please refer to the conversions between decimal and binary <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">here</a>).</p>
+<p>Coming to step 1., how do we go about generating a bit-vector whose only <em>k</em>-th bit is set? The intuition lies in the way numbers are represented in binary. The bit positions are essentially powers of 2. For example, 1 is represented as <code class="language-plaintext highlighter-rouge">0001</code> (assuming we use 4 bits to represent a decimal number) - only the bit in the first position is set and this corresponds to 2^0. The second position corresponds to 2^1, third 2^2 and so on. 10 is represented as <code class="language-plaintext highlighter-rouge">1010</code> where second and fourth bits are set - i.e 2^1 and 2^3 bits are set (2^1 + 2^3 = 10). (Please refer to the conversions between decimal and binary <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples/">here</a>).</p>
 
-<p>And we have this other weapon <code class="highlighter-rouge">&lt;&lt;</code> that we can use to move a set bit towards the left. So, if we left-shift (<code class="highlighter-rouge">&lt;&lt;</code>) <code class="highlighter-rouge">0001</code> by 1, we get <code class="highlighter-rouge">0010</code> (2) and further left-shift yeilds 4 (as each left-shift is just multiplication by 2). We start with 1 and consecutive left shifts gives us bit-vectors where only the bit in a specific location is set and all others are unset. This is the intuition behind generating a bit-vector with a single bit set. So, if we want a bit-vector whose 3rd bit is set, we left-shift <code class="highlighter-rouge">0001</code> twice. In general if we want a bit-vector whose <em>k</em>-th bit is set, we left-shift by <em>(k-1)</em>.</p>
+<p>And we have this other weapon <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> that we can use to move a set bit towards the left. So, if we left-shift (<code class="language-plaintext highlighter-rouge">&lt;&lt;</code>) <code class="language-plaintext highlighter-rouge">0001</code> by 1, we get <code class="language-plaintext highlighter-rouge">0010</code> (2) and further left-shift yeilds 4 (as each left-shift is just multiplication by 2). We start with 1 and consecutive left shifts gives us bit-vectors where only the bit in a specific location is set and all others are unset. This is the intuition behind generating a bit-vector with a single bit set. So, if we want a bit-vector whose 3rd bit is set, we left-shift <code class="language-plaintext highlighter-rouge">0001</code> twice. In general if we want a bit-vector whose <em>k</em>-th bit is set, we left-shift by <em>(k-1)</em>.</p>
 
 <p>The following code fragment illustrates the algorithm:</p>
 

@@ -531,9 +531,9 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Earlier, we <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">saw how to reverse a sub-array</a> given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is <code class="highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code> and group size is <code class="highlighter-rouge">3</code>, we want to reverse every group of 3 elements in the array and the remaining ones. Something like:</p>
+    <p>Earlier, we <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">saw how to reverse a sub-array</a> given the window to be reversed. How do we reverse an array in subarray groups? For example, if our input array is <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code> and group size is <code class="language-plaintext highlighter-rouge">3</code>, we want to reverse every group of 3 elements in the array and the remaining ones. Something like:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8                 -&gt; input array
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8                 -&gt; input array
 (3 2 1) 4 5 6 7 8               -&gt; first group of 3 elements reversed;
                                    group denoted by (..)
 (3 2 1) (6 5 4) 7 8             -&gt; second group of 3 elements reversed
@@ -558,7 +558,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Here, <code class="highlighter-rouge">n</code> denotes the size of the input array <code class="highlighter-rouge">arr</code> and <code class="highlighter-rouge">g</code> denotes the size of the group.</p>
+<p>Here, <code class="language-plaintext highlighter-rouge">n</code> denotes the size of the input array <code class="language-plaintext highlighter-rouge">arr</code> and <code class="language-plaintext highlighter-rouge">g</code> denotes the size of the group.</p>
 
 
   </div>

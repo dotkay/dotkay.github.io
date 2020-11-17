@@ -680,7 +680,7 @@
 
 <p>Since our computers (as of now) are binary machines, everything - chars, strings, structs, music and videos are all represented as 0s and 1s. And we have primitive operations on these bits. Sounds like we are moving back to stone age, but be patient - we use these low level operations in system software even today due to the speed of such operations. We will concern ourselves with the most basic bitwise operations as below:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp;      -  Bitwise AND
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp;      -  Bitwise AND
 |      -  Bitwise OR
 ~      -  Bitwise complement (i.e. negation)
 ^      -  Bitwise XOR
@@ -688,11 +688,11 @@
 &lt;&lt;     -  Bitwise left-shift
 </code></pre></div></div>
 
-<p>As a quick note, <code class="highlighter-rouge">&gt;&gt;</code> can also be used for division by 2. For example 4 is <code class="highlighter-rouge">0100</code> in binary and <code class="highlighter-rouge">4 &gt;&gt; 1</code> would amount to <code class="highlighter-rouge">0010</code> which is 2 (4 / 2 = 2) and this on further shift <code class="highlighter-rouge">2 &gt;&gt; 1</code> results in <code class="highlighter-rouge">0001</code> which is 1 (2 /2 = 1).</p>
+<p>As a quick note, <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> can also be used for division by 2. For example 4 is <code class="language-plaintext highlighter-rouge">0100</code> in binary and <code class="language-plaintext highlighter-rouge">4 &gt;&gt; 1</code> would amount to <code class="language-plaintext highlighter-rouge">0010</code> which is 2 (4 / 2 = 2) and this on further shift <code class="language-plaintext highlighter-rouge">2 &gt;&gt; 1</code> results in <code class="language-plaintext highlighter-rouge">0001</code> which is 1 (2 /2 = 1).</p>
 
-<p>Similarly, <code class="highlighter-rouge">&lt;&lt;</code> can also be used for multiplication by 2. For example 2 is <code class="highlighter-rouge">0010</code> in binary and <code class="highlighter-rouge">2 &lt;&lt; 1</code> would result in <code class="highlighter-rouge">0100</code> which is 4 (2 * 2 = 4).</p>
+<p>Similarly, <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> can also be used for multiplication by 2. For example 2 is <code class="language-plaintext highlighter-rouge">0010</code> in binary and <code class="language-plaintext highlighter-rouge">2 &lt;&lt; 1</code> would result in <code class="language-plaintext highlighter-rouge">0100</code> which is 4 (2 * 2 = 4).</p>
 
-<p>One more quick aside is <em>2’s complement</em> - which is just a way of representing negative numbers. For example -2 would be represented (if we are allowed only 3-bits to represent) as <code class="highlighter-rouge">110</code> which is 2^3 - 2. In general, <em>-n</em> in 2’s complement is just <code class="highlighter-rouge">2^k - n</code> where <em>k</em> is the number of bits used to represent it.</p>
+<p>One more quick aside is <em>2’s complement</em> - which is just a way of representing negative numbers. For example -2 would be represented (if we are allowed only 3-bits to represent) as <code class="language-plaintext highlighter-rouge">110</code> which is 2^3 - 2. In general, <em>-n</em> in 2’s complement is just <code class="language-plaintext highlighter-rouge">2^k - n</code> where <em>k</em> is the number of bits used to represent it.</p>
 
   </div>
 

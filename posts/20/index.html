@@ -541,14 +541,14 @@
         <div class="post-content">
           <p>Let’s put on our thinking-in-recursion hat and put to use all that we have learned from our examples. We will do this by working out only two (so this will be a short post) examples that will use the recursion concepts that are bread and butter for us now.</p>
 
-<p>As a first example, we will write a function to eliminate consecutive repetitions of elements in a list. For example, if we pass the list <code class="highlighter-rouge">[1;1;2;2;3;3;3;4;5;5]</code> to our function, it should return <code class="highlighter-rouge">[1;2;3;4;5]</code>, after removing the repetitions. How do we go about doing this? The moment we see consecutive repetitions, we know that we can easily track this by observing any two consecutive elements in the list while traversing the list. We need to observe at least two consecutive elements in order to find out if they are repetitions. So far, in our previous examples, we have usually been observing one element, the first element of a list (or a sub-list) calling it the <code class="highlighter-rouge">head</code> and denoting it <code class="highlighter-rouge">h</code>. Remember the pattern-matchings of the form <code class="highlighter-rouge">| h::t -&gt; </code> in our previous code snippets? We were observing an element <code class="highlighter-rouge">h</code> concatenated with a list <code class="highlighter-rouge">t</code>. Now, we need to observe two consecutive elements instead of one, to check if they are repetitions - something of this shape <code class="highlighter-rouge">| h1 :: h2::t</code>. Now, we can compare <code class="highlighter-rouge">h1</code> and <code class="highlighter-rouge">h2</code> and check if <code class="highlighter-rouge">h2</code> is a repetition of <code class="highlighter-rouge">h1</code>. If they are not the same, we can always treat <code class="highlighter-rouge">h2::t</code> as the rest-of-the-list, which we called <code class="highlighter-rouge">t</code> (as in <code class="highlighter-rouge">h::t</code>) in our previous examples. Now, let’s jump in to the algorithm:</p>
+<p>As a first example, we will write a function to eliminate consecutive repetitions of elements in a list. For example, if we pass the list <code class="language-plaintext highlighter-rouge">[1;1;2;2;3;3;3;4;5;5]</code> to our function, it should return <code class="language-plaintext highlighter-rouge">[1;2;3;4;5]</code>, after removing the repetitions. How do we go about doing this? The moment we see consecutive repetitions, we know that we can easily track this by observing any two consecutive elements in the list while traversing the list. We need to observe at least two consecutive elements in order to find out if they are repetitions. So far, in our previous examples, we have usually been observing one element, the first element of a list (or a sub-list) calling it the <code class="language-plaintext highlighter-rouge">head</code> and denoting it <code class="language-plaintext highlighter-rouge">h</code>. Remember the pattern-matchings of the form <code class="language-plaintext highlighter-rouge">| h::t -&gt; </code> in our previous code snippets? We were observing an element <code class="language-plaintext highlighter-rouge">h</code> concatenated with a list <code class="language-plaintext highlighter-rouge">t</code>. Now, we need to observe two consecutive elements instead of one, to check if they are repetitions - something of this shape <code class="language-plaintext highlighter-rouge">| h1 :: h2::t</code>. Now, we can compare <code class="language-plaintext highlighter-rouge">h1</code> and <code class="language-plaintext highlighter-rouge">h2</code> and check if <code class="language-plaintext highlighter-rouge">h2</code> is a repetition of <code class="language-plaintext highlighter-rouge">h1</code>. If they are not the same, we can always treat <code class="language-plaintext highlighter-rouge">h2::t</code> as the rest-of-the-list, which we called <code class="language-plaintext highlighter-rouge">t</code> (as in <code class="language-plaintext highlighter-rouge">h::t</code>) in our previous examples. Now, let’s jump in to the algorithm:</p>
 
 <ol>
   <li>Base case - if it’s an empty list, nothing to check so we will just return an empty list</li>
-  <li>Otherwise - we think of the list to be made up of a head element <code class="highlighter-rouge">x1</code> and the rest-of-the-list. The rest-of-the-list part we will further expand (in order to allow for checking repetitions). So, let’s say the rest-of-the-list is made up of <code class="highlighter-rouge">x2::x3</code> - <code class="highlighter-rouge">x2</code> is the head element of rest-of-the-list and <code class="highlighter-rouge">x3</code> is the rest-of-the-list part of our original rest-of-the-list. Our pattern to match would look something of this shape: <code class="highlighter-rouge">x1 :: (x2::x3 as t)</code> - the <code class="highlighter-rouge">as t</code> just gives a name <code class="highlighter-rouge">t</code> to <code class="highlighter-rouge">x2::x3</code>.
+  <li>Otherwise - we think of the list to be made up of a head element <code class="language-plaintext highlighter-rouge">x1</code> and the rest-of-the-list. The rest-of-the-list part we will further expand (in order to allow for checking repetitions). So, let’s say the rest-of-the-list is made up of <code class="language-plaintext highlighter-rouge">x2::x3</code> - <code class="language-plaintext highlighter-rouge">x2</code> is the head element of rest-of-the-list and <code class="language-plaintext highlighter-rouge">x3</code> is the rest-of-the-list part of our original rest-of-the-list. Our pattern to match would look something of this shape: <code class="language-plaintext highlighter-rouge">x1 :: (x2::x3 as t)</code> - the <code class="language-plaintext highlighter-rouge">as t</code> just gives a name <code class="language-plaintext highlighter-rouge">t</code> to <code class="language-plaintext highlighter-rouge">x2::x3</code>.
     <ul>
-      <li>if <code class="highlighter-rouge">x1</code> and <code class="highlighter-rouge">x2</code> are the same, then we recursively call the function on <code class="highlighter-rouge">x2::x3</code>. But, we threw <code class="highlighter-rouge">x1</code> away and that’s fine because it was meant to be eliminated. We still have <code class="highlighter-rouge">x2</code> that has the same value.</li>
-      <li>If <code class="highlighter-rouge">x1</code> and <code class="highlighter-rouge">x2</code> are not the same, we know that <code class="highlighter-rouge">x1</code> does not have a doppelganger following it, and so we will include it in our result list that we will eventually return. We just append <code class="highlighter-rouge">x1</code> to the result of the function call on rest-of-the-list.</li>
+      <li>if <code class="language-plaintext highlighter-rouge">x1</code> and <code class="language-plaintext highlighter-rouge">x2</code> are the same, then we recursively call the function on <code class="language-plaintext highlighter-rouge">x2::x3</code>. But, we threw <code class="language-plaintext highlighter-rouge">x1</code> away and that’s fine because it was meant to be eliminated. We still have <code class="language-plaintext highlighter-rouge">x2</code> that has the same value.</li>
+      <li>If <code class="language-plaintext highlighter-rouge">x1</code> and <code class="language-plaintext highlighter-rouge">x2</code> are not the same, we know that <code class="language-plaintext highlighter-rouge">x1</code> does not have a doppelganger following it, and so we will include it in our result list that we will eventually return. We just append <code class="language-plaintext highlighter-rouge">x1</code> to the result of the function call on rest-of-the-list.</li>
     </ul>
   </li>
   <li>Any other pattern, we just return the same pattern. Why do we need this? Because we want the patterns we match to be exhaustive - to cover all the cases. Suppose we have a list with a single element, this pattern would match that.</li>
@@ -566,11 +566,11 @@
 
 <p>It turned out to be pretty simple, right?</p>
 
-<p>Now, let’s work out another example before our enthusiasm dies down. Let’s do insertion sort. We will write it out as two recursive functions. Wait, don’t run away. It’s going to be simple. First, let us write a function that inserts an element <code class="highlighter-rouge">x</code> to a list <code class="highlighter-rouge">lst</code>, and it will insert <code class="highlighter-rouge">x</code> in such a way that the element next to <code class="highlighter-rouge">x</code> in <code class="highlighter-rouge">lst</code> would be great than <code class="highlighter-rouge">x</code> and the element before it would be less than or equal to <code class="highlighter-rouge">x</code>. Why are we writing this function? This is not insertion sort. Wait, it will be clear in a minute. We will call this function <code class="highlighter-rouge">insert</code>, takes two arguments <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">lst</code>.</p>
+<p>Now, let’s work out another example before our enthusiasm dies down. Let’s do insertion sort. We will write it out as two recursive functions. Wait, don’t run away. It’s going to be simple. First, let us write a function that inserts an element <code class="language-plaintext highlighter-rouge">x</code> to a list <code class="language-plaintext highlighter-rouge">lst</code>, and it will insert <code class="language-plaintext highlighter-rouge">x</code> in such a way that the element next to <code class="language-plaintext highlighter-rouge">x</code> in <code class="language-plaintext highlighter-rouge">lst</code> would be great than <code class="language-plaintext highlighter-rouge">x</code> and the element before it would be less than or equal to <code class="language-plaintext highlighter-rouge">x</code>. Why are we writing this function? This is not insertion sort. Wait, it will be clear in a minute. We will call this function <code class="language-plaintext highlighter-rouge">insert</code>, takes two arguments <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">lst</code>.</p>
 
 <ol>
-  <li>Base case - if <code class="highlighter-rouge">lst</code> is empty, we just insert <code class="highlighter-rouge">x</code> into the empty list and return it</li>
-  <li>Otherwise, we have to traverse the list and see where to insert <code class="highlighter-rouge">x</code>. If head element is greater than <code class="highlighter-rouge">x</code>, it is easy - we just insert <code class="highlighter-rouge">x</code> at the head of the input list <code class="highlighter-rouge">lst</code> and return it. If not, we look for a position in the rest-of-the-list <code class="highlighter-rouge">t</code> to insert our <code class="highlighter-rouge">x</code>.</li>
+  <li>Base case - if <code class="language-plaintext highlighter-rouge">lst</code> is empty, we just insert <code class="language-plaintext highlighter-rouge">x</code> into the empty list and return it</li>
+  <li>Otherwise, we have to traverse the list and see where to insert <code class="language-plaintext highlighter-rouge">x</code>. If head element is greater than <code class="language-plaintext highlighter-rouge">x</code>, it is easy - we just insert <code class="language-plaintext highlighter-rouge">x</code> at the head of the input list <code class="language-plaintext highlighter-rouge">lst</code> and return it. If not, we look for a position in the rest-of-the-list <code class="language-plaintext highlighter-rouge">t</code> to insert our <code class="language-plaintext highlighter-rouge">x</code>.</li>
 </ol>
 
 <figure class="highlight">
@@ -582,12 +582,12 @@
      <span class="k">else</span> <span class="n">h</span><span class="o">::</span><span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
-<p>Now, we will use the above function to write our insertion sort function <code class="highlighter-rouge">isort</code>. Just think what would happen if <code class="highlighter-rouge">lst</code> was already sorted in the above case. In that case, we would be inserting <code class="highlighter-rouge">x</code> to <code class="highlighter-rouge">lst</code> to maintain sorted order (just because of the rules that we imposed for inserting <code class="highlighter-rouge">x</code>). Let’s write down the algorithm.</p>
+<p>Now, we will use the above function to write our insertion sort function <code class="language-plaintext highlighter-rouge">isort</code>. Just think what would happen if <code class="language-plaintext highlighter-rouge">lst</code> was already sorted in the above case. In that case, we would be inserting <code class="language-plaintext highlighter-rouge">x</code> to <code class="language-plaintext highlighter-rouge">lst</code> to maintain sorted order (just because of the rules that we imposed for inserting <code class="language-plaintext highlighter-rouge">x</code>). Let’s write down the algorithm.</p>
 
 <ol>
-  <li>Base case - if <code class="highlighter-rouge">lst</code> is empty, return the empty list</li>
+  <li>Base case - if <code class="language-plaintext highlighter-rouge">lst</code> is empty, return the empty list</li>
   <li>If the list has just one element, it is trivially sorted, just return the input list</li>
-  <li>If the list has two or more elements, pick elements one by one, starting from the head element <code class="highlighter-rouge">h</code> and use our <code class="highlighter-rouge">insert</code> function to insert it into the appropriate position.</li>
+  <li>If the list has two or more elements, pick elements one by one, starting from the head element <code class="language-plaintext highlighter-rouge">h</code> and use our <code class="language-plaintext highlighter-rouge">insert</code> function to insert it into the appropriate position.</li>
 </ol>
 
 <figure class="highlight">
@@ -926,32 +926,32 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span></code></pre>
 </figure>
 
-<p>We will use these libraries only very minimally for this short post, but they are very powerful and we will see more of their features in future posts. If you create a (free) account in Kaggle, you can download the Pokemon dataset. I have downloaded it and saved it in a file named <code class="highlighter-rouge">Pokemon.csv</code>. We will use Pandas <code class="highlighter-rouge">read_csv</code> function to read the downloaded csv file.</p>
+<p>We will use these libraries only very minimally for this short post, but they are very powerful and we will see more of their features in future posts. If you create a (free) account in Kaggle, you can download the Pokemon dataset. I have downloaded it and saved it in a file named <code class="language-plaintext highlighter-rouge">Pokemon.csv</code>. We will use Pandas <code class="language-plaintext highlighter-rouge">read_csv</code> function to read the downloaded csv file.</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">pokemon_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">)</span></code></pre>
+  <pre><code class="language-python" data-lang="python"><span class="n">pokemon_data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">)</span></code></pre>
 </figure>
 
-<p>We will call it <code class="highlighter-rouge">pokemon_data</code>. Pandas refers to this type as a <code class="highlighter-rouge">dataframe</code>. If you look at the dataset the first column is just an index, so it’s useless for our analysis purposes. So we will go ahead and grab only the rest of the columns (and all the rows).</p>
+<p>We will call it <code class="language-plaintext highlighter-rouge">pokemon_data</code>. Pandas refers to this type as a <code class="language-plaintext highlighter-rouge">dataframe</code>. If you look at the dataset the first column is just an index, so it’s useless for our analysis purposes. So we will go ahead and grab only the rest of the columns (and all the rows).</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">pokemon_data</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span></code></pre>
+  <pre><code class="language-python" data-lang="python"><span class="n">pokemon_data</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span></code></pre>
 </figure>
 
-<p>Here <code class="highlighter-rouge">[:, 1:13]</code> says that “grab all the rows (denoted by <code class="highlighter-rouge">:</code>) and columns <code class="highlighter-rouge">1</code> to <code class="highlighter-rouge">13</code>. Now, let’s explore the data a bit. It’s always a good idea to take a quick look at the dataset to see what are the different columns and what kinds of values or informations they indicate about the dataset. In this case, I see that there’s a column called <code class="highlighter-rouge">Generation</code> and it seems to take values between <code class="highlighter-rouge">1</code> and <code class="highlighter-rouge">6</code>. Probably there are six generations of Pokemons, at least to my understanding. Now, let’s try to see how many Pokemons are there in each generation. If it were a population dataset, this is analogous to finding out how many people are in each continent, or something like that. I will call the number of generations by the variable <code class="highlighter-rouge">no_gens</code>. We need to pick the column named <code class="highlighter-rouge">Generation</code> and count the number of unique entries. Since there are <code class="highlighter-rouge">800</code> Pokemons in all and they belong to one of the <code class="highlighter-rouge">6</code> generations, there will be multiple rows that contain the same value for <code class="highlighter-rouge">Generation</code> and hence we need to find the number of unique values (which after having a quick look at the dataset we know is <code class="highlighter-rouge">6</code>, but it is always better to confirm algorithmically and store in a variable). We achieve this by the function <code class="highlighter-rouge">unique()</code> applying it on the column. We extract the specific column by using the column label, in this case <code class="highlighter-rouge">Generation</code>. Similarly we count the number of values in each generation using the function <code class="highlighter-rouge">value_counts()</code></p>
+<p>Here <code class="language-plaintext highlighter-rouge">[:, 1:13]</code> says that “grab all the rows (denoted by <code class="language-plaintext highlighter-rouge">:</code>) and columns <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">13</code>. Now, let’s explore the data a bit. It’s always a good idea to take a quick look at the dataset to see what are the different columns and what kinds of values or informations they indicate about the dataset. In this case, I see that there’s a column called <code class="language-plaintext highlighter-rouge">Generation</code> and it seems to take values between <code class="language-plaintext highlighter-rouge">1</code> and <code class="language-plaintext highlighter-rouge">6</code>. Probably there are six generations of Pokemons, at least to my understanding. Now, let’s try to see how many Pokemons are there in each generation. If it were a population dataset, this is analogous to finding out how many people are in each continent, or something like that. I will call the number of generations by the variable <code class="language-plaintext highlighter-rouge">no_gens</code>. We need to pick the column named <code class="language-plaintext highlighter-rouge">Generation</code> and count the number of unique entries. Since there are <code class="language-plaintext highlighter-rouge">800</code> Pokemons in all and they belong to one of the <code class="language-plaintext highlighter-rouge">6</code> generations, there will be multiple rows that contain the same value for <code class="language-plaintext highlighter-rouge">Generation</code> and hence we need to find the number of unique values (which after having a quick look at the dataset we know is <code class="language-plaintext highlighter-rouge">6</code>, but it is always better to confirm algorithmically and store in a variable). We achieve this by the function <code class="language-plaintext highlighter-rouge">unique()</code> applying it on the column. We extract the specific column by using the column label, in this case <code class="language-plaintext highlighter-rouge">Generation</code>. Similarly we count the number of values in each generation using the function <code class="language-plaintext highlighter-rouge">value_counts()</code></p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">no_gens</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">[</span><span class="s">'Generation'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-<span class="n">count_per_gen</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">[</span><span class="s">'Generation'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span></code></pre>
+  <pre><code class="language-python" data-lang="python"><span class="n">no_gens</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">[</span><span class="s">'Generation'</span><span class="p">].</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">count_per_gen</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">[</span><span class="s">'Generation'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span></code></pre>
 </figure>
 
-<p>Let’s try to plot the above values to have a better visual representation. I will use matplotlib’s pyplot library utilities for this purpose. It is very simple and intuitive to use. We will plot a bar chart - so we need to find out the values for <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> axes. Let’s first label the plot and the axes.</p>
+<p>Let’s try to plot the above values to have a better visual representation. I will use matplotlib’s pyplot library utilities for this purpose. It is very simple and intuitive to use. We will plot a bar chart - so we need to find out the values for <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> axes. Let’s first label the plot and the axes.</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Generations'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Number of Pokemons'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Number of Pokemons of each generation'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">no_gens</span><span class="p">,</span> <span class="n">count_per_gen</span><span class="p">)</span></code></pre>
+  <pre><code class="language-python" data-lang="python"><span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Generations'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Number of Pokemons'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Number of Pokemons of each generation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">no_gens</span><span class="p">,</span> <span class="n">count_per_gen</span><span class="p">)</span></code></pre>
 </figure>
 
 <p>This would result in a plot as shown below:
@@ -1266,7 +1266,7 @@
         <div class="post-content">
           <p>Let’s continue from our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples">earlier post</a> and practice some more simple problems just to get more and more familiar with recursion.</p>
 
-<p>Let’s start by writing a simple function to find the last element of a given list <code class="highlighter-rouge">lst</code>:</p>
+<p>Let’s start by writing a simple function to find the last element of a given list <code class="language-plaintext highlighter-rouge">lst</code>:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_elem</span> <span class="n">lst</span> <span class="o">=</span>
@@ -1277,15 +1277,15 @@
 <span class="c">(* val last_elem : 'a list -&gt; 'a option = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
-<p>This is also a nice way to introduce <code class="highlighter-rouge">Some</code> and <code class="highlighter-rouge">None</code> in OCaml. Just like how we have <code class="highlighter-rouge">'a list</code> which can be an <code class="highlighter-rouge">int list</code> or a <code class="highlighter-rouge">string list</code> or <code class="highlighter-rouge">char list</code>, OCaml also has this wonderful <code class="highlighter-rouge">'a option</code> type that can be nothing (<code class="highlighter-rouge">None</code>) or some type (<code class="highlighter-rouge">Some</code>). Note however that <code class="highlighter-rouge">'a option</code> type is not the same as <code class="highlighter-rouge">'a</code>. So, if the type is <code class="highlighter-rouge">'a</code> you can ask the compiler to treat it as an <code class="highlighter-rouge">int</code>, for example. But you can’t do the same with <code class="highlighter-rouge">'a option</code> type. For friends of Java, C programming languages, you can think of <code class="highlighter-rouge">None</code> as similar to <code class="highlighter-rouge">null</code> type.</p>
+<p>This is also a nice way to introduce <code class="language-plaintext highlighter-rouge">Some</code> and <code class="language-plaintext highlighter-rouge">None</code> in OCaml. Just like how we have <code class="language-plaintext highlighter-rouge">'a list</code> which can be an <code class="language-plaintext highlighter-rouge">int list</code> or a <code class="language-plaintext highlighter-rouge">string list</code> or <code class="language-plaintext highlighter-rouge">char list</code>, OCaml also has this wonderful <code class="language-plaintext highlighter-rouge">'a option</code> type that can be nothing (<code class="language-plaintext highlighter-rouge">None</code>) or some type (<code class="language-plaintext highlighter-rouge">Some</code>). Note however that <code class="language-plaintext highlighter-rouge">'a option</code> type is not the same as <code class="language-plaintext highlighter-rouge">'a</code>. So, if the type is <code class="language-plaintext highlighter-rouge">'a</code> you can ask the compiler to treat it as an <code class="language-plaintext highlighter-rouge">int</code>, for example. But you can’t do the same with <code class="language-plaintext highlighter-rouge">'a option</code> type. For friends of Java, C programming languages, you can think of <code class="language-plaintext highlighter-rouge">None</code> as similar to <code class="language-plaintext highlighter-rouge">null</code> type.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">=</span> <span class="nc">Some</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="o">|</span> <span class="nc">None</span></code></pre>
 </figure>
 
-<p>For those JavaScript fans wondering if they can use similar <code class="highlighter-rouge">Some</code> and <code class="highlighter-rouge">None</code> in JavaScript, I found an <a href="https://github.com/mwilliamson/node-options">option type implementation here</a> that provides this. I should admit that I have never used this implementation but it seems to serve the same purpose for JavaScript.</p>
+<p>For those JavaScript fans wondering if they can use similar <code class="language-plaintext highlighter-rouge">Some</code> and <code class="language-plaintext highlighter-rouge">None</code> in JavaScript, I found an <a href="https://github.com/mwilliamson/node-options">option type implementation here</a> that provides this. I should admit that I have never used this implementation but it seems to serve the same purpose for JavaScript.</p>
 
-<p>Let’s test our <code class="highlighter-rouge">last_elem</code> function on an example.</p>
+<p>Let’s test our <code class="language-plaintext highlighter-rouge">last_elem</code> function on an example.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">];;</span>
@@ -1304,14 +1304,14 @@
 <span class="c">(* val last_two : 'a list -&gt; ('a * 'a) option = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
-<p><code class="highlighter-rouge">('a * 'a)</code> indicates a tuple - a pair in this case. For example, <code class="highlighter-rouge">(3, 4)</code> would be of type <code class="highlighter-rouge">(int * int)</code>. Let’s check our implementation:</p>
+<p><code class="language-plaintext highlighter-rouge">('a * 'a)</code> indicates a tuple - a pair in this case. For example, <code class="language-plaintext highlighter-rouge">(3, 4)</code> would be of type <code class="language-plaintext highlighter-rouge">(int * int)</code>. Let’s check our implementation:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">last_two</span> <span class="n">l1</span><span class="p">;;</span>
 <span class="c">(* - : (int * int) option = Some (3, 4) *)</span></code></pre>
 </figure>
 
-<p>Let’s now make it more generic and write a function to find the k<sup>th</sup> element of a list and let’s give our function a very creative name <code class="highlighter-rouge">kth</code>.</p>
+<p>Let’s now make it more generic and write a function to find the k<sup>th</sup> element of a list and let’s give our function a very creative name <code class="language-plaintext highlighter-rouge">kth</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">kth</span> <span class="n">lst</span> <span class="n">k</span> <span class="o">=</span>
@@ -1323,7 +1323,7 @@
 <span class="c">(* val kth : 'a list -&gt; int -&gt; 'a option = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
-<p>Let’s check our implementation on <code class="highlighter-rouge">l1</code> again:</p>
+<p>Let’s check our implementation on <code class="language-plaintext highlighter-rouge">l1</code> again:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">kth</span> <span class="n">l1</span> <span class="mi">2</span><span class="p">;;</span>
@@ -1332,7 +1332,7 @@
 <span class="c">(* - : int option = None *)</span></code></pre>
 </figure>
 
-<p>When we try to find the 6<sup>th</sup> element of the list <code class="highlighter-rouge">l1</code>, we get <code class="highlighter-rouge">None</code> type as a result as the list contains only 4 elements.</p>
+<p>When we try to find the 6<sup>th</sup> element of the list <code class="language-plaintext highlighter-rouge">l1</code>, we get <code class="language-plaintext highlighter-rouge">None</code> type as a result as the list contains only 4 elements.</p>
 
 <p>Let’s now try to reverse an input list. Relax! It just sounds complicated. It is actually super simple when you think in terms of recursion.</p>
 
@@ -1345,7 +1345,7 @@
 <span class="c">(* val lst_rev : 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
 </figure>
 
-<p>Recall from our previous post that <code class="highlighter-rouge">@</code> is the OCaml operator for list concatenation. It is a straight forward observation that after the first recursive call to <code class="highlighter-rouge">rev_lst</code>, the head element <code class="highlighter-rouge">h</code> is pushed to the last and in each recursive call the first element would keep getting pushed to the end of the result list.</p>
+<p>Recall from our previous post that <code class="language-plaintext highlighter-rouge">@</code> is the OCaml operator for list concatenation. It is a straight forward observation that after the first recursive call to <code class="language-plaintext highlighter-rouge">rev_lst</code>, the head element <code class="language-plaintext highlighter-rouge">h</code> is pushed to the last and in each recursive call the first element would keep getting pushed to the end of the result list.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_rev</span> <span class="n">l1</span><span class="p">;;</span>
@@ -2278,7 +2278,7 @@ It is an added motivation for me to use more avenues to share my knowledge with 
         <div class="post-content">
           <p>Continuing with our <a href="http://dotkay.github.io/2017/08/14/ocaml-recursion-simple/">previous post</a> on recursions, let’s play with a couple of more simple examples to get ourselves familiar. This is just to start thinking in terms of recursive functions for the problems we try to solve. This kind of thinking will become more useful when we learn about tail recursion in one of the future posts.</p>
 
-<p>Let’s write a small function, call it <code class="highlighter-rouge">find</code>, to find if a given element exists in a list. i.e., we are provided with an input list <code class="highlighter-rouge">lst</code> of integers and an integer <code class="highlighter-rouge">x</code> and the function would return <code class="highlighter-rouge">true</code> if <code class="highlighter-rouge">x</code> exists as one of the elements of <code class="highlighter-rouge">lst</code> and <code class="highlighter-rouge">false</code> otherwise.</p>
+<p>Let’s write a small function, call it <code class="language-plaintext highlighter-rouge">find</code>, to find if a given element exists in a list. i.e., we are provided with an input list <code class="language-plaintext highlighter-rouge">lst</code> of integers and an integer <code class="language-plaintext highlighter-rouge">x</code> and the function would return <code class="language-plaintext highlighter-rouge">true</code> if <code class="language-plaintext highlighter-rouge">x</code> exists as one of the elements of <code class="language-plaintext highlighter-rouge">lst</code> and <code class="language-plaintext highlighter-rouge">false</code> otherwise.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">find</span> <span class="n">x</span> <span class="n">lst</span> <span class="o">=</span>
@@ -2299,7 +2299,7 @@ It is an added motivation for me to use more avenues to share my knowledge with 
 
 <p>As before, we think of the base case and the recursive step. We recursively call the function on a sub-list of the input list, till the problem reduces to the base case - the empty list.</p>
 
-<p>Let’s try another simple examples - to find the minimum integer in the given list of integers. We will call the function <code class="highlighter-rouge">find_min</code> and it takes an input list <code class="highlighter-rouge">lst</code>.</p>
+<p>Let’s try another simple examples - to find the minimum integer in the given list of integers. We will call the function <code class="language-plaintext highlighter-rouge">find_min</code> and it takes an input list <code class="language-plaintext highlighter-rouge">lst</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">exception</span> <span class="nc">Failure</span> <span class="k">of</span> <span class="kt">string</span>                   
@@ -2321,9 +2321,9 @@ It is an added motivation for me to use more avenues to share my knowledge with 
 <span class="c">(* - : int = -10 *)</span></code></pre>
 </figure>
 
-<p>Let’s now move away from having lists as input, and work on an example that produces an output list. This is a very familiar introductory CS example - converting an input decimal number to it’s base-2 (<code class="highlighter-rouge">binary</code>) representation. Humans naturally count in base-10 (also called <code class="highlighter-rouge">decimal</code>) number system, probably because most of us were born with 10 fingers. Computers, to be technically correct I should say digital circuits, work on base-2 number system - they know <code class="highlighter-rouge">0</code> and <code class="highlighter-rouge">1</code>. Just like how we count 0 .. 9 and then start counting 10 .. 19, followed by 20 .. 29, etc., digital circuits  count 0, 1 followed by 10, 11 and then follow that by 100, 101, and 110,  111, etc. You see the pattern. Probably, it is more apparent if I write it one after the other:</p>
+<p>Let’s now move away from having lists as input, and work on an example that produces an output list. This is a very familiar introductory CS example - converting an input decimal number to it’s base-2 (<code class="language-plaintext highlighter-rouge">binary</code>) representation. Humans naturally count in base-10 (also called <code class="language-plaintext highlighter-rouge">decimal</code>) number system, probably because most of us were born with 10 fingers. Computers, to be technically correct I should say digital circuits, work on base-2 number system - they know <code class="language-plaintext highlighter-rouge">0</code> and <code class="language-plaintext highlighter-rouge">1</code>. Just like how we count 0 .. 9 and then start counting 10 .. 19, followed by 20 .. 29, etc., digital circuits  count 0, 1 followed by 10, 11 and then follow that by 100, 101, and 110,  111, etc. You see the pattern. Probably, it is more apparent if I write it one after the other:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  base-2    	   	  base-10
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  base-2    	   	  base-10
      0  	  	     0
      1  	  	     1
     10 	 &lt;-- restart	     2
@@ -2344,24 +2344,24 @@ It is an added motivation for me to use more avenues to share my knowledge with 
 
 <p>The usual way we compute the binary representation of a decimal number is to repeatedly divide it and collect the remainders. For example, if we want to compute the binary equivalent of decimal 7:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 |_ 7 _          ^
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 |_ 7 _          ^
   2 |_ 3 _   - (1) |
     2 |_ 1 _ - (1) |
          ----------&gt;
 </code></pre></div></div>
 
-<p>111 is the binary equivalent of decimal 7. Here, 3, 1 are quotients (<code class="highlighter-rouge">n/2</code> - n being the input number initally and then the quotient) and the ones on the right within parantheses are the remainders (<code class="highlighter-rouge">n mod 2</code>).</p>
+<p>111 is the binary equivalent of decimal 7. Here, 3, 1 are quotients (<code class="language-plaintext highlighter-rouge">n/2</code> - n being the input number initally and then the quotient) and the ones on the right within parantheses are the remainders (<code class="language-plaintext highlighter-rouge">n mod 2</code>).</p>
 
 <p>Let’s work out one more example - the binary equivalent of 13:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 |_ 13 _               ^
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2 |_ 13 _               ^
   2 |_ 6 _        - (1) |
     2 |_ 3 _      - (0) |
       2 |_ 1 _    - (1) |
                 --------&gt;
 </code></pre></div></div>
 
-<p>If you observe carefully, what we are doing essentially is repeatedly dividing the input number <code class="highlighter-rouge">n</code> by the base we want to convert our number to - in this case base-2, and collect the remainders. Dividing a number is the expression <code class="highlighter-rouge">n/2</code> for algorithmic purposes and the remainder is the expression <code class="highlighter-rouge">n mod 2</code>. What we are going to do is to repeatedly (think “recursively”) divide <code class="highlighter-rouge">n</code> and collect the remainder in a list which we would eventually return as the output result. <code class="highlighter-rouge">@</code> is the OCaml syntax for list concatenation: for example <code class="highlighter-rouge">lst1 @ lst2</code> will concatenate <code class="highlighter-rouge">lst1</code> and <code class="highlighter-rouge">lst2</code>. Note the base case for our computation.</p>
+<p>If you observe carefully, what we are doing essentially is repeatedly dividing the input number <code class="language-plaintext highlighter-rouge">n</code> by the base we want to convert our number to - in this case base-2, and collect the remainders. Dividing a number is the expression <code class="language-plaintext highlighter-rouge">n/2</code> for algorithmic purposes and the remainder is the expression <code class="language-plaintext highlighter-rouge">n mod 2</code>. What we are going to do is to repeatedly (think “recursively”) divide <code class="language-plaintext highlighter-rouge">n</code> and collect the remainder in a list which we would eventually return as the output result. <code class="language-plaintext highlighter-rouge">@</code> is the OCaml syntax for list concatenation: for example <code class="language-plaintext highlighter-rouge">lst1 @ lst2</code> will concatenate <code class="language-plaintext highlighter-rouge">lst1</code> and <code class="language-plaintext highlighter-rouge">lst2</code>. Note the base case for our computation.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">bin_of_dec</span> <span class="n">n</span> <span class="o">=</span>

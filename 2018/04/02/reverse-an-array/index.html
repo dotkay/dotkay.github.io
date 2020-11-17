@@ -531,7 +531,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is <code class="highlighter-rouge">[1, 3, 4, 11, 2, 6]</code>, in the output array, the elements would be in reverse order - i.e. <code class="highlighter-rouge">[6, 2, 11, 4, 3, 1]</code>. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array.</p>
+    <p>Today, let us write a small program to reverse the elements of an array - i.e. reverse the order of elements in an array. For example, if the input array is <code class="language-plaintext highlighter-rouge">[1, 3, 4, 11, 2, 6]</code>, in the output array, the elements would be in reverse order - i.e. <code class="language-plaintext highlighter-rouge">[6, 2, 11, 4, 3, 1]</code>. One way would be to create a new (output) array and traverse the input array from the end and copy the elements to the output array. But, in this case, we would be creating an additional array (if the input array was of a million elements, we would have to create another (output) array big enough to hold a million elements). We could do it “in place” - i.e., without creating an additional array.</p>
 
 <p>We traverse the array from the beginning and swap the elements with those from the end of the array. This way, by the time we are at the mid-point of the array, we would have swapped all the elements and the array would be in reverse order.</p>
 
@@ -543,7 +543,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>where <code class="highlighter-rouge">swap(arr[a], arr[b])</code> would swap the elements at array locations <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> and <code class="highlighter-rouge">n</code> is the size of the input array <code class="highlighter-rouge">arr</code>.</p>
+<p>where <code class="language-plaintext highlighter-rouge">swap(arr[a], arr[b])</code> would swap the elements at array locations <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> and <code class="language-plaintext highlighter-rouge">n</code> is the size of the input array <code class="language-plaintext highlighter-rouge">arr</code>.</p>
 
   </div>
 

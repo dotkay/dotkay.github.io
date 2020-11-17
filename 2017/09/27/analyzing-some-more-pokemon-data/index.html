@@ -388,10 +388,10 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Let’s continue with our data from <a href="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis">previous post</a> and try to look at one more fancy function from the <a href="https://seaborn.pydata.org/">seaborn</a> library. In particular, we will use seaborn’s <code class="highlighter-rouge">swarmplot</code> function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. <code class="highlighter-rouge">pokemon_colors</code> is just an array of colours for different pokemon classes.</p>
+    <p>Let’s continue with our data from <a href="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis">previous post</a> and try to look at one more fancy function from the <a href="https://seaborn.pydata.org/">seaborn</a> library. In particular, we will use seaborn’s <code class="language-plaintext highlighter-rouge">swarmplot</code> function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. <code class="language-plaintext highlighter-rouge">pokemon_colors</code> is just an array of colours for different pokemon classes.</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Type 1'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="p">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Type 1'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
               <span class="n">palette</span><span class="o">=</span><span class="n">pokemon_colors</span><span class="p">)</span></code></pre>
 </figure>
 

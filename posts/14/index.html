@@ -401,10 +401,10 @@
 <p>Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation.</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">df_2015</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'2015.csv'</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Region'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Region of the World'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre>
+  <pre><code class="language-python" data-lang="python"><span class="n">df_2015</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'2015.csv'</span><span class="p">)</span>
+<span class="n">sns</span><span class="p">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Region'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Region of the World'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre>
 </figure>
 
 <p>And here is what we see:
@@ -414,10 +414,10 @@
 <p>Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know).</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Health (Life Expectancy)'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> 
+  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="p">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Health (Life Expectancy)'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> 
            <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'Region'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life Expectancy'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life Expectancy'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre>
 </figure>
 
 <p>And here’s the result: 
@@ -730,10 +730,10 @@
         </header>
 
         <div class="post-content">
-          <p>Let’s continue with our data from <a href="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis">previous post</a> and try to look at one more fancy function from the <a href="https://seaborn.pydata.org/">seaborn</a> library. In particular, we will use seaborn’s <code class="highlighter-rouge">swarmplot</code> function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. <code class="highlighter-rouge">pokemon_colors</code> is just an array of colours for different pokemon classes.</p>
+          <p>Let’s continue with our data from <a href="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis">previous post</a> and try to look at one more fancy function from the <a href="https://seaborn.pydata.org/">seaborn</a> library. In particular, we will use seaborn’s <code class="language-plaintext highlighter-rouge">swarmplot</code> function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. <code class="language-plaintext highlighter-rouge">pokemon_colors</code> is just an array of colours for different pokemon classes.</p>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Type 1'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="p">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Type 1'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
               <span class="n">palette</span><span class="o">=</span><span class="n">pokemon_colors</span><span class="p">)</span></code></pre>
 </figure>
 
@@ -1048,7 +1048,7 @@
         <div class="post-content">
           <p>Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in <a href="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1">this post</a>. Today, along with the other libraries, we will also use <a href="https://seaborn.pydata.org/">seaborn</a> to make fancy plots very quickly.</p>
 
-<p>Let’s do the initial imports as before, this time also importing <code class="highlighter-rouge">seaborn</code></p>
+<p>Let’s do the initial imports as before, this time also importing <code class="language-plaintext highlighter-rouge">seaborn</code></p>
 
 <figure class="highlight">
   <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
@@ -1056,23 +1056,23 @@
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span></code></pre>
 </figure>
 
-<p>Let’s grab the data-set and try to see the <code class="highlighter-rouge">Attack</code> and <code class="highlighter-rouge">Defense</code> scores of the different generations of Pokemons.</p>
+<p>Let’s grab the data-set and try to see the <code class="language-plaintext highlighter-rouge">Attack</code> and <code class="language-plaintext highlighter-rouge">Defense</code> scores of the different generations of Pokemons.</p>
 
 <figure class="highlight">
   <pre><code class="language-python" data-lang="python"><span class="c1"># read the dataset
-</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre>
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre>
 </figure>
 
 <figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Defense'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="p">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Defense'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
            <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
            <span class="n">hue</span><span class="o">=</span><span class="s">'Generation'</span><span class="p">)</span>
 <span class="c1"># specify the axes limits
-</span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span></code></pre>
+</span><span class="n">plt</span><span class="p">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span></code></pre>
 </figure>
 
-<p>Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set <code class="highlighter-rouge">fit_reg</code> to <code class="highlighter-rouge">False</code> in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</p>
+<p>Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set <code class="language-plaintext highlighter-rouge">fit_reg</code> to <code class="language-plaintext highlighter-rouge">False</code> in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</p>
 
 <p><br />
 <img src="/assets/images/data_science/attack_defense_pokemons.png" alt="Attack and Defense Scores of Generations of Pokemons" class="img=responsive" /></p>
@@ -1524,7 +1524,7 @@
         </header>
 
         <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw binary trees. Today, we will see Binary <em>Search</em> Trees (BST). The key difference is that when we insert nodes into our tree, we make sure the items whose values are less than that of the root are added to the left sub-tree and the ones whose values are greater than that of the root are added to the right sub-tree. Let’s start by defining our data structure. The definition is the same as our earlier <em>tree</em> definition. Just for the sake of clarity let’s call our type <code class="highlighter-rouge">bst</code>.</p>
+          <p>In a <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw binary trees. Today, we will see Binary <em>Search</em> Trees (BST). The key difference is that when we insert nodes into our tree, we make sure the items whose values are less than that of the root are added to the left sub-tree and the ones whose values are greater than that of the root are added to the right sub-tree. Let’s start by defining our data structure. The definition is the same as our earlier <em>tree</em> definition. Just for the sake of clarity let’s call our type <code class="language-plaintext highlighter-rouge">bst</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">bst</span> <span class="o">=</span>

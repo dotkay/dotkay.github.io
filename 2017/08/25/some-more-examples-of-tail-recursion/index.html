@@ -388,7 +388,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>We introduced tail recursion in our <a href="https://dotkay.github.io/2017/08/24/introducing-tail-recursions">previous post</a>. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function <code class="highlighter-rouge">lst_rev</code>, introduced in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples">earlier posts</a> which takes a list <code class="highlighter-rouge">lst</code> and returns the reversed list. Here’s it is for your reference:</p>
+    <p>We introduced tail recursion in our <a href="https://dotkay.github.io/2017/08/24/introducing-tail-recursions">previous post</a>. Let’s see some more examples of tail recursion. Let’s do a simple one, very similar to our introductory example in order to illustrate the win that tail-recursion optimization by the compiler provides. Let’s consider the function <code class="language-plaintext highlighter-rouge">lst_rev</code>, introduced in one of our <a href="https://dotkay.github.io/2017/08/17/lets-practice-some-more-examples">earlier posts</a> which takes a list <code class="language-plaintext highlighter-rouge">lst</code> and returns the reversed list. Here’s it is for your reference:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_rev</span> <span class="n">lst</span> <span class="o">=</span>
@@ -398,9 +398,9 @@
      <span class="p">(</span><span class="n">lst_rev</span> <span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">h</span><span class="p">];;</span></code></pre>
 </figure>
 
-<p>Recollect that in Ocaml, <code class="highlighter-rouge">@</code> is the operator for list concatenation. Let’s work out how the execution of this function on our list <code class="highlighter-rouge">[1; 2; 3 4]</code> would look like:</p>
+<p>Recollect that in Ocaml, <code class="language-plaintext highlighter-rouge">@</code> is the operator for list concatenation. Let’s work out how the execution of this function on our list <code class="language-plaintext highlighter-rouge">[1; 2; 3 4]</code> would look like:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	lst_rev [1; 2; 3; 4]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	lst_rev [1; 2; 3; 4]
 = 	lst_rev [2; 3; 4] @ [1]
 = 	lst_rev [3; 4] @ [2] @ [1]
 = 	lst_rev [4] @ [3] @ [2] @ [1]
@@ -409,7 +409,7 @@
 = 	[4; 3; 2; 1]
 </code></pre></div></div>
 
-<p>Here is our tail-recursive version of the same. Let’s call it <code class="highlighter-rouge">tr_lst_rev</code>.</p>
+<p>Here is our tail-recursive version of the same. Let’s call it <code class="language-plaintext highlighter-rouge">tr_lst_rev</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="o">=</span>
@@ -421,9 +421,9 @@
   <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
 </figure>
 
-<p>Again, very similar to our previous example, we use an accumulator <code class="highlighter-rouge">acc</code> to collect the results of intermediate computations (results of each recursive step).</p>
+<p>Again, very similar to our previous example, we use an accumulator <code class="language-plaintext highlighter-rouge">acc</code> to collect the results of intermediate computations (results of each recursive step).</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	tr_lst_rev [1; 2; 3; 4]
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	tr_lst_rev [1; 2; 3; 4]
 =	aux_lst_rev [2; 3; 4]	1::[]
 =	aux_lst_rev [3; 4] 	2::[1]
 =	aux_lst_rev [4] 	3::[2; 1]

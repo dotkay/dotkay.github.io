@@ -388,14 +388,14 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Let’s look at a quick algorithm to compute all factors of a number <code class="highlighter-rouge">N</code>. For example, if <code class="highlighter-rouge">N</code> is <code class="highlighter-rouge">12</code> we want all the factors <code class="highlighter-rouge">[1, 2, 3, 4, 6, 12]</code>. If <code class="highlighter-rouge">N</code> is say <code class="highlighter-rouge">36</code> we want <code class="highlighter-rouge">[1, 2, 3, 4, 6, 9, 12, 18, 36]</code>. We observe that:</p>
+    <p>Let’s look at a quick algorithm to compute all factors of a number <code class="language-plaintext highlighter-rouge">N</code>. For example, if <code class="language-plaintext highlighter-rouge">N</code> is <code class="language-plaintext highlighter-rouge">12</code> we want all the factors <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 6, 12]</code>. If <code class="language-plaintext highlighter-rouge">N</code> is say <code class="language-plaintext highlighter-rouge">36</code> we want <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 6, 9, 12, 18, 36]</code>. We observe that:</p>
 
 <ol>
-  <li><code class="highlighter-rouge">1</code> and <code class="highlighter-rouge">N</code> itself are always factors, of course.</li>
-  <li>Factors always occur in pairs. <code class="highlighter-rouge">(1, 12), (2, 6), (3, 4)</code> etc. If <code class="highlighter-rouge">N</code> is a perfect square, we also have <code class="highlighter-rouge">(\sqrt(N), \sqrt(N))</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">1</code> and <code class="language-plaintext highlighter-rouge">N</code> itself are always factors, of course.</li>
+  <li>Factors always occur in pairs. <code class="language-plaintext highlighter-rouge">(1, 12), (2, 6), (3, 4)</code> etc. If <code class="language-plaintext highlighter-rouge">N</code> is a perfect square, we also have <code class="language-plaintext highlighter-rouge">(\sqrt(N), \sqrt(N))</code>.</li>
 </ol>
 
-<p>From the above we realize that we don’t need to iterate through the numbers all the way until <code class="highlighter-rouge">N</code>. We just need to do it until <code class="highlighter-rouge">\sqrt(N)</code>. Here’s the algorithm for computing all the factors:</p>
+<p>From the above we realize that we don’t need to iterate through the numbers all the way until <code class="language-plaintext highlighter-rouge">N</code>. We just need to do it until <code class="language-plaintext highlighter-rouge">\sqrt(N)</code>. Here’s the algorithm for computing all the factors:</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">all_factors</span> <span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>

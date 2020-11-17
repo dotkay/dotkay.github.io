@@ -823,16 +823,16 @@
     <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
 
 <span class="n">d1</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">k1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k2</span> <span class="o">=</span> <span class="s">'a'</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by d1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">d1</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by d1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">d1</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<p>The memory referenced by <code class="highlighter-rouge">d1</code> seems to be <code class="highlighter-rouge">0x28be6286ee8</code>. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value.</p>
+<p>The memory referenced by <code class="language-plaintext highlighter-rouge">d1</code> seems to be <code class="language-plaintext highlighter-rouge">0x28be6286ee8</code>. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d1</span><span class="p">[</span><span class="s">'k3'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.5</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by d1: {0}'</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">d1</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by d1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">d1</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<p>The memory referenced by <code class="highlighter-rouge">d1</code> still seems to be <code class="highlighter-rouge">0x28be6286ee8</code>. So, dictionaries seem to be well behaved. I like them.</p>
+<p>The memory referenced by <code class="language-plaintext highlighter-rouge">d1</code> still seems to be <code class="language-plaintext highlighter-rouge">0x28be6286ee8</code>. So, dictionaries seem to be well behaved. I like them.</p>
 
 <p>However, for people who are still stuck with an older version (Python &lt;= 3.5) and moving to Python &gt;= 3.6, there are some surprises with dictionaries. For example, let us try with Python 3.6 first:</p>
 
@@ -841,11 +841,11 @@
 </code></pre></div></div>
 
 <p>prints out:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
 </code></pre></div></div>
 
-<p>And if you notice, the keys are in order they were specified when <code class="highlighter-rouge">d2</code> was created. With Python &lt;= 3.5 however, this was the output:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
+<p>And if you notice, the keys are in order they were specified when <code class="language-plaintext highlighter-rouge">d2</code> was created. With Python &lt;= 3.5 however, this was the output:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
 </code></pre></div></div>
 
 <p>The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.</p>

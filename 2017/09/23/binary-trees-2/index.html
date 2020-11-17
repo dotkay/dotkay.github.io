@@ -531,13 +531,13 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>In the <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an <code class="highlighter-rouge">insert</code> function to do that:</p>
+    <p>In the <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw how to define a binary tree. Now, that we have the tree, we need to be able to insert items into the tree. So, let us write an <code class="language-plaintext highlighter-rouge">insert</code> function to do that:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">tree</span> <span class="o">=</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">tree</span><span class="p">);;</span></code></pre>
 </figure>
 
-<p>If we want to insert an element <code class="highlighter-rouge">0</code> into an empty tree, we just do the following:</p>
+<p>If we want to insert an element <code class="language-plaintext highlighter-rouge">0</code> into an empty tree, we just do the following:</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">empty</span> <span class="o">=</span> <span class="nc">Leaf</span><span class="p">;;</span>
@@ -546,7 +546,7 @@
 <span class="c">(* - : int tree = Node (Leaf, 0, Leaf) *)</span></code></pre>
 </figure>
 
-<p>Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function <code class="highlighter-rouge">make_tree</code>.</p>
+<p>Let us try something more fun. Let’s create a tree from a list. We have worked with lists all along and it is imaginable that we would accept inputs in the form of lists, but we want to implement our algorithms (later on!..) using tree data structure. So, this function is going to be very helpful. Let’s just call the function <code class="language-plaintext highlighter-rouge">make_tree</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_tree</span> <span class="n">lst</span> <span class="o">=</span>
@@ -556,7 +556,7 @@
   <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_tree</span> <span class="n">t</span><span class="p">);;</span></code></pre>
 </figure>
 
-<p>Let us use our new function to create a tree from the list <code class="highlighter-rouge">[0; 1; 2]</code>.</p>
+<p>Let us use our new function to create a tree from the list <code class="language-plaintext highlighter-rouge">[0; 1; 2]</code>.</p>
 
 <figure class="highlight">
   <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">make_tree</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">];;</span>
