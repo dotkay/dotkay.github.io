@@ -102,6 +102,343 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/18/minimum-missing-natural-number/">Let&#39;s find the minimum missing natural number... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 18, 2017 • 
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s write a program to find the minimum missing natural number. We would be given an unsorted list of natural numbers, say <code class="highlighter-rouge">[0;3;2;9;1;7;5]</code> and we need to return <code class="highlighter-rouge">4</code>. Let’s assume that there are no duplicates. And if we provide a list that does not start with <code class="highlighter-rouge">0</code> (natural numbers start with <code class="highlighter-rouge">0</code> and we assume that we provide proper input), we just return <code class="highlighter-rouge">0</code> as it is the smallest natural number.</p>
+
+<p>How do we go about solving this problem. Once we look at <em>unsorted</em>, we can think of sorting the provided list first. Once we sort the list, we just need to go through the elements of the list one by one and find the missing number. As we have sorted the list already, the first missing number we encounter would be the minimum missing number.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">min_missing_num</span> <span class="n">lst</span> <span class="o">=</span> 
+  <span class="k">let</span> <span class="n">sort_lst</span> <span class="o">=</span> <span class="nn">List</span><span class="p">.</span><span class="n">sort</span> <span class="n">compare</span> <span class="n">lst</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">find_min</span> <span class="n">sort_lst</span> <span class="o">=</span> 
+    <span class="k">match</span> <span class="n">sort_lst</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="o">|</span> <span class="n">x</span><span class="o">::</span><span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+    <span class="o">|</span> <span class="n">x</span><span class="o">::</span><span class="n">y</span><span class="o">::_</span> <span class="k">when</span> <span class="n">y</span> <span class="o">-</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+    <span class="o">|</span> <span class="n">_</span><span class="o">::</span><span class="n">tl</span> <span class="o">-&gt;</span> <span class="n">find_min</span> <span class="n">tl</span>
+  <span class="k">in</span>
+  <span class="n">find_min</span> <span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">::</span><span class="n">sort_lst</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>Here, we are using OCaml List module’s sort function that has the following signature:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : ('a -&gt; 'a -&gt; int) -&gt; 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
+</figure>
+
+<p>And <code class="highlighter-rouge">compare</code> is a comparision function that has the following signature:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="c">(* - : 'a -&gt; 'a -&gt; int = &lt;fun&gt; *)</span></code></pre>
+</figure>
+
+<p>Essentially, <code class="highlighter-rouge">compare x y</code> returns 0 if <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> are equal, <code class="highlighter-rouge">-1</code> if <code class="highlighter-rouge">x &lt; y</code> and <code class="highlighter-rouge">1</code> if <code class="highlighter-rouge">x &gt; y</code>.</p>
+
+<p>Can we do better than this algorithm for finding the minimum missing natural number? Hint: sorting the input list is not very cheap - we could avoid that.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/07/podcast-on-success/">A podcast on Success &rarr;</a>
           </h1>
 
@@ -1546,348 +1883,6 @@
 </figure>
 
 <p>Primes are beautiful. Hopefully, I will write more posts on them in future.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/03/counting-rotations/">Counting the number of rotations of a sorted array &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 3, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s look at another simple, interesting problem:</p>
-
-<p><em>Given a sorted array, with no duplicates, that has been rotated (also called circularly sorted array), find out the number of times it has been rotated</em></p>
-
-<p>For example, <code class="highlighter-rouge">[2 3 5 8 11 12]</code> is a sorted list of numbers and if we rotate it twice, we end up in <code class="highlighter-rouge">[11 12 2 3 5 8]</code>. We are required to find the number of times it has been sorted, looking at this list. The straight forward way is to look for the minimum element of the array and the index of the mimimum element gives us the number of times it has been rotated. In this case <code class="highlighter-rouge">2</code> is the minimum element and the index of the mimumum element is <code class="highlighter-rouge">2</code> (indices start at <code class="highlighter-rouge">0</code> in most of the languages we use here). The time complexity would be O(n) as we need to traverse the array looking for the mimimum element.</p>
-
-<p>Can we do better? Can we use a nice property of circularly sorted arrays (lists)?</p>
-
-<blockquote>
-  <p>For the element we are looking for, call it the pivot element, both the left and right neighbours are greater than the pivot element. This is the only element in a circularly sorted array with this property.</p>
-</blockquote>
-
-<p>So, our goal is to find the pivot element. We already know that the array has been sorted - so we can use binary search to look for the pivot element. We compute the middle element of the array, call it <code class="highlighter-rouge">mid</code> and search in the left and right halves of the middle element. Let’s call the lower index <code class="highlighter-rouge">low</code> and higher index <code class="highlighter-rouge">high</code> for the purposes of computation. So, we compute the middle element as <code class="highlighter-rouge">mid = (high - low) / 2</code>. The neighbours of this middle element, called <code class="highlighter-rouge">prev</code> and <code class="highlighter-rouge">next</code> are computed as <code class="highlighter-rouge">prev = (mid + 1) % n</code> where <code class="highlighter-rouge">n</code> is the size of the array (since it is circularly sorted we need to wrap around and hence we do this <code class="highlighter-rouge">modulo n</code> operation) and <code class="highlighter-rouge">next = (mid + n -1) % n</code>. Now, if <code class="highlighter-rouge">mid</code> turns out to be our pivot element, i.e. we check for pivot property, we are done - we just return <code class="highlighter-rouge">mid</code> as the result. Otherwise, we keep moving <code class="highlighter-rouge">low</code> and <code class="highlighter-rouge">high</code> to decide which half of the array we want to search for the pivot element. Recollect that we know the array is (circularly) sorted and this makes our job easier. For example, if the element at <code class="highlighter-rouge">mid</code> is less than the one at <code class="highlighter-rouge">high</code> we can deduce that the right half of the array is sorted, and so we adjust <code class="highlighter-rouge">high</code> to be <code class="highlighter-rouge">mid - 1</code> (i.e. make left half our focus of pivot element search).</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rotation_count</span><span class="p">(</span><span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">high</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">next</span><span class="p">,</span> <span class="n">prev</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">low</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">high</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">low</span><span class="p">;</span>
-    <span class="n">next</span> <span class="o">=</span> <span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">prev</span> <span class="o">=</span> <span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
-    <span class="c1">// check pivot element property!</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">next</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">prev</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">high</span><span class="p">])</span>
-        <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">low</span><span class="p">])</span>
-        <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>Isn’t it interesting? That’s all for now!</p>
 
         </div>
         

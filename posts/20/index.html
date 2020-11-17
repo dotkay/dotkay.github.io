@@ -102,6 +102,522 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/19/some-more-recursion/">Some more recursion please... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 19, 2017 • 
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s put on our thinking-in-recursion hat and put to use all that we have learned from our examples. We will do this by working out only two (so this will be a short post) examples that will use the recursion concepts that are bread and butter for us now.</p>
+
+<p>As a first example, we will write a function to eliminate consecutive repetitions of elements in a list. For example, if we pass the list <code class="highlighter-rouge">[1;1;2;2;3;3;3;4;5;5]</code> to our function, it should return <code class="highlighter-rouge">[1;2;3;4;5]</code>, after removing the repetitions. How do we go about doing this? The moment we see consecutive repetitions, we know that we can easily track this by observing any two consecutive elements in the list while traversing the list. We need to observe at least two consecutive elements in order to find out if they are repetitions. So far, in our previous examples, we have usually been observing one element, the first element of a list (or a sub-list) calling it the <code class="highlighter-rouge">head</code> and denoting it <code class="highlighter-rouge">h</code>. Remember the pattern-matchings of the form <code class="highlighter-rouge">| h::t -&gt; </code> in our previous code snippets? We were observing an element <code class="highlighter-rouge">h</code> concatenated with a list <code class="highlighter-rouge">t</code>. Now, we need to observe two consecutive elements instead of one, to check if they are repetitions - something of this shape <code class="highlighter-rouge">| h1 :: h2::t</code>. Now, we can compare <code class="highlighter-rouge">h1</code> and <code class="highlighter-rouge">h2</code> and check if <code class="highlighter-rouge">h2</code> is a repetition of <code class="highlighter-rouge">h1</code>. If they are not the same, we can always treat <code class="highlighter-rouge">h2::t</code> as the rest-of-the-list, which we called <code class="highlighter-rouge">t</code> (as in <code class="highlighter-rouge">h::t</code>) in our previous examples. Now, let’s jump in to the algorithm:</p>
+
+<ol>
+  <li>Base case - if it’s an empty list, nothing to check so we will just return an empty list</li>
+  <li>Otherwise - we think of the list to be made up of a head element <code class="highlighter-rouge">x1</code> and the rest-of-the-list. The rest-of-the-list part we will further expand (in order to allow for checking repetitions). So, let’s say the rest-of-the-list is made up of <code class="highlighter-rouge">x2::x3</code> - <code class="highlighter-rouge">x2</code> is the head element of rest-of-the-list and <code class="highlighter-rouge">x3</code> is the rest-of-the-list part of our original rest-of-the-list. Our pattern to match would look something of this shape: <code class="highlighter-rouge">x1 :: (x2::x3 as t)</code> - the <code class="highlighter-rouge">as t</code> just gives a name <code class="highlighter-rouge">t</code> to <code class="highlighter-rouge">x2::x3</code>.
+    <ul>
+      <li>if <code class="highlighter-rouge">x1</code> and <code class="highlighter-rouge">x2</code> are the same, then we recursively call the function on <code class="highlighter-rouge">x2::x3</code>. But, we threw <code class="highlighter-rouge">x1</code> away and that’s fine because it was meant to be eliminated. We still have <code class="highlighter-rouge">x2</code> that has the same value.</li>
+      <li>If <code class="highlighter-rouge">x1</code> and <code class="highlighter-rouge">x2</code> are not the same, we know that <code class="highlighter-rouge">x1</code> does not have a doppelganger following it, and so we will include it in our result list that we will eventually return. We just append <code class="highlighter-rouge">x1</code> to the result of the function call on rest-of-the-list.</li>
+    </ul>
+  </li>
+  <li>Any other pattern, we just return the same pattern. Why do we need this? Because we want the patterns we match to be exhaustive - to cover all the cases. Suppose we have a list with a single element, this pattern would match that.</li>
+</ol>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">x1</span> <span class="o">::</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">x1</span> <span class="o">::</span> <span class="n">compress</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="n">smth_else</span> <span class="o">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>It turned out to be pretty simple, right?</p>
+
+<p>Now, let’s work out another example before our enthusiasm dies down. Let’s do insertion sort. We will write it out as two recursive functions. Wait, don’t run away. It’s going to be simple. First, let us write a function that inserts an element <code class="highlighter-rouge">x</code> to a list <code class="highlighter-rouge">lst</code>, and it will insert <code class="highlighter-rouge">x</code> in such a way that the element next to <code class="highlighter-rouge">x</code> in <code class="highlighter-rouge">lst</code> would be great than <code class="highlighter-rouge">x</code> and the element before it would be less than or equal to <code class="highlighter-rouge">x</code>. Why are we writing this function? This is not insertion sort. Wait, it will be clear in a minute. We will call this function <code class="highlighter-rouge">insert</code>, takes two arguments <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">lst</code>.</p>
+
+<ol>
+  <li>Base case - if <code class="highlighter-rouge">lst</code> is empty, we just insert <code class="highlighter-rouge">x</code> into the empty list and return it</li>
+  <li>Otherwise, we have to traverse the list and see where to insert <code class="highlighter-rouge">x</code>. If head element is greater than <code class="highlighter-rouge">x</code>, it is easy - we just insert <code class="highlighter-rouge">x</code> at the head of the input list <code class="highlighter-rouge">lst</code> and return it. If not, we look for a position in the rest-of-the-list <code class="highlighter-rouge">t</code> to insert our <code class="highlighter-rouge">x</code>.</li>
+</ol>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">h</span><span class="p">)</span> <span class="k">then</span> <span class="n">x</span><span class="o">::</span><span class="n">h</span><span class="o">::</span><span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::</span><span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">t</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>Now, we will use the above function to write our insertion sort function <code class="highlighter-rouge">isort</code>. Just think what would happen if <code class="highlighter-rouge">lst</code> was already sorted in the above case. In that case, we would be inserting <code class="highlighter-rouge">x</code> to <code class="highlighter-rouge">lst</code> to maintain sorted order (just because of the rules that we imposed for inserting <code class="highlighter-rouge">x</code>). Let’s write down the algorithm.</p>
+
+<ol>
+  <li>Base case - if <code class="highlighter-rouge">lst</code> is empty, return the empty list</li>
+  <li>If the list has just one element, it is trivially sorted, just return the input list</li>
+  <li>If the list has two or more elements, pick elements one by one, starting from the head element <code class="highlighter-rouge">h</code> and use our <code class="highlighter-rouge">insert</code> function to insert it into the appropriate position.</li>
+</ol>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">isort</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">isort</span> <span class="n">t</span><span class="p">)</span></code></pre>
+</figure>
+
+<p>Let’s check if it works on a simple test example:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">7</span><span class="p">;</span><span class="mi">9</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">11</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">10</span><span class="p">];;</span>
+<span class="n">isort</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int list = [1; 2; 3; 7; 9; 10; 11] *)</span></code></pre>
+</figure>
+
+<p>That’s too much for my head for today. Let’s do more interesting examples in future posts when we get into the concept of tail recursion.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/18/lets-play-with-some-pokemon-data-1/">Let&#39;s play with some Pokemon data - 1 &rarr;</a>
           </h1>
 
@@ -1865,376 +2381,6 @@ It is an added motivation for me to use more avenues to share my knowledge with 
 </figure>
 
 <p>I guess it became a longer post than what I intended it to be, but I hope you are getting a better hang of thinking recursively. We will see more examples in future posts - feel motivated to play around with some examples in the mean time!!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/14/ocaml-recursion-simple/">Let&#39;s play with some simple recursion &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 14, 2017 • 
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Recursion has been one of my favourite concepts for a very long time much like my fascination for mathematical induction. The subtle differences between the two would be a topic for a separate post.</p>
-
-<p>Let’s do some simple recursive functions just to illustrate the beauty. I chose <a href="http://www.ocaml.org">OCaml</a> for this post as it is one of my favourite programming languages. Somehow, I feel that many algorithms when coded in OCaml look very intuitive and understandable than in other imperative programming languages. We will look at some algorithms in both OCaml and C in a later post and leave it to the reader to decide as to which one looks more intuitive.</p>
-
-<p>OCaml is a very nice functional programming language and it offers <code class="highlighter-rouge">list</code> as a primitive data type. For example, if we want a list of five integers, this is how we do it in OCaml:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">;</span><span class="mi">5</span><span class="p">];;</span></code></pre>
-</figure>
-
-<p>We would usually think of the list data type itself to be a recursive definition. i.e., a list is made of either an empty list or a list composed of a <code class="highlighter-rouge">head</code> element and <code class="highlighter-rouge">tail</code> where tail itself is a list (possibly empty list). For example, in the list <code class="highlighter-rouge">l1</code> above, <code class="highlighter-rouge">1</code> constitutes the head element and the tail corresponds to the list <code class="highlighter-rouge">2;3;4;5</code>.</p>
-
-<p>Now, let’s write a recursive function to count the number of elements in the list.</p>
-
-<ol>
-  <li>Let’s think of the base case: when the list is empty - in which case we just return <code class="highlighter-rouge">0</code> as the result.</li>
-  <li>And let’s build our thought process this way - what if the list has just one element? This would correspond to a list where there is a single head element and an empty list as the tail. i.e., we count the single head element and the empty list (the tail) we know contributes <code class="highlighter-rouge">0</code> to our result (the base case we just saw in 1.).</li>
-  <li>Now, when the list has 2 elements, we think of it as having a head element and a tail list that consists of a single element. Now, we count the head element and apply the same function (our counting) to count the number of elements in the tail list (which now corresponds to the case we saw in 2.).</li>
-</ol>
-
-<p>Essentially what we are doing is:</p>
-
-<ol>
-  <li>If the list is empty, return 0 as the result</li>
-  <li>If the list is not empty, count the head element (1) and call the function (recursively) to count the number of elements in the tail</li>
-</ol>
-
-<p>Now, let’s write the above two steps in the following program which we call <code class="highlighter-rouge">lst_len</code> (for list length), that takes a single input parameter <code class="highlighter-rouge">lst</code>:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_len</span> <span class="n">lst</span> <span class="o">=</span> 
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="mi">0</span>
-  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">lst_len</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* val len_lst : 'a list -&gt; int = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<p>Recursive functions in OCaml are defined with <code class="highlighter-rouge">rec</code> keyword. Let’s use this function to count the number of elements in our list <code class="highlighter-rouge">l1</code>:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_len</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int = 5 *)</span></code></pre>
-</figure>
-
-<p>Let’s use the same thought process to write a recursive function <code class="highlighter-rouge">lst_sum</code> to sum up (add) the elements of the list.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_sum</span> <span class="n">lst</span> <span class="o">=</span> 
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="mi">0</span>
-  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">h</span> <span class="o">+</span> <span class="n">lst_sum</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* val lst_sum : int list -&gt; int = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<p>And let’s use this function to sum up the elements in our list <code class="highlighter-rouge">l1</code>:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_sum</span> <span class="n">l1</span><span class="p">;;</span>
-<span class="c">(* - : int = 15 *)</span></code></pre>
-</figure>
-
-<p>Isn’t this intuitive and elegant way of programming? We’ll talk more about simple programs that can be written in an intuitive way and try to develop our understanding of the concepts in a clear way.</p>
-
-<p>Thanks for your interest and keep checking out this space for more.</p>
-
 
         </div>
         

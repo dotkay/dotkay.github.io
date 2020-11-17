@@ -2037,10 +2037,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/23/arr-equillibrium/">More efficient computation of equillibrium index in an array &rarr;</a>
+            <a class="post-link" href="/2018/04/25/array-rotation/">Rotating array elements &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 23, 2018 • 
+          <p class="post-meta">Apr 25, 2018 • 
   
   
     
@@ -2474,35 +2474,33 @@
         </header>
 
         <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2018/04/20/arr-equillibrium-naive">earlier post</a>, we saw how to compute the equillibrium index of an array. But it was a very ordinary implementation - <code class="highlighter-rouge">O(n^2)</code>. We could do much better with some auxiliary space spent, i.e. we maintain an auxiliary array to keep a running sum of the elements to the left as we traverse the array.</p>
+          <p>Here is a very simple problem. Given an array of <em>n</em> elements and an integer <em>d</em> (less than <em>n</em>) how would you write a program to rotate (around) the elements of the array to the left by <em>d</em> elements? For example, if the input array (of size 7) is <code class="highlighter-rouge">{1, 2, 3, 4, 5, 6, 7 }</code> and <em>d</em> is 2, the output array would be <code class="highlighter-rouge">{ 3, 4, 5, 6, 7, 1, 2 }</code>.</p>
 
-<p>Here is the idea. We would create an auxiliary array of the same size as the input array. As we traverse the input array from left to right, we compute the <em>prefix sum</em> of the elements in the array and store it in this auxiliary array (<code class="highlighter-rouge">left_sum</code> in the code fragment below). Now, <code class="highlighter-rouge">left sum</code> can be used to query, for example, the sum of elements to the left of any index <code class="highlighter-rouge">i</code> as we traverse the array.</p>
-
-<p>We now traverse the input array, this time from right to left, and keep a running sum of the elements in a single variable (<code class="highlighter-rouge">right_sum</code> in code fragment below). As we traverse, we check for a match in the auxiliary array we had built earlier for the left sum, and if there is a match we have found an equillibrium point. Since we do array traversal only twice, this becomes an <code class="highlighter-rouge">O(n)</code> solution with <code class="highlighter-rouge">O(n)</code> auxiliary space for storing the prefix sums.</p>
+<p>Let’s start simple. How would you rotate by 1? We would essentially move all the array elements to the left by one position, while moving the first element to the position of the last element. Essentially we would be moving <em>n</em> elements. Let’s write a function to do that:</p>
 
 <figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">eq_index</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rot_arr_by_1</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
 <span class="p">{</span>
-  <span class="c1">// compute the left sum</span>
-  <span class="kt">int</span><span class="o">*</span> <span class="n">left_sum</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-  <span class="n">left_sum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-
-  <span class="c1">// traverse input array from the right,</span>
-  <span class="c1">// computing right_sum and matching it with</span>
-  <span class="c1">// left sum (i.e. looking for equillibrium)</span>
-  <span class="kt">int</span> <span class="n">right_sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">right_sum</span> <span class="o">==</span> <span class="n">left_sum</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-      <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"equillibrium found at index: "</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
-    <span class="n">right_sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-  <span class="p">}</span> 
+  <span class="kt">int</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>  
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Power of prefix sums!</p>
+<p>The time complexity of the above solution is <em>O(n)</em> while the space complexity is <em>O(1)</em> (one variable to store the initial element). Now, rotating by <em>d</em> is just rotating by 1 done <em>d</em> times.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rot_arr_by_d</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">d</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">rot_arr_by_1</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Now, the time complexity of the above function is <em>O(nd)</em>. Can we do better than this?</p>
+
 
         </div>
         
