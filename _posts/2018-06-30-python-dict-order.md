@@ -37,9 +37,9 @@ prints out:
 {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
 ```
 
-And if you notice, the keys are in order they were specified when `d2` was created. With Python <= 3.5 however, this was the output:
+And if you notice, the keys are in order they were specified when `d2` was created. With Python <= 3.5 however, this was the output (v2.7.13):
 ```
-{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
+{'a': 1, 'c': 3, 'b': 2, 'e': 5, 'd': 4, 'g': 7, 'f': 6, 'i': 9, 'h': 8}
 ```
 
 The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7. 
