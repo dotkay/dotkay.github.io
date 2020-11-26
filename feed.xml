@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-11-17T14:34:17+00:00</updated>
+  <updated>2020-11-26T18:42:14+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -768,8 +768,8 @@ help me understand?&lt;/p&gt;</content>
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;And if you notice, the keys are in order they were specified when &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;d2&lt;/code&gt; was created. With Python &amp;lt;= 3.5 however, this was the output:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
+&lt;p&gt;And if you notice, the keys are in order they were specified when &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;d2&lt;/code&gt; was created. With Python &amp;lt;= 3.5 however, this was the output (v2.7.13):&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{'a': 1, 'c': 3, 'b': 2, 'e': 5, 'd': 4, 'g': 7, 'f': 6, 'i': 9, 'h': 8}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.&lt;/p&gt;</content>
@@ -797,7 +797,7 @@ help me understand?&lt;/p&gt;</content>
       
 
       
-        <summary type="html">In an earlier post, we saw tuples, which are immutable data-types in Python, but in the case of a tuple of lists, we were able to modify the contents of the list. Now, we will see dictionary objects in Python and see if they behave as expected. Recall that dictionaries are mutable objects in Python. def mem_addr(item): return hex(id(item)) d1 = dict(k1 = 1, k2 = 'a') print('memory referenced by d1: {0}'.format(mem_addr(d1))) The memory referenced by d1 seems to be 0x28be6286ee8. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value. d1['k3'] = 10.5 print('memory referenced by d1: {0}'.format(mem_addr(d1))) The memory referenced by d1 still seems to be 0x28be6286ee8. So, dictionaries seem to be well behaved. I like them. However, for people who are still stuck with an older version (Python &amp;lt;= 3.5) and moving to Python &amp;gt;= 3.6, there are some surprises with dictionaries. For example, let us try with Python 3.6 first: d2 = { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9 } print(d2) prints out: {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9} And if you notice, the keys are in order they were specified when d2 was created. With Python &amp;lt;= 3.5 however, this was the output: {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9} The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.</summary>
+        <summary type="html">In an earlier post, we saw tuples, which are immutable data-types in Python, but in the case of a tuple of lists, we were able to modify the contents of the list. Now, we will see dictionary objects in Python and see if they behave as expected. Recall that dictionaries are mutable objects in Python. def mem_addr(item): return hex(id(item)) d1 = dict(k1 = 1, k2 = 'a') print('memory referenced by d1: {0}'.format(mem_addr(d1))) The memory referenced by d1 seems to be 0x28be6286ee8. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value. d1['k3'] = 10.5 print('memory referenced by d1: {0}'.format(mem_addr(d1))) The memory referenced by d1 still seems to be 0x28be6286ee8. So, dictionaries seem to be well behaved. I like them. However, for people who are still stuck with an older version (Python &amp;lt;= 3.5) and moving to Python &amp;gt;= 3.6, there are some surprises with dictionaries. For example, let us try with Python 3.6 first: d2 = { 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9 } print(d2) prints out: {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9} And if you notice, the keys are in order they were specified when d2 was created. With Python &amp;lt;= 3.5 however, this was the output (v2.7.13): {'a': 1, 'c': 3, 'b': 2, 'e': 5, 'd': 4, 'g': 7, 'f': 6, 'i': 9, 'h': 8} The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.</summary>
       
 
       
