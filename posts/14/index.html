@@ -102,6 +102,1404 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/10/03/array-inversions-merge-sort/">Computing the number of inversions in an array - using divide and conquer approach &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Oct 3, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In our <a href="https://dotkay.github.io/2017/10/02/array-inversions-naive">previous post</a>, we saw an <code class="language-plaintext highlighter-rouge">O(n^2</code> algorithm to compute the number of inversions in an input array. Now, let us see how we can use divide and conquer approach to solve the same problem. We will see that we can do better than <code class="language-plaintext highlighter-rouge">O(n^2)</code> using this approach.</p>
+
+<p>In the traditional recursive version of merge-sort, we divide the input array into two halves and call merge-sort procedure on each of the sub-arrays recursively and eventually merge the results. Suppose our input array is <code class="language-plaintext highlighter-rouge">{2, 4, 1, 3, 5}</code> and suppose that the merge-sort procedure calls are complete and that we are in the merge process. Let us say that we ended up with the following sorted subarrays and trying to merge them up into a single sorted array - <code class="language-plaintext highlighter-rouge">{2, 4}</code> and <code class="language-plaintext highlighter-rouge">{1, 3, 5}</code>. The way merge procedure works is to compare the two sub-arrays (call it <code class="language-plaintext highlighter-rouge">left</code> and <code class="language-plaintext highlighter-rouge">right</code>) and compare the elements one by one. First, we compare <code class="language-plaintext highlighter-rouge">2</code> and <code class="language-plaintext highlighter-rouge">1</code>, since <code class="language-plaintext highlighter-rouge">1</code> is less than <code class="language-plaintext highlighter-rouge">2</code>, we push <code class="language-plaintext highlighter-rouge">1</code> to the result array (<code class="language-plaintext highlighter-rouge">1</code> being the smaller element). And we have encountered an inversion - the index of <code class="language-plaintext highlighter-rouge">2</code> is smaller than the index of <code class="language-plaintext highlighter-rouge">1</code>. Since we know that each of the sub-arrays are sorted, elements that follow <code class="language-plaintext highlighter-rouge">2</code> in the <code class="language-plaintext highlighter-rouge">left</code> sub-array would be greater than <code class="language-plaintext highlighter-rouge">2</code> and since <code class="language-plaintext highlighter-rouge">2</code> formed an inversion with <code class="language-plaintext highlighter-rouge">1</code> (of the <code class="language-plaintext highlighter-rouge">right</code> sub-array), so will all the elements that follow <code class="language-plaintext highlighter-rouge">2</code> in the <code class="language-plaintext highlighter-rouge">left</code> sub-array. So, we already see two inversions - <code class="language-plaintext highlighter-rouge">(2, 1)</code> and <code class="language-plaintext highlighter-rouge">(4, 1)</code>. Now we move on and compare the next elements - <code class="language-plaintext highlighter-rouge">2</code> and <code class="language-plaintext highlighter-rouge">3</code> and push <code class="language-plaintext highlighter-rouge">2</code> into the result array, and move on to the next. Now, we compare <code class="language-plaintext highlighter-rouge">4</code> and <code class="language-plaintext highlighter-rouge">3</code> and since <code class="language-plaintext highlighter-rouge">3</code> is smaller, we push it into the result array - we also encounter an inversion <code class="language-plaintext highlighter-rouge">(4, 3)</code>. A pair of keen eyes would note that whenever we push an element from the <code class="language-plaintext highlighter-rouge">right</code> sub-array into the result array, we encounter (at least) an inversion and the number of inversions at that step equals the number of elements following the current element in <code class="language-plaintext highlighter-rouge">left</code> sub-array. Think over it.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define REP(i, n) for (int i=0; i&lt;n; i++)
+#define REPK(i, k, n) for (int i=k; i&lt;n; i++)
+</span>
+<span class="kt">int</span> <span class="nf">merge</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">inv_cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">// create tmp arrays for l and r</span>
+  <span class="kt">int</span> <span class="n">lsz</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">rsz</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">m</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">left</span><span class="p">[</span><span class="n">lsz</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">right</span><span class="p">[</span><span class="n">rsz</span><span class="p">];</span>
+  <span class="c1">// populate</span>
+  <span class="n">REP</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">lsz</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">i</span><span class="p">];</span>
+  <span class="n">REP</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">rsz</span><span class="p">)</span>
+    <span class="n">right</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">i</span><span class="p">];</span>
+  <span class="c1">// compare and merge</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">k</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">((</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">lsz</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">rsz</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+      <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">];</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">];</span>
+      <span class="n">inv_cnt</span> <span class="o">+=</span> <span class="n">lsz</span> <span class="o">-</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">// fill in the left-over elements</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">lsz</span><span class="p">)</span> 
+    <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">];</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">rsz</span><span class="p">)</span> 
+    <span class="n">arr</span><span class="p">[</span><span class="n">k</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">j</span><span class="o">++</span><span class="p">];</span>
+
+  <span class="k">return</span> <span class="n">inv_cnt</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">mergesort</span> <span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">inv_cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">l</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+
+    <span class="n">inv_cnt</span> <span class="o">=</span> <span class="n">mergesort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+    <span class="n">inv_cnt</span> <span class="o">+=</span> <span class="n">mergesort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+    <span class="n">inv_cnt</span> <span class="o">+=</span> <span class="n">merge</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">inv_cnt</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Since we use divide and conquer, in fact we could re-purpose merge step of merge-sort as shown below to count the number of inversions, the time complexity of this approach is <code class="language-plaintext highlighter-rouge">O(nlogn)</code> which is better than our previous approach.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/10/02/array-inversions-naive/">Computing the number of inversions in an array - naïve method &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Oct 2, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let us think about computing the number of inversions in an array. Let us also assume that our array has unique elements.</p>
+
+<blockquote>
+  <p>Two elements in an array <em>arr</em> form an inversion if <em>arr[i] &gt; arr[j]</em> for <em>i &lt; j</em>.</p>
+</blockquote>
+
+<p>For example, if <code class="language-plaintext highlighter-rouge">{2, 4, 1, 3, 5}</code> is our input array, it has 3 inversions <code class="language-plaintext highlighter-rouge">(2, 1), (4,1)</code> and <code class="language-plaintext highlighter-rouge">(4, 3)</code>. Let us look for a naïve straight-forward algorithm to solve this problem - i.e., traverse the array comparing the elements and checking if there is an inversion.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">inv_count</span> <span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">inv_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">inv_count</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">inv_count</span><span class="p">;</span>
+  <span class="c1">// Time complexity: O(n^2) (two for loops)</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Inversion tells us how far the array is from being sorted. For a sorted array, the number of inversions is <code class="language-plaintext highlighter-rouge">0</code> and if the array is sorted in the other order it has maximum number of inversions.</p>
+
+<p>But can we do better than <code class="language-plaintext highlighter-rouge">O(n^2</code>?</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/10/01/array-query-sum-mo/">Computing sub-array sum given a set of queries on sub-array indices - Mo&#39;s Algorithm &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Oct 1, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In the <a href="https://dotkay.github.io/2017/09/30/array-query-sum/">previous post</a>, we saw the naïve way of computing sub-array sums, given a set of queries. Now, following the hint provided in the previous post, let us try to think what would make it better.</p>
+
+<p>First, let us try to understand it with an example. If we had an inpur array <code class="language-plaintext highlighter-rouge">a</code> and three queries of the form <code class="language-plaintext highlighter-rouge">{0, 3}</code>, <code class="language-plaintext highlighter-rouge">{4, 8}</code> and <code class="language-plaintext highlighter-rouge">{0, 8}</code>, we were independently computing <code class="language-plaintext highlighter-rouge">a[0] + a[1] + a[2] + a[3]</code>, <code class="language-plaintext highlighter-rouge">a[4] + a[5] + a[6] + a[7]</code> and <code class="language-plaintext highlighter-rouge">a[0] + a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7] + a[8]</code>. Although the sub-array sums we computed for the first two queries <code class="language-plaintext highlighter-rouge">{0, 3}</code> and <code class="language-plaintext highlighter-rouge">{4, 8}</code> could have just been reused instead of computing the sum all over again. Even in the case where the third query was of the form <code class="language-plaintext highlighter-rouge">{0, 10}</code> we could have used the results computed for the queries <code class="language-plaintext highlighter-rouge">{0, 3}</code> and <code class="language-plaintext highlighter-rouge">{4, 8}</code>. This also means that we need to compute the queries <code class="language-plaintext highlighter-rouge">{0, 3}</code> and <code class="language-plaintext highlighter-rouge">{4, 8}</code> so that we could reuse them for <code class="language-plaintext highlighter-rouge">{0, 8}</code> - i.e., if we computed <code class="language-plaintext highlighter-rouge">{0, 8}</code> first, we already lost the advantage. Which means that we need to order our queries in such a way that we compute the queries that have the potential to be reused before computing the other queries - in the above example <code class="language-plaintext highlighter-rouge">{0, 3}</code> and <code class="language-plaintext highlighter-rouge">{4, 8}</code>.</p>
+
+<p>The ordering of queries themselves could be done in several ways. In this post, we shall look at one Mo’s algorithm that buckets the queries into a number of buckets which are a function of the size of the input array. If the input array is of size <code class="language-plaintext highlighter-rouge">n</code>, we put all the queries whose left index (<code class="language-plaintext highlighter-rouge">L</code>) ranges from 0 … \sqrt(n) -1 in the first bucket, (\sqrt n) … (2 * \sqrt(n) - 1), and so on. Within each bucket, we shall order the queries in increasing order of the right indices - the queries’ <code class="language-plaintext highlighter-rouge">R</code> values.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// a, b : two Queries to be compared in order to sort</span>
+<span class="kt">bool</span> <span class="nf">compare</span><span class="p">(</span><span class="n">Query</span> <span class="n">a</span><span class="p">,</span> <span class="n">Query</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// first, sort by L if they are in different buckets</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span> <span class="o">!=</span> <span class="n">b</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span><span class="p">;</span>
+  <span class="c1">// within the same bucket, queries are sorted</span>
+  <span class="c1">// according to R values</span>
+  <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">R</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">R</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Now, we need to adjust for over-lapping ranges in the queries. For example, if the previous (already computed) query was <code class="language-plaintext highlighter-rouge">{2, 5}</code> and the query that is currently being worked upon is <code class="language-plaintext highlighter-rouge">{4, 7}</code> then we need to discount <code class="language-plaintext highlighter-rouge">a[2]</code> and <code class="language-plaintext highlighter-rouge">a[3]</code> from the already computed sum (for <code class="language-plaintext highlighter-rouge">{2, 5}</code>) and also add <code class="language-plaintext highlighter-rouge">a[6]</code> and <code class="language-plaintext highlighter-rouge">a[7]</code> to it.</p>
+
+<p>Very similarly, we may have to remove elements from the right as well (i.e. tracking the <code class="language-plaintext highlighter-rouge">R</code> indices). For example, if the previous range was <code class="language-plaintext highlighter-rouge">{0, 5}</code> and the current range <code class="language-plaintext highlighter-rouge">{2, 3}</code>, we need to discount <code class="language-plaintext highlighter-rouge">a[4]</code> and <code class="language-plaintext highlighter-rouge">a[5]</code> from the previous sum, as well (besides <code class="language-plaintext highlighter-rouge">a[0]</code> and <code class="language-plaintext highlighter-rouge">a[1]</code> which were taken care when we were handling L (previous paragraph)).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// initialize the current L and R values</span>
+<span class="kt">int</span> <span class="n">currL</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">currR</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="c1">// initialize an accumulator for the sum</span>
+<span class="kt">int</span> <span class="n">curr_sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// iterate over the queries</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">L</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">L</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">R</span><span class="p">;</span>
+
+  <span class="c1">// taking care of L</span>
+  <span class="c1">// taking care of discarding</span>
+  <span class="c1">// sub-parts from the sum</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">currL</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">curr_sum</span> <span class="o">-=</span> <span class="n">a</span><span class="p">[</span><span class="n">currL</span><span class="p">];</span>
+    <span class="n">currL</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// taking care of adding </span>
+  <span class="c1">// sub-parts to the sum</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">currL</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">currL</span><span class="p">];</span>
+    <span class="n">currL</span><span class="o">--</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// taking care of R</span>
+  <span class="c1">// adding elements to R</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">currR</span> <span class="o">&lt;=</span> <span class="n">R</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">currR</span><span class="p">];</span>
+    <span class="n">currR</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// discounting elements</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">currR</span> <span class="o">&gt;</span> <span class="n">R</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">curr_sum</span> <span class="o">-=</span> <span class="n">a</span><span class="p">[</span><span class="n">currR</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="n">currR</span><span class="o">--</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Let us run this on an example. Let us assume we are provided with an input array <code class="language-plaintext highlighter-rouge">a</code> which is <code class="language-plaintext highlighter-rouge">{ 1 2 3 1 1 2 4 1 3 4 2 1 2 3 4 1 1 3 4 2 3 2 1 2 3 }</code> of size 25 (<code class="language-plaintext highlighter-rouge">n</code>) and the following 8 (<code class="language-plaintext highlighter-rouge">m</code>) queries <code class="language-plaintext highlighter-rouge">(2,4) (1,7) (0,8) (5,8) (10,15) (12,16) (17,20) (18,21)</code>. Now, since <code class="language-plaintext highlighter-rouge">n</code> is 25, we need to put the queries with L values in the range 0 … \sqrt(n) -1 in the first bucket and so on. The first bucket, for example, would initially (arranged according to L values from 0..\sqrt(25) - 1), i.e. 0..4, will have the queries <code class="language-plaintext highlighter-rouge">(0, 8) (2, 4) (1, 7)</code> and then re-ordered as per their <code class="language-plaintext highlighter-rouge">R</code> values to <code class="language-plaintext highlighter-rouge">(2, 4) (1, 7) (0, 8)</code>. The other buckets are second: <code class="language-plaintext highlighter-rouge">(5,8)</code>, third: <code class="language-plaintext highlighter-rouge">(10, 15) (12, 16)</code>, fourth: <code class="language-plaintext highlighter-rouge">(17, 20) (18, 21)</code>.</p>
+
+<p>Take some time to work through it. It would be worth the time to enhance the understanding.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/09/30/array-query-sum/">Computing sub-array sum given a set of queries on sub-array indices &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 30, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let us discuss an interesting algorithm problem - finding sub-array sums in an array.</p>
+
+<blockquote>
+  <p>Given an array <code class="language-plaintext highlighter-rouge">a</code> and a set of queries <code class="language-plaintext highlighter-rouge">q</code> indicating ranges in an array, say sub-array indicies, how to compute the sum of the sub-array elements in the ranges specified in the query.</p>
+</blockquote>
+
+<p>In this post, we will discuss a very straightforward solution that traverses the array and the set of queries and computes the sum of each of the sub-arrays specified by the query bounds.</p>
+
+<p>A query is just modelled as a <code class="language-plaintext highlighter-rouge">struct</code> specifying the left and right sub-array bounds by integers <code class="language-plaintext highlighter-rouge">L</code> and <code class="language-plaintext highlighter-rouge">R</code>. For example, <code class="language-plaintext highlighter-rouge">{3, 5}</code> would mean <em>sum the elements in the indicies 3, 4, 5 - i.e. a[3] + a[4] + a[5]</em></p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Query</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">L</span><span class="p">,</span> <span class="n">R</span><span class="p">;</span>
+<span class="p">};</span></code></pre>
+</figure>
+
+<p>Now, let us walk through the queries one by one, and for each query, we shall traverse the array and pick up the elements in the indices specified by the query and sum them up. We initialize an accumulator <code class="language-plaintext highlighter-rouge">sum</code> and keep updating it for this purpose. Again, <code class="language-plaintext highlighter-rouge">a</code> is the input array of size <code class="language-plaintext highlighter-rouge">n</code>, and <code class="language-plaintext highlighter-rouge">q</code> is an array of queries and there are <code class="language-plaintext highlighter-rouge">m</code> queries in all.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// walk through the queries one by one and </span>
+<span class="c1">// get the query bounds</span>
+<span class="c1">// Complexity: O(m)</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">L</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">L</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">R</span><span class="p">;</span>
+  <span class="c1">// accumulator to collect the sum</span>
+  <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">// traverse the array and sum up the elements</span>
+  <span class="c1">// within the query bounds</span>
+  <span class="c1">// Complexity: O(n)</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">L</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">R</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// Total Complexity: O(nm)</span></code></pre>
+</figure>
+
+<p>As you can see we have two loops - one within another and hence the total complexity is <em>O(mn)</em>. How can we make this naïve algorithm better? What do we look for? Hint: If I have queries one of which is a subset of another, we would end up computing the sum twice. For example, if two of our queries are <code class="language-plaintext highlighter-rouge">{0,4}</code> and <code class="language-plaintext highlighter-rouge">{1,3}</code>, by walking through all the queries and traversing the array for each query as above, we are not utilizing the fact that we could reuse the sub-array sum within <code class="language-plaintext highlighter-rouge">{1,3}</code> in the query <code class="language-plaintext highlighter-rouge">{0,4}</code> instead of recomputing them independently.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/29/analyzing-more-happiness-data/">More about Happiness... &rarr;</a>
           </h1>
 
@@ -404,1470 +1802,6 @@
 <img src="/assets/images/data_science/happiness_world_countries_2017.png" alt="Happiness Rankings - Countries of the World" class="img=responsive" /></p>
 
 <p>Not that I don’t want some of the countries to be unhappier, but some of the data points are counter-intuitive to my (perceived) knowledge of world regions. This is also a demonstration of my perceptions of different parts of the world and how many things can not just be captured in data. Some day, I would really want to dig into how this <code class="language-plaintext highlighter-rouge">Happiness Score</code> is computed and to check if it is meaningful at all.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/28/analyzing-happiness-data/">Thinking about Happiness... &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 28, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-analysis/">data analysis</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/python/">python</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Lately, I have been pondering a lot about <a href="https://www.ted.com/talks/matthieu_ricard_on_the_habits_of_happiness">happiness</a> and satisfaction and so, let’s talk about it in a data-driven fashion. I downloaded some global data (for 2015, 2016, 2017) from <a href="https://www.kaggle.com/">Kaggle</a> that has several information on happiness, life expectancy, trust factor (essentially, a score of the perceived trust on the government), etc. Let’s start with 2015 data, as that’s what I analyzed first. Again, we will use <a href="https://pandas.pydata.org/">Pandas</a> library for data analysis and <a href="https://seaborn.pydata.org/">seaborn</a> library to plot the data and make our inference from the plots.</p>
-
-<p>Let’s first plot the “Happiness Score” of the world regions and see which regions of the world are the happiest. And then, we shall plot the life expectancy of the regions of the world and see the correlation.</p>
-
-<figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">df_2015</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'2015.csv'</span><span class="p">)</span>
-<span class="n">sns</span><span class="p">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Region'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Region of the World'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre>
-</figure>
-
-<p>And here is what we see:
-<br />
-<img src="/assets/images/data_science/happiness_world_regions.png" alt="Happiness Scores - Regions of the World (2015)" class="img=responsive" /></p>
-
-<p>Western Europe, North America, Australia and New Zealand lead the pack in happiness - why not? wealthy, rich economies, while Sub-Saharan Africa is not doing good - that’s sad. Now, let’s see how happiness is correlated to life expectancies in the the different parts of the world. A word of caution though: life expectancy actually depends on a variety of factors - epidemic, region conflicts, wars, poverty, etc. all contribute to life expectancy - but these factors also affect the happiness (to what precise extent? has someone measured? - I do not know).</p>
-
-<figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="p">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s">'Health (Life Expectancy)'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'Happiness Score'</span><span class="p">,</span> 
-           <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_2015</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s">'Region'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Life Expectancy'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Happiness Score'</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s">'bold'</span><span class="p">)</span></code></pre>
-</figure>
-
-<p>And here’s the result: 
-<br />
-<img src="/assets/images/data_science/happiness_vs_life_expectancy.png" alt="Happiness Scores and Life Expectancy (2015)" class="img=responsive" /></p>
-
-<p>More on individual countries in a later post.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/27/analyzing-some-more-pokemon-data/">Analyzing some more Pokemon data &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 27, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-analysis/">data analysis</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/python/">python</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s continue with our data from <a href="https://dotkay.github.io/2017/09/26/more-pokemon-data-analysis">previous post</a> and try to look at one more fancy function from the <a href="https://seaborn.pydata.org/">seaborn</a> library. In particular, we will use seaborn’s <code class="language-plaintext highlighter-rouge">swarmplot</code> function to see how the Attack scores of Type-1 Pokemons of each Type-1 class are spread out. <code class="language-plaintext highlighter-rouge">pokemon_colors</code> is just an array of colours for different pokemon classes.</p>
-
-<figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="p">.</span><span class="n">swarmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Type 1'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
-              <span class="n">palette</span><span class="o">=</span><span class="n">pokemon_colors</span><span class="p">)</span></code></pre>
-</figure>
-
-<p>And here’s the result:</p>
-
-<p><br />
-<img src="/assets/images/data_science/type1_pokemon_attack_scores.png" alt="Attack and Defense Scores of Generations of Pokemons" class="img=responsive" /></p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/26/more-pokemon-data-analysis/">Playing with some more Pokemon data &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 26, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-analysis/">data analysis</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/python/">python</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s play with some more Pokemon data. Just to recollect, we played with the same data-set way back in <a href="https://dotkay.github.io/2017/08/18/lets-play-with-some-pokemon-data-1">this post</a>. Today, along with the other libraries, we will also use <a href="https://seaborn.pydata.org/">seaborn</a> to make fancy plots very quickly.</p>
-
-<p>Let’s do the initial imports as before, this time also importing <code class="language-plaintext highlighter-rouge">seaborn</code></p>
-
-<figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span></code></pre>
-</figure>
-
-<p>Let’s grab the data-set and try to see the <code class="language-plaintext highlighter-rouge">Attack</code> and <code class="language-plaintext highlighter-rouge">Defense</code> scores of the different generations of Pokemons.</p>
-
-<figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="c1"># read the dataset
-</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code></pre>
-</figure>
-
-<figure class="highlight">
-  <pre><code class="language-python" data-lang="python"><span class="n">sns</span><span class="p">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s">'Attack'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'Defense'</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
-           <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-           <span class="n">hue</span><span class="o">=</span><span class="s">'Generation'</span><span class="p">)</span>
-<span class="c1"># specify the axes limits
-</span><span class="n">plt</span><span class="p">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">250</span><span class="p">)</span>
-<span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span></code></pre>
-</figure>
-
-<p>Here, we use seaborn’s function for plotting the data. As it is a function for regression, it would also draw a line showing the boundary. We set <code class="language-plaintext highlighter-rouge">fit_reg</code> to <code class="language-plaintext highlighter-rouge">False</code> in order to avoid it drawing the regression fit (line of best fit). This is the outcome of the above exercise:</p>
-
-<p><br />
-<img src="/assets/images/data_science/attack_defense_pokemons.png" alt="Attack and Defense Scores of Generations of Pokemons" class="img=responsive" /></p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/09/25/binary-search-tree/">Binary Search Tree &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 25, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2017/09/22/binary-trees">previous post</a>, we saw binary trees. Today, we will see Binary <em>Search</em> Trees (BST). The key difference is that when we insert nodes into our tree, we make sure the items whose values are less than that of the root are added to the left sub-tree and the ones whose values are greater than that of the root are added to the right sub-tree. Let’s start by defining our data structure. The definition is the same as our earlier <em>tree</em> definition. Just for the sake of clarity let’s call our type <code class="language-plaintext highlighter-rouge">bst</code>.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">bst</span> <span class="o">=</span>
-  <span class="o">|</span> <span class="nc">Leaf</span>
-  <span class="o">|</span> <span class="nc">Node</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="o">*</span> <span class="k">'</span><span class="n">a</span> <span class="n">tree</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Now, for inserting an element into our tree, we wouldn’t just insert the element as we did earlier, but we shall compare the element to the root and decide which of the sub-trees (left or right) we want to insert our new item to. This looks like a very small difference - but it has huge implications for search.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">bst</span> <span class="o">=</span>
-  <span class="k">match</span> <span class="n">bst</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="nc">Leaf</span> <span class="o">-&gt;</span> <span class="nc">Node</span> <span class="p">(</span><span class="nc">Leaf</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="nc">Leaf</span><span class="p">)</span>
-  <span class="o">|</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">right</span><span class="p">)</span> <span class="o">-&gt;</span>
-     <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span> <span class="k">then</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">right</span><span class="p">)</span>
-     <span class="k">else</span> <span class="nc">Node</span> <span class="p">(</span><span class="n">left</span><span class="o">,</span> <span class="n">n</span><span class="o">,</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">right</span><span class="p">);;</span></code></pre>
-</figure>
-
-<p>Let’s also write the function to create a bst from an input list, which again is the same as before:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">make_bst</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="n">empty</span> <span class="o">=</span> <span class="nc">Leaf</span> <span class="k">in</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">empty</span>
-  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">insert</span> <span class="n">h</span> <span class="p">(</span><span class="n">make_bst</span> <span class="n">t</span><span class="p">);;</span></code></pre>
-</figure>
-
-<p>In future posts, we will see the different ways we can traverse this tree.</p>
-
 
         </div>
         

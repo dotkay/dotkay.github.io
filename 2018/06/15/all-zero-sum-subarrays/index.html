@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Finding all subarrays that sum to 0</title>
+  <meta name="description" content="In our previous post we saw how to check if there is a subarray (formed of consecutive array elements) that sums to zero, in linear time. We were also thinking how to go about storing all the subarrays that sum to 0, as there could be more than one. Since we returned a Boolean result as soon as we found a subarray that sums to zero, we did not manage to find the second subarray that sums to 0, if such a subarray exists. Now, we will make an attempt to do that. Intuitively, we know that we need to traverse the array as before and keep track of the accumulated sum of array elements as we traverse. We hash these values and do a lookup of it every time we encounter a new element (and hence an updated accumulator value) as we traverse. [initial subarray][0 sum subarray][some subarray][0 sum subarray][last subarray] &amp;lt;--------------- x ------------- y ------------ x&#39;------------- y&#39;-------------&amp;gt; At y we may find that the accumulator value already exists in our hash (as the subarray in the window between x and y sums to 0). On a lookup at y, we would get the index pointing to x and our current iterator (say i) would be at y. We can print out the values between x and i (or store it in some container), keep traversing the array until we encounter the ending index y&#39; of the next subarray that sums to 0. void all_zero_sum_subarr(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); std::unordered_multimap&amp;lt;int, int&amp;gt; lookup; lookup.insert(std::pair&amp;lt;int, int&amp;gt;(0, -1)); int acc = 0; for (int i = 0; i &amp;lt; n; i++) { acc += arr[i]; if (lookup.find(acc) != lookup.end()) { auto it = lookup.find(acc); while (it != lookup.end() &amp;amp;&amp;amp; it-&amp;gt;first == acc) { std::cout &amp;lt;&amp;lt; it-&amp;gt;second + 1 &amp;lt;&amp;lt; &quot;..&quot; &amp;lt;&amp;lt; i &amp;lt;&amp;lt; std::endl; it++; } } else lookup.insert(std::pair&amp;lt;int, int&amp;gt;(acc, i)); } } Can you see why we are using unordered_multimap instead of unordered_map here?">
+  
+    
+    <meta name="keywords" content="data structures,arrays,algorithms,C++">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/06/15/all-zero-sum-subarrays/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Finding all subarrays that sum to 0">
+  <meta name="twitter:description" content="In our previous post we saw how to check if there is a subarray (formed of consecutive array elements) that sums to zero, in linear time. We were also thinking how to go about storing all the subar...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/06/15/all-zero-sum-subarrays">Finding all subarrays that sum to 0 &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-06-15T00:00:00+00:00" itemprop="datePublished">Jun 15, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In our <a href="https://dotkay.github.io/2018/06/10/zero-sum-subarray-improved">previous post</a> we saw how to check if there is a subarray (formed of consecutive array elements) that sums to zero, in linear time. We were also thinking how to go about storing all the subarrays that sum to 0, as there could be more than one. Since we returned a Boolean result as soon as we found a subarray that sums to zero, we did not manage to find the second subarray that sums to 0, if such a subarray exists. Now, we will make an attempt to do that.</p>
+
+<p>Intuitively, we know that we need to traverse the array as before and keep track of the accumulated sum of array elements as we traverse. We hash these values and do a lookup of it every time we encounter a new element (and hence an updated accumulator value) as we traverse.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [initial subarray][0 sum subarray][some subarray][0 sum subarray][last subarray]
+     &lt;--------------- x ------------- y ------------ x'------------- y'-------------&gt;
+</code></pre></div></div>
+
+<p>At <code class="language-plaintext highlighter-rouge">y</code> we may find that the accumulator value already exists in our hash (as the subarray in the window between <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> sums to 0). On a lookup at <code class="language-plaintext highlighter-rouge">y</code>, we would get the index pointing to <code class="language-plaintext highlighter-rouge">x</code> and our current iterator (say <code class="language-plaintext highlighter-rouge">i</code>) would be at <code class="language-plaintext highlighter-rouge">y</code>. We can print out the values between <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">i</code> (or store it in some container), keep traversing the array until we encounter the ending index <code class="language-plaintext highlighter-rouge">y'</code> of the next subarray that sums to 0.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">all_zero_sum_subarr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_multimap</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">lookup</span><span class="p">;</span>
+  <span class="n">lookup</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+  <span class="kt">int</span> <span class="n">acc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">acc</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">acc</span><span class="p">);</span>
+      <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">==</span> <span class="n">acc</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">".."</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span> 
+    <span class="p">}</span>
+    <span class="k">else</span>
+      <span class="n">lookup</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Can you see why we are using <code class="language-plaintext highlighter-rouge">unordered_multimap</code> instead of <code class="language-plaintext highlighter-rouge">unordered_map</code> here?</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
