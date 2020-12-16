@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Computing elements that result in maximum product efficiently
+katex: True
 categories: [data structures, arrays, algorithms, C++]
 keywords: [data structures, arrays, algorithms, C++]
 external-url: https://dotkay.github.io/2018/06/29/faster-max-product-items
@@ -23,18 +24,14 @@ void maxprod(std::vector<int> arr)
       max1 = arr[i];
     }
     else if (arr[i] > max2)
-    {
       max2 = arr[i];
-    }
     if (arr[i] < min1)
     {
       min2 = min1;
       min1 = arr[i];
     }
     else if (arr[i] < min2)
-    {
       min2 = arr[i];
-    }
   }
   if (max1 * max2 > min1 * min2)
     std::cout << max1 << ", " << max2 << std::endl;

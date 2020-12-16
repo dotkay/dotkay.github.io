@@ -46,6 +46,7 @@ kramdown:
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   parse_block_html: true
   toc_levels: 1..6
+  math_engine: katex
 
 jekyll-archives:
   enabled:
