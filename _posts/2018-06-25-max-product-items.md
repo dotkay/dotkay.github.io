@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Computing elements that result in maximum product
+katex: True
 categories: [data structures, arrays, algorithms, C++]
 keywords: [data structures, arrays, algorithms, C++]
 external-url: https://dotkay.github.io/2018/06/25/max-product-items
