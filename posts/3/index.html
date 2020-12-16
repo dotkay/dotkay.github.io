@@ -28,6 +28,8 @@
   
   
 
+  
+  
   <script type="text/javascript">
   WebFontConfig = {
     google: { families: [ 'Bitter:400,700,400italic:latin' ] }
@@ -2676,18 +2678,14 @@
       <span class="n">max1</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max2</span><span class="p">)</span>
-    <span class="p">{</span>
       <span class="n">max2</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-    <span class="p">}</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min1</span><span class="p">)</span>
     <span class="p">{</span>
       <span class="n">min2</span> <span class="o">=</span> <span class="n">min1</span><span class="p">;</span>
       <span class="n">min1</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
     <span class="p">}</span>
     <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">min2</span><span class="p">)</span>
-    <span class="p">{</span>
       <span class="n">min2</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-    <span class="p">}</span>
   <span class="p">}</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">max1</span> <span class="o">*</span> <span class="n">max2</span> <span class="o">&gt;</span> <span class="n">min1</span> <span class="o">*</span> <span class="n">min2</span><span class="p">)</span>
     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">max1</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">max2</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>

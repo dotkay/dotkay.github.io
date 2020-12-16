@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-12-16T03:04:18+00:00</updated>
+  <updated>2020-12-16T14:57:33+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -831,18 +831,14 @@ help me understand?&lt;/p&gt;</content>
       &lt;span class=&quot;n&quot;&gt;max1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;max2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;min2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;min1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;n&quot;&gt;min2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;min2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -874,7 +870,7 @@ help me understand?&lt;/p&gt;</content>
       
 
       
-        <summary type="html">In a previous post we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than (O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product. void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); int max1 = arr[0], max2 = INT_MIN; int min1 = arr[0], min2 = INT_MAX; for (int i = 1; i &amp;lt; n; i++) { if (arr[i] &amp;gt; max1) { max2 = max1; max1 = arr[i]; } else if (arr[i] &amp;gt; max2) { max2 = arr[i]; } if (arr[i] &amp;lt; min1) { min2 = min1; min1 = arr[i]; } else if (arr[i] &amp;lt; min2) { min2 = arr[i]; } } if (max1 * max2 &amp;gt; min1 * min2) std::cout &amp;lt;&amp;lt; max1 &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; max2 &amp;lt;&amp;lt; std::endl; else std::cout &amp;lt;&amp;lt; min1 &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; min2 &amp;lt;&amp;lt; std::endl; } The algorithm is very straight-forward that the code itself is self explanatory.</summary>
+        <summary type="html">In a previous post we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than (O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product. void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); int max1 = arr[0], max2 = INT_MIN; int min1 = arr[0], min2 = INT_MAX; for (int i = 1; i &amp;lt; n; i++) { if (arr[i] &amp;gt; max1) { max2 = max1; max1 = arr[i]; } else if (arr[i] &amp;gt; max2) max2 = arr[i]; if (arr[i] &amp;lt; min1) { min2 = min1; min1 = arr[i]; } else if (arr[i] &amp;lt; min2) min2 = arr[i]; } if (max1 * max2 &amp;gt; min1 * min2) std::cout &amp;lt;&amp;lt; max1 &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; max2 &amp;lt;&amp;lt; std::endl; else std::cout &amp;lt;&amp;lt; min1 &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; min2 &amp;lt;&amp;lt; std::endl; } The algorithm is very straight-forward that the code itself is self explanatory.</summary>
       
 
       
