@@ -9,7 +9,7 @@
   
   
   <title>Finding the subarray leading to zero sum</title>
-  <meta name="description" content="Given an array of integers, how would you compute the subarray composed of consecutive array elements, that sums to 0? There are $n^2$ such subarrays and traversing each of those in the worst case to compute the different sums would take $O(n)$. But one could make it a little better by having a rolling sum computed as and when we are exploring the subarrays. Let us look at the naïve solution. Remember that we want subarrays formed by consecutive array elements. We keep a marker (i) on each array element (outer loop), and search for the subarray starting from this marker to another one (j) while checking if the sum of array elements between i and j sum to 0. bool zero_sum_subarray(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); for (int i = 0; i &amp;lt; n; i++) { int sum = 0; for (int j = i; j &amp;lt; n; j++) { sum += arr[j]; if (sum == 0) return true; } } return false; } How can we make this algorithm better? Can we compute it in linear time?">
+  <meta name="description" content="Given an array of integers, how would you compute the subarray composed of consecutive array elements, that sums to 0? There are (n^2) such subarrays and traversing each of those in the worst case to compute the different sums would take (O(n)). But one could make it a little better by having a rolling sum computed as and when we are exploring the subarrays. Let us look at the naïve solution. Remember that we want subarrays formed by consecutive array elements. We keep a marker (i) on each array element (outer loop), and search for the subarray starting from this marker to another one (j) while checking if the sum of array elements between i and j sum to 0. bool zero_sum_subarray(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); for (int i = 0; i &amp;lt; n; i++) { int sum = 0; for (int j = i; j &amp;lt; n; j++) { sum += arr[j]; if (sum == 0) return true; } } return false; } How can we make this algorithm better? Can we compute it in linear time?">
   
     
     <meta name="keywords" content="data structures,arrays,algorithms,C++">
@@ -27,7 +27,7 @@
   <meta name="twitter:card" content="summary">
   
   <meta name="twitter:title" content="Finding the subarray leading to zero sum">
-  <meta name="twitter:description" content="Given an array of integers, how would you compute the subarray composed of consecutive array elements, that sums to 0? There are $n^2$ such subarrays and traversing each of those in the worst case ...">
+  <meta name="twitter:description" content="Given an array of integers, how would you compute the subarray composed of consecutive array elements, that sums to 0? There are (n^2) such subarrays and traversing each of those in the worst case ...">
   
   
 
@@ -674,7 +674,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Given an array of integers, how would you compute the subarray composed of consecutive array elements, that sums to 0? There are $n^2$ such subarrays and traversing each of those in the worst case to compute the different sums would take $O(n)$. But one could make it a little better by having a rolling sum computed as and when we are exploring the subarrays. Let us look at the naïve solution. Remember that we want subarrays formed by consecutive array elements.</p>
+    <p>Given an array of integers, how would you compute the subarray composed of consecutive array elements, that sums to 0? There are (n^2) such subarrays and traversing each of those in the worst case to compute the different sums would take (O(n)). But one could make it a little better by having a rolling sum computed as and when we are exploring the subarrays. Let us look at the naïve solution. Remember that we want subarrays formed by consecutive array elements.</p>
 
 <p>We keep a marker (i) on each array element (outer loop), and search for the subarray starting from this marker to another one (j) while checking if the sum of array elements between i and j sum to 0.</p>
 
