@@ -104,10 +104,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/05/reverse-a-subarray/">Reversing a sub-array of an array in place &rarr;</a>
+            <a class="post-link" href="/2018/04/06/isomorphic-strings/">Checking if two strings are isomorphic &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 5, 2018 • 
+          <p class="post-meta">Apr 6, 2018 • 
   
   
     
@@ -118,6 +118,10 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
     
   
     
@@ -393,6 +397,530 @@
   
     
   
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Today, let us see how we can figure out if two given input strings are <em>isomorphic</em> using a time-efficient algorithm.</p>
+
+<blockquote>
+  <p>Given two strings s1 and s2 if there is a unique mapping from each of the characters of one to the other, then they are isomorphic</p>
+</blockquote>
+
+<p>For example, <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">naan</code> are isomorphic with the mapping <code class="language-plaintext highlighter-rouge">a -&gt; n</code> and <code class="language-plaintext highlighter-rouge">n -&gt; a</code>. Similarly <code class="language-plaintext highlighter-rouge">aab</code> and <code class="language-plaintext highlighter-rouge">xxy</code> are isomorphic with the mapping <code class="language-plaintext highlighter-rouge">a -&gt; x</code> and <code class="language-plaintext highlighter-rouge">b -&gt; y</code>, while <code class="language-plaintext highlighter-rouge">aab</code> and <code class="language-plaintext highlighter-rouge">xyz</code> are not isomorphic. However, <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">naa</code> are not isomorphic as there is no direct mapping for the last <code class="language-plaintext highlighter-rouge">a</code> of <code class="language-plaintext highlighter-rouge">anna</code> (a hint that the strings should be of equal length for them to be isomorphic).</p>
+
+<p>An approach is to traverse one of the strings and mark the occurence of the character in the string. The nice thing about character strings is that there are only 256 <a href="https://en.wikipedia.org/wiki/ASCII">ASCII characters</a> and hence we can have a character array of size 256 to mark the occurence of characters in a string. Along with marking the occurence, we need to store the mapping of this character to the corresponding (array index) character of the second string.</p>
+
+<ol>
+  <li>During the very first encounter of a character, say the first <code class="language-plaintext highlighter-rouge">a</code> (index 0) in <code class="language-plaintext highlighter-rouge">anna</code>, we check if the corresponding index in the other string <code class="language-plaintext highlighter-rouge">naan</code> has already been visited.</li>
+  <li>We visit it (i.e. remember it in some algorithmic way).</li>
+  <li>We store the mapping of this visit (i.e. <code class="language-plaintext highlighter-rouge">a -&gt; n</code>).</li>
+  <li>If we encounter a character again, say the last <code class="language-plaintext highlighter-rouge">a</code> in <code class="language-plaintext highlighter-rouge">anna</code>, we check for the mapping to see if the corresponding index in the second string is as per our expectations (i.e. obeys the mapping).</li>
+</ol>
+
+<p>The way we maintain the mapping is through an array <code class="language-plaintext highlighter-rouge">map</code> and we also maintain whether we already visited a particular character using an array <code class="language-plaintext highlighter-rouge">visited</code>. Since we need two additional arrays of size 256 each, there is some cost we pay for this space. However, we traverse the input array only once and so it would be <em>O(n)</em> time algorithm. These four steps are noted in the code fragment below for easier reference.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAX_CHARS 256
+</span><span class="kt">bool</span> <span class="nf">isomorphic</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">bool</span> <span class="n">visited</span><span class="p">[</span><span class="n">MAX_CHARS</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="nb">false</span> <span class="p">};</span>
+  <span class="kt">int</span> <span class="n">map</span><span class="p">[</span><span class="n">MAX_CHARS</span><span class="p">];</span>
+
+  <span class="c1">// initialize map</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_CHARS</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">map</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+  <span class="c1">// check if both strings are of equal length</span>
+  <span class="kt">int</span> <span class="n">slen1</span> <span class="o">=</span> <span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="n">slen2</span> <span class="o">=</span> <span class="n">s2</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">slen1</span> <span class="o">!=</span> <span class="n">slen2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+  <span class="c1">// traverse s1 and update marked and visited</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">slen1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// (1) first occurence</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> 
+    <span class="p">{</span>
+      <span class="c1">// check if corresponding s2 char is visited</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">==</span> <span class="nb">true</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+      <span class="c1">// (2) update visited</span>
+      <span class="n">visited</span><span class="p">[</span><span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>                          
+
+      <span class="c1">// (3) store mapping</span>
+      <span class="n">map</span><span class="p">[</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>                             
+    <span class="p">}</span>
+    <span class="c1">// (4) not the first occurence? check the mapping</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> 
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/04/05/reverse-a-subarray/">Reversing a sub-array of an array in place &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 5, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -440,6 +968,10 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
     
   
     
@@ -713,6 +1245,10 @@
   
     
   
+    
+  
+    
+  
 
   
   
@@ -744,6 +1280,10 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
     
   
     
@@ -905,6 +1445,10 @@
   
     
       <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
     
   
     
@@ -1186,6 +1730,10 @@
   
     
   
+    
+  
+    
+  
 
   
   
@@ -1217,6 +1765,10 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
     
   
     
@@ -1378,6 +1930,10 @@
   
     
       <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
     
   
     
@@ -1665,6 +2221,10 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
   
+    
+  
+    
+  
 
   
   
@@ -1696,6 +2256,10 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
     
   
     
@@ -1951,6 +2515,10 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
   
+    
+  
+    
+  
 
 </p>
         </header>
@@ -1969,621 +2537,6 @@ n-a-a-n   --&gt; 2. rotated by 1
 </figure>
 
 <p>where <code class="language-plaintext highlighter-rouge">swap(arr[a], arr[b])</code> would swap the elements at array locations <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code> and <code class="language-plaintext highlighter-rouge">n</code> is the size of the input array <code class="language-plaintext highlighter-rouge">arr</code>.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/03/04/isolating-rightmost-set-bit/">Isolating right-most set bit in a bit-vector &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Mar 4, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/bitwise-operations/">bitwise operations</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/bit-vectors/">bit-vectors</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In our previous post, we found a way to compute the position of the right-most set bit in a given number. A key ingredient of that algorithm was isolating the right-most set bit. For example, given 10, which is <code class="language-plaintext highlighter-rouge">1010</code> in binary, how do we “isolate the right-most set bit” - i.e. generate a bit-vector where only the bit in the position of the right-most set bit, in our input number, is set. For our input number 10, it would be a bit-vector where only the bit in position 2 is set - <code class="language-plaintext highlighter-rouge">0010</code>. Given <code class="language-plaintext highlighter-rouge">1010</code>, how do we generate <code class="language-plaintext highlighter-rouge">0010</code>?</p>
-
-<p>We mentioned about 2’s complement notation for negative numbers in a <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>. For example, the number 2 represented using 4 bits would be <code class="language-plaintext highlighter-rouge">0010</code> while -2 represented using 4 bits would be <code class="language-plaintext highlighter-rouge">1110</code>, where the bit position corresponding to right-most set bit in in the positive equivalent (+2) is set, while all the bits to the left are flipped.</p>
-
-<p><br />
-<img src="/assets/images/algorithms/cpp/rm_set_bit.png" alt="isolating right-most set bit" class="img=responsive" height="50%" width="50%" /></p>
-
-<p>Now, if we <code class="language-plaintext highlighter-rouge">&amp;</code> (bit-wise AND) our input number (<em>x</em>) with the negation of it (<em>-x</em>), we will be left with only one bit set, which corresponds to the position of the right-most set bit. So, the bit-wise operation we were looking for is <code class="language-plaintext highlighter-rouge">&amp;</code> with the negation of the input number. Let us put all this together in a C algorithm (not that we already know the later part of the algorithm from the <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>):</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rightmost_set_bit</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="c1">// isolate the rightmost set bit</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">);</span>
-  <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">count</span><span class="o">++</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
 
         </div>
         

@@ -104,10 +104,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/10/06/computing-permutations/">Computing permutations - divide and conquer &rarr;</a>
+            <a class="post-link" href="/2017/10/07/computing-permutations-with-duplicates/">Computing permutations (with duplicates) - divide and conquer &rarr;</a>
           </h1>
 
-          <p class="post-meta">Oct 6, 2017 • 
+          <p class="post-meta">Oct 7, 2017 • 
   
   
     
@@ -118,6 +118,10 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
     
   
     
@@ -393,6 +397,10 @@
   
     
   
+    
+  
+    
+  
 
   
   
@@ -402,6 +410,515 @@
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In a <a href="https://dotkay.github.io/2017/10/06/computing-permutations">previous post</a> we saw how to write a recursive function to compute permutations of characters of a string. But we were computing redundant permutations when the input string had duplicated characters, as in the input string “AAB”. What could we do to avoid the redundant computations?</p>
+
+<p>Intuitively we need to avoid some recursive calls that we know will lead to redundant computations. The sub-trees corresponding to this redundant computation are marked red in the sketch below:
+<br />
+<img src="/assets/images/algorithms/cpp/perm_2.png" alt="Permutations of &quot;ABC&quot;" class="img=responsive" /></p>
+
+<p>What it indicates is that when we have the substring that we are processing (by walking through the characters in the substring) we look at the characters we process and decide if we want to go down that recursive path.</p>
+
+<p>Let’s go through a couple of paths in the recursion tree above and try to figure this out:</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">(start:0, i:0)</code>: The string we are staring with is <code class="language-plaintext highlighter-rouge">AAB</code>, substring starting at <code class="language-plaintext highlighter-rouge">start</code> is <code class="language-plaintext highlighter-rouge">AAB</code> and substring starting at <code class="language-plaintext highlighter-rouge">i</code> is also <code class="language-plaintext highlighter-rouge">AAB</code> (as <code class="language-plaintext highlighter-rouge">i</code> is <code class="language-plaintext highlighter-rouge">start</code> to begin with). Now we swap <code class="language-plaintext highlighter-rouge">s[start]</code> and <code class="language-plaintext highlighter-rouge">s[i]</code> which are both <code class="language-plaintext highlighter-rouge">A</code>. Now we call the _<code class="language-plaintext highlighter-rouge">permute()</code> with <code class="language-plaintext highlighter-rouge">start</code> incremented by <code class="language-plaintext highlighter-rouge">1</code>.
+  a. <code class="language-plaintext highlighter-rouge">(start:1, i:1..2)</code>: Now the substring starting at <code class="language-plaintext highlighter-rouge">start</code> is <code class="language-plaintext highlighter-rouge">AB</code> (as <code class="language-plaintext highlighter-rouge">start</code> is <code class="language-plaintext highlighter-rouge">1</code>) and substring starting at <code class="language-plaintext highlighter-rouge">i</code> is <code class="language-plaintext highlighter-rouge">AB</code>. Further <code class="language-plaintext highlighter-rouge">s[start]</code> is <code class="language-plaintext highlighter-rouge">A</code> and <code class="language-plaintext highlighter-rouge">s[i]</code> is also <code class="language-plaintext highlighter-rouge">A</code>. We hence perform a swap producing <code class="language-plaintext highlighter-rouge">AAB</code> and backtrack. Now, <code class="language-plaintext highlighter-rouge">i:2</code> and so <code class="language-plaintext highlighter-rouge">s[start]</code> is <code class="language-plaintext highlighter-rouge">A</code> and <code class="language-plaintext highlighter-rouge">s[i]</code> is <code class="language-plaintext highlighter-rouge">B</code>. We swap <code class="language-plaintext highlighter-rouge">A</code> and <code class="language-plaintext highlighter-rouge">B</code> and get <code class="language-plaintext highlighter-rouge">ABA</code>.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">(start:0, i:1)</code>: The string we are staring with is <code class="language-plaintext highlighter-rouge">AAB</code>, substring starting at <code class="language-plaintext highlighter-rouge">start</code> is <code class="language-plaintext highlighter-rouge">AAB</code> and substring starting at <code class="language-plaintext highlighter-rouge">i</code> is also <code class="language-plaintext highlighter-rouge">AB</code> (as <code class="language-plaintext highlighter-rouge">i</code> is <code class="language-plaintext highlighter-rouge">1</code> now). We have <code class="language-plaintext highlighter-rouge">substring_from_start</code> different from <code class="language-plaintext highlighter-rouge">substring_from_i</code> but <code class="language-plaintext highlighter-rouge">s[start]</code> is the same as <code class="language-plaintext highlighter-rouge">s[i]</code> which means that if we do a swap, we will yield the same thing and also we would have come across this earlier as we have processed the substring corresponding to this <code class="language-plaintext highlighter-rouge">i</code>. So we avoid going down this path and start working through <code class="language-plaintext highlighter-rouge">start:0, i:2</code>.</p>
+  </li>
+</ol>
+
+<p>So the condition we are looking for traversing is that <code class="language-plaintext highlighter-rouge">substring(start)</code> and <code class="language-plaintext highlighter-rouge">substring(i)</code> are same and further the starting character at <code class="language-plaintext highlighter-rouge">start</code> and <code class="language-plaintext highlighter-rouge">i</code> are the same. Further, if <code class="language-plaintext highlighter-rouge">substring(start)</code> and <code class="language-plaintext highlighter-rouge">substring(i)</code> are different and the starting characters are different, we go ahead with the traversal (as in <code class="language-plaintext highlighter-rouge">start:0, i:2</code>).</p>
+
+<p>Here is the modified <code class="language-plaintext highlighter-rouge">permute()</code> function with the condition incorporated:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">permute</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">start</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="n">start</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">end</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// handle duplicates</span>
+      <span class="k">if</span> <span class="p">((</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="o">||</span> 
+          <span class="p">((</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">-</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">&amp;&amp;</span> 
+           <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">start</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))))</span> <span class="p">{</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="n">permute</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">);</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Hope you can refer to the sketch above, work through the example and feel convinced.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/10/06/computing-permutations/">Computing permutations - divide and conquer &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Oct 6, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
     
   
     
@@ -742,6 +1259,10 @@ BAA  (*)
   
     
   
+    
+  
+    
+  
 
   
   
@@ -767,6 +1288,10 @@ BAA  (*)
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
     
   
     
@@ -1075,6 +1600,10 @@ BAA  (*)
   
     
   
+    
+  
+    
+  
 
   
   
@@ -1100,6 +1629,10 @@ BAA  (*)
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
     
   
     
@@ -1435,6 +1968,10 @@ BAA  (*)
   
     
   
+    
+  
+    
+  
 
   
   
@@ -1460,6 +1997,10 @@ BAA  (*)
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
     
   
     
@@ -1606,374 +2147,6 @@ BAA  (*)
 <p>Inversion tells us how far the array is from being sorted. For a sorted array, the number of inversions is <code class="language-plaintext highlighter-rouge">0</code> and if the array is sorted in the other order it has maximum number of inversions.</p>
 
 <p>But can we do better than <code class="language-plaintext highlighter-rouge">O(n^2</code>?</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/10/01/array-query-sum-mo/">Computing sub-array sum given a set of queries on sub-array indices - Mo&#39;s Algorithm &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Oct 1, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In the <a href="https://dotkay.github.io/2017/09/30/array-query-sum/">previous post</a>, we saw the naïve way of computing sub-array sums, given a set of queries. Now, following the hint provided in the previous post, let us try to think what would make it better.</p>
-
-<p>First, let us try to understand it with an example. If we had an inpur array <code class="language-plaintext highlighter-rouge">a</code> and three queries of the form <code class="language-plaintext highlighter-rouge">{0, 3}</code>, <code class="language-plaintext highlighter-rouge">{4, 8}</code> and <code class="language-plaintext highlighter-rouge">{0, 8}</code>, we were independently computing <code class="language-plaintext highlighter-rouge">a[0] + a[1] + a[2] + a[3]</code>, <code class="language-plaintext highlighter-rouge">a[4] + a[5] + a[6] + a[7]</code> and <code class="language-plaintext highlighter-rouge">a[0] + a[1] + a[2] + a[3] + a[4] + a[5] + a[6] + a[7] + a[8]</code>. Although the sub-array sums we computed for the first two queries <code class="language-plaintext highlighter-rouge">{0, 3}</code> and <code class="language-plaintext highlighter-rouge">{4, 8}</code> could have just been reused instead of computing the sum all over again. Even in the case where the third query was of the form <code class="language-plaintext highlighter-rouge">{0, 10}</code> we could have used the results computed for the queries <code class="language-plaintext highlighter-rouge">{0, 3}</code> and <code class="language-plaintext highlighter-rouge">{4, 8}</code>. This also means that we need to compute the queries <code class="language-plaintext highlighter-rouge">{0, 3}</code> and <code class="language-plaintext highlighter-rouge">{4, 8}</code> so that we could reuse them for <code class="language-plaintext highlighter-rouge">{0, 8}</code> - i.e., if we computed <code class="language-plaintext highlighter-rouge">{0, 8}</code> first, we already lost the advantage. Which means that we need to order our queries in such a way that we compute the queries that have the potential to be reused before computing the other queries - in the above example <code class="language-plaintext highlighter-rouge">{0, 3}</code> and <code class="language-plaintext highlighter-rouge">{4, 8}</code>.</p>
-
-<p>The ordering of queries themselves could be done in several ways. In this post, we shall look at one Mo’s algorithm that buckets the queries into a number of buckets which are a function of the size of the input array. If the input array is of size <code class="language-plaintext highlighter-rouge">n</code>, we put all the queries whose left index (<code class="language-plaintext highlighter-rouge">L</code>) ranges from 0 … \sqrt(n) -1 in the first bucket, (\sqrt n) … (2 * \sqrt(n) - 1), and so on. Within each bucket, we shall order the queries in increasing order of the right indices - the queries’ <code class="language-plaintext highlighter-rouge">R</code> values.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// a, b : two Queries to be compared in order to sort</span>
-<span class="kt">bool</span> <span class="nf">compare</span><span class="p">(</span><span class="n">Query</span> <span class="n">a</span><span class="p">,</span> <span class="n">Query</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// first, sort by L if they are in different buckets</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span> <span class="o">!=</span> <span class="n">b</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">L</span><span class="o">/</span><span class="n">bucket</span><span class="p">;</span>
-  <span class="c1">// within the same bucket, queries are sorted</span>
-  <span class="c1">// according to R values</span>
-  <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">R</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">.</span><span class="n">R</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>Now, we need to adjust for over-lapping ranges in the queries. For example, if the previous (already computed) query was <code class="language-plaintext highlighter-rouge">{2, 5}</code> and the query that is currently being worked upon is <code class="language-plaintext highlighter-rouge">{4, 7}</code> then we need to discount <code class="language-plaintext highlighter-rouge">a[2]</code> and <code class="language-plaintext highlighter-rouge">a[3]</code> from the already computed sum (for <code class="language-plaintext highlighter-rouge">{2, 5}</code>) and also add <code class="language-plaintext highlighter-rouge">a[6]</code> and <code class="language-plaintext highlighter-rouge">a[7]</code> to it.</p>
-
-<p>Very similarly, we may have to remove elements from the right as well (i.e. tracking the <code class="language-plaintext highlighter-rouge">R</code> indices). For example, if the previous range was <code class="language-plaintext highlighter-rouge">{0, 5}</code> and the current range <code class="language-plaintext highlighter-rouge">{2, 3}</code>, we need to discount <code class="language-plaintext highlighter-rouge">a[4]</code> and <code class="language-plaintext highlighter-rouge">a[5]</code> from the previous sum, as well (besides <code class="language-plaintext highlighter-rouge">a[0]</code> and <code class="language-plaintext highlighter-rouge">a[1]</code> which were taken care when we were handling L (previous paragraph)).</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// initialize the current L and R values</span>
-<span class="kt">int</span> <span class="n">currL</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">currR</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="c1">// initialize an accumulator for the sum</span>
-<span class="kt">int</span> <span class="n">curr_sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-
-<span class="c1">// iterate over the queries</span>
-<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">L</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">L</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">R</span><span class="p">;</span>
-
-  <span class="c1">// taking care of L</span>
-  <span class="c1">// taking care of discarding</span>
-  <span class="c1">// sub-parts from the sum</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">currL</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">curr_sum</span> <span class="o">-=</span> <span class="n">a</span><span class="p">[</span><span class="n">currL</span><span class="p">];</span>
-    <span class="n">currL</span><span class="o">++</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// taking care of adding </span>
-  <span class="c1">// sub-parts to the sum</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">currL</span> <span class="o">&gt;</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">currL</span><span class="p">];</span>
-    <span class="n">currL</span><span class="o">--</span><span class="p">;</span>
-  <span class="p">}</span>
-
-  <span class="c1">// taking care of R</span>
-  <span class="c1">// adding elements to R</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">currR</span> <span class="o">&lt;=</span> <span class="n">R</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">curr_sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">currR</span><span class="p">];</span>
-    <span class="n">currR</span><span class="o">++</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// discounting elements</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">currR</span> <span class="o">&gt;</span> <span class="n">R</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">curr_sum</span> <span class="o">-=</span> <span class="n">a</span><span class="p">[</span><span class="n">currR</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-    <span class="n">currR</span><span class="o">--</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>Let us run this on an example. Let us assume we are provided with an input array <code class="language-plaintext highlighter-rouge">a</code> which is <code class="language-plaintext highlighter-rouge">{ 1 2 3 1 1 2 4 1 3 4 2 1 2 3 4 1 1 3 4 2 3 2 1 2 3 }</code> of size 25 (<code class="language-plaintext highlighter-rouge">n</code>) and the following 8 (<code class="language-plaintext highlighter-rouge">m</code>) queries <code class="language-plaintext highlighter-rouge">(2,4) (1,7) (0,8) (5,8) (10,15) (12,16) (17,20) (18,21)</code>. Now, since <code class="language-plaintext highlighter-rouge">n</code> is 25, we need to put the queries with L values in the range 0 … \sqrt(n) -1 in the first bucket and so on. The first bucket, for example, would initially (arranged according to L values from 0..\sqrt(25) - 1), i.e. 0..4, will have the queries <code class="language-plaintext highlighter-rouge">(0, 8) (2, 4) (1, 7)</code> and then re-ordered as per their <code class="language-plaintext highlighter-rouge">R</code> values to <code class="language-plaintext highlighter-rouge">(2, 4) (1, 7) (0, 8)</code>. The other buckets are second: <code class="language-plaintext highlighter-rouge">(5,8)</code>, third: <code class="language-plaintext highlighter-rouge">(10, 15) (12, 16)</code>, fourth: <code class="language-plaintext highlighter-rouge">(17, 20) (18, 21)</code>.</p>
-
-<p>Take some time to work through it. It would be worth the time to enhance the understanding.</p>
 
         </div>
         
