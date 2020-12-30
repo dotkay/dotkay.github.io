@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2020-12-25T23:10:52+00:00</updated>
+  <updated>2020-12-30T01:31:44+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -41,7 +41,7 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;div class=&quot;img_container&quot;&gt;
-  &lt;p&gt;&lt;img src=&quot;/assets/images/data_science/tsla_snp_2020.png&quot; alt=&quot;TSLA vs S&amp;amp;P 500 Value&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/tsla_snp_2020.png&quot; /&gt;&lt;/center&gt;
 &lt;/div&gt;
 
 &lt;p&gt;All the data was collected using pandas_datareader and the plots done using seaborn library.&lt;/p&gt;</content>
