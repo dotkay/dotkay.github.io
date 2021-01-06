@@ -8,7 +8,7 @@
   
   
   
-  <title>Fast queries using heaps</title>
+  <title>Fast queries and min heap</title>
   <meta name="description" content="In a previous post we came to know of this awesome data structure that could be used when we want to do fast retrieval of elements with maximum or minimum key values. In such cases, we do not need to sort the entire set of elements. In this post, we will see the implementation of Min Heap (which allows us to retrieve minimum element efficiently). Implementation of Max Heap follows a similar structure and is straight forward. In this particular C++ implementation we use std::vector as the container for the elements of the heap. We ignore index 0 and our elements are stored from index 1. This is just to keep track of parent and children nodes easily. For any node k, the parent node would be at k/2 and children nodes at indices 2k and 2k + 1. Further, we will start with the following signature that provides the client methods to insert a new key insert_item(), retrieve the min valued key get_min() and also delete the min valued key delete_min() from the structure. class MinHeap { private: std::vector&amp;lt;int&amp;gt; heap; int n; public: MinHeap(int capacity); int get_min(); void insert_item(int item); void delete_min(); }; The constructor is straight-forward. We just create a vector of capacity one more than the specified one (as we are ignoring entry at index 0). MinHeap::MinHeap(int capacity) { heap = std::vector&amp;lt;int&amp;gt;(capacity + 1); n = 0; } Retrieving the min valued key is also straight-forward - just get the root of the tree. That is the beauty of this data structure. The way we accomplish having the min valued key always at the root is a little involved and it is incorporated into insert_item() and delete_min() methods. int MinHeap::get_min() { return heap[1]; } We will see insert_item() and delete_min() methods in a future post.">
   
     
@@ -26,7 +26,7 @@
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Fast queries using heaps">
+  <meta name="twitter:title" content="Fast queries and min heap">
   <meta name="twitter:description" content="In a previous post we came to know of this awesome data structure that could be used when we want to do fast retrieval of elements with maximum or minimum key values. In such cases, we do not need ...">
   
   
@@ -97,7 +97,7 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/03/09/min-heap">Fast queries using heaps &rarr;</a></h1>
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/03/09/min-heap">Fast queries and min heap &rarr;</a></h1>
     
     <p class="post-meta"><time datetime="2018-03-09T00:00:00+00:00" itemprop="datePublished">Mar 9, 2018</time> • 
   
