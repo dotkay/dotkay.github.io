@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Fast queries using heaps</title>
+  <meta name="description" content="In a previous post we came to know of this awesome data structure that could be used when we want to do fast retrieval of elements with maximum or minimum key values. In such cases, we do not need to sort the entire set of elements. In this post, we will see the implementation of Min Heap (which allows us to retrieve minimum element efficiently). Implementation of Max Heap follows a similar structure and is straight forward. In this particular C++ implementation we use std::vector as the container for the elements of the heap. We ignore index 0 and our elements are stored from index 1. This is just to keep track of parent and children nodes easily. For any node k, the parent node would be at k/2 and children nodes at indices 2k and 2k + 1. Further, we will start with the following signature that provides the client methods to insert a new key insert_item(), retrieve the min valued key get_min() and also delete the min valued key delete_min() from the structure. class MinHeap { private: std::vector&amp;lt;int&amp;gt; heap; int n; public: MinHeap(int capacity); int get_min(); void insert_item(int item); void delete_min(); }; The constructor is straight-forward. We just create a vector of capacity one more than the specified one (as we are ignoring entry at index 0). MinHeap::MinHeap(int capacity) { heap = std::vector&amp;lt;int&amp;gt;(capacity + 1); n = 0; } Retrieving the min valued key is also straight-forward - just get the root of the tree. That is the beauty of this data structure. The way we accomplish having the min valued key always at the root is a little involved and it is incorporated into insert_item() and delete_min() methods. int MinHeap::get_min() { return heap[1]; } We will see insert_item() and delete_min() methods in a future post.">
+  
+    
+    <meta name="keywords" content="C++, data structures, heap">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/03/09/min-heap/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Fast queries using heaps">
+  <meta name="twitter:description" content="In a previous post we came to know of this awesome data structure that could be used when we want to do fast retrieval of elements with maximum or minimum key values. In such cases, we do not need ...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/03/09/min-heap">Fast queries using heaps &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-03-09T00:00:00+00:00" itemprop="datePublished">Mar 9, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/heap/">heap</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2018/03/06/heap">previous post</a> we came to know of this awesome data structure that could be used when we want to do fast retrieval of elements with maximum or minimum key values. In such cases, we do not need to sort the entire set of elements. In this post, we will see the implementation of Min Heap (which allows us to retrieve minimum element efficiently). Implementation of Max Heap follows a similar structure and is straight forward.</p>
+
+<p>In this particular C++ implementation we use <code class="language-plaintext highlighter-rouge">std::vector</code> as the container for the elements of the heap. We ignore index <code class="language-plaintext highlighter-rouge">0</code> and our elements are stored from index <code class="language-plaintext highlighter-rouge">1</code>. This is just to keep track of parent and children nodes easily. For any node <em>k</em>, the parent node would be at <em>k/2</em> and children nodes at indices <em>2k</em> and <em>2k + 1</em>.</p>
+
+<p>Further, we will start with the following signature that provides the client methods to insert a new key <code class="language-plaintext highlighter-rouge">insert_item()</code>, retrieve the min valued key <code class="language-plaintext highlighter-rouge">get_min()</code> and also delete the min valued key <code class="language-plaintext highlighter-rouge">delete_min()</code> from the structure.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">MinHeap</span>
+<span class="p">{</span>
+  <span class="nl">private:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+  <span class="nl">public:</span>
+    <span class="n">MinHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">get_min</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="n">insert_item</span><span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">delete_min</span><span class="p">();</span>
+<span class="p">};</span></code></pre>
+</figure>
+
+<p>The constructor is straight-forward. We just create a vector of capacity one more than the specified one (as we are ignoring entry at index <code class="language-plaintext highlighter-rouge">0</code>).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">MinHeap</span><span class="o">::</span><span class="n">MinHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">heap</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Retrieving the min valued key is also straight-forward - just get the root of the tree. That is the beauty of this data structure. The way we accomplish having the min valued key always at the root is a little involved and it is incorporated into <code class="language-plaintext highlighter-rouge">insert_item()</code> and <code class="language-plaintext highlighter-rouge">delete_min()</code> methods.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">MinHeap</span><span class="o">::</span><span class="n">get_min</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We will see <code class="language-plaintext highlighter-rouge">insert_item()</code> and <code class="language-plaintext highlighter-rouge">delete_min()</code> methods in a future post.</p>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

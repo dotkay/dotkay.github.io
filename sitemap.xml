@@ -261,6 +261,14 @@
 <lastmod>2018-03-04T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://dotkay.github.io/2018/03/06/heap/</loc>
+<lastmod>2018-03-06T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>https://dotkay.github.io/2018/03/09/min-heap/</loc>
+<lastmod>2018-03-09T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://dotkay.github.io/2018/04/02/reverse-an-array/</loc>
 <lastmod>2018-04-02T00:00:00+00:00</lastmod>
 </url>
@@ -513,6 +521,9 @@
 <loc>https://dotkay.github.io/categories/bit-vectors/</loc>
 </url>
 <url>
+<loc>https://dotkay.github.io/categories/heap/</loc>
+</url>
+<url>
 <loc>https://dotkay.github.io/categories/arrays/</loc>
 </url>
 <url>
@@ -724,5 +735,8 @@
 </url>
 <url>
 <loc>https://dotkay.github.io/posts/22/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/posts/23/</loc>
 </url>
 </urlset>
