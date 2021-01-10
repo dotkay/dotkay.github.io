@@ -277,6 +277,14 @@
 <lastmod>2018-03-15T00:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://dotkay.github.io/2018/03/18/trie-one/</loc>
+<lastmod>2018-03-18T00:00:00+00:00</lastmod>
+</url>
+<url>
+<loc>https://dotkay.github.io/2018/03/21/trie-two/</loc>
+<lastmod>2018-03-21T00:00:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://dotkay.github.io/2018/04/02/reverse-an-array/</loc>
 <lastmod>2018-04-02T00:00:00+00:00</lastmod>
 </url>
@@ -532,6 +540,9 @@
 <loc>https://dotkay.github.io/categories/heap/</loc>
 </url>
 <url>
+<loc>https://dotkay.github.io/categories/trie/</loc>
+</url>
+<url>
 <loc>https://dotkay.github.io/categories/arrays/</loc>
 </url>
 <url>
@@ -746,5 +757,8 @@
 </url>
 <url>
 <loc>https://dotkay.github.io/posts/23/</loc>
+</url>
+<url>
+<loc>https://dotkay.github.io/posts/24/</loc>
 </url>
 </urlset>

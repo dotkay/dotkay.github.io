@@ -104,10 +104,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/03/03/checking-rightmost-set-bit/">How to find out the position of the right-most set bit in a bit-vector? &rarr;</a>
+            <a class="post-link" href="/2018/03/06/heap/">Fast queries using heaps &rarr;</a>
           </h1>
 
-          <p class="post-meta">Mar 3, 2018 • 
+          <p class="post-meta">Mar 6, 2018 • 
   
   
     
@@ -118,6 +118,485 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/heap/">heap</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>If you are an Operating System (OS) and from the pool of tasks with attached priorities waiting to be executed, how would you pick the one that needs to be executed next? Sure, you could have them in an array, sort them (O(n logn)) and pick the highest priority one from the sorted data structure. Note that you don’t care about the task with the second highest priority at the moment (if you can execute only one task at a time). You <em>only</em> need to pick the highest priority task, which intuitively tells us that we do not need all the tasks sorted, but just a way to pick the one with the highest priority and that the ordering of the remaining tasks is not important.</p>
+
+<p>Now suppose you are generating tasks to be sent to the operating system. You need to keep inserting new tasks with attached priorities to the pool of tasks. If you want to add a new high-priority task to the pool, you would like to put it in such a position that would make it quick for the OS to query and fetch it. Again, you should not have to go through the priorities of all of the tasks in the pool in order to decide the position of the new task.</p>
+
+<p>What data structure would fit the above task? You do not even have to be an OS, you could be a system allowing passengers (high-priority ones have first-class boarding passes, for example) to board an aircraft. That brings us to <em>Priority Queue</em> data structure that has <em>heap</em> property - i.e. it is a tree where the key with the highest (Max Heap) or lowest value (Min Heap) is at the root and the children nodes’ keys are smaller (or larger in the case of Min Heap) than the root’s key. So, every fetch operation can just get the key at the root instead of traversing the entire tree (looking at all tasks in the pool). Let us see how to implement a heap in the next post.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/03/04/isolating-rightmost-set-bit/">Isolating right-most set bit in a bit-vector &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Mar 4, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -405,6 +884,8 @@
   
     
   
+    
+  
 
   
   
@@ -554,6 +1035,8 @@
   
     
   
+    
+  
 
   
   
@@ -579,6 +1062,655 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In our previous post, we found a way to compute the position of the right-most set bit in a given number. A key ingredient of that algorithm was isolating the right-most set bit. For example, given 10, which is <code class="language-plaintext highlighter-rouge">1010</code> in binary, how do we “isolate the right-most set bit” - i.e. generate a bit-vector where only the bit in the position of the right-most set bit, in our input number, is set. For our input number 10, it would be a bit-vector where only the bit in position 2 is set - <code class="language-plaintext highlighter-rouge">0010</code>. Given <code class="language-plaintext highlighter-rouge">1010</code>, how do we generate <code class="language-plaintext highlighter-rouge">0010</code>?</p>
+
+<p>We mentioned about 2’s complement notation for negative numbers in a <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>. For example, the number 2 represented using 4 bits would be <code class="language-plaintext highlighter-rouge">0010</code> while -2 represented using 4 bits would be <code class="language-plaintext highlighter-rouge">1110</code>, where the bit position corresponding to right-most set bit in in the positive equivalent (+2) is set, while all the bits to the left are flipped.</p>
+
+<p><br />
+<img src="/assets/images/algorithms/cpp/rm_set_bit.png" alt="isolating right-most set bit" class="img=responsive" height="50%" width="50%" /></p>
+
+<p>Now, if we <code class="language-plaintext highlighter-rouge">&amp;</code> (bit-wise AND) our input number (<em>x</em>) with the negation of it (<em>-x</em>), we will be left with only one bit set, which corresponds to the position of the right-most set bit. So, the bit-wise operation we were looking for is <code class="language-plaintext highlighter-rouge">&amp;</code> with the negation of the input number. Let us put all this together in a C algorithm (not that we already know the later part of the algorithm from the <a href="https://dotkay.github.io/2018/03/03/checking-rightmost-set-bit">previous post</a>):</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rightmost_set_bit</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// isolate the rightmost set bit</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&amp;</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/03/03/checking-rightmost-set-bit/">How to find out the position of the right-most set bit in a bit-vector? &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Mar 3, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/bit-vectors/">bit-vectors</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
     
   
     
@@ -900,6 +2032,8 @@
   
     
   
+    
+  
 
   
   
@@ -943,6 +2077,8 @@
   
     
       <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
     
   
     
@@ -1198,6 +2334,8 @@
   
     
   
+    
+  
 
   
   
@@ -1223,6 +2361,8 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
     
   
     
@@ -1560,6 +2700,8 @@
   
     
   
+    
+  
 
   
   
@@ -1603,6 +2745,8 @@
   
     
       <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
     
   
     
@@ -1858,6 +3002,8 @@
   
     
   
+    
+  
 
   
   
@@ -2007,6 +3153,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -2031,1016 +3179,6 @@
 <p>Similarly, <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> can also be used for multiplication by 2. For example 2 is <code class="language-plaintext highlighter-rouge">0010</code> in binary and <code class="language-plaintext highlighter-rouge">2 &lt;&lt; 1</code> would result in <code class="language-plaintext highlighter-rouge">0100</code> which is 4 (2 * 2 = 4).</p>
 
 <p>One more quick aside is <em>2’s complement</em> - which is just a way of representing negative numbers. For example -2 would be represented (if we are allowed only 3-bits to represent) as <code class="language-plaintext highlighter-rouge">110</code> which is 2^3 - 2. In general, <em>-n</em> in 2’s complement is just <code class="language-plaintext highlighter-rouge">2^k - n</code> where <em>k</em> is the number of bits used to represent it.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/14/stack_operations/">Stack using Arrays - Operations &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 14, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/stacks/">stacks</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In our <a href="https://dotkay.github.io/2017/11/13/stacks">previous post</a> we introduced the <em>Stack</em> data structure implemented using arrays. Now, we will see how to implement the operations on such a Stack - in particular we will learn how to implement the following methods:</p>
-
-<ul>
-  <li>Push(item) - to push the input item into the stack</li>
-  <li>Pop() - to pop an item from the stack</li>
-  <li>top_of_stack() - to track the item in the top of the stack</li>
-  <li>is_empty() - to check if the stack is empty</li>
-</ul>
-
-<p>As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for <em>top of stack</em>) to <code class="language-plaintext highlighter-rouge">-1</code> and we shall use that while performing our operations. We are tracking only <em>top</em>, so we increment the index when we <em>push()</em>, decrement it when we <em>pop()</em> and check the value to determine when the stack is empty as shown in the code fragment below:</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// check if there's place to push</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">MAXSIZE</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Stack overflow!"</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="c1">// if there's place store the item</span>
-  <span class="k">else</span> <span class="p">{</span>
-    <span class="n">arr</span><span class="p">[</span><span class="o">++</span><span class="n">top</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="n">Stack</span><span class="o">::</span><span class="n">pop</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="c1">// check if there's anything to pop</span>
-  <span class="c1">// or if the stack is empty</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Stack underflow!"</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="k">else</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">top</span><span class="o">--</span><span class="p">];</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="n">Stack</span><span class="o">::</span><span class="n">top_of_stack</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">top</span><span class="p">];</span>
-<span class="p">}</span>
-
-<span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span><span class="n">top</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>That was easy!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/13/stacks/">Stacks &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 13, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/stacks/">stacks</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In this post, we introduce <em>Stack</em> - a data structure closely related to <em>Queue</em>. It differs however in the order of operations that we perform on the constituent elements. While queue provided a <em>FIFO</em> (First-In-First-Out) order of processing, stack provides us <em>LIFO</em> (Last-In-First-Out), just as you would pick the last element that you put on the stack before picking out the other elements - just like in the stack of books below, it is very likely you added the blue book on the top very recently (Last-In) and you would pick out this book (on the <em>top of the stack</em> - First-Out) before picking out, say, the green books.</p>
-
-<p><br /></p>
-<div class="img_container">
-  <p><img src="/assets/images/data_structures/stack_of_books.png" alt="Stack of Books" class="img=responsive" /></p>
-</div>
-
-<p>Again, as with queues, we can use an <em>array</em> or a <em>linked list</em> to store our elements. Let use see how to define a Stack class using an array implementation.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
-</span><span class="k">class</span> <span class="nc">Stack</span> <span class="p">{</span>
-  <span class="kt">int</span> <span class="n">top</span><span class="p">;</span>           <span class="c1">// top of the stack</span>
-  <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>  <span class="c1">// array that implements the stack</span>
-  
-  <span class="nl">public:</span>
-    <span class="n">Stack</span> <span class="p">();</span>
-
-    <span class="kt">bool</span> <span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">pop</span> <span class="p">();</span>
-    <span class="kt">int</span> <span class="n">top_of_stack</span> <span class="p">();</span>
-    <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
-<span class="p">};</span>
-
-<span class="n">Stack</span><span class="o">::</span><span class="n">Stack</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="n">top</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>We add elements to our stack using the <em>push()</em> method, remove elements from the stack (actually from the top of our stack) using <em>pop()</em> method, and we also keep track of the top of the stack because that’s where interesting actions happen.</p>
-
-<p>We will see the different methods in the following posts. Stay tuned!.</p>
 
         </div>
         

@@ -104,6 +104,804 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/18/lets-play-with-some-pokemon-data-1/">Let&#39;s play with some Pokemon data - 1 &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 18, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-analysis/">data analysis</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s take a small break from OCaml and recursion and learn some data analysis. For this purpose, I am using python and a couple of libraries like <a href="http://pandas.pydata.org/">Pandas</a>, <a href="http://www.numpy.org/">Numpy</a> and <a href="https://matplotlib.org/">Matplotlib</a>, which will help us in preprocessing the data, some numerical data-types as well as plotting the data, respectively. In future posts, we will see more such awesome libraries.</p>
+
+<p>For this post, let’s just focus on a Pokemon dataset that I happened to come across in Kaggle. Although I have never played Pokemon and never knew the different Pokemon characters, this is a nice simple example to get us started.</p>
+
+<p>You may want to install python - I personally like <a href="https://www.continuum.io/downloads">Anaconda</a> because it offers a wonderful platform with code editor as well as a console for visualization, etc., which makes it easy to play around and learn. I installed Anaconda and use their development environment <a href="https://github.com/spyder-ide/spyder">Spyder</a>.</p>
+
+<p>Let’s get started right away. First, we import the libraries we will use for this short tutorial.</p>
+
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span></code></pre>
+</figure>
+
+<p>We will use these libraries only very minimally for this short post, but they are very powerful and we will see more of their features in future posts. If you create a (free) account in Kaggle, you can download the Pokemon dataset. I have downloaded it and saved it in a file named <code class="language-plaintext highlighter-rouge">Pokemon.csv</code>. We will use Pandas <code class="language-plaintext highlighter-rouge">read_csv</code> function to read the downloaded csv file.</p>
+
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="n">pokemon_data</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'Pokemon.csv'</span><span class="p">)</span></code></pre>
+</figure>
+
+<p>We will call it <code class="language-plaintext highlighter-rouge">pokemon_data</code>. Pandas refers to this type as a <code class="language-plaintext highlighter-rouge">dataframe</code>. If you look at the dataset the first column is just an index, so it’s useless for our analysis purposes. So we will go ahead and grab only the rest of the columns (and all the rows).</p>
+
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="n">pokemon_data</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">13</span><span class="p">]</span></code></pre>
+</figure>
+
+<p>Here <code class="language-plaintext highlighter-rouge">[:, 1:13]</code> says that “grab all the rows (denoted by <code class="language-plaintext highlighter-rouge">:</code>) and columns <code class="language-plaintext highlighter-rouge">1</code> to <code class="language-plaintext highlighter-rouge">13</code>. Now, let’s explore the data a bit. It’s always a good idea to take a quick look at the dataset to see what are the different columns and what kinds of values or informations they indicate about the dataset. In this case, I see that there’s a column called <code class="language-plaintext highlighter-rouge">Generation</code> and it seems to take values between <code class="language-plaintext highlighter-rouge">1</code> and <code class="language-plaintext highlighter-rouge">6</code>. Probably there are six generations of Pokemons, at least to my understanding. Now, let’s try to see how many Pokemons are there in each generation. If it were a population dataset, this is analogous to finding out how many people are in each continent, or something like that. I will call the number of generations by the variable <code class="language-plaintext highlighter-rouge">no_gens</code>. We need to pick the column named <code class="language-plaintext highlighter-rouge">Generation</code> and count the number of unique entries. Since there are <code class="language-plaintext highlighter-rouge">800</code> Pokemons in all and they belong to one of the <code class="language-plaintext highlighter-rouge">6</code> generations, there will be multiple rows that contain the same value for <code class="language-plaintext highlighter-rouge">Generation</code> and hence we need to find the number of unique values (which after having a quick look at the dataset we know is <code class="language-plaintext highlighter-rouge">6</code>, but it is always better to confirm algorithmically and store in a variable). We achieve this by the function <code class="language-plaintext highlighter-rouge">unique()</code> applying it on the column. We extract the specific column by using the column label, in this case <code class="language-plaintext highlighter-rouge">Generation</code>. Similarly we count the number of values in each generation using the function <code class="language-plaintext highlighter-rouge">value_counts()</code></p>
+
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="n">no_gens</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">[</span><span class="s">'Generation'</span><span class="p">].</span><span class="n">unique</span><span class="p">()</span>
+<span class="n">count_per_gen</span> <span class="o">=</span> <span class="n">pokemon_data</span><span class="p">[</span><span class="s">'Generation'</span><span class="p">].</span><span class="n">value_counts</span><span class="p">()</span></code></pre>
+</figure>
+
+<p>Let’s try to plot the above values to have a better visual representation. I will use matplotlib’s pyplot library utilities for this purpose. It is very simple and intuitive to use. We will plot a bar chart - so we need to find out the values for <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> axes. Let’s first label the plot and the axes.</p>
+
+<figure class="highlight">
+  <pre><code class="language-python" data-lang="python"><span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Generations'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Number of Pokemons'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Number of Pokemons of each generation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">bar</span><span class="p">(</span><span class="n">no_gens</span><span class="p">,</span> <span class="n">count_per_gen</span><span class="p">)</span></code></pre>
+</figure>
+
+<p>This would result in a plot as shown below:
+<br />
+<img src="/assets/images/data_science/pokemon_generations.png" alt="Pokemons of each generation" class="img=responsive" /></p>
+
+<p>That was pretty quick. Let me stop here and let you all digest the information presented. We will analyze the Pokemon dataset more in the coming posts.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/08/17/lets-practice-some-more-examples/">Let&#39;s practice some more recursion! &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 17, 2017 • 
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s continue from our <a href="https://dotkay.github.io/2017/08/15/more-simple-recursion-examples">earlier post</a> and practice some more simple problems just to get more and more familiar with recursion.</p>
+
+<p>Let’s start by writing a simple function to find the last element of a given list <code class="language-plaintext highlighter-rouge">lst</code>:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_elem</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="nc">Some</span> <span class="n">x</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">last_elem</span> <span class="n">t</span><span class="p">;;</span>
+<span class="c">(* val last_elem : 'a list -&gt; 'a option = &lt;fun&gt; *)</span></code></pre>
+</figure>
+
+<p>This is also a nice way to introduce <code class="language-plaintext highlighter-rouge">Some</code> and <code class="language-plaintext highlighter-rouge">None</code> in OCaml. Just like how we have <code class="language-plaintext highlighter-rouge">'a list</code> which can be an <code class="language-plaintext highlighter-rouge">int list</code> or a <code class="language-plaintext highlighter-rouge">string list</code> or <code class="language-plaintext highlighter-rouge">char list</code>, OCaml also has this wonderful <code class="language-plaintext highlighter-rouge">'a option</code> type that can be nothing (<code class="language-plaintext highlighter-rouge">None</code>) or some type (<code class="language-plaintext highlighter-rouge">Some</code>). Note however that <code class="language-plaintext highlighter-rouge">'a option</code> type is not the same as <code class="language-plaintext highlighter-rouge">'a</code>. So, if the type is <code class="language-plaintext highlighter-rouge">'a</code> you can ask the compiler to treat it as an <code class="language-plaintext highlighter-rouge">int</code>, for example. But you can’t do the same with <code class="language-plaintext highlighter-rouge">'a option</code> type. For friends of Java, C programming languages, you can think of <code class="language-plaintext highlighter-rouge">None</code> as similar to <code class="language-plaintext highlighter-rouge">null</code> type.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">type</span> <span class="k">'</span><span class="n">a</span> <span class="n">option</span> <span class="o">=</span> <span class="nc">Some</span> <span class="k">of</span> <span class="k">'</span><span class="n">a</span> <span class="o">|</span> <span class="nc">None</span></code></pre>
+</figure>
+
+<p>For those JavaScript fans wondering if they can use similar <code class="language-plaintext highlighter-rouge">Some</code> and <code class="language-plaintext highlighter-rouge">None</code> in JavaScript, I found an <a href="https://github.com/mwilliamson/node-options">option type implementation here</a> that provides this. I should admit that I have never used this implementation but it seems to serve the same purpose for JavaScript.</p>
+
+<p>Let’s test our <code class="language-plaintext highlighter-rouge">last_elem</code> function on an example.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">;</span><span class="mi">2</span><span class="p">;</span><span class="mi">3</span><span class="p">;</span><span class="mi">4</span><span class="p">];;</span>
+<span class="n">last_elem</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int option = Some 4 *)</span></code></pre>
+</figure>
+
+<p>Let’s move on and practice some more examples. Let’s now try and grab the last and the last-but-one elements from a list.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">last_two</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">|</span> <span class="p">[</span><span class="n">_</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">;</span> <span class="n">y</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="nc">Some</span> <span class="p">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="p">)</span>
+  <span class="o">|</span> <span class="n">_</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">last_two</span> <span class="n">t</span><span class="p">;;</span>
+<span class="c">(* val last_two : 'a list -&gt; ('a * 'a) option = &lt;fun&gt; *)</span></code></pre>
+</figure>
+
+<p><code class="language-plaintext highlighter-rouge">('a * 'a)</code> indicates a tuple - a pair in this case. For example, <code class="language-plaintext highlighter-rouge">(3, 4)</code> would be of type <code class="language-plaintext highlighter-rouge">(int * int)</code>. Let’s check our implementation:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">last_two</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : (int * int) option = Some (3, 4) *)</span></code></pre>
+</figure>
+
+<p>Let’s now make it more generic and write a function to find the k<sup>th</sup> element of a list and let’s give our function a very creative name <code class="language-plaintext highlighter-rouge">kth</code>.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">kth</span> <span class="n">lst</span> <span class="n">k</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="nc">None</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">then</span> <span class="p">(</span><span class="nc">Some</span> <span class="n">h</span><span class="p">)</span>
+     <span class="k">else</span> <span class="n">kth</span> <span class="n">t</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">);;</span>
+<span class="c">(* val kth : 'a list -&gt; int -&gt; 'a option = &lt;fun&gt; *)</span></code></pre>
+</figure>
+
+<p>Let’s check our implementation on <code class="language-plaintext highlighter-rouge">l1</code> again:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">kth</span> <span class="n">l1</span> <span class="mi">2</span><span class="p">;;</span>
+<span class="c">(* - : int option = Some 2 *)</span>
+<span class="n">kth</span> <span class="n">l1</span> <span class="mi">6</span><span class="p">;;</span>
+<span class="c">(* - : int option = None *)</span></code></pre>
+</figure>
+
+<p>When we try to find the 6<sup>th</sup> element of the list <code class="language-plaintext highlighter-rouge">l1</code>, we get <code class="language-plaintext highlighter-rouge">None</code> type as a result as the list contains only 4 elements.</p>
+
+<p>Let’s now try to reverse an input list. Relax! It just sounds complicated. It is actually super simple when you think in terms of recursion.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">lst_rev</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="p">(</span><span class="n">lst_rev</span> <span class="n">t</span><span class="p">)</span> <span class="o">@</span> <span class="p">[</span><span class="n">h</span><span class="p">];;</span>
+<span class="c">(* val lst_rev : 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
+</figure>
+
+<p>Recall from our previous post that <code class="language-plaintext highlighter-rouge">@</code> is the OCaml operator for list concatenation. It is a straight forward observation that after the first recursive call to <code class="language-plaintext highlighter-rouge">rev_lst</code>, the head element <code class="language-plaintext highlighter-rouge">h</code> is pushed to the last and in each recursive call the first element would keep getting pushed to the end of the result list.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">lst_rev</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int list = [4; 3; 2; 1] *)</span></code></pre>
+</figure>
+
+<p>This post is getting long. Please don’t stop reading it! I promise, just one more example to finish this post! Let’s write a function to remove an element from k<sup>th</sup> position in a given list:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">rem_kth</span> <span class="n">k</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">then</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">h</span><span class="o">::</span><span class="p">(</span><span class="n">rem_kth</span> <span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">t</span><span class="p">);;</span>
+<span class="c">(* val rem_kth : int -&gt; 'a list -&gt; 'a list = &lt;fun&gt; *)</span></code></pre>
+</figure>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="n">rem_kth</span> <span class="mi">1</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int list = [2; 3; 4] *)</span>
+<span class="n">rem_kth</span> <span class="mi">6</span> <span class="n">l1</span><span class="p">;;</span>
+<span class="c">(* - : int list = [1; 2; 3; 4] *)</span></code></pre>
+</figure>
+
+<p>That’s all folks. If you have reached this line of this post (assuming you didn’t start reading from the last line), Congratulations for sticking around!</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/16/interesting-podcast-on-education/">An interesting podcast on education &rarr;</a>
           </h1>
 
@@ -120,6 +918,8 @@
   
     
       <a href="/categories/education/">education</a>,
+    
+  
     
   
     
@@ -405,6 +1205,8 @@
   
     
   
+    
+  
 
   
   
@@ -422,6 +1224,8 @@
   
     
       <a href="/categories/ted/">TED</a>
+    
+  
     
   
     
@@ -729,6 +1533,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
   
+    
+  
 
   
   
@@ -738,6 +1544,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
       <a href="/categories/recursion/">recursion</a>,
+    
+  
     
   
     
@@ -889,6 +1697,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
       <a href="/categories/algorithms/">algorithms</a>
+    
+  
     
   
     
@@ -1300,6 +2110,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
   
+    
+  
 
   
   
@@ -1309,6 +2121,8 @@ It is an added motivation for me to use more avenues to share my knowledge with 
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
     
   
     
@@ -1524,179 +2338,12 @@ It is an added motivation for me to use more avenues to share my knowledge with 
         
       </li>
     
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/10/my-first-post/">My First Post &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 10, 2017 • 
-  
-  
-    
-      <a href="/categories/misc/">misc</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>This is my first post. I will keep this a very short one - nothing interesting to read and learn. The internet is a wonderful place. I learnt a lot by browsing interesting blogs, tutorials, asking questions on the various sites, twitter, etc. and it imperative that I give back to the community that helps me learn continuously. I am hoping to be regular with this effort at learning by teaching the many subjects and topics that interest me. Let’s see how much I can keep up and how much I can learn.</p>
-
-        </div>
-        
-      </li>
-    
   </ul>
 
   
   <div class="pagination">
+    
+      <a class="previous" href="/posts/24/">&laquo; Older</a>
     
 
     

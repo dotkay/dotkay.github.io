@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>The Trie</title>
+  <meta name="description" content="In a previous post we started with some motivation for the need of a tree like data structure for efficient prefix matching. We will see how to implement Trie in C++ in this post. Trie is a tree data structure made up of nodes that contain some data. So, we need to design a structure for the nodes and some structure fields for storing the data. Since we are talking about prefix strings and strings are made up of characters, we can think of a node as having a hashmap, storing the prefix character and a reference to the Trie node holding the remaining characters (children nodes). We can go about defining a structure like this: struct Trie { std::unordered_map&amp;lt;char, Trie*&amp;gt; lookup; bool isLeaf; }; The boolean variable isLeaf is to indicate the end (leaf node) of the string in the Trie. And when we start populating a new Trie, we need to allocate a new structure, something like the following newTrieNode(). We set the isLeaf to false as we need to set this to true only for leaf nodes. Trie* newTrieNode() { Trie* node = new Trie; node-&amp;gt;isLeaf = false; return node; } We can also write a small function to check if a node has any children (by checking the value of isLeaf). bool hasChildren(Trie* const curr) { for (auto it : curr-&amp;gt;lookup) if (it.second != nullptr) return true; return false; } We will look at populating a Trie by inserting characters from a string into the Trie, as well as searching for a prefix in a future post.">
+  
+    
+    <meta name="keywords" content="C++, data structures, trie">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/03/21/trie-two/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="The Trie">
+  <meta name="twitter:description" content="In a previous post we started with some motivation for the need of a tree like data structure for efficient prefix matching. We will see how to implement Trie in C++ in this post. Trie is a tree da...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/03/21/trie-two">The Trie &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-03-21T00:00:00+00:00" itemprop="datePublished">Mar 21, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/trie/">trie</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2018/03/18/trie-one">previous post</a> we started with some motivation for the need of a tree like data structure for efficient prefix matching. We will see how to implement Trie in C++ in this post.</p>
+
+<p>Trie is a tree data structure made up of nodes that contain some data. So, we need to design a structure for the nodes and some structure fields for storing the data. Since we are talking about prefix strings and strings are made up of characters, we can think of a node as having a hashmap, storing the prefix character and a reference to the Trie node holding the remaining characters (children nodes). We can go about defining a structure like this:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Trie</span>
+<span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="n">Trie</span><span class="o">*&gt;</span> <span class="n">lookup</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="n">isLeaf</span><span class="p">;</span>
+<span class="p">};</span></code></pre>
+</figure>
+
+<p>The boolean variable <code class="language-plaintext highlighter-rouge">isLeaf</code> is to indicate the end (leaf node) of the string in the Trie. And when we start populating a new Trie, we need to allocate a new structure, something like the following <code class="language-plaintext highlighter-rouge">newTrieNode()</code>. We set the <code class="language-plaintext highlighter-rouge">isLeaf</code> to <code class="language-plaintext highlighter-rouge">false</code> as we need to set this to <code class="language-plaintext highlighter-rouge">true</code> only for leaf nodes.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">Trie</span><span class="o">*</span> <span class="nf">newTrieNode</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Trie</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Trie</span><span class="p">;</span>
+  <span class="n">node</span><span class="o">-&gt;</span><span class="n">isLeaf</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">node</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We can also write a small function to check if a node has any children (by checking the value of <code class="language-plaintext highlighter-rouge">isLeaf</code>).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">hasChildren</span><span class="p">(</span><span class="n">Trie</span><span class="o">*</span> <span class="k">const</span> <span class="n">curr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">it</span> <span class="o">:</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="p">.</span><span class="n">second</span> <span class="o">!=</span> <span class="nb">nullptr</span><span class="p">)</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We will look at populating a Trie by inserting characters from a string into the Trie, as well as searching for a prefix in a future post.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
