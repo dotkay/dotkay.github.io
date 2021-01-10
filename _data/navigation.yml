@@ -5,5 +5,3 @@ main:
     url: /about/
   - title: "Posts"
     url: /archives/
-  - title: "GitHub"
-    url: https://github.com/dotkay
