@@ -104,6 +104,527 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/03/24/trie-insert-search/">Creating and searching for prefixes in a Trie &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Mar 24, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/trie/">trie</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In a <a href="https://dotkay.github.io/2018/03/21/trie-two">previous post</a> we created a Trie data structure in C++ and wrote some basic constructor and utility functions. Now, let us populate a Trie given a character string as input. Recall that Tries are efficient as they store common prefixes together.</p>
+
+<p>If we want to store strings ‘Annapaola’, ‘Annalisa’, ‘Annamaria’ and ‘Anna’, we will store the common prefix ‘Anna’ and then fork off to children nodes that would contain the remaining parts of the strings. This indicates that we need to traverse the string and keep adding nodes for the new (unseen) characters. We already have our <code class="language-plaintext highlighter-rouge">newTrieNode()</code> to create a new node for such characters. And we also need to maintain a node to indicate the end (recall we have <code class="language-plaintext highlighter-rouge">isLeaf</code> field for that purpose).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">insert</span><span class="p">(</span><span class="n">Trie</span><span class="o">*&amp;</span> <span class="n">root</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">cstr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>  
+  <span class="c1">// create a new trie node if not present</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">newTrieNode</span><span class="p">();</span>
+  <span class="c1">// iterate over cstr and populate trie</span>
+  <span class="n">Trie</span><span class="o">*</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">cstr</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// currently not in the trie, create a trie node</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="o">*</span><span class="n">cstr</span><span class="p">)</span> <span class="o">==</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+      <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">[</span><span class="o">*</span><span class="n">cstr</span><span class="p">]</span> <span class="o">=</span> <span class="n">newTrieNode</span><span class="p">();</span>
+    <span class="c1">// go to next node</span>
+    <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">[</span><span class="o">*</span><span class="n">cstr</span><span class="p">];</span>
+    <span class="n">cstr</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">curr</span><span class="o">-&gt;</span><span class="n">isLeaf</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We also convert std::string to character string (char*) and iterate over the characters of the string. We iteratively look for the character we are currently processing to check if it has an entry in our hashmap <code class="language-plaintext highlighter-rouge">lookup</code> and if does not have an entry, it is an unencountered character and we create a new Trie node. And when we finish iterating over all the nodes, we set <code class="language-plaintext highlighter-rouge">isLeaf</code> for the last node to be <code class="language-plaintext highlighter-rouge">true</code>.</p>
+
+<p>Now, search follows a similar approach. Given an input string, if we want to search for the occurence of the entire string in our Trie (not just a prefix), we traverse the Trie starting from the root checking our hashmap to look for characters in the string and check if our search ends in a node with <code class="language-plaintext highlighter-rouge">isLeaf</code> set to <code class="language-plaintext highlighter-rouge">true</code> which would indicate the end of the string. If one of the characters is not found in the hashmap, we would know that the string does not exist and if immediately return <code class="language-plaintext highlighter-rouge">false</code>. For example, if our Trie contains only <code class="language-plaintext highlighter-rouge">hello</code> and if we search for <code class="language-plaintext highlighter-rouge">hi</code>, <code class="language-plaintext highlighter-rouge">h</code> would be found in the hashmap and when we move to the next node, <code class="language-plaintext highlighter-rouge">i</code> wouldn’t be found and hence <code class="language-plaintext highlighter-rouge">curr = curr-&gt;lookup[i]</code> would return a <code class="language-plaintext highlighter-rouge">nullptr</code>.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">search</span><span class="p">(</span><span class="n">Trie</span><span class="o">*</span> <span class="n">node</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">cstr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> 
+  <span class="n">Trie</span><span class="o">*</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">cstr</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">[</span><span class="o">*</span><span class="n">cstr</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">curr</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">cstr</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">isLeaf</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We can also search for string prefixes in which case, we do not have the luxury of returning <code class="language-plaintext highlighter-rouge">isLeaf</code> as prefixes would just be a part of a path in the Tree and need not end in a leaf node.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/03/21/trie-two/">The Trie &rarr;</a>
           </h1>
 
@@ -2082,519 +2603,6 @@
 </figure>
 
 <p>We will take a look at <code class="language-plaintext highlighter-rouge">sink()</code> and <code class="language-plaintext highlighter-rouge">swim()</code> methods in a future post.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/03/09/min-heap/">Fast queries and min heap &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Mar 9, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/heap/">heap</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2018/03/06/heap">previous post</a> we came to know of this awesome data structure that could be used when we want to do fast retrieval of elements with maximum or minimum key values. In such cases, we do not need to sort the entire set of elements. In this post, we will see the implementation of Min Heap (which allows us to retrieve minimum element efficiently). Implementation of Max Heap follows a similar structure and is straight forward.</p>
-
-<p>In this particular C++ implementation we use <code class="language-plaintext highlighter-rouge">std::vector</code> as the container for the elements of the heap. We ignore index <code class="language-plaintext highlighter-rouge">0</code> and our elements are stored from index <code class="language-plaintext highlighter-rouge">1</code>. This is just to keep track of parent and children nodes easily. For any node <em>k</em>, the parent node would be at <em>k/2</em> and children nodes at indices <em>2k</em> and <em>2k + 1</em>.</p>
-
-<p>Further, we will start with the following signature that provides the client methods to insert a new key <code class="language-plaintext highlighter-rouge">insert_item()</code>, retrieve the min valued key <code class="language-plaintext highlighter-rouge">get_min()</code> and also delete the min valued key <code class="language-plaintext highlighter-rouge">delete_min()</code> from the structure.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">MinHeap</span>
-<span class="p">{</span>
-  <span class="nl">private:</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-  <span class="nl">public:</span>
-    <span class="n">MinHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">get_min</span><span class="p">();</span>
-    <span class="kt">void</span> <span class="n">insert_item</span><span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-    <span class="kt">void</span> <span class="n">delete_min</span><span class="p">();</span>
-<span class="p">};</span></code></pre>
-</figure>
-
-<p>The constructor is straight-forward. We just create a vector of capacity one more than the specified one (as we are ignoring entry at index <code class="language-plaintext highlighter-rouge">0</code>).</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="n">MinHeap</span><span class="o">::</span><span class="n">MinHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="n">heap</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-  <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>Retrieving the min valued key is also straight-forward - just get the root of the tree. That is the beauty of this data structure. The way we accomplish having the min valued key always at the root is a little involved and it is incorporated into <code class="language-plaintext highlighter-rouge">insert_item()</code> and <code class="language-plaintext highlighter-rouge">delete_min()</code> methods.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">MinHeap</span><span class="o">::</span><span class="n">get_min</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>We will see <code class="language-plaintext highlighter-rouge">insert_item()</code> and <code class="language-plaintext highlighter-rouge">delete_min()</code> methods in a future post.</p>
-
 
         </div>
         

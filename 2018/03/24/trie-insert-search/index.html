@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Creating and searching for prefixes in a Trie</title>
+  <meta name="description" content="In a previous post we created a Trie data structure in C++ and wrote some basic constructor and utility functions. Now, let us populate a Trie given a character string as input. Recall that Tries are efficient as they store common prefixes together. If we want to store strings ‘Annapaola’, ‘Annalisa’, ‘Annamaria’ and ‘Anna’, we will store the common prefix ‘Anna’ and then fork off to children nodes that would contain the remaining parts of the strings. This indicates that we need to traverse the string and keep adding nodes for the new (unseen) characters. We already have our newTrieNode() to create a new node for such characters. And we also need to maintain a node to indicate the end (recall we have isLeaf field for that purpose). void insert(Trie*&amp;amp; root, std::string str) { char* cstr = &amp;amp;str[0]; // create a new trie node if not present if (root == nullptr) root = newTrieNode(); // iterate over cstr and populate trie Trie* curr = root; while (*cstr) { // currently not in the trie, create a trie node if (curr-&amp;gt;lookup.find(*cstr) == curr-&amp;gt;lookup.end()) curr-&amp;gt;lookup[*cstr] = newTrieNode(); // go to next node curr = curr-&amp;gt;lookup[*cstr]; cstr++; } curr-&amp;gt;isLeaf = true; } We also convert std::string to character string (char*) and iterate over the characters of the string. We iteratively look for the character we are currently processing to check if it has an entry in our hashmap lookup and if does not have an entry, it is an unencountered character and we create a new Trie node. And when we finish iterating over all the nodes, we set isLeaf for the last node to be true. Now, search follows a similar approach. Given an input string, if we want to search for the occurence of the entire string in our Trie (not just a prefix), we traverse the Trie starting from the root checking our hashmap to look for characters in the string and check if our search ends in a node with isLeaf set to true which would indicate the end of the string. If one of the characters is not found in the hashmap, we would know that the string does not exist and if immediately return false. For example, if our Trie contains only hello and if we search for hi, h would be found in the hashmap and when we move to the next node, i wouldn’t be found and hence curr = curr-&amp;gt;lookup[i] would return a nullptr. bool search(Trie* node, std::string str) { char* cstr = &amp;amp;str[0]; if (node == nullptr) return false; Trie* curr = node; while (*cstr) { curr = curr-&amp;gt;lookup[*cstr]; if (curr == nullptr) return false; cstr++; } return curr-&amp;gt;isLeaf; } We can also search for string prefixes in which case, we do not have the luxury of returning isLeaf as prefixes would just be a part of a path in the Tree and need not end in a leaf node.">
+  
+    
+    <meta name="keywords" content="C++, data structures, trie">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/03/24/trie-insert-search/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Creating and searching for prefixes in a Trie">
+  <meta name="twitter:description" content="In a previous post we created a Trie data structure in C++ and wrote some basic constructor and utility functions. Now, let us populate a Trie given a character string as input. Recall that Tries a...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+        
+        <a class="page-link" href="https://github.com/dotkay">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/03/24/trie-insert-search">Creating and searching for prefixes in a Trie &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-03-24T00:00:00+00:00" itemprop="datePublished">Mar 24, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/trie/">trie</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2018/03/21/trie-two">previous post</a> we created a Trie data structure in C++ and wrote some basic constructor and utility functions. Now, let us populate a Trie given a character string as input. Recall that Tries are efficient as they store common prefixes together.</p>
+
+<p>If we want to store strings ‘Annapaola’, ‘Annalisa’, ‘Annamaria’ and ‘Anna’, we will store the common prefix ‘Anna’ and then fork off to children nodes that would contain the remaining parts of the strings. This indicates that we need to traverse the string and keep adding nodes for the new (unseen) characters. We already have our <code class="language-plaintext highlighter-rouge">newTrieNode()</code> to create a new node for such characters. And we also need to maintain a node to indicate the end (recall we have <code class="language-plaintext highlighter-rouge">isLeaf</code> field for that purpose).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">insert</span><span class="p">(</span><span class="n">Trie</span><span class="o">*&amp;</span> <span class="n">root</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">cstr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>  
+  <span class="c1">// create a new trie node if not present</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">newTrieNode</span><span class="p">();</span>
+  <span class="c1">// iterate over cstr and populate trie</span>
+  <span class="n">Trie</span><span class="o">*</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">cstr</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// currently not in the trie, create a trie node</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="o">*</span><span class="n">cstr</span><span class="p">)</span> <span class="o">==</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+      <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">[</span><span class="o">*</span><span class="n">cstr</span><span class="p">]</span> <span class="o">=</span> <span class="n">newTrieNode</span><span class="p">();</span>
+    <span class="c1">// go to next node</span>
+    <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">[</span><span class="o">*</span><span class="n">cstr</span><span class="p">];</span>
+    <span class="n">cstr</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">curr</span><span class="o">-&gt;</span><span class="n">isLeaf</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We also convert std::string to character string (char*) and iterate over the characters of the string. We iteratively look for the character we are currently processing to check if it has an entry in our hashmap <code class="language-plaintext highlighter-rouge">lookup</code> and if does not have an entry, it is an unencountered character and we create a new Trie node. And when we finish iterating over all the nodes, we set <code class="language-plaintext highlighter-rouge">isLeaf</code> for the last node to be <code class="language-plaintext highlighter-rouge">true</code>.</p>
+
+<p>Now, search follows a similar approach. Given an input string, if we want to search for the occurence of the entire string in our Trie (not just a prefix), we traverse the Trie starting from the root checking our hashmap to look for characters in the string and check if our search ends in a node with <code class="language-plaintext highlighter-rouge">isLeaf</code> set to <code class="language-plaintext highlighter-rouge">true</code> which would indicate the end of the string. If one of the characters is not found in the hashmap, we would know that the string does not exist and if immediately return <code class="language-plaintext highlighter-rouge">false</code>. For example, if our Trie contains only <code class="language-plaintext highlighter-rouge">hello</code> and if we search for <code class="language-plaintext highlighter-rouge">hi</code>, <code class="language-plaintext highlighter-rouge">h</code> would be found in the hashmap and when we move to the next node, <code class="language-plaintext highlighter-rouge">i</code> wouldn’t be found and hence <code class="language-plaintext highlighter-rouge">curr = curr-&gt;lookup[i]</code> would return a <code class="language-plaintext highlighter-rouge">nullptr</code>.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">search</span><span class="p">(</span><span class="n">Trie</span><span class="o">*</span> <span class="n">node</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">cstr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">node</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span> 
+  <span class="n">Trie</span><span class="o">*</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">node</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">cstr</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">lookup</span><span class="p">[</span><span class="o">*</span><span class="n">cstr</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">curr</span> <span class="o">==</span> <span class="nb">nullptr</span><span class="p">)</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">cstr</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">curr</span><span class="o">-&gt;</span><span class="n">isLeaf</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We can also search for string prefixes in which case, we do not have the luxury of returning <code class="language-plaintext highlighter-rouge">isLeaf</code> as prefixes would just be a part of a path in the Tree and need not end in a leaf node.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
