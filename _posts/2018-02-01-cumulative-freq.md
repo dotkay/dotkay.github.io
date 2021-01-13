@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Of bits, sets and xors...
+title: Counting Cokes ...
 categories: [algorithms, data structures, C++]
 keywords: C++, data structures, algorithms
 external-url: https://dotkay.github.io/2018/02/01/cumulative-freq
