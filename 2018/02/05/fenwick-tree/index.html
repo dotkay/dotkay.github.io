@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Counting Cokes faster ...</title>
+  <meta name="description" content="In a previous post you as a Marketing Manager was struggling to count the number of Cokes dispensed in order to compute the reward for the vendors. You made an expensive hire and made some progress, but wasn’t enough. Now, you are talking to your old academic friend over coffee and he is surpised why this is a big problem. He just exclaims that you should have used a Fenwick Tree instead. So, what is this Fenwick Tree? It is an awesome data structure that allows you to compute the sum across a range of numbers without iterating over every element in the range. Of course, the earlier solution was able to do that as well. But the beauty that Fenwick Tree adds is that you could also do point updates in O(log n) time. And you don’t need nodes and pointers - the Tree structure is captured in the array itself. It was discovered by Prof. Peter Fenwick in 1994 in an article titled A new data structure for cumulative frequency tables. How do we go about constructing one? We create an array of size one larger than the original input array (1 larger as we want to ignore the element at index 0 - we will soon see why) and copy over the elements of the input array in this new array starting from index 1. The interpretation of the tree (though the elements are stored in a linear data structure like an array) is that the indices which have LSB 1 (i.e. all odd indices) are interpreted as leaves of the tree. One level up are the elements that have the second bit set, and so on. Given an element, how do we find the parent node for it? We know that if the index corresponding to an element x has left-most bit set at position i then it’s parent should have the next bit set. For example element at index one (bit-0 set - 0001), and it’s parent is the one at index two (bit-1 set - 0010). Similarly element at index three (bit-1 set - 0011) has it’s parent at index four (bit-2 set - 0100). And element at index seven (bit-2 set - 0111) has it’s parent at index eight (bit-3 set - 1000). Given i, i + (i &amp;amp; -i) would give the parent’s index. Let’s use this to construct our Fenwick tree. _arr is the given input array and the function returns the constructed Fenwick tree (array). std::vector&amp;lt;int&amp;gt; FenwickTree::build_fwtree(std::vector&amp;lt;int&amp;gt; _arr) { int n = _arr.size(); std::vector&amp;lt;int&amp;gt; res(n+1); res.assign(n+1, 0); for (int i = 1; i &amp;lt;= n; i++) res[i] = _arr[i-1]; for (int i = 1; i &amp;lt;= n; i++) { int p = i + (i &amp;amp; -i); if (p &amp;lt; res.size()) { res[p] += res[i]; } } return res; }">
+  
+    
+    <meta name="keywords" content="C++, data structures, algorithms, Fenwick Tree">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/02/05/fenwick-tree/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Counting Cokes faster ...">
+  <meta name="twitter:description" content="In a previous post you as a Marketing Manager was struggling to count the number of Cokes dispensed in order to compute the reward for the vendors. You made an expensive hire and made some progress...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/02/05/fenwick-tree">Counting Cokes faster ... &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-02-05T00:00:00+00:00" itemprop="datePublished">Feb 5, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2018/02/01/cumulative-freq">previous post</a> you as a Marketing Manager was struggling to count the number of Cokes dispensed in order to compute the reward for the vendors. You made an expensive hire and made some progress, but wasn’t enough. Now, you are talking to your old academic friend over coffee and he is surpised why this is a big problem. He just exclaims that you should have used a <em>Fenwick Tree</em> instead.</p>
+
+<p>So, what is this <em>Fenwick Tree</em>? It is an awesome data structure that allows you to compute the sum across a range of numbers without iterating over every element in the range. Of course, the earlier solution was able to do that as well. But the beauty that <em>Fenwick Tree</em> adds is that you could also do point updates in <code class="language-plaintext highlighter-rouge">O(log n)</code> time. And you don’t need nodes and pointers - the <em>Tree</em> structure is captured in the array itself. It was discovered by Prof. Peter Fenwick in 1994 in an article titled <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380240306"><em>A new data structure for cumulative frequency tables</em></a>.</p>
+
+<p>How do we go about constructing one? We create an array of size one larger than the original input array (1 larger as we want to ignore the element at index <code class="language-plaintext highlighter-rouge">0</code> - we will soon see why) and copy over the elements of the input array in this new array starting from index <code class="language-plaintext highlighter-rouge">1</code>. The interpretation of the tree (though the elements are stored in a linear data structure like an array) is that the indices which have LSB <code class="language-plaintext highlighter-rouge">1</code> (i.e. all odd indices) are interpreted as leaves of the tree. One level up are the elements that have the second bit set, and so on. Given an element, how do we find the parent node for it? We know that if the index corresponding to an element <code class="language-plaintext highlighter-rouge">x</code> has left-most bit set at position <code class="language-plaintext highlighter-rouge">i</code> then it’s parent should have the next bit set. For example element at index one (bit-0 set - 0001), and it’s parent is the one at index two (bit-1 set - 0010). Similarly element at index three (bit-1 set - 0011) has it’s parent at index four (bit-2 set - 0100). And element at index seven (bit-2 set - 0111) has it’s parent at index eight (bit-3 set - 1000). Given <code class="language-plaintext highlighter-rouge">i</code>, <code class="language-plaintext highlighter-rouge">i + (i &amp; -i)</code> would give the parent’s index. Let’s use this to construct our Fenwick tree. <code class="language-plaintext highlighter-rouge">_arr</code> is the given input array and the function returns the constructed Fenwick tree (array).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">FenwickTree</span><span class="o">::</span><span class="n">build_fwtree</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">_arr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">_arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">res</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">_arr</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">&lt;</span> <span class="n">res</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="n">res</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">+=</span> <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
