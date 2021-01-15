@@ -14,7 +14,7 @@ How do we go about constructing one? We create an array of size one larger than 
 
 <br>
 <div class="img_container">
-<center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/ds_illustrations/fenwick_tree.PNG"></center>
+<center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/ds_illustrations/FenwickTree.PNG"></center>
 </div>
 
 Let's use this to construct our Fenwick tree. `_arr` is the given input array and the function returns the constructed Fenwick tree (array).
