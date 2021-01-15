@@ -40,8 +40,6 @@ And we can reuse the above function to find the cumulative sum between any two r
 {% highlight cpp %}
 int FenwickTree::rsq(int i, int j)
 {
-  std::cout << rsq(j) << std::endl;
-  std::cout << rsq(i) << std::endl;
   return rsq(j) - rsq(i);
 }
 {% endhighlight %}
