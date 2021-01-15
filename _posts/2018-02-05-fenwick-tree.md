@@ -32,3 +32,4 @@ std::vector<int> FenwickTree::build_fwtree(std::vector<int> _arr)
 }
 {% endhighlight %}
 
+We will see how to perform the other query operations in a future post. Stay tuned.
