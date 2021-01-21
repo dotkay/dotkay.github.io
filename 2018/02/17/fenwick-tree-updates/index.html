@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Efficient point updates in a Fenwick Tree</title>
+  <meta name="description" content="In a previous post we saw how to use Fenwick Tree data-structure to make fast range queries over a collection of elements. One of the advantages of Fenwick Tree comes in use cases where the underlying collection is dynamic - i.e., there are frequent updates of the values it contains. Recall the structure of a Fenwick Tree that we introduced earlier. If the element at index 4 gets updated (in the underlying array from which our Fenwick Tree is built, note that we are using 1-indexed arrays instead of 0-indexed arrays which we will take care of in our code), we need to update only elements at 4, 8, 16, … instead of updating everything to the right of index 4 (4 … end of the array). We follow a similar procedure as we did for our query function and look for the next parent to update (i.e. node with the next bit set). In the case of 4 (00100), it would be 01000 (8), and so on, which is accomplished by i + (i &amp;amp; -i). Let us consider an update (in this case, an addition of a value to the existing value): void FenwickTree::update(int index, int val) { int n = fwtree.size(); index += 1; // take care of 1-indexing in Fenwick Tree while (index &amp;lt; n) { fwtree[index] = add_val(fwtree[index], val); index += index &amp;amp; -index; } } add_val() could be subtract or multiply or any other function.">
+  
+    
+    <meta name="keywords" content="C++, data structures, algorithms, Fenwick Tree">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/02/17/fenwick-tree-updates/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Efficient point updates in a Fenwick Tree">
+  <meta name="twitter:description" content="In a previous post we saw how to use Fenwick Tree data-structure to make fast range queries over a collection of elements. One of the advantages of Fenwick Tree comes in use cases where the underly...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/02/17/fenwick-tree-updates">Efficient point updates in a Fenwick Tree &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-02-17T00:00:00+00:00" itemprop="datePublished">Feb 17, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2018/02/09/fenwick-tree-rsq">previous post</a> we saw how to use Fenwick Tree data-structure to make fast range queries over a collection of elements. One of the advantages of Fenwick Tree comes in use cases where the underlying collection is dynamic - i.e., there are frequent updates of the values it contains.</p>
+
+<p>Recall the structure of a Fenwick Tree that we introduced earlier.</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/ds_illustrations/FenwickTree_arr.PNG" /></center>
+</div>
+
+<p>If the element at index 4 gets updated (in the underlying array from which our Fenwick Tree is built, note that we are using 1-indexed arrays instead of 0-indexed arrays which we will take care of in our code), we need to update only elements at 4, 8, 16, … instead of updating everything to the right of index 4 (4 … end of the array). We follow a similar procedure as we did for our query function and look for the next parent to update (i.e. node with the next bit set). In the case of 4 (00100), it would be 01000 (8), and so on, which is accomplished by <code class="language-plaintext highlighter-rouge">i + (i &amp; -i)</code>. Let us consider an update (in this case, an addition of a value to the existing value):</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">FenwickTree</span><span class="o">::</span><span class="n">update</span><span class="p">(</span><span class="kt">int</span> <span class="n">index</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">fwtree</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// take care of 1-indexing in Fenwick Tree</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">index</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">fwtree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">add_val</span><span class="p">(</span><span class="n">fwtree</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">val</span><span class="p">);</span>
+    <span class="n">index</span> <span class="o">+=</span> <span class="n">index</span> <span class="o">&amp;</span> <span class="o">-</span><span class="n">index</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p><code class="language-plaintext highlighter-rouge">add_val()</code> could be subtract or multiply or any other function.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
