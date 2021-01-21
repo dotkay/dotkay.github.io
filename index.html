@@ -761,6 +761,20 @@
   <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/tsla_snp_2020.png" /></center>
 </div>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tsla_df</span> <span class="o">=</span> <span class="n">pdr</span><span class="p">.</span><span class="n">get_data_yahoo</span><span class="p">(</span><span class="s">"TSLA"</span><span class="p">,</span> 
+                              <span class="n">start</span><span class="o">=</span><span class="s">"2010-07-01"</span><span class="p">,</span> 
+                              <span class="n">end</span><span class="o">=</span><span class="s">"2020-12-20"</span><span class="p">,</span> 
+                              <span class="n">interval</span><span class="o">=</span><span class="s">"wk"</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="p">...</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">snp_df</span><span class="p">[</span><span class="s">'Date'</span><span class="p">],</span> <span class="n">snp_df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="s">'S&amp;P'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tsla_df</span><span class="p">[</span><span class="s">'Date'</span><span class="p">],</span> <span class="n">tsla_df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'TSLA'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Date'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Market Value'</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="p">...</span>                       
+</code></pre></div></div>
+
 <p>All the data was collected using pandas_datareader and the plots done using seaborn library.</p>
 
         </div>

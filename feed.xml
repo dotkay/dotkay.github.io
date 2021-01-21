@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-01-21T00:13:51+00:00</updated>
+  <updated>2021-01-21T18:20:58+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -44,6 +44,20 @@
   &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/tsla_snp_2020.png&quot; /&gt;&lt;/center&gt;
 &lt;/div&gt;
 
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;tsla_df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pdr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_data_yahoo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TSLA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                              &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;2010-07-01&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                              &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;2020-12-20&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                              &lt;span class=&quot;n&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;wk&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;snp_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Date'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;snp_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Adj Close'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'S&amp;amp;P'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tsla_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Date'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tsla_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Adj Close'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'TSLA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Date'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Market Value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;                       
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;p&gt;All the data was collected using pandas_datareader and the plots done using seaborn library.&lt;/p&gt;</content>
 
       
@@ -67,7 +81,7 @@
       
 
       
-        <summary type="html">A week ago Tesla Motors (TSLA) joined the S&amp;amp;P 500 Index - the stock market index that keeps track of the performance of 500 largest companies listed in stock markets in the US. Overall TSLA has been very volatile - many argue that the volatility (risk) indicates the opportunies for Tesla. Now that we are towards the end of the year, a pandemic year, let’s see how the S&amp;amp;P 500 performed and how Tesla performed. A KDE plot of the adjusted closing values of S&amp;amp;P 500 Index as well as Tesla stock for the year (from January 1, 2020 until December 23, 2020) looks like the following. It clearly shows the spread. And in terms of the value of TSLA stock and S&amp;amp;P 500 Index, this is how they fared during this year: All the data was collected using pandas_datareader and the plots done using seaborn library.</summary>
+        <summary type="html">A week ago Tesla Motors (TSLA) joined the S&amp;amp;P 500 Index - the stock market index that keeps track of the performance of 500 largest companies listed in stock markets in the US. Overall TSLA has been very volatile - many argue that the volatility (risk) indicates the opportunies for Tesla. Now that we are towards the end of the year, a pandemic year, let’s see how the S&amp;amp;P 500 performed and how Tesla performed. A KDE plot of the adjusted closing values of S&amp;amp;P 500 Index as well as Tesla stock for the year (from January 1, 2020 until December 23, 2020) looks like the following. It clearly shows the spread. And in terms of the value of TSLA stock and S&amp;amp;P 500 Index, this is how they fared during this year: tsla_df = pdr.get_data_yahoo(&quot;TSLA&quot;, start=&quot;2010-07-01&quot;, end=&quot;2020-12-20&quot;, interval=&quot;wk&quot;) ... ... plt.plot(snp_df['Date'], snp_df['Adj Close'],label='S&amp;amp;P') plt.plot(tsla_df['Date'], tsla_df['Adj Close'], label='TSLA') plt.xlabel('Date') plt.ylabel('Market Value') ... ... All the data was collected using pandas_datareader and the plots done using seaborn library.</summary>
       
 
       
