@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-02-28T18:24:08+00:00</updated>
+  <updated>2021-02-28T18:38:20+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -686,6 +686,74 @@ help me understand?&lt;/p&gt;</content>
   
     <entry>
       
+      <title type="html">Sharing toys again →</title>
+      
+      <link href="https://dotkay.github.io/2018/08/24/derangements_dp/" rel="alternate" type="text/html" title="Sharing toys again" />
+      <published>2018-08-24T00:00:00+00:00</published>
+      <updated>2018-08-24T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/08/24/derangements_dp</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/08/24/derangements_dp/">&lt;p&gt;In a &lt;a href=&quot;https://dotkay.github.io/2018/08/20/derangements&quot;&gt;previous post&lt;/a&gt; we saw how to compute the number if ways in which a bunch of toys can be rotated among as many number of kids without repetition. We also saw that we were computing intermediate problems over an over again, instead of remembering the computed value and reusing it (i.e. dynamic programming). Let us try it now.&lt;/p&gt;
+
+&lt;p&gt;We will first create a container to store and remember the results of intermediate computations as and when we perform them - in our case just a one dimensional array that stores how many ways we can distribute &lt;em&gt;n&lt;/em&gt; toys among &lt;em&gt;n&lt;/em&gt; kids. We can populate our container with the base cases (case of one kid and one toy and two kids and two toys).&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// base case&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Now, we iterate through the remaining number of toys, upto &lt;em&gt;n&lt;/em&gt; and do the computation by reusing computed values instead of recursively calling the function to compute.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ways_dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// base case&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+  
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;It is as simple as that.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+        <category term="dynamic programming" />
+      
+
+      
+
+      
+        <summary type="html">In a previous post we saw how to compute the number if ways in which a bunch of toys can be rotated among as many number of kids without repetition. We also saw that we were computing intermediate problems over an over again, instead of remembering the computed value and reusing it (i.e. dynamic programming). Let us try it now. We will first create a container to store and remember the results of intermediate computations as and when we perform them - in our case just a one dimensional array that stores how many ways we can distribute n toys among n kids. We can populate our container with the base cases (case of one kid and one toy and two kids and two toys). int ways[n+1]; // base case ways[1] = 0; ways[2] = 1; Now, we iterate through the remaining number of toys, upto n and do the computation by reusing computed values instead of recursively calling the function to compute. int ways_dp(int n) { int ways[n+1]; // base case ways[1] = 0; ways[2] = 1; for (int i = 3; i &amp;lt;= n; i++) ways[i] = (i-1) * (ways[i-1] + ways[i-2]); return ways[n]; } It is as simple as that.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Sharing toys happily →</title>
       
       <link href="https://dotkay.github.io/2018/08/20/derangements/" rel="alternate" type="text/html" title="Sharing toys happily" />
@@ -696,7 +764,7 @@ help me understand?&lt;/p&gt;</content>
 
 &lt;p&gt;Let’s formalize it a little more. Suppose there are &lt;em&gt;n&lt;/em&gt; kids - &lt;em&gt;k_1, k_2, …, k_n&lt;/em&gt; and so &lt;em&gt;n&lt;/em&gt; toys - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1, 2, ..., n&lt;/code&gt;. The first day is easy - you distribute toy &lt;em&gt;i&lt;/em&gt; to kid &lt;em&gt;k_i&lt;/em&gt;. From the second day, you need to make sure &lt;em&gt;k_i&lt;/em&gt; does not get &lt;em&gt;i&lt;/em&gt; again for the next &lt;em&gt;n&lt;/em&gt; days. If &lt;em&gt;k_1&lt;/em&gt; gets toy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt;, the problem is now reduced to &lt;em&gt;n-1&lt;/em&gt; kids and &lt;em&gt;n-1&lt;/em&gt; toys - i.e. one has to compute the number of ways in which you can distribute the toys &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1, 3, ..., n&lt;/code&gt; to kids &lt;em&gt;k_2, k_3, …, k_n&lt;/em&gt;. i.e. each kid gets the toy that they haven’t yet played with (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; possibilities). There can be this possibility as well: &lt;em&gt;k_1&lt;/em&gt; gets some toy &lt;em&gt;j&lt;/em&gt; and &lt;em&gt;k_j&lt;/em&gt; gets toy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; (essentially, &lt;em&gt;k_1&lt;/em&gt; and &lt;em&gt;k_j&lt;/em&gt; have swapped their toys), then our problem is now reduced to &lt;em&gt;n-2&lt;/em&gt; kids and &lt;em&gt;n-2&lt;/em&gt; toys.&lt;/p&gt;
 
-&lt;p&gt;We see that the computation of the two cases are identical - one with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; toys and the other with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-2&lt;/code&gt; toys. Another thing to note is that when &lt;em&gt;k_1&lt;/em&gt; is given toy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j&lt;/code&gt; the first day, for the second day, there are &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; possible ways to distribute &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; toys to &lt;em&gt;k_1&lt;/em&gt;, and so on. It is a recursive computation. The base case is when there are two kids and two toys (they just swap their toys the second day - so just one possible outcome), and when there are one kid and one toy (you just let the kid play with the one available toy for one day - so just one possible outcome).&lt;/p&gt;
+&lt;p&gt;We see that the computation of the two cases are identical - one with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; toys and the other with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-2&lt;/code&gt; toys. Another thing to note is that when &lt;em&gt;k_1&lt;/em&gt; is given toy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j&lt;/code&gt; the first day, for the second day, there are &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; possible ways to distribute &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; toys to &lt;em&gt;k_1&lt;/em&gt;, and so on. It is a recursive computation. The base case is when there are two kids and two toys (they just swap their toys the second day - so just one possible outcome), and when there are one kid and one toy (you just let the kid play with the one available toy for one day - so not much computation for second day and so second day has 0 possible outcomes).&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;
   &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ways_r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -730,7 +798,7 @@ help me understand?&lt;/p&gt;</content>
       
 
       
-        <summary type="html">Suppose you are incharge of a bunch of school kids and you have some expensive hi-tech toys, as many toys as the number of kids, from a sponsoring company that you are to ask the kids to share among themselves. The toys are all different and are sophisticated to different extent. You want each kid to have the toy for a day to play with. And you want to make sure no kid gets the chance to play with the toy the second time. How many possible ways can the toys be distributed? Let’s formalize it a little more. Suppose there are n kids - k_1, k_2, …, k_n and so n toys - 1, 2, ..., n. The first day is easy - you distribute toy i to kid k_i. From the second day, you need to make sure k_i does not get i again for the next n days. If k_1 gets toy 2, the problem is now reduced to n-1 kids and n-1 toys - i.e. one has to compute the number of ways in which you can distribute the toys 1, 3, ..., n to kids k_2, k_3, …, k_n. i.e. each kid gets the toy that they haven’t yet played with (n-1 possibilities). There can be this possibility as well: k_1 gets some toy j and k_j gets toy 1 (essentially, k_1 and k_j have swapped their toys), then our problem is now reduced to n-2 kids and n-2 toys. We see that the computation of the two cases are identical - one with n-1 toys and the other with n-2 toys. Another thing to note is that when k_1 is given toy j the first day, for the second day, there are n-1 possible ways to distribute n-1 toys to k_1, and so on. It is a recursive computation. The base case is when there are two kids and two toys (they just swap their toys the second day - so just one possible outcome), and when there are one kid and one toy (you just let the kid play with the one available toy for one day - so just one possible outcome). int ways_r(int n) { // base case if (n == 1 || n == 2) return n-1; return (n-1) * (ways_r(n - 1) + ways_r(n - 2)); } Since we are computing the intermediate (sub-problems) over and over again, we can remember the intermediate results and make it more efficient. Let’s see how to do it in a future post.</summary>
+        <summary type="html">Suppose you are incharge of a bunch of school kids and you have some expensive hi-tech toys, as many toys as the number of kids, from a sponsoring company that you are to ask the kids to share among themselves. The toys are all different and are sophisticated to different extent. You want each kid to have the toy for a day to play with. And you want to make sure no kid gets the chance to play with the toy the second time. How many possible ways can the toys be distributed? Let’s formalize it a little more. Suppose there are n kids - k_1, k_2, …, k_n and so n toys - 1, 2, ..., n. The first day is easy - you distribute toy i to kid k_i. From the second day, you need to make sure k_i does not get i again for the next n days. If k_1 gets toy 2, the problem is now reduced to n-1 kids and n-1 toys - i.e. one has to compute the number of ways in which you can distribute the toys 1, 3, ..., n to kids k_2, k_3, …, k_n. i.e. each kid gets the toy that they haven’t yet played with (n-1 possibilities). There can be this possibility as well: k_1 gets some toy j and k_j gets toy 1 (essentially, k_1 and k_j have swapped their toys), then our problem is now reduced to n-2 kids and n-2 toys. We see that the computation of the two cases are identical - one with n-1 toys and the other with n-2 toys. Another thing to note is that when k_1 is given toy j the first day, for the second day, there are n-1 possible ways to distribute n-1 toys to k_1, and so on. It is a recursive computation. The base case is when there are two kids and two toys (they just swap their toys the second day - so just one possible outcome), and when there are one kid and one toy (you just let the kid play with the one available toy for one day - so not much computation for second day and so second day has 0 possible outcomes). int ways_r(int n) { // base case if (n == 1 || n == 2) return n-1; return (n-1) * (ways_r(n - 1) + ways_r(n - 2)); } Since we are computing the intermediate (sub-problems) over and over again, we can remember the intermediate results and make it more efficient. Let’s see how to do it in a future post.</summary>
       
 
       
@@ -1130,83 +1198,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Suppose we are given an unsorted array of integers and asked to find the pair of elements from the array that results in maximum product, how do we go about computing it? A naïve approach is to find the product of each pair and maintain the maximum product seen so far. This would be an (O(n^2)) algorithm. Let us start with this and improve on it. void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); int max_prod = INT_MIN; int max_i, max_j; for (int i = 0; i &amp;lt; n-1; i++) { for (int j = i + 1; j &amp;lt; n; j++) { if (arr[i] * arr[j] &amp;gt; max_prod) { max_prod = arr[i] * arr[j]; max_i = i; max_j = j; } } } std::cout &amp;lt;&amp;lt; arr[max_i] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[max_j] &amp;lt;&amp;lt; std::endl; } Can we do better than (O(n^2))? Clearly, yes. We know that we could sort an array efficiently in (O(n log n)). We could sort the array and the maximum product would be either the product of the largest two elements or smallest two elements (if they are both negative). void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); std::sort(arr.begin(), arr.end()); if (arr[0] * arr[1] &amp;gt; arr[n-1] * arr[n-2]) std::cout &amp;lt;&amp;lt; arr[0] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[1] &amp;lt;&amp;lt; std::endl; else std::cout &amp;lt;&amp;lt; arr[n-1] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[n-2] &amp;lt;&amp;lt; std::endl; } Now, can we do better than (O(n log n))?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Python, immutable objects and memory management, again →</title>
-      
-      <link href="https://dotkay.github.io/2018/06/24/python-tuple-mem-mgmt/" rel="alternate" type="text/html" title="Python, immutable objects and memory management, again" />
-      <published>2018-06-24T00:00:00+00:00</published>
-      <updated>2018-06-24T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/06/24/python-tuple-mem-mgmt</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/06/24/python-tuple-mem-mgmt/">&lt;p&gt;In an &lt;a href=&quot;https://dotkay.github.io/2018/06/18/python-tuple-mem-mgmt/&quot;&gt;earlier post&lt;/a&gt;, we saw how immutable objects like tuples are handled by Python’s memory management. It was straight-forward - tuples are immutable and so, when we try to update the tuple object, Python creates a new reference. Or does it? Always?&lt;/p&gt;
-
-&lt;p&gt;Let us consider the following tuple, this time a &lt;em&gt;tuple of lists&lt;/em&gt;. Recall that lists in Python are mutable objects.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by t: {0}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And our output:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;([1, 2], [4, 5])
-memory referenced by t: 0x2103c874a48
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We see that the memory referenced by the object &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt; which in our case is a tuple is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0x2103c874a48&lt;/code&gt;. And we know that tuples are immutable objects in Python. So, let’s try to change the above tuple object &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt;. This time we are going to do that by updating the individual elements &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b&lt;/code&gt; that constitute our tuple object.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'memory referenced by t: {0}'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mem_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And we get the following printed:&lt;/p&gt;
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;([1, 2, 3], [4, 5, 6])
-memory referenced by t: 0x2103c874a48
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;p&gt;&lt;img src=&quot;/assets/images/py/tup_mem_mgmt_2.png&quot; alt=&quot;Python Memory Management&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;p&gt;And what just happened here? Our immutable object &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt; got updated without a new reference being created. So, it is not just the object itself that matters, the type of the constituent objects also plays a role in memory management. Hope this is enough motivation to play around with different mutable and immutable objects and how Python’s memory management handles them.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="immutable" />
-      
-        <category term="tuples" />
-      
-        <category term="memory management" />
-      
-        <category term="Python" />
-      
-
-      
-
-      
-        <summary type="html">In an earlier post, we saw how immutable objects like tuples are handled by Python’s memory management. It was straight-forward - tuples are immutable and so, when we try to update the tuple object, Python creates a new reference. Or does it? Always? Let us consider the following tuple, this time a tuple of lists. Recall that lists in Python are mutable objects. def mem_addr(item): return hex(id(item)) a = [1, 2] b = [4, 5] t = (a, b) print(t) print('memory referenced by t: {0}'.format(mem_addr(t))) And our output: ([1, 2], [4, 5]) memory referenced by t: 0x2103c874a48 We see that the memory referenced by the object t which in our case is a tuple is 0x2103c874a48. And we know that tuples are immutable objects in Python. So, let’s try to change the above tuple object t. This time we are going to do that by updating the individual elements a and b that constitute our tuple object. a.append(3) b.append(6) print(t) print('memory referenced by t: {0}'.format(mem_addr(t))) And we get the following printed: ([1, 2, 3], [4, 5, 6]) memory referenced by t: 0x2103c874a48 And what just happened here? Our immutable object t got updated without a new reference being created. So, it is not just the object itself that matters, the type of the constituent objects also plays a role in memory management. Hope this is enough motivation to play around with different mutable and immutable objects and how Python’s memory management handles them.</summary>
       
 
       
