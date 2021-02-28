@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Counting cokes faster for a different reward ...</title>
+  <meta name="description" content="In our previous post we were wondering if we can count maximum number of coke cans dispensed from among a range faster than linear traversal of the array. We go back to our academic friend who taught us about Fenwick Tree for advice. Our academic friend thinks this is a very easy problem. While Fenwick tree is a wonderful data structure, it can only compute reversible operations. He says there is a similar data structure called Segment Tree that can be used for any binary associative operation, besides cumulative operations as in Fenwick tree. He did not mention about Segment tree earlier as it occupies more space than a Fenwick tree. So, what is this Segment tree? It is again a tree data structure, but we will work only with a linear array (just the interpretation is a tree). To construct a segment tree, we create an array twice the size of our original array. We then compute the max value of each pair of elements and store it in the location corresponding to the parent of the pair of elements. We already know that for any node n, the child nodes could be stored at 2n and 2n+1. So, in our array that is double the size of original array, all the elements towards the second half of the array would be the same as the original array (the child nodes) and they form the lowest layer of our tree interpretation (the leaf nodes). The pair-wise max form the next layer of nodes and so on until we converge on one root node that stores the max value in the array (the entire range). The following figure illustrates this: With this interpretation in mind, the construction of a segment tree is straight forward and it just involves tracking array indices to populate pair-wise max values. STree::STree(std::vector&amp;lt;int&amp;gt; _arr) { n = _arr.size(); st.assign(2*n, 0); for (int i = n; i &amp;lt; 2*n; i++) st[i] = _arr[i - n]; for (int i = n-1; i &amp;gt; 0; i--) st[i] = std::max(st[2*i], st[2*i+1]); } Now, finding the max in a range would just involve looking at a few nodes rather than traversing all the elements in the range. For example, if we want to find the max value in the range 1 to 5, we just need to look at the values at the nodes labelled 1:4and 5and compute the max among these two values, instead of looking at 5 values. int STree::rmq(int i, int j) { i += n; j += n; int max = INT_MIN; while (i &amp;lt; j) { if ((i &amp;amp; 1) == 1) { max = std::max(max, st[i]); i++; } if ((j &amp;amp; 1 == 1)) { j--; max = std::max(max, st[j]); } i /= 2; j /= 2; } return max; } But from past experience we also know that the values would need to be updated quite often. Can we also perform point updates as we did in our Fenwick tree - after all, this is another tree structure and we should be able to traverse it to make updates. We will see that in a future post.">
+  
+    
+    <meta name="keywords" content="C++, data structures, algorithms, segment tree">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/09/12/segment-tree/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Counting cokes faster for a different reward ...">
+  <meta name="twitter:description" content="In our previous post we were wondering if we can count maximum number of coke cans dispensed from among a range faster than linear traversal of the array. We go back to our academic friend who taug...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/09/12/segment-tree">Counting cokes faster for a different reward ... &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-09-12T00:00:00+00:00" itemprop="datePublished">Sep 12, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/segment-tree/">segment tree</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In our <a href="https://dotkay.github.io/2018/09/02/range-max-queries">previous post</a> we were wondering if we can count maximum number of coke cans dispensed from among a range faster than linear traversal of the array. We go back to <a href="https://dotkay.github.io/2018/02/05/fenwick-tree">our academic friend who taught us about <em>Fenwick Tree</em></a> for advice.</p>
+
+<p>Our academic friend thinks this is a very easy problem. While Fenwick tree is a wonderful data structure, it can only compute reversible operations. He says there is a similar data structure called <em>Segment Tree</em> that can be used for any binary associative operation, besides cumulative operations as in Fenwick tree. He did not mention about Segment tree earlier as it occupies more space than a Fenwick tree. So, what is this <em>Segment tree</em>?</p>
+
+<p>It is again a tree data structure, but we will work only with a linear array (just the interpretation is a tree). To construct a segment tree, we create an array twice the size of our original array. We then compute the max value of each pair of elements and store it in the location corresponding to the parent of the pair of elements. We already know that for any node <em>n</em>, the child nodes could be stored at <em>2n</em> and <em>2n+1</em>. So, in our array that is double the size of original array, all the elements towards the second half of the array would be the same as the original array (the child nodes) and they form the lowest layer of our tree interpretation (the leaf nodes). The pair-wise max form the next layer of nodes and so on until we converge on one root node that stores the max value in the array (the entire range). The following figure illustrates this:</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/ds_illustrations/segment_tree.PNG" /></center>
+</div>
+
+<p>With this interpretation in mind, the construction of a segment tree is straight forward and it just involves tracking array indices to populate pair-wise max values.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">STree</span><span class="o">::</span><span class="n">STree</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">_arr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="n">_arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="n">st</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">st</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">_arr</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">n</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span>
+    <span class="n">st</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">st</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">],</span> <span class="n">st</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Now, finding the max in a range would just involve looking at a few nodes rather than traversing all the elements in the range. For example, if we want to find the max value in the range 1 to 5, we just need to look at the values at the nodes labelled <code class="language-plaintext highlighter-rouge">1:4</code>and <code class="language-plaintext highlighter-rouge">5</code>and compute the max among these two values, instead of looking at 5 values.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">STree</span><span class="o">::</span><span class="n">rmq</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">i</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
+  <span class="n">j</span> <span class="o">+=</span> <span class="n">n</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">max</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">max</span><span class="p">,</span> <span class="n">st</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+      <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">j</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">{</span>
+      <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+      <span class="n">max</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">max</span><span class="p">,</span> <span class="n">st</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+    <span class="p">}</span>
+    <span class="n">i</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="n">j</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">max</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>But from past experience we also know that the values would need to be updated quite often. Can we also perform point updates as we did in our Fenwick tree - after all, this is another tree structure and we should be able to traverse it to make updates. We will see that in a future post.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

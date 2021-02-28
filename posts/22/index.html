@@ -101,10 +101,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/08/30/some-more-tail-recursion/">Some more tail recursion... &rarr;</a>
+            <a class="post-link" href="/2017/09/03/counting-rotations/">Counting the number of rotations of a sorted array &rarr;</a>
           </h1>
 
-          <p class="post-meta">Aug 30, 2017 • 
+          <p class="post-meta">Sep 3, 2017 • 
   
   
     
@@ -115,6 +115,1179 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s look at another simple, interesting problem:</p>
+
+<p><em>Given a sorted array, with no duplicates, that has been rotated (also called circularly sorted array), find out the number of times it has been rotated</em></p>
+
+<p>For example, <code class="language-plaintext highlighter-rouge">[2 3 5 8 11 12]</code> is a sorted list of numbers and if we rotate it twice, we end up in <code class="language-plaintext highlighter-rouge">[11 12 2 3 5 8]</code>. We are required to find the number of times it has been sorted, looking at this list. The straight forward way is to look for the minimum element of the array and the index of the mimimum element gives us the number of times it has been rotated. In this case <code class="language-plaintext highlighter-rouge">2</code> is the minimum element and the index of the mimumum element is <code class="language-plaintext highlighter-rouge">2</code> (indices start at <code class="language-plaintext highlighter-rouge">0</code> in most of the languages we use here). The time complexity would be O(n) as we need to traverse the array looking for the mimimum element.</p>
+
+<p>Can we do better? Can we use a nice property of circularly sorted arrays (lists)?</p>
+
+<blockquote>
+  <p>For the element we are looking for, call it the pivot element, both the left and right neighbours are greater than the pivot element. This is the only element in a circularly sorted array with this property.</p>
+</blockquote>
+
+<p>So, our goal is to find the pivot element. We already know that the array has been sorted - so we can use binary search to look for the pivot element. We compute the middle element of the array, call it <code class="language-plaintext highlighter-rouge">mid</code> and search in the left and right halves of the middle element. Let’s call the lower index <code class="language-plaintext highlighter-rouge">low</code> and higher index <code class="language-plaintext highlighter-rouge">high</code> for the purposes of computation. So, we compute the middle element as <code class="language-plaintext highlighter-rouge">mid = (high - low) / 2</code>. The neighbours of this middle element, called <code class="language-plaintext highlighter-rouge">prev</code> and <code class="language-plaintext highlighter-rouge">next</code> are computed as <code class="language-plaintext highlighter-rouge">prev = (mid + 1) % n</code> where <code class="language-plaintext highlighter-rouge">n</code> is the size of the array (since it is circularly sorted we need to wrap around and hence we do this <code class="language-plaintext highlighter-rouge">modulo n</code> operation) and <code class="language-plaintext highlighter-rouge">next = (mid + n -1) % n</code>. Now, if <code class="language-plaintext highlighter-rouge">mid</code> turns out to be our pivot element, i.e. we check for pivot property, we are done - we just return <code class="language-plaintext highlighter-rouge">mid</code> as the result. Otherwise, we keep moving <code class="language-plaintext highlighter-rouge">low</code> and <code class="language-plaintext highlighter-rouge">high</code> to decide which half of the array we want to search for the pivot element. Recollect that we know the array is (circularly) sorted and this makes our job easier. For example, if the element at <code class="language-plaintext highlighter-rouge">mid</code> is less than the one at <code class="language-plaintext highlighter-rouge">high</code> we can deduce that the right half of the array is sorted, and so we adjust <code class="language-plaintext highlighter-rouge">high</code> to be <code class="language-plaintext highlighter-rouge">mid - 1</code> (i.e. make left half our focus of pivot element search).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">rotation_count</span><span class="p">(</span><span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">high</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">low</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">next</span><span class="p">,</span> <span class="n">prev</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">low</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">high</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">low</span><span class="p">;</span>
+    <span class="n">next</span> <span class="o">=</span> <span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+    <span class="n">prev</span> <span class="o">=</span> <span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+    <span class="c1">// check pivot element property!</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">next</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">prev</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">high</span><span class="p">])</span>
+        <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">A</span><span class="p">[</span><span class="n">low</span><span class="p">])</span>
+        <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Isn’t it interesting? That’s all for now!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/09/02/max-pairwise-product/">Maximum pairwise product &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 2, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s take a quick look at a simple problem:</p>
+
+<p><em>Given a list of numbers, how would you determine the maximum pairwise product of numbers in the list?</em></p>
+
+<p>For example, if we have the list <code class="language-plaintext highlighter-rouge">[1; 3; 5; -2]</code> the maximum pairwise product is <code class="language-plaintext highlighter-rouge">15</code>, which is the product of <code class="language-plaintext highlighter-rouge">3</code> and <code class="language-plaintext highlighter-rouge">5</code>.</p>
+
+<p>The straigt-forward approach is to compute all possible pairwise products and identify the maximum among the intermediate results:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">MaxPairwiseProduct</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">long</span> <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// result to hold the max pairwise product</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="kt">long</span> <span class="kt">long</span> <span class="n">product</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	  <span class="n">product</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> 
+	  <span class="k">if</span> <span class="p">(</span><span class="n">product</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">)</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">product</span><span class="p">;</span>
+	  <span class="p">}</span>
+	<span class="p">}</span>
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Since we have two loops that iterate over the list of numbers, the time complexity is O(n<sup>2</sup>).</p>
+
+<p>Can we do better? Yes, we can. The idea is to find the maximum and the second maximum elements in the list - and their product would be the maximum pairwise product.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">MaxPairwiseProductFast</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="kt">long</span> <span class="kt">long</span> <span class="n">product</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">// find the max element in the collection 'numbers'</span>
+  <span class="kt">int</span> <span class="n">max_index1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">max_index1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_index1</span><span class="p">))</span> <span class="p">{</span>
+	  <span class="n">max_index1</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// largest number in the list</span>
+	  <span class="p">}</span>
+  <span class="p">}</span>
+	
+  <span class="kt">int</span> <span class="n">max_index2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index1</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="n">max_index2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span>
+	  <span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_index2</span><span class="p">)))</span> <span class="p">{</span>
+	    <span class="n">max_index2</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span> <span class="c1">// second largest number in the list</span>
+	  <span class="p">}</span>
+  <span class="p">}</span>
+	
+  <span class="n">product</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index1</span><span class="p">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index2</span><span class="p">];</span>
+  <span class="k">return</span> <span class="p">((</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span> <span class="n">product</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Simple and sweet!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/09/01/pack-repetitions-into-sublists/">Packing consecutive repetitions in a list into sublists &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 1, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In one of our [earlier posts] we saw how to eliminate consecutive repetitions in a list. Let’s refresh our memory and take a look at the <code class="language-plaintext highlighter-rouge">compress</code> function we saw earlier:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="n">x1</span> <span class="o">::</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">compress</span> <span class="n">t</span>
+     <span class="k">else</span> <span class="n">x1</span> <span class="o">::</span> <span class="n">compress</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="n">smth_else</span> <span class="o">-&gt;</span> <span class="n">smth_else</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>This is a straight forward recursive function. Let’s first rewrite it using auxiliary function.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">compress</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">l</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x</span><span class="o">::</span><span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="n">acc</span> <span class="n">t</span>
+       <span class="k">else</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
+  <span class="k">in</span>
+  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>I think it is pretty straight forward - if we see repetition <code class="language-plaintext highlighter-rouge">(x1 = x2)</code> we ignore the element and call the auxiliary function on the remaining part of the list. (Note that we do not eliminate <code class="language-plaintext highlighter-rouge">x2</code> as we want to retain a copy of each repeating element).</p>
+
+<p>Today, we shall not eliminate, but collect the consecutive repeating elements into sublists. For example, if we have the list <code class="language-plaintext highlighter-rouge">[1;1;1;2;2;3;4;5;5;6;1]</code> we want to make it into this list <code class="language-plaintext highlighter-rouge">[[1; 1; 1];[2; 2];[3];[4];[5; 5];[6];[1]]</code></p>
+
+<p>We will again use recursive calls to auxiliary function, very creatively called <code class="language-plaintext highlighter-rouge">aux</code>. Apart from keeping track of repetitions, we also need to collect them into sublists. So, in this case, as we traverse the input list and process element by element, we will collect the repeating ones in a sublist and collect the ones that are not consecutive repetitions in another (as this will also be a part of our final result). We know that we usually return the accumulator as the result - so in this case, we may want to maintain two accumulators - one <code class="language-plaintext highlighter-rouge">cur</code> to collect the consecutive repeating elements, and another <code class="language-plaintext highlighter-rouge">acc</code> to collect the remaining.</p>
+
+<ul>
+  <li>When we encounter repetitions, we will push the repeating entries into <code class="language-plaintext highlighter-rouge">cur</code> sublist</li>
+  <li>When there are no repetitions, we will keep merging <code class="language-plaintext highlighter-rouge">cur</code> with <code class="language-plaintext highlighter-rouge">acc</code> and eventually return <code class="language-plaintext highlighter-rouge">acc</code> as the result.</li>
+</ul>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">pack</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">cur</span> <span class="n">acc</span> <span class="n">l</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">x</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span><span class="o">::</span><span class="n">acc</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span> <span class="k">as</span> <span class="n">t</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="k">if</span> <span class="p">(</span><span class="n">x1</span> <span class="o">=</span> <span class="n">x2</span><span class="p">)</span> <span class="k">then</span> <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span> <span class="n">acc</span> <span class="n">t</span>
+       <span class="k">else</span> <span class="n">aux</span> <span class="bp">[]</span> <span class="p">((</span><span class="n">x1</span><span class="o">::</span><span class="n">cur</span><span class="p">)</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span> <span class="n">t</span>
+  <span class="k">in</span>
+  <span class="nn">List</span><span class="p">.</span><span class="n">rev</span><span class="p">(</span><span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>In both the <code class="language-plaintext highlighter-rouge">compress</code> and <code class="language-plaintext highlighter-rouge">pack</code> functions that use auxiliary function, we reverse the result using OCaml <code class="language-plaintext highlighter-rouge">List</code> module’s  built-in <code class="language-plaintext highlighter-rouge">rev</code> function.</p>
+
+<p>Food for thought - why is the result getting reversed? If you work out a small example, it would become apparent.</p>
+
+<p>That’s all for today. Enjoy your weekend!</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/08/31/recursions-and-merge-sort/">Recursions and merge sort &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 31, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -422,6 +1595,8 @@
   
     
   
+    
+  
 
   
   
@@ -429,6 +1604,564 @@
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>By now, we are all pretty comfortable with recursive functions, using auxiliary functions, etc. Let’s now put these skills to write merge sort algorithm in a recursive fashion. We need the following three ingredients to prepare our recipe</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">split</code> function that would take a list and split it into two lists</li>
+  <li><code class="language-plaintext highlighter-rouge">merge</code> function that would merge a pair of sorted lists</li>
+  <li><code class="language-plaintext highlighter-rouge">merge_sort</code> function that would use the above two to build the sorted list recursively.</li>
+</ul>
+
+<p>Let’s prepare the above one by one. First, the <code class="language-plaintext highlighter-rouge">split</code> function that takes a list <code class="language-plaintext highlighter-rouge">lst</code> as input and splits them and returns a pair of lists as output. The moment we see that we need to return two lists (a pair of lists) as output, intuitively we can imagine that we would need two accumulators, let’s call it <code class="language-plaintext highlighter-rouge">a1</code> and <code class="language-plaintext highlighter-rouge">a2</code>. Next, we will think about the possible cases (patterns).</p>
+
+<ol>
+  <li>The base case is going to be empty list as input in which case our result would be two empty lists (the two accumulators we use).</li>
+  <li>If we pass a list that has a single element, one of the lists we return would contain this single element and the other would be an empty list (remember, we need to return two lists as result).</li>
+  <li>If there are multiple elements, like any reasonable list, we would pick the first element and push it into the first accumulator, the second element into the second accumulator and then recursively call the auxiliary function on the rest of the list.</li>
+</ol>
+
+<p>So, this is what it looks like - you can match the three items above to the three patterns in the code fragment below - pretty straight forward.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">split</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux</span> <span class="n">a1</span> <span class="n">a2</span> <span class="n">l</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">l</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
+    <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">a1</span><span class="o">,</span> <span class="n">a2</span>
+    <span class="o">|</span> <span class="n">x1</span><span class="o">::</span><span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">x3</span><span class="p">)</span> <span class="o">-&gt;</span>
+       <span class="n">aux</span> <span class="p">(</span><span class="n">x1</span><span class="o">::</span><span class="n">a1</span><span class="p">)</span> <span class="p">(</span><span class="n">x2</span><span class="o">::</span><span class="n">a2</span><span class="p">)</span> <span class="n">x3</span>
+  <span class="k">in</span>
+  <span class="n">aux</span> <span class="bp">[]</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Now, let’s prepare the second item in our list - the <code class="language-plaintext highlighter-rouge">merge</code> function. This is just pattern matching and even simpler than our <code class="language-plaintext highlighter-rouge">split</code> function.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge</span> <span class="p">(</span><span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span><span class="p">)</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst1</span><span class="o">,</span> <span class="n">lst2</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span><span class="o">,</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="n">l</span><span class="o">,</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">l</span>
+  <span class="o">|</span> <span class="p">(</span><span class="n">h1</span><span class="o">::</span><span class="n">t1</span> <span class="k">as</span> <span class="n">l1</span><span class="p">)</span><span class="o">,</span> <span class="p">(</span><span class="n">h2</span><span class="o">::</span><span class="n">t2</span> <span class="k">as</span> <span class="n">l2</span><span class="p">)</span> <span class="o">-&gt;</span>
+     <span class="k">if</span> <span class="p">(</span><span class="n">h1</span> <span class="o">&lt;</span> <span class="n">h2</span><span class="p">)</span> <span class="k">then</span> <span class="n">h1</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">t1</span><span class="o">,</span> <span class="n">l2</span><span class="p">)</span>
+     <span class="k">else</span> <span class="n">h2</span> <span class="o">::</span> <span class="n">merge</span> <span class="p">(</span><span class="n">l1</span><span class="o">,</span> <span class="n">t2</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>Finally, let’s prepare the merge_sort function that takes a list <code class="language-plaintext highlighter-rouge">lst</code> as input. First we would split the input list into two lists using our <code class="language-plaintext highlighter-rouge">split</code> function. Then, we would recursively call <code class="language-plaintext highlighter-rouge">merge_sort</code> on the two sub-lists (result of <code class="language-plaintext highlighter-rouge">split</code> function) and merge the results of these recursive calls using our <code class="language-plaintext highlighter-rouge">merge</code> function. Again, the base case is the empty list and another possibility is an input list with a single element - both are straight forward.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">merge_sort</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="bp">[]</span>
+  <span class="o">|</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+  <span class="o">|</span> <span class="n">l</span> <span class="o">-&gt;</span> <span class="k">let</span> <span class="n">l1</span><span class="o">,</span> <span class="n">l2</span> <span class="o">=</span> <span class="n">split</span> <span class="n">l</span> <span class="k">in</span>
+         <span class="n">merge</span> <span class="p">(</span><span class="n">merge_sort</span> <span class="n">l1</span><span class="o">,</span> <span class="n">merge_sort</span> <span class="n">l2</span><span class="p">);;</span></code></pre>
+</figure>
+
+<p>That was a very intuitive way to write a merge sort algorithm. Hope you all agree with me!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/08/30/some-more-tail-recursion/">Some more tail recursion... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 30, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
     
   
     
@@ -618,1628 +2351,6 @@
 </figure>
 
 <p>Food for thought - is it possible to write a tail-recursive version of <code class="language-plaintext highlighter-rouge">insert</code> function that we used above? If yes, why don’t we try it. If no, why not?</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/29/auxiliary-functions-tail-recursion-and-reversing-a-list/">Tail recursions and reversing a list &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 29, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>So, how about reversing a list using our <code class="language-plaintext highlighter-rouge">leftee</code> function from our <a href="https://dotkay.github.io/2017/08/28/more-about-auxiliary-functions-and-recursions">previous post</a>?</p>
-
-<p>Let’s work it out now. Here’s the original tail recursive function for your reference:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
-    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
-    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_rev</span> <span class="n">t</span> <span class="p">(</span><span class="n">h</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_lst_rev</span> <span class="n">lst</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>All you need to observe is how the accumulator <code class="language-plaintext highlighter-rouge">acc</code> changes - here we take a list element we are currently processing and stick it before (at the head) of the current accumulator <code class="language-plaintext highlighter-rouge">acc</code>.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_rev</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">a</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">::</span><span class="n">a</span><span class="p">)</span> <span class="bp">[]</span> <span class="n">lst</span><span class="p">;;</span> </code></pre>
-</figure>
-
-<p>In most functional programming languages our <code class="language-plaintext highlighter-rouge">leftee</code> is actually called <code class="language-plaintext highlighter-rouge">fold_left</code> and is tail recursive. There’s also a <code class="language-plaintext highlighter-rouge">fold_right</code> which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/28/more-about-auxiliary-functions-and-recursions/">More about auxiliary functions and recursions &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 28, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/">earlier posts</a>, tail recursions were introduced using two very simple functions <code class="language-plaintext highlighter-rouge">tr_lst_sum</code> and <code class="language-plaintext highlighter-rouge">tr_lst_rev</code>. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let’s get started!</p>
-
-<p>Here’s the tail recursive version of <code class="language-plaintext highlighter-rouge">lst_sum</code> to sum an input list <code class="language-plaintext highlighter-rouge">lst</code> of elements.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
-    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
-    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_sum</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>And here’s the tail recursive version of <code class="language-plaintext highlighter-rouge">lst_len</code> to compute the length of an input list <code class="language-plaintext highlighter-rouge">lst</code> of elements.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
-    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
-    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_len</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Let’s carefully observe the above two functions and try to understand the pattern - the recipe for such a computation. In both the functions,</p>
-
-<ol>
-  <li>We have an initial accumulator (in this case the value is <code class="language-plaintext highlighter-rouge">0</code> but it could be anything in general)</li>
-  <li>We traverse the list, apply the auxiliary function to the initial value of the accumulator and a list element and compute a new value for the accumulator.
-2.1. We do the above step to each element of the list (by calling the auxiliary function recursively/repeatedly on each element) and compute new values for the accumulator on the way</li>
-  <li>When we are done with the entire list, we return the accumulator contents as the result</li>
-</ol>
-
-<p>Now, if we just denote the auxiliary function by <code class="language-plaintext highlighter-rouge">faux</code>, it has a general shape - <code class="language-plaintext highlighter-rouge">faux acc lst</code> - we do traverse the list <code class="language-plaintext highlighter-rouge">lst</code>, but this is the general shape that we observe - call <code class="language-plaintext highlighter-rouge">faux</code> on the initial value of the accumulator <code class="language-plaintext highlighter-rouge">acc</code> and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are <code class="language-plaintext highlighter-rouge">(acc + h)</code> and <code class="language-plaintext highlighter-rouge">(acc + 1)</code>. Now, let’s try to wrap this all into a single function, which we would call a <code class="language-plaintext highlighter-rouge">leftee</code> - which would take three parameters - an accumulator <code class="language-plaintext highlighter-rouge">acc</code>, a function <code class="language-plaintext highlighter-rouge">f</code> to apply (to the accumulator and list element), and of course a list <code class="language-plaintext highlighter-rouge">lst</code> to work on and will look like <code class="language-plaintext highlighter-rouge">leftee f acc lst</code>. We call it <code class="language-plaintext highlighter-rouge">leftee</code> for a reason… (I think readers are already getting a hint as to where this is headed. Good!).</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">leftee</span> <span class="n">f</span> <span class="n">acc</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
-  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">leftee</span> <span class="n">f</span> <span class="p">(</span><span class="n">f</span> <span class="n">acc</span> <span class="n">h</span><span class="p">)</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* ('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b list -&gt; 'a = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<p>As we see above the new value of the accumulator is the function applied to the current value of the accumulator <code class="language-plaintext highlighter-rouge">acc</code> and a list element <code class="language-plaintext highlighter-rouge">h</code>.</p>
-
-<p>Now, let’s rewrite <code class="language-plaintext highlighter-rouge">tr_lst_sum</code> and <code class="language-plaintext highlighter-rouge">tr_lst_len</code> using our <code class="language-plaintext highlighter-rouge">leftee</code>:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span> <span class="o">+</span> <span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Here <code class="language-plaintext highlighter-rouge">( + )</code> is the function - just the addition operator. Isn’t it super concise? Aren’t you in love with this already?</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Food for thought - how would you use <code class="language-plaintext highlighter-rouge">leftee</code> to reverse an input list?</p>
-
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/27/interesting-podcast-on-work/">An interesting podcast on work &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 27, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/work/">work</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/npr/">NPR</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/ted/">TED</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Lately, I have been thinking a lot about my work - my daily job. Most of us have one, where we slog every day, working late into the night or all night. We may have complaints, dissatisfactions, pleasant and unpleasant experiences, awesome career growths or non-existence of such a thing, lots of learning or nothing at all, great colleagues, teams, workplace issues, and the list goes on. I listened to an interesting podcast on “Meaning of work” from <a href="http://www.npr.org/programs/ted-radio-hour/">TED Radio Hour</a> several months ago and listened to it once again over this weekend.</p>
-
-<audio controls="">
-<source src="https://play.podtrac.com/npr-510298/npr.mc.tritondigital.com/NPR_510298/media/anon.npr-mp3/npr/ted/2015/10/20151002_ted_tedpod.mp3" />
-</audio>
-<p><br />
-Whatever your situation is, this is a great podcast to listen to. And if you’re a manager, there are important lessons for you too, if you are someone willing to listen and learn.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/26/more-examples-using-aux-functions/">More examples using auxiliary functions &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 26, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s look at a couple of more examples in order to get us thinking towards using auxiliary functions and accumulators while writing recursive functions. This would help us write tail-recursive functions which are safer and always a good practice. Note that some of the language compilers do not optimize tail recursions and so be aware of this fact in order not to be surprised when you do not see performance improvements while using tail recursive functions.</p>
-
-<p>Let’s write the standard explode function <code class="language-plaintext highlighter-rouge">explode</code> that explodes a string into a list of characters. i.e., if you pass the string <code class="language-plaintext highlighter-rouge">"hello"</code>, it would explode it and return the list <code class="language-plaintext highlighter-rouge">['h'; 'e'; 'l'; 'l'; 'o']</code>.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">explode</span> <span class="n">s</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_expl</span> <span class="n">n</span> <span class="n">acc</span> <span class="o">=</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="n">acc</span>
-    <span class="k">else</span> <span class="n">aux_expl</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">::</span><span class="n">acc</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_expl</span> <span class="p">(</span><span class="nn">String</span><span class="p">.</span><span class="n">length</span> <span class="n">s</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="bp">[]</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Let’s write another function <code class="language-plaintext highlighter-rouge">prime_factors</code> that would return all the prime factors of an input number <code class="language-plaintext highlighter-rouge">n</code>. Again, we shall use an auxiliary function to do the intermediate computations.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">prime_factors</span> <span class="n">n</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_factors</span> <span class="n">d</span> <span class="n">n</span> <span class="o">=</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">then</span> <span class="bp">[]</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="ow">mod</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">then</span> <span class="n">d</span><span class="o">::</span><span class="p">(</span><span class="n">aux_factors</span> <span class="n">d</span> <span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">d</span><span class="p">))</span>
-    <span class="k">else</span> <span class="n">aux_factors</span> <span class="p">(</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">n</span>
-  <span class="k">in</span>
-  <span class="n">aux_factors</span> <span class="mi">2</span> <span class="n">n</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>That’s all for today! Hope it was enjoyable.</p>
 
         </div>
         

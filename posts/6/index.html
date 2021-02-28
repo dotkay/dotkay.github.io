@@ -101,10 +101,171 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/06/06/python-lists-mem-mgmt/">Python, mutable data-types (lists) and memory management &rarr;</a>
+            <a class="post-link" href="/2018/06/18/python-tuple-mem-mgmt/">Python, immutable data-types again, and memory management &rarr;</a>
           </h1>
 
-          <p class="post-meta">Jun 6, 2018 • 
+          <p class="post-meta">Jun 18, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/immutable/">immutable</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
   
   
     
@@ -168,9 +329,11 @@
     
   
     
-      <a href="/categories/mutable/">mutable</a>,
+  
     
   
+    
+      <a href="/categories/tuples/">tuples</a>,
     
   
     
@@ -322,6 +485,8 @@
   
     
       <a href="/categories/memory-management/">memory management</a>,
+    
+  
     
   
     
@@ -581,36 +746,38 @@
   
     
   
+    
+  
 
 </p>
         </header>
 
         <div class="post-content">
-          <p>In one of our <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">previous posts</a> we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out.</p>
+          <p>In an <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">earlier post</a> we saw how Python’s memory management behaves when dealing with immutable objects. In this post, let us see another immutable object, this time a <em>tuple</em> and examine how Python deals with it.</p>
 
-<p>Let us consider a list <code class="language-plaintext highlighter-rouge">l1</code> that contains <code class="language-plaintext highlighter-rouge">[1, 2]</code> and see what memory address it references.</p>
+<p>Let us consider a tuple of integer objects <code class="language-plaintext highlighter-rouge">t = (1, 2, 3)</code>. We see that it references memory address <code class="language-plaintext highlighter-rouge">0x1dd65ac45e8</code></p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
 
-<span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<p>In my execution, it seems to reference the memory address <code class="language-plaintext highlighter-rouge">0x1d49c799e48</code>. Now, let us concatenate a list containing a single element <code class="language-plaintext highlighter-rouge">[3]</code> to <code class="language-plaintext highlighter-rouge">l1</code>. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-<span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
-<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
-</code></pre></div></div>
+<p>What happens if we try to mutate or update the tuple object above, <code class="language-plaintext highlighter-rouge">t</code>? We see that it creates a new reference to a new object (at <code class="language-plaintext highlighter-rouge">0x1dd65a514c8</code>), instead of updating the earlier object. And the earlier reference would be reclaimed by the garbage collector.</p>
 
 <p><br /></p>
 <div class="img_container">
-  <p><img src="/assets/images/py/list_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+  <p><img src="/assets/images/py/tup_mem_mgmt_1.png" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
-<p>We see that it references a new memory location (in my case <code class="language-plaintext highlighter-rouge">0x1d49c79bc08</code>) different from the earlier one. What is happening? Aren’t lists <em>mutable</em> objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by t: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>This is because <em>tuples</em> are immutable objects, more like integer objects we saw in an <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">earlier post</a>.</p>
+
+<p>So, all is clear and good, right? Wait until a future post on tuples again.</p>
 
         </div>
         
@@ -622,10 +789,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/06/05/zero-sum-subarray/">Finding the subarray leading to zero sum &rarr;</a>
+            <a class="post-link" href="/2018/06/15/all-zero-sum-subarrays/">Finding all subarrays that sum to 0 &rarr;</a>
           </h1>
 
-          <p class="post-meta">Jun 5, 2018 • 
+          <p class="post-meta">Jun 15, 2018 • 
   
   
     
@@ -656,6 +823,8 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -943,6 +1112,8 @@
   
     
   
+    
+  
 
   
   
@@ -954,6 +1125,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -1261,1450 +1434,49 @@
   
     
   
+    
+  
 
 </p>
         </header>
 
         <div class="post-content">
-          <p>Given an array of integers, how would you compute the subarray composed of consecutive array elements, that sums to 0? There are (n^2) such subarrays and traversing each of those in the worst case to compute the different sums would take (O(n)). But one could make it a little better by having a rolling sum computed as and when we are exploring the subarrays. Let us look at the naïve solution. Remember that we want subarrays formed by consecutive array elements.</p>
+          <p>In our <a href="https://dotkay.github.io/2018/06/10/zero-sum-subarray-improved">previous post</a> we saw how to check if there is a subarray (formed of consecutive array elements) that sums to zero, in linear time. We were also thinking how to go about storing all the subarrays that sum to 0, as there could be more than one. Since we returned a Boolean result as soon as we found a subarray that sums to zero, we did not manage to find the second subarray that sums to 0, if such a subarray exists. Now, we will make an attempt to do that.</p>
 
-<p>We keep a marker (i) on each array element (outer loop), and search for the subarray starting from this marker to another one (j) while checking if the sum of array elements between i and j sum to 0.</p>
+<p>Intuitively, we know that we need to traverse the array as before and keep track of the accumulated sum of array elements as we traverse. We hash these values and do a lookup of it every time we encounter a new element (and hence an updated accumulator value) as we traverse.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [initial subarray][0 sum subarray][some subarray][0 sum subarray][last subarray]
+     &lt;--------------- x ------------- y ------------ x'------------- y'-------------&gt;
+</code></pre></div></div>
+
+<p>At <code class="language-plaintext highlighter-rouge">y</code> we may find that the accumulator value already exists in our hash (as the subarray in the window between <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> sums to 0). On a lookup at <code class="language-plaintext highlighter-rouge">y</code>, we would get the index pointing to <code class="language-plaintext highlighter-rouge">x</code> and our current iterator (say <code class="language-plaintext highlighter-rouge">i</code>) would be at <code class="language-plaintext highlighter-rouge">y</code>. We can print out the values between <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">i</code> (or store it in some container), keep traversing the array until we encounter the ending index <code class="language-plaintext highlighter-rouge">y'</code> of the next subarray that sums to 0.</p>
 
 <figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">zero_sum_subarray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span>
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">all_zero_sum_subarr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_multimap</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">lookup</span><span class="p">;</span>
+  <span class="n">lookup</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+  <span class="kt">int</span> <span class="n">acc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
   <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">acc</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
     <span class="p">{</span>
-      <span class="n">sum</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">sum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+      <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">acc</span><span class="p">);</span>
+      <span class="k">while</span> <span class="p">(</span><span class="n">it</span> <span class="o">!=</span> <span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">==</span> <span class="n">acc</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="s">".."</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span> 
     <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>How can we make this algorithm better? Can we compute it in linear time?</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/06/04/subset-dup-rec/">Computing subsets in the presence of duplicates &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Jun 4, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/power-set/">power set</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In our <a href="https://dotkay.github.io/2018/06/03/subsets-rec/">previous post</a> we saw how to compute all possible subsets of a set and we assumed there are no duplicates. Here, we will remove that restriction and see what modifications need to be done to our previous algorithm in order to accomodate the relaxation. The earlier algorithm referred to the input as a set, and I will continue referring to the earlier algorithm (although in strict mathematical terminology, a set does not have duplicates). So, the title of the post itself is misleading if you are a mathematics police.</p>
-
-<p>First, let us understand what would be the output of our algorithm on an input set (or a list) that contains duplicates, say <code class="language-plaintext highlighter-rouge">[1 2 2]</code>. It is going to be:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]
-[1]
-[1 2]
-[1 2 2]
-[1 2]
-[2]
-[2 2]
-[2]
-</code></pre></div></div>
-
-<p>As you notice, there are duplicates in the result set as well <code class="language-plaintext highlighter-rouge">[1 2]</code>, <code class="language-plaintext highlighter-rouge">[2]</code>, etc. A careful observer must have already noticed that it requires just a one line change. Intuitively before we pick elements from our input set (containing duplicates) and insert them into our intermediate result set, we just need to check if we already encountered the element. If we sorted the input set <em>à priori</em>, the duplicates would be staying together and this would allow us to prevent inserting an element to our intermediate set a second time, if the previously inserted element was the same. In our traversal loop, we just need to check for this condition before we insert.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start_index</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="n">start_index</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">input_set</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">input_set</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-  <span class="k">break</span><span class="p">;</span>
-<span class="p">...</span>
-<span class="p">...</span></code></pre>
-</figure>
-
-<p>Also, we sort the input set before we call the procedure:</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">input_set</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">input_set</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-<span class="n">all_subsets_rec</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">int_result</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre>
-</figure>
-
-<p>Try it out and convince yourself.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/06/03/subsets-rec/">Computing subsets of a set &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Jun 3, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/power-set/">power set</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let us try and compute all subsets of a given set of integers.</p>
-
-<p>Let us try a recursive solution in this post. We will also see how to implement it in a more efficient manner in a later post. Suppose that the user is given the set of elements as a vector of integers and to further simplify, let us assume that there are no duplicates in the input set (and that’s why we call it a set). We want to return the set of all possible subsets that can be formed - a  vector of vectors. At this point, we have some idea of what data-type we could use. If you are programming in C++, one could straight away use a <code class="language-plaintext highlighter-rouge">std::vector</code>. If you are using Python or some other functional language, you could use a list.</p>
-
-<p>Let’s think recursively now. What would be the base condition? That is we are given an empty set as input. We just return. That was simple.</p>
-
-<p>Now, if we had just one element in our input set, what would be our result? The result would have a set containing the one element, and an empty set (as empty set is a valid subset of any set). This already gives us an operational hint - may be, we can start with an empty result set to begin with and traverse the given input set and add elements from it to our result set. In this simple case, let us suppose that the input set is just <code class="language-plaintext highlighter-rouge">[1]</code>. Here’s how we would proceed</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]        - empty result set
-[] [1]    - adding the one element from our input set
-</code></pre></div></div>
-
-<p>Let’s keep going. What happens when there are two elements in our input set? Say, <code class="language-plaintext highlighter-rouge">[1 2]</code>? As we saw above, we will start with an empty result set <code class="language-plaintext highlighter-rouge">[]</code>. We can traverse the input set and pick and add more elements from it to our result set, until we exhaust the input set:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]              - empty result set
-[] [1]          - adding the first element
-[] [1] [1 2]    - adding the second element
-</code></pre></div></div>
-
-<p>At this point, we have exhausted the input set. But we have not captured <code class="language-plaintext highlighter-rouge">[2]</code> as a part of our solution yet. What do we need to do in order to capture that? Just like how we added the first element <code class="language-plaintext highlighter-rouge">1</code> to our initial empty set, we should add only the second element <code class="language-plaintext highlighter-rouge">2</code> to our initial input set. In order words, we backtrack to the state (since we are going to be writing a recursive algorithm, this would correspond to popping from the recursion stack) where we had only the empty set, and add the second element. The entire sequence of operations would now appear like:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]                - empty result set
-[] [1]            - adding the first element
-[] [1] [1 2]      - adding the second element
-                  - ** backtrack **
-[] [1] [1 2] [2]  - adding only the second element
-</code></pre></div></div>
-
-<p>We can keep going. Note that when we have three elements <code class="language-plaintext highlighter-rouge">[1 2 3]</code>, we will need to backtrack to the state where our result had <code class="language-plaintext highlighter-rouge">[1]</code> and add <code class="language-plaintext highlighter-rouge">3</code> to it yielding <code class="language-plaintext highlighter-rouge">[1 3]</code> and later on (when? when we exhaust the rest of the input list) backtrack to the state where our result had <code class="language-plaintext highlighter-rouge">[]</code> and add <code class="language-plaintext highlighter-rouge">2</code>, and similarly <code class="language-plaintext highlighter-rouge">3</code> to the empty result set. I would leave it as an exercise to work out the steps as we did above.</p>
-
-<p>We see there are three major operations:</p>
-
-<ol>
-  <li>insert the intermediate result set to our result set of sets (like how we added empty set in the left most column above</li>
-  <li>traverse the input set starting from the index pointing to the first element, picking elements one by one and adding it to our intermediate result set, until we exhaust all the elements in our input set</li>
-  <li>backtrack (corresponding to moving the index to point to the second element) and pick and add elements one by one as in step 2.</li>
-</ol>
-
-<p>Let’s write it in C++ language.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">all_subsets_rec</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">result</span><span class="p">,</span>
-                     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">int_result</span><span class="p">,</span>
-                     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">input_set</span><span class="p">,</span>
-                     <span class="kt">int</span> <span class="n">start_index</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">input_size</span> <span class="o">=</span> <span class="n">input_set</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-  <span class="c1">// base case</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">input_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span><span class="p">;</span>
-  
-  <span class="c1">// populate result set of sets</span>
-  <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">int_result</span><span class="p">);</span>
-
-  <span class="c1">// traverse</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start_index</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">input_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="c1">// populate intermediate result</span>
-    <span class="n">int_result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">input_set</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-    <span class="c1">// recurse</span>
-    <span class="n">find_all_subsets</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">int_result</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-    <span class="c1">// backtrack</span>
-    <span class="n">int_result</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+    <span class="k">else</span>
+      <span class="n">lookup</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">i</span><span class="p">));</span>
   <span class="p">}</span>
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>and the above recursive function is called in the driver program as:</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">result</span><span class="p">;</span>
-<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">int_result</span><span class="p">;</span>
-<span class="n">all_subsets_rec</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">int_result</span><span class="p">,</span> <span class="n">input_set</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre>
-</figure>
-
-<p>At the face of it, it looks like a very simple problem and it is. But this is one of those problems which is very easy to get it wrong. Many things could go wrong here - you could overflow some bounds, add the same element twice or more times to the result array and so on.</p>
-
+<p>Can you see why we are using <code class="language-plaintext highlighter-rouge">unordered_multimap</code> instead of <code class="language-plaintext highlighter-rouge">unordered_map</code> here?</p>
 
         </div>
         
@@ -2716,10 +1488,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/06/01/python-var-mem-mgmt/">Python, immutable data-types and memory management &rarr;</a>
+            <a class="post-link" href="/2018/06/12/python-lists-mem-mgmt-2/">Python, lists and memory management &rarr;</a>
           </h1>
 
-          <p class="post-meta">Jun 1, 2018 • 
+          <p class="post-meta">Jun 12, 2018 • 
   
   
     
@@ -2775,7 +1547,15 @@
     
   
     
-      <a href="/categories/immutable/">immutable</a>,
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/mutable/">mutable</a>,
     
   
     
@@ -2784,6 +1564,161 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/lists/">lists</a>,
     
   
     
@@ -2937,6 +1872,8 @@
   
     
       <a href="/categories/memory-management/">memory management</a>,
+    
+  
     
   
     
@@ -3196,42 +2133,1255 @@
   
     
   
+    
+  
 
 </p>
         </header>
 
         <div class="post-content">
-          <p>I recently started coding in Python as I was playing around with data science, statistics and machine learning libraries. As I started writing more and more Python (Python 3) code, I also started exploring how different it is from C/C++. Although I am very familiar with programming languages like OCaml, Python is giving me more surprising discoveries than in any other languages I have played with. Let us look at some of those together.</p>
+          <p>In an <a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">earlier post</a>, we saw how lists, despite being <em>mutable</em> objects in Python are somewhat confusing when it comes to certain operations. Let us play some more and see how they behave when we concatenate lists using <code class="language-plaintext highlighter-rouge">append()</code>.</p>
 
-<p>First is how Python’s memory management handles immutable and mutable data-types. For beginners, in Python everything is an object. Something declared like</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
 </code></pre></div></div>
 
-<p>results in an <code class="language-plaintext highlighter-rouge">int</code> object <code class="language-plaintext highlighter-rouge">a</code> that references a memory location. The memory location referenced by the object can be determined by using <code class="language-plaintext highlighter-rouge">id()</code> function and by convention you denote it in Hexadecimal number, so one often does <code class="language-plaintext highlighter-rouge">hex(id(a))</code>.</p>
+<p>In my execution the memory referenced by <code class="language-plaintext highlighter-rouge">l1</code> seems to be <code class="language-plaintext highlighter-rouge">0x2e70a4bc208</code>. Now, as in <a href="https://dotkay.github.io/2018/06/06/python-lists-mem-mgmt/">our earlier example</a>, let us append <code class="language-plaintext highlighter-rouge">3</code> to l1, but this time using the <code class="language-plaintext highlighter-rouge">append()</code> function.</p>
 
-<p>Now, let us see what is the memory referenced by our variable (actually a Python object) <code class="language-plaintext highlighter-rouge">a</code>.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
-</code></pre></div></div>
-
-<p><br /></p>
-<div class="img_container">
-  <p><img src="/assets/images/py/var_mem_mgmt_2.PNG" alt="Python Memory Management" class="img=responsive" /></p>
-</div>
-
-<p>and it returns <code class="language-plaintext highlighter-rouge">0x7ffd06a5a2b0</code>. Now, let us reassign <code class="language-plaintext highlighter-rouge">a</code> to value <code class="language-plaintext highlighter-rouge">20</code>. Now, we see that memory referenced has changed to <code class="language-plaintext highlighter-rouge">0x7ffd06a5a3f0</code>, instead of changing the value in the location referenced earlier.</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by a: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))))</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
 </code></pre></div></div>
 
 <p><br /></p>
 <div class="img_container">
-  <p><img src="/assets/images/py/var_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+  <p><img src="/assets/images/py/list_mem_mgmt_2.PNG" alt="Python Memory Management" class="img=responsive" /></p>
 </div>
 
-<p>In programming languages like C or Java, the contents in the memory would be changed. However, in Python a new reference is created to a memory location containing the (updated) value <code class="language-plaintext highlighter-rouge">20</code>. Now our previous int object is not referencing anything and Python’s garbage collector would reclaim it.</p>
+<p>Now, we see that the new list object (after appending <code class="language-plaintext highlighter-rouge">3</code>) references the same memory <code class="language-plaintext highlighter-rouge">0x2e70a4bc208</code> as before. So, when it comes to <code class="language-plaintext highlighter-rouge">append()</code> Python’s memory manager seems to treat lists as a real mutable object. Python developers, especially new ones, need to be careful and understand these quirks thoroughly.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/06/10/zero-sum-subarray-improved/">Finding the subarray leading to zero sum, faster &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Jun 10, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In a <a href="https://dotkay.github.io/2018/06/05/zero-sum-subarray">previous post</a>, we computed a subarray composed of consecutive array elements that sums to 0 and were wondering if we can do it in linear time. And in fact, we can do it in linear time, by remembering the intermediate subarray sums rather than recomputing them.</p>
+
+<p>We maintain a set to store the sum seen so far. Our array may be (if it has a subarray composed of consecutive array elements that sum to 0) composed of such blocks of elements:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [initial part of the array][subarray that sums to 0][later part of the array]
+     &lt;------------------------ x ---------------------- y -----------------------&gt;
+</code></pre></div></div>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">zero_sum_subarray</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">lookup</span><span class="p">;</span>
+  <span class="n">lookup</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">acc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">acc</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">acc</span><span class="p">)</span> <span class="o">!=</span> <span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+    <span class="p">{</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+      <span class="n">lookup</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">acc</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Now, we initialize our memory 0. When we reach the index <code class="language-plaintext highlighter-rouge">x</code>, our accumulator (<code class="language-plaintext highlighter-rouge">acc</code>) would contain the sum of elements upto index <code class="language-plaintext highlighter-rouge">x</code>. As an when we traverse the array and compute the intermediate sums in the accumulator, we also see if our memory has seen the accumulator value and if it has not seen we populate the memory with the accumulator value. Now, when we go from <code class="language-plaintext highlighter-rouge">x</code> to <code class="language-plaintext highlighter-rouge">y</code> since the elements in this window would sum to 0, the accumulator value at <code class="language-plaintext highlighter-rouge">y</code> would be the same as at <code class="language-plaintext highlighter-rouge">x</code> (since the elements between <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> summed to 0 and did not contribute anything to the accumulator). And we have this value already stored in the memory (which we will know if we lookup the memory) and hence can confidently say that we have found the 0 sum subarray.</p>
+
+<p>There may be more than one subarray that sums to 0. How do we capture and retain all the subarrays that sum to zero? Suppose we want to pick the longest subarray that sums to zero, how do we go about it?</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/06/06/python-lists-mem-mgmt/">Python, mutable data-types (lists) and memory management &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Jun 6, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/mutable/">mutable</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/memory-management/">memory management</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/python/">Python</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In one of our <a href="https://dotkay.github.io/2018/06/01/python-var-mem-mgmt/">previous posts</a> we saw how Python’s memory management handles immutable variables in a program. Lists in Python are mutable. Let’s see how it works out.</p>
+
+<p>Let us consider a list <code class="language-plaintext highlighter-rouge">l1</code> that contains <code class="language-plaintext highlighter-rouge">[1, 2]</code> and see what memory address it references.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+
+<span class="n">l1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>In my execution, it seems to reference the memory address <code class="language-plaintext highlighter-rouge">0x1d49c799e48</code>. Now, let us concatenate a list containing a single element <code class="language-plaintext highlighter-rouge">[3]</code> to <code class="language-plaintext highlighter-rouge">l1</code>. Since lists are mutable, shouldn’t we expect the new list created out of concatenation to reference the same memory location? Let’s check it out.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">l1</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s">'memory referenced by l1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">l1</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p><br /></p>
+<div class="img_container">
+  <p><img src="/assets/images/py/list_mem_mgmt_1.PNG" alt="Python Memory Management" class="img=responsive" /></p>
+</div>
+
+<p>We see that it references a new memory location (in my case <code class="language-plaintext highlighter-rouge">0x1d49c79bc08</code>) different from the earlier one. What is happening? Aren’t lists <em>mutable</em> objects? Let us see in future posts when the memory manager would reference newly created lists to the same memory location as the initial list. Till then, play around with Python and discover more quirks.</p>
 
         </div>
         
