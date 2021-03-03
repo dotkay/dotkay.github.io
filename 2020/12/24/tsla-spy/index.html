@@ -9,7 +9,7 @@
   
   
   <title>TSLA joins S&amp;P 500</title>
-  <meta name="description" content="A week ago Tesla Motors (TSLA) joined the S&amp;amp;P 500 Index - the stock market index that keeps track of the performance of 500 largest companies listed in stock markets in the US. Overall TSLA has been very volatile - many argue that the volatility (risk) indicates the opportunies for Tesla. Now that we are towards the end of the year, a pandemic year, let’s see how the S&amp;amp;P 500 performed and how Tesla performed. A KDE plot of the adjusted closing values of S&amp;amp;P 500 Index as well as Tesla stock for the year (from January 1, 2020 until December 23, 2020) looks like the following. It clearly shows the spread. And in terms of the value of TSLA stock and S&amp;amp;P 500 Index, this is how they fared during this year: tsla_df = pdr.get_data_yahoo(&quot;TSLA&quot;, start=&quot;2010-07-01&quot;, end=&quot;2020-12-20&quot;, interval=&quot;wk&quot;) ... ... plt.plot(snp_df[&#39;Date&#39;], snp_df[&#39;Adj Close&#39;],label=&#39;S&amp;amp;P&#39;) plt.plot(tsla_df[&#39;Date&#39;], tsla_df[&#39;Adj Close&#39;], label=&#39;TSLA&#39;) plt.xlabel(&#39;Date&#39;) plt.ylabel(&#39;Market Value&#39;) ... ... All the data was collected using pandas_datareader and the plots done using seaborn library.">
+  <meta name="description" content="A week ago Tesla Motors (TSLA) joined the S&amp;amp;P 500 Index - the stock market index that keeps track of the performance of 500 largest companies listed in stock markets in the US. Overall TSLA has been very volatile - many argue that the volatility (risk) indicates the opportunies for Tesla. Now that we are towards the end of the year, a pandemic year, let’s see how the S&amp;amp;P 500 performed and how Tesla performed. And in terms of the value of TSLA stock and S&amp;amp;P 500 Index, this is how they fared during this year: tsla_df = pdr.get_data_yahoo(&quot;TSLA&quot;, start=&quot;2010-07-01&quot;, end=&quot;2020-12-20&quot;, interval=&quot;wk&quot;) ... ... plt.plot(snp_df[&#39;Date&#39;], snp_df[&#39;Adj Close&#39;],label=&#39;S&amp;amp;P&#39;) plt.plot(tsla_df[&#39;Date&#39;], tsla_df[&#39;Adj Close&#39;], label=&#39;TSLA&#39;) plt.xlabel(&#39;Date&#39;) plt.ylabel(&#39;Market Value&#39;) ... ... All the data was collected using pandas_datareader and the plots done using seaborn library.">
   
     
     <meta name="keywords" content="US,energy,TSLA,S&P 500,Stock Market">
@@ -747,18 +747,11 @@
   <div class="post-content" itemprop="articleBody">
     <p>A week ago Tesla Motors (TSLA) joined the S&amp;P 500 Index - the stock market index that keeps track of the performance of 500 largest companies listed in stock markets in the US. Overall TSLA has been very volatile - many argue that the volatility (risk) indicates the opportunies for Tesla. Now that we are towards the end of the year, a pandemic year, let’s see how the S&amp;P 500 performed and how Tesla performed.</p>
 
-<p>A KDE plot of the adjusted closing values of S&amp;P 500 Index as well as Tesla stock for the year (from January 1, 2020 until December 23, 2020) looks like the following. It clearly shows the spread.</p>
-
-<p><br /></p>
-<div class="img_container">
-  <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/tsla_snp_kde_2020.png" /></center>
-</div>
-
 <p>And in terms of the value of TSLA stock and S&amp;P 500 Index, this is how they fared during this year:</p>
 
 <p><br /></p>
 <div class="img_container">
-  <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/tsla_snp_2020.png" /></center>
+  <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/tsla_gspc_2020.png" /></center>
 </div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tsla_df</span> <span class="o">=</span> <span class="n">pdr</span><span class="p">.</span><span class="n">get_data_yahoo</span><span class="p">(</span><span class="s">"TSLA"</span><span class="p">,</span> 
