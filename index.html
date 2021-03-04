@@ -793,6 +793,14 @@
 
 <p>Let us look at some data to see if Hedge funds are the real detterants to GameStop’s future or if there are other factors - like streaming. It was not just GameStop (GME), but also Nokia (NOK), AMC and Blackberry (BB) that went through this early January, but GameStop had the biggest change. Just to show the trend in these stocks (GameStop removed from the plot below as the change in GME was too high that the other trends wouldn’t show up well). Notice how the overall trend in stock prices have been over the last few years and how it changed towards the end of 2020 and early 2021.</p>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">amc_df</span><span class="p">[</span><span class="s">'Date'</span><span class="p">],</span> <span class="n">amc_df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'AMC'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">nok_df</span><span class="p">[</span><span class="s">'Date'</span><span class="p">],</span> <span class="n">nok_df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'NOK'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bb_df</span><span class="p">[</span><span class="s">'Date'</span><span class="p">],</span> <span class="n">bb_df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">'BB'</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
 <p><br /></p>
 <div class="img_container">
   <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/amc_nok_bb.png" /></center>
@@ -805,8 +813,14 @@
   <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/gme_vs_twitch.png" /></center>
 </div>
 
-<p>The number of Twitch channels also keep increasing along with the number of viewers and this trend is only likely to continue during these pandemic times. 
-<br /></p>
+<p>The number of Twitch channels also keep increasing along with the number of viewers and this trend is only likely to continue during these pandemic times.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'avg_concurrent_viewers'</span><span class="p">,</span>               
+                     <span class="n">y</span><span class="o">=</span><span class="s">'avg_concurrent_channels'</span><span class="p">,</span>
+                     <span class="n">size</span><span class="o">=</span><span class="s">'time_watched'</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><br /></p>
 <div class="img_container">
   <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/twitch_data.png" /></center>
 </div>
@@ -814,6 +828,10 @@
 <p>On the other hand <a href="https://www.theverge.com/2020/3/20/21188799/gamestop-california-store-closures-indefinite-coronavirus">many retail stores like GameStop’s were hit hard</a> during the pandemic.</p>
 
 <p>Everyone can infer the trend in the industry. Hedge funds are disliked for several reasons, some of them valid. But the future of gaming is online and if GameStop were to survive, it has to build that future than anchor itself in its glorious past.</p>
+
+<p><span style="font-size: 70%">
+<i>The data from Twitchtracker was parsed using BeautifulSoup, and the plots were done using matplotlib, seaborn and plotly.</i>
+</span></p>
 
 
         </div>
