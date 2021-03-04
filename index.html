@@ -808,6 +808,14 @@
 
 <p>In order to see what (game) streaming industry is like, I started looking for data on this - number of subscribers, streamers, etc. I found <a href="https://twitchtracker.com/statistics">Twitchtracker</a> that tracks statistics on Twitch. Since Twitch’s data was easiest to get and well organized, I decided to look at just Twitch data (number of concurrent viewers) and plot it alongside GameStop stock price over the years.</p>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">line1</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s">'month'</span><span class="p">],</span> <span class="n">gme_df</span><span class="p">[</span><span class="s">'Adj Close'</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s">'blue'</span><span class="p">)</span>
+<span class="n">line2</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="s">'month'</span><span class="p">],</span> <span class="n">df2</span><span class="p">[</span><span class="s">'avg_concurrent_viewers'</span><span class="p">]</span><span class="o">//</span><span class="mi">1000</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">'green'</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
 <p><br /></p>
 <div class="img_container">
   <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/gme_vs_twitch.png" /></center>
