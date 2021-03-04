@@ -30,6 +30,15 @@ plt.plot()
 
 In order to see what (game) streaming industry is like, I started looking for data on this - number of subscribers, streamers, etc. I found [Twitchtracker](https://twitchtracker.com/statistics) that tracks statistics on Twitch. Since Twitch's data was easiest to get and well organized, I decided to look at just Twitch data (number of concurrent viewers) and plot it alongside GameStop stock price over the years.
 
+```python
+fig, ax1 = plt.subplots()
+ax2 = ax1.twinx()
+line1, = ax1.plot(df2['month'], gme_df['Adj Close'], color='blue')
+line2, = ax2.plot(df2['month'], df2['avg_concurrent_viewers']//1000, color='green')
+...
+plt.show()
+```
+
 <br>
 <div class="img_container">
 <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/gme_vs_twitch.png"></center>
