@@ -14,6 +14,15 @@ Hedge funds apparently make money by betting on such companies - borrow money or
 
 Let us look at some data to see if Hedge funds are the real detterants to GameStop's future or if there are other factors - like streaming. It was not just GameStop (GME), but also Nokia (NOK), AMC and Blackberry (BB) that went through this early January, but GameStop had the biggest change. Just to show the trend in these stocks (GameStop removed from the plot below as the change in GME was too high that the other trends wouldn't show up well). Notice how the overall trend in stock prices have been over the last few years and how it changed towards the end of 2020 and early 2021.
 
+```python
+...
+plt.plot(amc_df['Date'], amc_df['Adj Close'], label='AMC')
+plt.plot(nok_df['Date'], nok_df['Adj Close'], label='NOK')
+plt.plot(bb_df['Date'], bb_df['Adj Close'], label='BB')
+plt.plot()
+...
+```
+
 <br>
 <div class="img_container">
 <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/amc_nok_bb.png"></center>
@@ -27,6 +36,13 @@ In order to see what (game) streaming industry is like, I started looking for da
 </div>
 
 The number of Twitch channels also keep increasing along with the number of viewers and this trend is only likely to continue during these pandemic times. 
+```python
+fig = px.scatter(df, x='avg_concurrent_viewers',               
+                     y='avg_concurrent_channels',
+                     size='time_watched')
+fig.show()
+```
+
 <br>
 <div class="img_container">
 <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/twitch_data.png"></center>
@@ -35,5 +51,9 @@ The number of Twitch channels also keep increasing along with the number of view
 On the other hand [many retail stores like GameStop's were hit hard](https://www.theverge.com/2020/3/20/21188799/gamestop-california-store-closures-indefinite-coronavirus) during the pandemic.
 
 Everyone can infer the trend in the industry. Hedge funds are disliked for several reasons, some of them valid. But the future of gaming is online and if GameStop were to survive, it has to build that future than anchor itself in its glorious past.
+
+<span style="font-size: 70%">
+<i>The data from Twitchtracker was parsed using BeautifulSoup, and the plots were done using matplotlib, seaborn and plotly.</i>
+</span>
 
 
