@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-03-03T15:13:08+00:00</updated>
+  <updated>2021-03-04T15:37:51+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,74 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Is it GameStop vs Hedge Funds or GameStop vs Streaming? →</title>
+      
+      <link href="https://dotkay.github.io/2021/01/19/gme-wall-street/" rel="alternate" type="text/html" title="Is it GameStop vs Hedge Funds or GameStop vs Streaming?" />
+      <published>2021-01-19T00:00:00+00:00</published>
+      <updated>2021-01-19T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2021/01/19/gme-wall-street</id>
+      <content type="html" xml:base="https://dotkay.github.io/2021/01/19/gme-wall-street/">&lt;p&gt;Everyone knows GameStop now, and its ticker symbol too - gamers, non-gamers, traders, non-traders, all alike.&lt;/p&gt;
+
+&lt;p&gt;GameStop is a chain of retail stores that sells game merchandise, equipment and at one point (when games were sold on CDs) games. Retail is moving online and if the product is software, it has already moved. I can’t recollect the last time I saw Windows OS or Office sold in a CD.&lt;/p&gt;
+
+&lt;p&gt;Hedge funds apparently make money by betting on such companies - borrow money or company shares from some lender promising to repay and in the mean time, bet on the downside of the company, wait for the price to crash, buy the stock (for cheap) and give it back to the lender (pocketing the difference). I am not sure how they pick companies to bet on. However, late last year and early January, GameStop was the candidate. In order to revolt againt this, some online enthusiasts mobilized themselves to buy options on this stock, thereby increasing the stock price (‘stock price’ not ‘company value’) that would hurt the Hedge funds’ intentions.&lt;/p&gt;
+
+&lt;p&gt;Let us look at some data to see if Hedge funds are the real detterants to GameStop’s future or if there are other factors - like streaming. It was not just GameStop (GME), but also Nokia (NOK), AMC and Blackberry (BB) that went through this early January, but GameStop had the biggest change. Just to show the trend in these stocks (GameStop removed from the plot below as the change in GME was too high that the other trends wouldn’t show up well). Notice how the overall trend in stock prices have been over the last few years and how it changed towards the end of 2020 and early 2021.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/amc_nok_bb.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;In order to see what (game) streaming industry is like, I started looking for data on this - number of subscribers, streamers, etc. I found &lt;a href=&quot;https://twitchtracker.com/statistics&quot;&gt;Twitchtracker&lt;/a&gt; that tracks statistics on Twitch. Since Twitch’s data was easiest to get and well organized, I decided to look at just Twitch data (number of concurrent viewers) and plot it alongside GameStop stock price over the years.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/gme_vs_twitch.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The number of Twitch channels also keep increasing along with the number of viewers and this trend is only likely to continue during these pandemic times. 
+&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/twitch_data.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;On the other hand &lt;a href=&quot;https://www.theverge.com/2020/3/20/21188799/gamestop-california-store-closures-indefinite-coronavirus&quot;&gt;many retail stores like GameStop’s were hit hard&lt;/a&gt; during the pandemic.&lt;/p&gt;
+
+&lt;p&gt;Everyone can infer the trend in the industry. Hedge funds are disliked for several reasons, some of them valid. But the future of gaming is online and if GameStop were to survive, it has to build that future than anchor itself in its glorious past.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="GameStop" />
+      
+        <category term="markets" />
+      
+        <category term="short selling" />
+      
+        <category term="wall street" />
+      
+
+      
+
+      
+        <summary type="html">Everyone knows GameStop now, and its ticker symbol too - gamers, non-gamers, traders, non-traders, all alike. GameStop is a chain of retail stores that sells game merchandise, equipment and at one point (when games were sold on CDs) games. Retail is moving online and if the product is software, it has already moved. I can’t recollect the last time I saw Windows OS or Office sold in a CD. Hedge funds apparently make money by betting on such companies - borrow money or company shares from some lender promising to repay and in the mean time, bet on the downside of the company, wait for the price to crash, buy the stock (for cheap) and give it back to the lender (pocketing the difference). I am not sure how they pick companies to bet on. However, late last year and early January, GameStop was the candidate. In order to revolt againt this, some online enthusiasts mobilized themselves to buy options on this stock, thereby increasing the stock price (‘stock price’ not ‘company value’) that would hurt the Hedge funds’ intentions. Let us look at some data to see if Hedge funds are the real detterants to GameStop’s future or if there are other factors - like streaming. It was not just GameStop (GME), but also Nokia (NOK), AMC and Blackberry (BB) that went through this early January, but GameStop had the biggest change. Just to show the trend in these stocks (GameStop removed from the plot below as the change in GME was too high that the other trends wouldn’t show up well). Notice how the overall trend in stock prices have been over the last few years and how it changed towards the end of 2020 and early 2021. In order to see what (game) streaming industry is like, I started looking for data on this - number of subscribers, streamers, etc. I found Twitchtracker that tracks statistics on Twitch. Since Twitch’s data was easiest to get and well organized, I decided to look at just Twitch data (number of concurrent viewers) and plot it alongside GameStop stock price over the years. The number of Twitch channels also keep increasing along with the number of viewers and this trend is only likely to continue during these pandemic times. On the other hand many retail stores like GameStop’s were hit hard during the pandemic. Everyone can infer the trend in the industry. Hedge funds are disliked for several reasons, some of them valid. But the future of gaming is online and if GameStop were to survive, it has to build that future than anchor itself in its glorious past.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1135,51 +1203,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">While driving back from a camping along with my friends and looking at the vast possibly burnt areas, we started thinking why even in the so called hot bed of technology (Silicon Valley) we hear that fire fighting aircrafts had visibility problems because of the dense smoke. Why can’t we use autonomous drone technology for fighting wild fires (given that we use unmanned drones for warfare). Something to think about seriously.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Languages, mind and our way of thinking… →</title>
-      
-      <link href="https://dotkay.github.io/2018/07/15/hidden-brain-languages-mind/" rel="alternate" type="text/html" title="Languages, mind and our way of thinking..." />
-      <published>2018-07-15T00:00:00+00:00</published>
-      <updated>2018-07-15T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/07/15/hidden-brain-languages-mind</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/07/15/hidden-brain-languages-mind/">&lt;p&gt;Allez les Bleus!!&lt;/p&gt;
-
-&lt;p&gt;Just happened to listen to this week’s episode of one of the recent NPR podcast series titled &lt;a href=&quot;https://www.npr.org/series/423302056/hidden-brain&quot;&gt;Hidden Brain&lt;/a&gt; and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances.&lt;/p&gt;
-
-&lt;p&gt;If you are interested in listening to it, here it is:&lt;/p&gt;
-&lt;audio controls=&quot;&quot;&gt;
-&lt;source src=&quot;https://play.podtrac.com/npr-510308/ondemand.npr.org/anon.npr-mp3/npr/hiddenbrain/2018/07/20180712_hiddenbrain_hb_rad_-_watch_your_mouth__-_final_full_for_web.mp3&quot; /&gt;
-&lt;/audio&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="psychology" />
-      
-        <category term="languages" />
-      
-        <category term="NPR" />
-      
-
-      
-
-      
-        <summary type="html">Allez les Bleus!! Just happened to listen to this week’s episode of one of the recent NPR podcast series titled Hidden Brain and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances. If you are interested in listening to it, here it is:</summary>
       
 
       

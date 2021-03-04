@@ -101,10 +101,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/02/reverse-an-array/">Reversing an array in place &rarr;</a>
+            <a class="post-link" href="/2018/04/03/string-rotation-check/">Checking for string rotations &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 2, 2018 • 
+          <p class="post-meta">Apr 3, 2018 • 
   
   
     
@@ -115,6 +115,14 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -426,6 +434,571 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">naan</code> are rotations of each other while <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">nana</code> are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a-n-n-a   --&gt; 0. original string
+n-n-a-a   --&gt; 1. rotated by 1 ('a' moves to the end)
+n-a-a-n   --&gt; 2. rotated by 1
+</code></pre></div></div>
+
+<p>A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be:</p>
+
+<ol>
+  <li>Concatenate one of the strings with itself. Say, we choose <code class="language-plaintext highlighter-rouge">anna</code> to concatenate and form the concatenated one <code class="language-plaintext highlighter-rouge">annaanna</code></li>
+  <li>Search for the occurence of the second string <code class="language-plaintext highlighter-rouge">naan</code> in the concatenation,</li>
+  <li>We see that <code class="language-plaintext highlighter-rouge">naan</code> is indeed a substring of the concatenation <em>an</em><strong>naan</strong><em>na</em> and a rotation of <code class="language-plaintext highlighter-rouge">anna</code>.</li>
+</ol>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">str_rotation</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">.</span><span class="n">length</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">concat_str</span><span class="p">;</span>
+  <span class="n">concat_str</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">res_pos</span> <span class="o">=</span> <span class="n">concat_str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">res_pos</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="k">else</span> 
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>A caveat here is to check for the length of the two strings <em>a priori</em>. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce <code class="language-plaintext highlighter-rouge">ann</code> to be a rotation of <code class="language-plaintext highlighter-rouge">anna</code>.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/04/02/reverse-an-array/">Reversing an array in place &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 2, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -477,6 +1050,14 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -780,6 +1361,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -811,6 +1400,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -990,6 +1587,14 @@
   
     
       <a href="/categories/trie/">trie</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1331,6 +1936,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1362,6 +1975,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1541,6 +2162,14 @@
   
     
       <a href="/categories/trie/">trie</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1869,6 +2498,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1900,6 +2537,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2191,505 +2836,6 @@
   
     
   
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Everyone has seen or even used a dictionary - may be this statement is more true of people from my generation than younger generations. In any case, a phonebook app in a smartphone also lists contact names in alphabetical order. Aakash would precede Amar which would precede Amit which preceeds Aqsa and so on. The common prefix between Amar and Amit is ‘Am’ - which tells us we could a tree data-structure, storing ‘Am’ in a node which has two children storing ‘i’, ‘a’ and so on. This also makes search easy and it follows the same technique we use to search for a word in a dictionary.</p>
-
-<p>There are several other applications where identifying and storing prefixes of strings efficiently can be very useful. Think about auto-completions in a texting app or Google search or how a <a href="https://github.com/julienschmidt/httprouter">router could do address matching efficiently</a>.</p>
-
-<p>This data structure must be something very popular as it seems to have several everyday and important applications. And it is the “Trie”. Whenever we have a large number of strings (like protein sequences or words in a language or all possible strings one could type in a Google search box) that share some common prefix, we need to use think about efficiently matching shared prefixes. Trie is very simple and straight-forward to implement as we will see in a future post.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/03/15/min-heap-sink-swim/">Min heap, sink and swim &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Mar 15, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/heap/">heap</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
     
   
     
@@ -2703,39 +2849,11 @@
         </header>
 
         <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2018/03/12/min-heap-insert-delete">previous post</a> we saw insertion and deletion of keys in a min heap. The heap property however is maintained by helper functions <code class="language-plaintext highlighter-rouge">sink()</code> and <code class="language-plaintext highlighter-rouge">swim()</code> which are used in deletion and insertion respectively. In this post, we will take a look at the implementation of these functions.</p>
+          <p>Everyone has seen or even used a dictionary - may be this statement is more true of people from my generation than younger generations. In any case, a phonebook app in a smartphone also lists contact names in alphabetical order. Aakash would precede Amar which would precede Amit which preceeds Aqsa and so on. The common prefix between Amar and Amit is ‘Am’ - which tells us we could a tree data-structure, storing ‘Am’ in a node which has two children storing ‘i’, ‘a’ and so on. This also makes search easy and it follows the same technique we use to search for a word in a dictionary.</p>
 
-<p>The main intuition behind the implementation is traversal of the tree from root towards the leaves (bubble down using <code class="language-plaintext highlighter-rouge">sink()</code>) and from leaf node towards the root (bubble up using <code class="language-plaintext highlighter-rouge">swim()</code>). The main objective is to maintain (or restore) the heap property which is just that the parent node is smaller than the children, which indicates that we need a way of identifying (and comparing) parent and children nodes. For any node <em>k</em> in the tree which is not a root, the parent node is at index <em>k/2</em> and children nodes are at <em>2k</em> and <em>2k + 1</em>. So, all we need are to identify the elements at these indices, compare the values and keep swapping elements until heap property is restored. Besides we need to check boundary conditions (i.e. bubble up until we reach the root (<em>k &gt; 1</em>)and bubble down (<em>2k &lt; n</em>) until we reach the leaf).</p>
+<p>There are several other applications where identifying and storing prefixes of strings efficiently can be very useful. Think about auto-completions in a texting app or Google search or how a <a href="https://github.com/julienschmidt/httprouter">router could do address matching efficiently</a>.</p>
 
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">MinHeap</span><span class="o">::</span><span class="n">swim</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="c1">// parent of k : k/2</span>
-  <span class="k">while</span> <span class="p">(</span><span class="n">k</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">k</span><span class="o">/</span><span class="mi">2</span><span class="p">]))</span>
-  <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">heap</span><span class="p">[</span><span class="n">k</span><span class="o">/</span><span class="mi">2</span><span class="p">]);</span>
-    <span class="n">k</span> <span class="o">/=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">MinHeap</span><span class="o">::</span><span class="n">sink</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="c1">// children of k : 2k, 2k + 1</span>
-  <span class="k">while</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">heap</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
-      <span class="n">j</span><span class="o">++</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">heap</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
-      <span class="k">break</span><span class="p">;</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">swap</span><span class="p">(</span><span class="n">heap</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">heap</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre>
-</figure>
-
+<p>This data structure must be something very popular as it seems to have several everyday and important applications. And it is the “Trie”. Whenever we have a large number of strings (like protein sequences or words in a language or all possible strings one could type in a Google search box) that share some common prefix, we need to use think about efficiently matching shared prefixes. Trie is very simple and straight-forward to implement as we will see in a future post.</p>
 
         </div>
         
