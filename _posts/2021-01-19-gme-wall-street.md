@@ -33,8 +33,8 @@ In order to see what (game) streaming industry is like, I started looking for da
 ```python
 fig, ax1 = plt.subplots()
 ax2 = ax1.twinx()
-line1, = ax1.plot(df2['month'], gme_df['Adj Close'], color='blue')
-line2, = ax2.plot(df2['month'], df2['avg_concurrent_viewers']//1000, color='green')
+line1, = ax1.plot(gme_df['month'], gme_df['Adj Close'], color='blue')
+line2, = ax2.plot(twitch_df['month'], twitch_df['avg_concurrent_viewers']//1000, color='green')
 ...
 plt.show()
 ```
