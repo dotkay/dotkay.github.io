@@ -101,6 +101,577 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2018/09/02/range-max-queries/">Counting cokes for a different reward ... &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 2, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In a <a href="https://dotkay.github.io/2018/02/01/cumulative-freq">previous post</a> we looked at the problem of counting coke cans dispensed for marketing rewards. Now, the new marketing manager is more detail oriented. He noticed that some shops have only one or a couple of coke vending machines while larger restaurants and offices have dozens of them. He wants to see which machine number dispenses the maximum number of coke cans from a range of machine numbers. And he has decided to index each establishment (restaurant or office complex) with just a single machine number. How would one go about computing the maxinum number of coke cans dispensed among a range of machines?</p>
+
+<p>The solution, from our previous effort in solving a similar problem, is straight forward - we can maintain an array and compute the max value among a given range of indices.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">RMQ</span><span class="o">::</span><span class="n">rmq</span><span class="p">(</span><span class="kt">int</span> <span class="n">end</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">rarr</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">max</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">max</span><span class="p">,</span> <span class="n">rarr</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">max</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">RMQ</span><span class="o">::</span><span class="n">rmq</span><span class="p">(</span><span class="kt">int</span> <span class="n">begin</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">rarr</span><span class="p">[</span><span class="n">begin</span><span class="p">];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">begin</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">max</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">max</span><span class="p">,</span> <span class="n">rarr</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">max</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>But what happens when we have millions of such queries - as different advertisers might be querying our database to send various kinds of offers? Do we have to traverse the range every time, in order to compute the max value? Or can we do better?</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2018/08/24/derangements_dp/">Sharing toys again &rarr;</a>
           </h1>
 
@@ -115,6 +686,12 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -442,6 +1019,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -497,6 +1080,12 @@
   
     
       <a href="/categories/dynamic-programming/">dynamic programming</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -830,6 +1419,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -999,6 +1594,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1008,6 +1609,12 @@
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1374,6 +1981,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1543,6 +2156,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1628,6 +2247,12 @@
   
     
       <a href="/categories/google/">Google</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1915,6 +2540,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1998,6 +2629,12 @@
   
     
       <a href="/categories/deep-learning/">deep learning</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2253,358 +2890,6 @@
   
     
   
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>I happened to complete an online course on Deep Learning and just starting to look at different products to see how machine learning or deep learning techniques could be used to make these products better. Since I understand technology products and their landscape better, I am likely to be biased in analysing more technology products than non-tech ones, although I am determined to study some non-tech industries, processes, products and services to see if (at all) and how deep learning could be used there - that is a bigger challenge and one that would stimulate our neurons more. Let’s see how I fare …</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/08/11/drones-for-fire-fighting/">Drones for fire fighting... &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 11, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/technology/">technology</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/autonomous-transport/">autonomous transport</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
     
   
     
@@ -2616,7 +2901,7 @@
         </header>
 
         <div class="post-content">
-          <p>While driving back from a camping along with my friends and looking at the vast possibly burnt areas, we started thinking why even in the <em>so called</em> hot bed of technology (Silicon Valley) we <a href="https://www.mercurynews.com/2018/07/30/why-planes-cant-fight-shastas-deadly-carr-fire/">hear</a> that fire fighting aircrafts had visibility problems because of the dense smoke. Why can’t we use autonomous drone technology for fighting wild fires (given that we use unmanned drones for warfare). Something to think about seriously.</p>
+          <p>I happened to complete an online course on Deep Learning and just starting to look at different products to see how machine learning or deep learning techniques could be used to make these products better. Since I understand technology products and their landscape better, I am likely to be biased in analysing more technology products than non-tech ones, although I am determined to study some non-tech industries, processes, products and services to see if (at all) and how deep learning could be used there - that is a bigger challenge and one that would stimulate our neurons more. Let’s see how I fare …</p>
 
         </div>
         
