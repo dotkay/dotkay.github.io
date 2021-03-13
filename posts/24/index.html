@@ -101,6 +101,448 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/08/28/more-about-auxiliary-functions-and-recursions/">More about auxiliary functions and recursions &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 28, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/recursion/">recursion</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+      <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In an <a href="https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/">earlier posts</a>, tail recursions were introduced using two very simple functions <code class="language-plaintext highlighter-rouge">tr_lst_sum</code> and <code class="language-plaintext highlighter-rouge">tr_lst_rev</code>. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let’s get started!</p>
+
+<p>Here’s the tail recursive version of <code class="language-plaintext highlighter-rouge">lst_sum</code> to sum an input list <code class="language-plaintext highlighter-rouge">lst</code> of elements.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_sum</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
+  <span class="k">in</span>
+  <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>And here’s the tail recursive version of <code class="language-plaintext highlighter-rouge">lst_len</code> to compute the length of an input list <code class="language-plaintext highlighter-rouge">lst</code> of elements.</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
+    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_len</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">in</span>
+  <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Let’s carefully observe the above two functions and try to understand the pattern - the recipe for such a computation. In both the functions,</p>
+
+<ol>
+  <li>We have an initial accumulator (in this case the value is <code class="language-plaintext highlighter-rouge">0</code> but it could be anything in general)</li>
+  <li>We traverse the list, apply the auxiliary function to the initial value of the accumulator and a list element and compute a new value for the accumulator.
+2.1. We do the above step to each element of the list (by calling the auxiliary function recursively/repeatedly on each element) and compute new values for the accumulator on the way</li>
+  <li>When we are done with the entire list, we return the accumulator contents as the result</li>
+</ol>
+
+<p>Now, if we just denote the auxiliary function by <code class="language-plaintext highlighter-rouge">faux</code>, it has a general shape - <code class="language-plaintext highlighter-rouge">faux acc lst</code> - we do traverse the list <code class="language-plaintext highlighter-rouge">lst</code>, but this is the general shape that we observe - call <code class="language-plaintext highlighter-rouge">faux</code> on the initial value of the accumulator <code class="language-plaintext highlighter-rouge">acc</code> and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are <code class="language-plaintext highlighter-rouge">(acc + h)</code> and <code class="language-plaintext highlighter-rouge">(acc + 1)</code>. Now, let’s try to wrap this all into a single function, which we would call a <code class="language-plaintext highlighter-rouge">leftee</code> - which would take three parameters - an accumulator <code class="language-plaintext highlighter-rouge">acc</code>, a function <code class="language-plaintext highlighter-rouge">f</code> to apply (to the accumulator and list element), and of course a list <code class="language-plaintext highlighter-rouge">lst</code> to work on and will look like <code class="language-plaintext highlighter-rouge">leftee f acc lst</code>. We call it <code class="language-plaintext highlighter-rouge">leftee</code> for a reason… (I think readers are already getting a hint as to where this is headed. Good!).</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">leftee</span> <span class="n">f</span> <span class="n">acc</span> <span class="n">lst</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
+  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">leftee</span> <span class="n">f</span> <span class="p">(</span><span class="n">f</span> <span class="n">acc</span> <span class="n">h</span><span class="p">)</span> <span class="n">t</span><span class="p">;;</span>
+<span class="c">(* ('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b list -&gt; 'a = &lt;fun&gt; *)</span></code></pre>
+</figure>
+
+<p>As we see above the new value of the accumulator is the function applied to the current value of the accumulator <code class="language-plaintext highlighter-rouge">acc</code> and a list element <code class="language-plaintext highlighter-rouge">h</code>.</p>
+
+<p>Now, let’s rewrite <code class="language-plaintext highlighter-rouge">tr_lst_sum</code> and <code class="language-plaintext highlighter-rouge">tr_lst_len</code> using our <code class="language-plaintext highlighter-rouge">leftee</code>:</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span> <span class="o">+</span> <span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Here <code class="language-plaintext highlighter-rouge">( + )</code> is the function - just the addition operator. Isn’t it super concise? Aren’t you in love with this already?</p>
+
+<figure class="highlight">
+  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
+</figure>
+
+<p>Food for thought - how would you use <code class="language-plaintext highlighter-rouge">leftee</code> to reverse an input list?</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/08/27/interesting-podcast-on-work/">An interesting podcast on work &rarr;</a>
           </h1>
 
@@ -131,6 +573,12 @@
   
     
       <a href="/categories/work/">work</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -454,6 +902,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -471,6 +925,12 @@
   
     
       <a href="/categories/ted/">TED</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -830,6 +1290,12 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -837,6 +1303,12 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1225,6 +1697,12 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1232,6 +1710,12 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1638,6 +2122,12 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1645,6 +2135,12 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1869,401 +2365,6 @@ Whatever your situation is, this is a great podcast to listen to. And if you’r
 <p>Note that the accumulator <code class="language-plaintext highlighter-rouge">acc</code> computes the intermediate results as and when they are available. We also store only one instance of the function call in the stack thereby saving a lot of space and more importantly, avoiding stack overflow.</p>
 
 <p>Hope you enjoyed this!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/23/computing-all-factors-of-a-number/">Computing factors of a number &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 23, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s look at a quick algorithm to compute all factors of a number <code class="language-plaintext highlighter-rouge">N</code>. For example, if <code class="language-plaintext highlighter-rouge">N</code> is <code class="language-plaintext highlighter-rouge">12</code> we want all the factors <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 6, 12]</code>. If <code class="language-plaintext highlighter-rouge">N</code> is say <code class="language-plaintext highlighter-rouge">36</code> we want <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 6, 9, 12, 18, 36]</code>. We observe that:</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">1</code> and <code class="language-plaintext highlighter-rouge">N</code> itself are always factors, of course.</li>
-  <li>Factors always occur in pairs. <code class="language-plaintext highlighter-rouge">(1, 12), (2, 6), (3, 4)</code> etc. If <code class="language-plaintext highlighter-rouge">N</code> is a perfect square, we also have <code class="language-plaintext highlighter-rouge">(\sqrt(N), \sqrt(N))</code>.</li>
-</ol>
-
-<p>From the above we realize that we don’t need to iterate through the numbers all the way until <code class="language-plaintext highlighter-rouge">N</code>. We just need to do it until <code class="language-plaintext highlighter-rouge">\sqrt(N)</code>. Here’s the algorithm for computing all the factors:</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">all_factors</span> <span class="p">(</span><span class="kt">int</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">result</span><span class="p">;</span>
-    <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">((</span><span class="n">N</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">!=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>
-                <span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="n">i</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>That was a super short post!</p>
 
         </div>
         
