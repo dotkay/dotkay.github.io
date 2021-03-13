@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Technologies in Online Education</title>
+  <meta name="description" content="In a previous post we saw the challenges in accessing quality education digitally. In this post, we will look at some of the disparate pieces of technology that could work together to make online education less expensive, more efficient and hopefully more accessible. From a 45000 ft. view, online education is just about a video playing in a TV or a computer browser, much like any TV program or YouTube or Vimeo video would. But there is a lot more to it as you go down into the details. Even in its simplest form (i.e. no authentication, account validation, etc.,) most of them contain video and audio streams, which itself is the first bottleneck for places which have poor internet bandwidths, if at all internet exists. So, the very first technical problem is to address bandwidth the way several streaming services address them - by encoding them in different qualities and formats, cache them in CDNs or edge networks efficiently, predict their access patterns and serve them efficiently. This alone may not be enough - for most of the world the only access to internet may be through a not-so-good mobile data network which might still be prohibitively expensive to stream high quality videos. This brings us to the second problem: video quality. Since most educational videos, unlike action movie frames, are to a large extent relatively slow moving and not lots of dynamic pixel changes, AI techniques used for Super Resolution can be employed to create a higher resolution content on device even if the incoming videos from the nearest edge network are low resolution ones. But what about the device - does it need to be one with an expensive GPU attached to it? Not really. That brings us to the third problem: device specifications. The most desired characteristic of the device would be longer battery life and quick recharge capability. Since most education content (the content itself) is generated before the class (the event) and the content is just delivered live, modest processing power should be enough to do the inference side of super resolution. Chromebooks and android devices are a first step in this direction, but a main area of improvement would also be how long the device lasts. Most students are visual learners but most educational content is dry. One could use components of game development engines to develop tools for teachers so that they can create interesting animations and content for their class without having to learn and program using game engines. We have been living with Powerpoint for content creation for more than three decades and may be it is time to add more interesting content creation capabilities to Powerpoint or move to an application that provides such capabilities. Students with special needs would require more help both from technology and human beings in order to enjoy and benefit from online education. If technology can leave more time for teachers they could invest that gained time on students with special needs. There are several other problems where technology could play a role. One could create authentication mechanisms for examinations and awarding certificate of completion of courses. Zoom like video conferencing technologies could be used both for delivering the content as well as break rooms for further guidance. Automated algorithms could test basics of the students’ knowledge of a topic and have progressively challenging exercises, rather than a one-size-fits-all teaching and evaluation model that is currently in place. A content created by one teacher or school can be securely shared with another school, optimizing the time and effort put in for content creation. The content itself could be stored in cloud storage and personalization algorithms could recommend what other YouTube or other content would be helpful in understanding the concepts in a specific topic, instead of the students straying all over the web looking for explanations to fortify their understanding. There are lots of ways things could improve. But in reality, most such softwares are fragmented. One might use a chromebook while the slides sent out by the teacher would be in powerpoint format, one video would be on YouTube, one would be lying as an mpeg file in a shared folder. One would use zoom and the other Webex or Teams and there is no way these applications are play well together. Further, the current techniques for first party and third party integrations of content creation and marketing might bump up content rich in marketing dollars while relatively punishing content rich in content. Nevertheless, technology would play a huge role not only in school education but also enterprise reskilling (education technology would be an enterprise product as well) and the one who wins would be the one who builds the strongest platform combining the disparate technologies listed above, and some more.">
+  
+    
+    <meta name="keywords" content="online,education,technology">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2020/07/01/online-education-part-2/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Technologies in Online Education">
+  <meta name="twitter:description" content="In a previous post we saw the challenges in accessing quality education digitally. In this post, we will look at some of the disparate pieces of technology that could work together to make online e...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2020/07/01/online-education-part-2">Technologies in Online Education &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2020-07-01T00:00:00+00:00" itemprop="datePublished">Jul 1, 2020</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/online/">online</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/education/">education</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/technology/">technology</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2020/05/25/online-education-part-1">previous post</a> we saw the challenges in accessing quality education digitally. In this post, we will look at some of the disparate pieces of technology that could work together to make online education less expensive, more efficient and hopefully more accessible.</p>
+
+<p>From a 45000 ft. view, online education is just about a video playing in a TV or a computer browser, much like any TV program or YouTube or Vimeo video would. But there is a lot more to it as you go down into the details. Even in its simplest form (i.e. no authentication, account validation, etc.,) most of them contain video and audio streams, which itself is the first bottleneck for places which have poor internet bandwidths, if at all internet exists.</p>
+
+<p>So, the very first technical problem is to address bandwidth the way several streaming services address them - by encoding them in different qualities and formats, cache them in CDNs or edge networks efficiently, predict their access patterns and serve them efficiently. This alone may not be enough - for most of the world the only access to internet may be through a not-so-good mobile data network which might still be prohibitively expensive to stream high quality videos.</p>
+
+<p>This brings us to the second problem: video quality. Since most educational videos, unlike action movie frames, are to a large extent relatively slow moving and not lots of dynamic pixel changes, AI techniques used for <em>Super Resolution</em> can be employed to create a higher resolution content on device even if the incoming videos from the nearest edge network are low resolution ones. But what about the device - does it need to be one with an expensive GPU attached to it? Not really.</p>
+
+<p>That brings us to the third problem: device specifications. The most desired characteristic of the device would be longer battery life and quick recharge capability. Since most education content (the content itself) is generated before the class (the event) and the content is just delivered live, modest processing power should be enough to do the inference side of super resolution. Chromebooks and android devices are a first step in this direction, but a main area of improvement would also be how long the device lasts.</p>
+
+<p>Most students are visual learners but most educational content is dry. One could use components of game development engines to develop tools for teachers so that they can create interesting animations and content for their class without having to learn and program using game engines. We have been living with Powerpoint for content creation for more than three decades and may be it is time to add more interesting content creation capabilities to Powerpoint or move to an application that provides such capabilities.</p>
+
+<p>Students with special needs would require more help both from technology and human beings in order to enjoy and benefit from online education. If technology can leave more time for teachers they could invest that gained time on students with special needs.</p>
+
+<p>There are several other problems where technology could play a role. One could create authentication mechanisms for examinations and awarding certificate of completion of courses. Zoom like video conferencing technologies could be used both for delivering the content as well as break rooms for further guidance. Automated algorithms could test basics of the students’ knowledge of a topic and have progressively challenging exercises, rather than a one-size-fits-all teaching and evaluation model that is currently in place. A content created by one teacher or school can be securely shared with another school, optimizing the time and effort put in for content creation. The content itself could be stored in cloud storage and personalization algorithms could recommend what other YouTube or other content would be helpful in understanding the concepts in a specific topic, instead of the students straying all over the web looking for explanations to fortify their understanding.</p>
+
+<p>There are lots of ways things could improve. But in reality, most such softwares are fragmented. One might use a chromebook while the slides sent out by the teacher would be in powerpoint format, one video would be on YouTube, one would be lying as an mpeg file in a shared folder. One would use zoom and the other Webex or Teams and there is no way these applications are play well together. Further, the current techniques for first party and third party integrations of content creation and marketing might bump up content rich in marketing dollars while relatively punishing content rich in content. Nevertheless, technology would play a huge role not only in school education but also enterprise reskilling (education technology would be an enterprise product as well) and the one who wins would be the one who builds the strongest platform combining the disparate technologies listed above, and some more.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

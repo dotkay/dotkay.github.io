@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-03-10T04:48:17+00:00</updated>
+  <updated>2021-03-13T03:44:06+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -221,6 +221,60 @@
 
       
         <summary type="html">We perceive our sense of self as an amalgamation of the different sensory inputs - visual, tactile, locomotive, etc., that our brain processes and interprets. Or in other words, our sense of self is an interpretation made for us by our brain (mind) after processing several inputs. In olden days philosophers who tried to understand one’s true self found it difficult to reason about the interpretation of sense of self - are we really who we are? or are we manifestations of our mind’s interpretation of several inputs? This is a fascinating topic and lately neuroscience research is trying to understand which parts of the brain are processing and how our brain creates such interpretations. In his book, The Man Who Wasn’t There, journalist Anil Ananthaswamy takes us through the neuroscience research on this topic. The main message of this book is that our sense of self is an interpretation of several inputs which are beyond just sensory inputs but our own physical body and society play a vital role. And in this age where Computer Scientists are working on Deep Learning as well as trying to understand the neurological pathways in order to build systems that mimic the human decision making apparatus, while that apparatus itself is not completely understood. What fascinates me about this study is how the mind’s computation of sense of self can be influenced (or cheated) by changing the mapping (think of it as lookup table entries) the mind preserves for different sensory and other inputs. In many cases, what we feel and believe our sense of self is, is just an interpretation (an entry in the table) that is fetched given the inputs. We can influence such inputs to pick up a different entry that would alter our sense of self. There is also a classic neuroscience experiment from the 90s that demonstrates how the mapping in our brain, representing our physical sense of self, can be altered within minutes. You can take a look at an example experiment below: I am intrigued about the possibility of changing our emotional sense of self and if it could be done non-invasively using technology. Such a possibility would be a big boost to curing several mental disorders just by altering the mapping in the mind, when we know how the mapping is created, where it is stored and how it is interpreted. Also, one needs to be aware of ramifications of this - can such mappings be altered by say adversarial inputs - visual or societal - in the form of social media posts or news articles. We might be destroying our own sense of self by letting our mind interpret the inputs that we consume, without us realizing the end result - thinking we are who our mind interprets (influenced interpretation/self) rather than who we really are (actual self).</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Technologies in Online Education →</title>
+      
+      <link href="https://dotkay.github.io/2020/07/01/online-education-part-2/" rel="alternate" type="text/html" title="Technologies in Online Education" />
+      <published>2020-07-01T00:00:00+00:00</published>
+      <updated>2020-07-01T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2020/07/01/online-education-part-2</id>
+      <content type="html" xml:base="https://dotkay.github.io/2020/07/01/online-education-part-2/">&lt;p&gt;In a &lt;a href=&quot;https://dotkay.github.io/2020/05/25/online-education-part-1&quot;&gt;previous post&lt;/a&gt; we saw the challenges in accessing quality education digitally. In this post, we will look at some of the disparate pieces of technology that could work together to make online education less expensive, more efficient and hopefully more accessible.&lt;/p&gt;
+
+&lt;p&gt;From a 45000 ft. view, online education is just about a video playing in a TV or a computer browser, much like any TV program or YouTube or Vimeo video would. But there is a lot more to it as you go down into the details. Even in its simplest form (i.e. no authentication, account validation, etc.,) most of them contain video and audio streams, which itself is the first bottleneck for places which have poor internet bandwidths, if at all internet exists.&lt;/p&gt;
+
+&lt;p&gt;So, the very first technical problem is to address bandwidth the way several streaming services address them - by encoding them in different qualities and formats, cache them in CDNs or edge networks efficiently, predict their access patterns and serve them efficiently. This alone may not be enough - for most of the world the only access to internet may be through a not-so-good mobile data network which might still be prohibitively expensive to stream high quality videos.&lt;/p&gt;
+
+&lt;p&gt;This brings us to the second problem: video quality. Since most educational videos, unlike action movie frames, are to a large extent relatively slow moving and not lots of dynamic pixel changes, AI techniques used for &lt;em&gt;Super Resolution&lt;/em&gt; can be employed to create a higher resolution content on device even if the incoming videos from the nearest edge network are low resolution ones. But what about the device - does it need to be one with an expensive GPU attached to it? Not really.&lt;/p&gt;
+
+&lt;p&gt;That brings us to the third problem: device specifications. The most desired characteristic of the device would be longer battery life and quick recharge capability. Since most education content (the content itself) is generated before the class (the event) and the content is just delivered live, modest processing power should be enough to do the inference side of super resolution. Chromebooks and android devices are a first step in this direction, but a main area of improvement would also be how long the device lasts.&lt;/p&gt;
+
+&lt;p&gt;Most students are visual learners but most educational content is dry. One could use components of game development engines to develop tools for teachers so that they can create interesting animations and content for their class without having to learn and program using game engines. We have been living with Powerpoint for content creation for more than three decades and may be it is time to add more interesting content creation capabilities to Powerpoint or move to an application that provides such capabilities.&lt;/p&gt;
+
+&lt;p&gt;Students with special needs would require more help both from technology and human beings in order to enjoy and benefit from online education. If technology can leave more time for teachers they could invest that gained time on students with special needs.&lt;/p&gt;
+
+&lt;p&gt;There are several other problems where technology could play a role. One could create authentication mechanisms for examinations and awarding certificate of completion of courses. Zoom like video conferencing technologies could be used both for delivering the content as well as break rooms for further guidance. Automated algorithms could test basics of the students’ knowledge of a topic and have progressively challenging exercises, rather than a one-size-fits-all teaching and evaluation model that is currently in place. A content created by one teacher or school can be securely shared with another school, optimizing the time and effort put in for content creation. The content itself could be stored in cloud storage and personalization algorithms could recommend what other YouTube or other content would be helpful in understanding the concepts in a specific topic, instead of the students straying all over the web looking for explanations to fortify their understanding.&lt;/p&gt;
+
+&lt;p&gt;There are lots of ways things could improve. But in reality, most such softwares are fragmented. One might use a chromebook while the slides sent out by the teacher would be in powerpoint format, one video would be on YouTube, one would be lying as an mpeg file in a shared folder. One would use zoom and the other Webex or Teams and there is no way these applications are play well together. Further, the current techniques for first party and third party integrations of content creation and marketing might bump up content rich in marketing dollars while relatively punishing content rich in content. Nevertheless, technology would play a huge role not only in school education but also enterprise reskilling (education technology would be an enterprise product as well) and the one who wins would be the one who builds the strongest platform combining the disparate technologies listed above, and some more.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="online" />
+      
+        <category term="education" />
+      
+        <category term="technology" />
+      
+
+      
+
+      
+        <summary type="html">In a previous post we saw the challenges in accessing quality education digitally. In this post, we will look at some of the disparate pieces of technology that could work together to make online education less expensive, more efficient and hopefully more accessible. From a 45000 ft. view, online education is just about a video playing in a TV or a computer browser, much like any TV program or YouTube or Vimeo video would. But there is a lot more to it as you go down into the details. Even in its simplest form (i.e. no authentication, account validation, etc.,) most of them contain video and audio streams, which itself is the first bottleneck for places which have poor internet bandwidths, if at all internet exists. So, the very first technical problem is to address bandwidth the way several streaming services address them - by encoding them in different qualities and formats, cache them in CDNs or edge networks efficiently, predict their access patterns and serve them efficiently. This alone may not be enough - for most of the world the only access to internet may be through a not-so-good mobile data network which might still be prohibitively expensive to stream high quality videos. This brings us to the second problem: video quality. Since most educational videos, unlike action movie frames, are to a large extent relatively slow moving and not lots of dynamic pixel changes, AI techniques used for Super Resolution can be employed to create a higher resolution content on device even if the incoming videos from the nearest edge network are low resolution ones. But what about the device - does it need to be one with an expensive GPU attached to it? Not really. That brings us to the third problem: device specifications. The most desired characteristic of the device would be longer battery life and quick recharge capability. Since most education content (the content itself) is generated before the class (the event) and the content is just delivered live, modest processing power should be enough to do the inference side of super resolution. Chromebooks and android devices are a first step in this direction, but a main area of improvement would also be how long the device lasts. Most students are visual learners but most educational content is dry. One could use components of game development engines to develop tools for teachers so that they can create interesting animations and content for their class without having to learn and program using game engines. We have been living with Powerpoint for content creation for more than three decades and may be it is time to add more interesting content creation capabilities to Powerpoint or move to an application that provides such capabilities. Students with special needs would require more help both from technology and human beings in order to enjoy and benefit from online education. If technology can leave more time for teachers they could invest that gained time on students with special needs. There are several other problems where technology could play a role. One could create authentication mechanisms for examinations and awarding certificate of completion of courses. Zoom like video conferencing technologies could be used both for delivering the content as well as break rooms for further guidance. Automated algorithms could test basics of the students’ knowledge of a topic and have progressively challenging exercises, rather than a one-size-fits-all teaching and evaluation model that is currently in place. A content created by one teacher or school can be securely shared with another school, optimizing the time and effort put in for content creation. The content itself could be stored in cloud storage and personalization algorithms could recommend what other YouTube or other content would be helpful in understanding the concepts in a specific topic, instead of the students straying all over the web looking for explanations to fortify their understanding. There are lots of ways things could improve. But in reality, most such softwares are fragmented. One might use a chromebook while the slides sent out by the teacher would be in powerpoint format, one video would be on YouTube, one would be lying as an mpeg file in a shared folder. One would use zoom and the other Webex or Teams and there is no way these applications are play well together. Further, the current techniques for first party and third party integrations of content creation and marketing might bump up content rich in marketing dollars while relatively punishing content rich in content. Nevertheless, technology would play a huge role not only in school education but also enterprise reskilling (education technology would be an enterprise product as well) and the one who wins would be the one who builds the strongest platform combining the disparate technologies listed above, and some more.</summary>
       
 
       
@@ -1248,44 +1302,6 @@ help me understand?&lt;/p&gt;</content>
 
       
         <summary type="html">Keeping up with my modest goals from the previous post, I started looking at Google’s product portfolio. Why Google? - Why not? Why their product portfolio? - there is such a rich variety catering to different customer segments. Why for this topic (analysing how machine learning and/or deep learning will impact/improve the products)? - Because we already see the impact (like Google translate, maps, etc.) Here’s their product portfolio, right from their webpage: In future posts, we will pick products from this list and analyze.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Deep Learning and Technology Products →</title>
-      
-      <link href="https://dotkay.github.io/2018/08/15/deep-learning-and-tech-products/" rel="alternate" type="text/html" title="Deep Learning and Technology Products" />
-      <published>2018-08-15T00:00:00+00:00</published>
-      <updated>2018-08-15T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/08/15/deep-learning-and-tech-products</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/08/15/deep-learning-and-tech-products/">&lt;p&gt;I happened to complete an online course on Deep Learning and just starting to look at different products to see how machine learning or deep learning techniques could be used to make these products better. Since I understand technology products and their landscape better, I am likely to be biased in analysing more technology products than non-tech ones, although I am determined to study some non-tech industries, processes, products and services to see if (at all) and how deep learning could be used there - that is a bigger challenge and one that would stimulate our neurons more. Let’s see how I fare …&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="technology" />
-      
-        <category term="deep learning" />
-      
-        <category term="Google" />
-      
-
-      
-
-      
-        <summary type="html">I happened to complete an online course on Deep Learning and just starting to look at different products to see how machine learning or deep learning techniques could be used to make these products better. Since I understand technology products and their landscape better, I am likely to be biased in analysing more technology products than non-tech ones, although I am determined to study some non-tech industries, processes, products and services to see if (at all) and how deep learning could be used there - that is a bigger challenge and one that would stimulate our neurons more. Let’s see how I fare …</summary>
       
 
       
