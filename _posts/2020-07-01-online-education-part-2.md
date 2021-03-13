@@ -18,7 +18,7 @@ That brings us to the third problem: device specifications. The most desired cha
 
 Most students are visual learners but most educational content is dry. One could use components of game development engines to develop tools for teachers so that they can create interesting animations and content for their class without having to learn and program using game engines. We have been living with Powerpoint for content creation for more than three decades and may be it is time to add more interesting content creation capabilities to Powerpoint or move to an application that provides such capabilities.
 
-Most digital content is also created in English, Mandarin and Spanish while there are many other languages and many research suggest that one's first language is the best medium for early education. While translating languages from one to another automatically is not effective as of today, future AI technologies would hopefully be able to bridge this gap as well.
+Most digital content is created in English, Mandarin and Spanish while there are many other languages and many research suggest that one's first language is the best medium for early education. While translating languages from one to another automatically is not effective as of today, future AI technologies would hopefully be able to bridge this gap as well.
 
 Students with special needs would require more help both from technology and human beings in order to enjoy and benefit from online education. If technology can leave more time for teachers they could invest that gained time on students with special needs.
 
