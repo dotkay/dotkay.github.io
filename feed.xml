@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-03-13T20:02:14+00:00</updated>
+  <updated>2021-03-15T03:38:59+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -607,6 +607,65 @@
 
       
         <summary type="html">Despite the date of posting, this post isn’t a joke and is meant to provoke some thoughts on efficiency and flexibility. As a result of COVID-19 pandemic we saw the mad rush for toilet papers and other essentials that were getting swept off super-market shelves. Not just toilet papers, even face-masks and ventilators were in short supply at a time when they were most needed. Many consumer and semiconductor companies lowered their guidance due to disruptions in their supply chain. How did we get into a situation where so many industries - from toilet papers to iPhones were getting affected? The world over the many years got more globalized. American or Canadian products were not made in the US or Canada. They were made in places where it was cheaper and faster to make. Even trash is sent to other countries in order to be recycled in a cost-effective manner. In short, global supply chain over the years shaped its goal into one that is more cost efficient rather than being flexible. This is not the first time companies are facing shocks. Not long ago, floods in Japan resulted in supply chain issues for automotive companies. Is this design for efficiency a problem? It definitely looks like, given what many countries went through as the COVID-19 pandemic stuck. Many companies were not able to reliably source their material and keep their assembly lines busy, as they were over-invested in the most (cost) efficient supply chains like in China. If instead the supply chains were designed for flexibility, the average marginal cost of a product “might be” (and just might be) a little higher but geography specific events would not throw the entire system out of gear. There is an emphasis on the uncertainity of the cost implications as it is not entirely clear at this point. For example, one could argue that, if the semiconductor industry had sourced from several geographies like China, India, Africa, South America, etc., it is very likely that the infrastructure for sustaining such supply chains would have developed in many such countries creating a healthy competition, thereby reducing the cost. And this applies to several industries, not just semiconductors. Have the corporates learnt a lesson now?. There was a similar talk after supply chain disruptions in Japan, but nothing materialized in the long run. Would this time be different? One has to wait and watch.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Market Returns and Stock Prices →</title>
+      
+      <link href="https://dotkay.github.io/2020/03/01/market-returns-and-stocks/" rel="alternate" type="text/html" title="Market Returns and Stock Prices" />
+      <published>2020-03-01T00:00:00+00:00</published>
+      <updated>2020-03-01T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2020/03/01/market-returns-and-stocks</id>
+      <content type="html" xml:base="https://dotkay.github.io/2020/03/01/market-returns-and-stocks/">&lt;p&gt;I recently started learning about stock prices, market returns and how risk is measured. I am still in the process of learning about it and I hope to add more to my knowledge in the following months.&lt;/p&gt;
+
+&lt;p&gt;There are many stock indices to look for how the general market is performing. More often, we hear about DOW index (DJIA - Dow Jones Industrial Average) down or NASDAQ up and so on. But NASDAQ is a technology firm heavy listing - i.e. the movement of the NASDAQ index would indicate the movement of technology sector to a large extent. While DJIA is a more general mix of stocks, it is price weighted and so companies with a higher stock price or extreme price movements would influence the movement more. Another common index is the S&amp;amp;P 500 (Standard and Poor’s 500) Index. S&amp;amp;P 500 is weighted by market value of the companies rather than the stock prices. So, a 5% movement of a $200 stock would affect the index the same way as a 5% movement of a $100 stock.&lt;/p&gt;
+
+&lt;p&gt;Let us see how the weekly percentage returns of one of the stocks (NVDA) compares to the percentage returns of the S&amp;amp;P 500 returns (usually referred to as &lt;em&gt;market returns&lt;/em&gt;), over a period of about five years.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sp500_returns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sp500_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Adj Close'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pct_change&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nvda_returns&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nvda_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Adj Close'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pct_change&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sp500_returns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'S&amp;amp;P 500'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nvda_returns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'NVDA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/fin_data_analysis/main/nvda_vs_sp500.PNG&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The above plot shows you how much NVDA (NVIDIA stock prices) fluctuate more than the general market (S&amp;amp;P 500 price index). If the stock is too volatile, it might be because of some risk associated with that stock, some portion of which can be explained by market movements and some portion specific to the company’s internal risk. &lt;em&gt;Beta&lt;/em&gt; is typically used as a measure of risk, which we will compute in a future post.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="S&amp;P 500" />
+      
+        <category term="DJIA" />
+      
+        <category term="stock market" />
+      
+        <category term="returns" />
+      
+
+      
+
+      
+        <summary type="html">I recently started learning about stock prices, market returns and how risk is measured. I am still in the process of learning about it and I hope to add more to my knowledge in the following months. There are many stock indices to look for how the general market is performing. More often, we hear about DOW index (DJIA - Dow Jones Industrial Average) down or NASDAQ up and so on. But NASDAQ is a technology firm heavy listing - i.e. the movement of the NASDAQ index would indicate the movement of technology sector to a large extent. While DJIA is a more general mix of stocks, it is price weighted and so companies with a higher stock price or extreme price movements would influence the movement more. Another common index is the S&amp;amp;P 500 (Standard and Poor’s 500) Index. S&amp;amp;P 500 is weighted by market value of the companies rather than the stock prices. So, a 5% movement of a $200 stock would affect the index the same way as a 5% movement of a $100 stock. Let us see how the weekly percentage returns of one of the stocks (NVDA) compares to the percentage returns of the S&amp;amp;P 500 returns (usually referred to as market returns), over a period of about five years. ... sp500_returns = sp500_df['Adj Close'].pct_change()[1:] nvda_returns = nvda_df['Adj Close'].pct_change()[1:] ... ... sp500_returns.plot(label='S&amp;amp;P 500') nvda_returns.plot(label='NVDA') The above plot shows you how much NVDA (NVIDIA stock prices) fluctuate more than the general market (S&amp;amp;P 500 price index). If the stock is too volatile, it might be because of some risk associated with that stock, some portion of which can be explained by market movements and some portion specific to the company’s internal risk. Beta is typically used as a measure of risk, which we will compute in a future post.</summary>
       
 
       
@@ -1279,61 +1338,6 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
       
         <summary type="html">In a previous post we saw how to compute the number if ways in which a bunch of toys can be rotated among as many number of kids without repetition. We also saw that we were computing intermediate problems over an over again, instead of remembering the computed value and reusing it (i.e. dynamic programming). Let us try it now. We will first create a container to store and remember the results of intermediate computations as and when we perform them - in our case just a one dimensional array that stores how many ways we can distribute n toys among n kids. We can populate our container with the base cases (case of one kid and one toy and two kids and two toys). int ways[n+1]; // base case ways[1] = 0; ways[2] = 1; Now, we iterate through the remaining number of toys, upto n and do the computation by reusing computed values instead of recursively calling the function to compute. int ways_dp(int n) { int ways[n+1]; // base case ways[1] = 0; ways[2] = 1; for (int i = 3; i &amp;lt;= n; i++) ways[i] = (i-1) * (ways[i-1] + ways[i-2]); return ways[n]; } It is as simple as that.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Sharing toys happily →</title>
-      
-      <link href="https://dotkay.github.io/2018/08/20/derangements/" rel="alternate" type="text/html" title="Sharing toys happily" />
-      <published>2018-08-20T00:00:00+00:00</published>
-      <updated>2018-08-20T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/08/20/derangements</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/08/20/derangements/">&lt;p&gt;Suppose you are incharge of a bunch of school kids and you have some expensive hi-tech toys, as many toys as the number of kids, from a sponsoring company that you are to ask the kids to share among themselves. The toys are all different and are sophisticated to different extent. You want each kid to have the toy for a day to play with. And you want to make sure no kid gets the chance to play with the toy the second time. How many possible ways can the toys be distributed?&lt;/p&gt;
-
-&lt;p&gt;Let’s formalize it a little more. Suppose there are &lt;em&gt;n&lt;/em&gt; kids - &lt;em&gt;k_1, k_2, …, k_n&lt;/em&gt; and so &lt;em&gt;n&lt;/em&gt; toys - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1, 2, ..., n&lt;/code&gt;. The first day is easy - you distribute toy &lt;em&gt;i&lt;/em&gt; to kid &lt;em&gt;k_i&lt;/em&gt;. From the second day, you need to make sure &lt;em&gt;k_i&lt;/em&gt; does not get &lt;em&gt;i&lt;/em&gt; again for the next &lt;em&gt;n&lt;/em&gt; days. If &lt;em&gt;k_1&lt;/em&gt; gets toy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt;, the problem is now reduced to &lt;em&gt;n-1&lt;/em&gt; kids and &lt;em&gt;n-1&lt;/em&gt; toys - i.e. one has to compute the number of ways in which you can distribute the toys &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1, 3, ..., n&lt;/code&gt; to kids &lt;em&gt;k_2, k_3, …, k_n&lt;/em&gt;. i.e. each kid gets the toy that they haven’t yet played with (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; possibilities). There can be this possibility as well: &lt;em&gt;k_1&lt;/em&gt; gets some toy &lt;em&gt;j&lt;/em&gt; and &lt;em&gt;k_j&lt;/em&gt; gets toy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; (essentially, &lt;em&gt;k_1&lt;/em&gt; and &lt;em&gt;k_j&lt;/em&gt; have swapped their toys), then our problem is now reduced to &lt;em&gt;n-2&lt;/em&gt; kids and &lt;em&gt;n-2&lt;/em&gt; toys.&lt;/p&gt;
-
-&lt;p&gt;We see that the computation of the two cases are identical - one with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; toys and the other with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-2&lt;/code&gt; toys. Another thing to note is that when &lt;em&gt;k_1&lt;/em&gt; is given toy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j&lt;/code&gt; the first day, for the second day, there are &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; possible ways to distribute &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; toys to &lt;em&gt;k_1&lt;/em&gt;, and so on. It is a recursive computation. The base case is when there are two kids and two toys (they just swap their toys the second day - so just one possible outcome), and when there are one kid and one toy (you just let the kid play with the one available toy for one day - so not much computation for second day and so second day has 0 possible outcomes).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ways_r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// base case&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ways_r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways_r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; 
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Since we are computing the intermediate (sub-problems) over and over again, we can remember the intermediate results and make it more efficient. Let’s see how to do it in a future post.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-        <category term="recursion" />
-      
-
-      
-
-      
-        <summary type="html">Suppose you are incharge of a bunch of school kids and you have some expensive hi-tech toys, as many toys as the number of kids, from a sponsoring company that you are to ask the kids to share among themselves. The toys are all different and are sophisticated to different extent. You want each kid to have the toy for a day to play with. And you want to make sure no kid gets the chance to play with the toy the second time. How many possible ways can the toys be distributed? Let’s formalize it a little more. Suppose there are n kids - k_1, k_2, …, k_n and so n toys - 1, 2, ..., n. The first day is easy - you distribute toy i to kid k_i. From the second day, you need to make sure k_i does not get i again for the next n days. If k_1 gets toy 2, the problem is now reduced to n-1 kids and n-1 toys - i.e. one has to compute the number of ways in which you can distribute the toys 1, 3, ..., n to kids k_2, k_3, …, k_n. i.e. each kid gets the toy that they haven’t yet played with (n-1 possibilities). There can be this possibility as well: k_1 gets some toy j and k_j gets toy 1 (essentially, k_1 and k_j have swapped their toys), then our problem is now reduced to n-2 kids and n-2 toys. We see that the computation of the two cases are identical - one with n-1 toys and the other with n-2 toys. Another thing to note is that when k_1 is given toy j the first day, for the second day, there are n-1 possible ways to distribute n-1 toys to k_1, and so on. It is a recursive computation. The base case is when there are two kids and two toys (they just swap their toys the second day - so just one possible outcome), and when there are one kid and one toy (you just let the kid play with the one available toy for one day - so not much computation for second day and so second day has 0 possible outcomes). int ways_r(int n) { // base case if (n == 1 || n == 2) return n-1; return (n-1) * (ways_r(n - 1) + ways_r(n - 2)); } Since we are computing the intermediate (sub-problems) over and over again, we can remember the intermediate results and make it more efficient. Let’s see how to do it in a future post.</summary>
       
 
       
