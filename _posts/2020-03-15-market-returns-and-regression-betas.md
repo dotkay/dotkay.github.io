@@ -45,8 +45,8 @@ print(nvda_reg_model.summary())
 Dep. Variable:              Adj Close   R-squared:                       0.265
 Model:                            OLS   Adj. R-squared:                  0.262
 Method:                 Least Squares   F-statistic:                     93.11
-Date:                Wed, 17 Mar 2021   Prob (F-statistic):           5.21e-19
-Time:                        20:12:27   Log-Likelihood:                 414.26
+                                        Prob (F-statistic):           5.21e-19
+                                        Log-Likelihood:                 414.26
 No. Observations:                 260   AIC:                            -824.5
 Df Residuals:                     258   BIC:                            -817.4
 Df Model:                           1                                         
