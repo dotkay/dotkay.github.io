@@ -28,7 +28,7 @@ R_asset = alpha + beta * R_market
 
 Let us use the [statsmodels](https://www.statsmodels.org) library to compute a linear regression.
 
-```python
+{% highlight python %}
 import statsmodels.api as sm
 ...
 x = sp500_returns
@@ -37,7 +37,7 @@ x = sm.add_constant(x)
 nvda_reg = sm.OLS(endog=y, exog=x)
 nvda_reg_model = nvda_reg.fit()
 print(nvda_reg_model.summary())
-```
+{% endhighlight %}
 
 ```
                             OLS Regression Results                            
@@ -71,16 +71,18 @@ Since we used (percentage change in ) _adjusted closing prices_ in our returns (
 
 We can also plot our regression:
 
-```python
+{% highlight python %}
 p = sns.jointplot(x = sp500_returns, y = nvda_returns,
                  kind = "reg", fit_reg=True,
                  height = 20, 
                  marginal_kws = dict(bins=100))
 ...
-```
+{% endhighlight %}
+
 <br>
 <div class="img_container">
 <center><img src="https://raw.githubusercontent.com/dotkay/fin_data_analysis/main/beta.png"></center>
 </div>
+<br>
 
 If you are an investor and you are given a choice between two stocks having the same beta but very different R-squared - which one would you choose and why?
