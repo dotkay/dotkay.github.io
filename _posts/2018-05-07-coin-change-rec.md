@@ -36,4 +36,4 @@ int coin_ways(std::vector<int>& S, int n, int target)
 
 If you try the above implementation on our example with S = { 1, 2 } and target = 3, you will get _ways_ to be 3. And the three ways are { 1, 1, 1 }, { 1, 2 } and { 2, 1 }. What if we want only the unique ways? How would you go about modifying the above algorithm? That is we want to collapse { 1, 2 } and { 2, 1 } as just one count - after all it does not matter if I keep the $1 bill upon $2 bill or the other way around as long as I am returning bills that sum up to $3. Think about it.
 
-Testing mathjax: \beta
+Testing mathjax: $$ \beta $$
