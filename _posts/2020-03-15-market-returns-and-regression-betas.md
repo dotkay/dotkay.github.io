@@ -22,7 +22,9 @@ Beta =  ---------------------------------
 
 Since we have market returns data that we used in our previous plot, we can run a regression on this data and try to fit a straight line to the data points in our dataset. The slope of the regression is the _Beta_.
 
-$$ R_{asset} = \alpha + \beta . R_{mkt}$$
+```
+R_asset = alpha + beta * R_market
+```
 
 Let us use the [statsmodels](https://www.statsmodels.org) library to compute a linear regression.
 
@@ -80,3 +82,5 @@ p = sns.jointplot(x = sp500_returns, y = nvda_returns,
 <div class="img_container">
 <center><img src="https://raw.githubusercontent.com/dotkay/fin_data_analysis/main/beta.png"></center>
 </div>
+
+If you are an investor and you are given a choice between two stocks having the same beta but very different R-squared - which one would you choose and why?
