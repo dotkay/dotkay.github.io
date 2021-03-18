@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-03-16T14:32:24+00:00</updated>
+  <updated>2021-03-18T03:42:37+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -607,6 +607,117 @@
 
       
         <summary type="html">Despite the date of posting, this post isn’t a joke and is meant to provoke some thoughts on efficiency and flexibility. As a result of COVID-19 pandemic we saw the mad rush for toilet papers and other essentials that were getting swept off super-market shelves. Not just toilet papers, even face-masks and ventilators were in short supply at a time when they were most needed. Many consumer and semiconductor companies lowered their guidance due to disruptions in their supply chain. How did we get into a situation where so many industries - from toilet papers to iPhones were getting affected? The world over the many years got more globalized. American or Canadian products were not made in the US or Canada. They were made in places where it was cheaper and faster to make. Even trash is sent to other countries in order to be recycled in a cost-effective manner. In short, global supply chain over the years shaped its goal into one that is more cost efficient rather than being flexible. This is not the first time companies are facing shocks. Not long ago, floods in Japan resulted in supply chain issues for automotive companies. Is this design for efficiency a problem? It definitely looks like, given what many countries went through as the COVID-19 pandemic stuck. Many companies were not able to reliably source their material and keep their assembly lines busy, as they were over-invested in the most (cost) efficient supply chains like in China. If instead the supply chains were designed for flexibility, the average marginal cost of a product “might be” (and just might be) a little higher but geography specific events would not throw the entire system out of gear. There is an emphasis on the uncertainity of the cost implications as it is not entirely clear at this point. For example, one could argue that, if the semiconductor industry had sourced from several geographies like China, India, Africa, South America, etc., it is very likely that the infrastructure for sustaining such supply chains would have developed in many such countries creating a healthy competition, thereby reducing the cost. And this applies to several industries, not just semiconductors. Have the corporates learnt a lesson now?. There was a similar talk after supply chain disruptions in Japan, but nothing materialized in the long run. Would this time be different? One has to wait and watch.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Market Returns and Regression Betas →</title>
+      
+      <link href="https://dotkay.github.io/2020/03/15/market-returns-and-regression-betas/" rel="alternate" type="text/html" title="Market Returns and Regression Betas" />
+      <published>2020-03-15T00:00:00+00:00</published>
+      <updated>2020-03-15T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2020/03/15/market-returns-and-regression-betas</id>
+      <content type="html" xml:base="https://dotkay.github.io/2020/03/15/market-returns-and-regression-betas/">&lt;p&gt;In a &lt;a href=&quot;https://dotkay.github.io/2020/03/01/market-returns-and-stocks&quot;&gt;previous post&lt;/a&gt; we saw how volatile a stock is, compared to a broader market performance, by plotting the percentage change in weekly returns of the stock prices. We were able to visually see that a certain stock was moving much more vigorously than the market (S&amp;amp;P 500 in that case).&lt;/p&gt;
+
+&lt;p&gt;In this post, I want to see how to find and measure the movement of a particular stock with respect to the market. Is there a standardized measure? Suppose an investor who holds multiple assets wants to measure how much risk &lt;em&gt;a&lt;/em&gt; particular asset adds to his portfolio, is there a way he can quantify the risk?&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Statistically, &lt;em&gt;covariance&lt;/em&gt; of an asset measures how much the asset moves compared to market movements&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;em&gt;Beta&lt;/em&gt; is a standardized measure of this covariance.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        covariance of asset with market 
+Beta =  ---------------------------------
+            variance of the market
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Since we have market returns data that we used in our previous plot, we can run a regression on this data and try to fit a straight line to the data points in our dataset. The slope of the regression is the &lt;em&gt;Beta&lt;/em&gt;.&lt;/p&gt;
+
+&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=&quot;katex&quot;&gt;&lt;span class=&quot;katex-mathml&quot;&gt;&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msub&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;α&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;β&lt;/mi&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;.&lt;/mi&gt;&lt;msub&gt;&lt;mi&gt;R&lt;/mi&gt;&lt;mrow&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;k&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;/mrow&gt;&lt;/msub&gt;&lt;/mrow&gt;&lt;annotation encoding=&quot;application/x-tex&quot;&gt;R_{asset} = \alpha + \beta . R_{mkt}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&quot;katex-html&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.83333em;vertical-align:-0.15em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathdefault&quot; style=&quot;margin-right:0.00773em;&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.2805559999999999em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;t&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mrel&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2777777777777778em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.66666em;vertical-align:-0.08333em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathdefault&quot; style=&quot;margin-right:0.0037em;&quot;&gt;α&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mbin&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mspace&quot; style=&quot;margin-right:0.2222222222222222em;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;base&quot;&gt;&lt;span class=&quot;strut&quot; style=&quot;height:0.8888799999999999em;vertical-align:-0.19444em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;mord mathdefault&quot; style=&quot;margin-right:0.05278em;&quot;&gt;β&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mord&quot;&gt;&lt;span class=&quot;mord mathdefault&quot; style=&quot;margin-right:0.00773em;&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;msupsub&quot;&gt;&lt;span class=&quot;vlist-t vlist-t2&quot;&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.33610799999999996em;&quot;&gt;&lt;span style=&quot;top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;&quot;&gt;&lt;span class=&quot;pstrut&quot; style=&quot;height:2.7em;&quot;&gt;&lt;/span&gt;&lt;span class=&quot;sizing reset-size6 size3 mtight&quot;&gt;&lt;span class=&quot;mord mtight&quot;&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot; style=&quot;margin-right:0.03148em;&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;mord mathdefault mtight&quot;&gt;t&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-s&quot;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;vlist-r&quot;&gt;&lt;span class=&quot;vlist&quot; style=&quot;height:0.15em;&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;
+
+&lt;p&gt;Let us use the &lt;a href=&quot;https://www.statsmodels.org&quot;&gt;statsmodels&lt;/a&gt; library to compute a linear regression.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;statsmodels.api&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sm&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sp500_returns&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nvda_returns&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_constant&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nvda_reg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;OLS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nvda_reg_model&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nvda_reg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nvda_reg_model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              Adj Close   R-squared:                       0.265
+Model:                            OLS   Adj. R-squared:                  0.262
+Method:                 Least Squares   F-statistic:                     93.11
+Date:                Wed, 17 Mar 2021   Prob (F-statistic):           5.21e-19
+Time:                        20:12:27   Log-Likelihood:                 414.26
+No. Observations:                 260   AIC:                            -824.5
+Df Residuals:                     258   BIC:                            -817.4
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&amp;gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.0080      0.003      2.598      0.010       0.002       0.014
+Adj Close      1.7961      0.186      9.649      0.000       1.430       2.163
+==============================================================================
+Omnibus:                       73.992   Durbin-Watson:                   2.085
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              639.151
+Skew:                           0.846   Prob(JB):                    1.62e-139
+Kurtosis:                      10.492   Cond. No.                         60.8
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Since we used (percentage change in ) &lt;em&gt;adjusted closing prices&lt;/em&gt; in our returns (with the column name ‘Adj Close’ in our dataframe), we see that the &lt;em&gt;beta&lt;/em&gt; of NVIDIA stock during the period of the regression (2015-2019) is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.79&lt;/code&gt;. We also see the R-squared value of our regression which turns out to be 0.265 and this indicates that 26.5% of the risk can be attributed to the market risk while the remaining &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;73.5%&lt;/code&gt; of the risk is firm specific. We also see the P value of our regression and a bunch of other details.&lt;/p&gt;
+
+&lt;p&gt;We can also plot our regression:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jointplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sp500_returns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nvda_returns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;reg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fit_reg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                 &lt;span class=&quot;n&quot;&gt;marginal_kws&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bins&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/fin_data_analysis/main/beta.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="S&amp;P 500" />
+      
+        <category term="market returns" />
+      
+        <category term="regression" />
+      
+        <category term="beta" />
+      
+
+      
+
+      
+        <summary type="html">In a previous post we saw how volatile a stock is, compared to a broader market performance, by plotting the percentage change in weekly returns of the stock prices. We were able to visually see that a certain stock was moving much more vigorously than the market (S&amp;amp;P 500 in that case). In this post, I want to see how to find and measure the movement of a particular stock with respect to the market. Is there a standardized measure? Suppose an investor who holds multiple assets wants to measure how much risk a particular asset adds to his portfolio, is there a way he can quantify the risk? Statistically, covariance of an asset measures how much the asset moves compared to market movements Beta is a standardized measure of this covariance. covariance of asset with market Beta = --------------------------------- variance of the market Since we have market returns data that we used in our previous plot, we can run a regression on this data and try to fit a straight line to the data points in our dataset. The slope of the regression is the Beta. Rasset=α+β.RmktR_{asset} = \alpha + \beta . R_{mkt}Rasset​=α+β.Rmkt​ Let us use the statsmodels library to compute a linear regression. import statsmodels.api as sm ... x = sp500_returns y = nvda_returns x = sm.add_constant(x) nvda_reg = sm.OLS(endog=y, exog=x) nvda_reg_model = nvda_reg.fit() print(nvda_reg_model.summary()) OLS Regression Results ============================================================================== Dep. Variable: Adj Close R-squared: 0.265 Model: OLS Adj. R-squared: 0.262 Method: Least Squares F-statistic: 93.11 Date: Wed, 17 Mar 2021 Prob (F-statistic): 5.21e-19 Time: 20:12:27 Log-Likelihood: 414.26 No. Observations: 260 AIC: -824.5 Df Residuals: 258 BIC: -817.4 Df Model: 1 Covariance Type: nonrobust ============================================================================== coef std err t P&amp;gt;|t| [0.025 0.975] ------------------------------------------------------------------------------ const 0.0080 0.003 2.598 0.010 0.002 0.014 Adj Close 1.7961 0.186 9.649 0.000 1.430 2.163 ============================================================================== Omnibus: 73.992 Durbin-Watson: 2.085 Prob(Omnibus): 0.000 Jarque-Bera (JB): 639.151 Skew: 0.846 Prob(JB): 1.62e-139 Kurtosis: 10.492 Cond. No. 60.8 ============================================================================== Notes: [1] Standard Errors assume that the covariance matrix of the errors is correctly specified. Since we used (percentage change in ) adjusted closing prices in our returns (with the column name ‘Adj Close’ in our dataframe), we see that the beta of NVIDIA stock during the period of the regression (2015-2019) is 1.79. We also see the R-squared value of our regression which turns out to be 0.265 and this indicates that 26.5% of the risk can be attributed to the market risk while the remaining 73.5% of the risk is firm specific. We also see the P value of our regression and a bunch of other details. We can also plot our regression: p = sns.jointplot(x = sp500_returns, y = nvda_returns, kind = &quot;reg&quot;, fit_reg=True, height = 20, marginal_kws = dict(bins=100)) ...</summary>
       
 
       
@@ -1280,74 +1391,6 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
       
         <summary type="html">In a previous post we looked at the problem of counting coke cans dispensed for marketing rewards. Now, the new marketing manager is more detail oriented. He noticed that some shops have only one or a couple of coke vending machines while larger restaurants and offices have dozens of them. He wants to see which machine number dispenses the maximum number of coke cans from a range of machine numbers. And he has decided to index each establishment (restaurant or office complex) with just a single machine number. How would one go about computing the maxinum number of coke cans dispensed among a range of machines? The solution, from our previous effort in solving a similar problem, is straight forward - we can maintain an array and compute the max value among a given range of indices. int RMQ::rmq(int end) { int max = rarr[0]; for (int k = 0; k &amp;lt; end; k++) { max = std::max(max, rarr[k]); } return max; } int RMQ::rmq(int begin, int end) { int max = rarr[begin]; for (int k = begin; k &amp;lt; end; k++) { max = std::max(max, rarr[k]); } return max; } But what happens when we have millions of such queries - as different advertisers might be querying our database to send various kinds of offers? Do we have to traverse the range every time, in order to compute the max value? Or can we do better?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Sharing toys again →</title>
-      
-      <link href="https://dotkay.github.io/2018/08/24/derangements_dp/" rel="alternate" type="text/html" title="Sharing toys again" />
-      <published>2018-08-24T00:00:00+00:00</published>
-      <updated>2018-08-24T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/08/24/derangements_dp</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/08/24/derangements_dp/">&lt;p&gt;In a &lt;a href=&quot;https://dotkay.github.io/2018/08/20/derangements&quot;&gt;previous post&lt;/a&gt; we saw how to compute the number if ways in which a bunch of toys can be rotated among as many number of kids without repetition. We also saw that we were computing intermediate problems over an over again, instead of remembering the computed value and reusing it (i.e. dynamic programming). Let us try it now.&lt;/p&gt;
-
-&lt;p&gt;We will first create a container to store and remember the results of intermediate computations as and when we perform them - in our case just a one dimensional array that stores how many ways we can distribute &lt;em&gt;n&lt;/em&gt; toys among &lt;em&gt;n&lt;/em&gt; kids. We can populate our container with the base cases (case of one kid and one toy and two kids and two toys).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// base case&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Now, we iterate through the remaining number of toys, upto &lt;em&gt;n&lt;/em&gt; and do the computation by reusing computed values instead of recursively calling the function to compute.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ways_dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;// base case&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-  
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ways&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;It is as simple as that.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-        <category term="dynamic programming" />
-      
-
-      
-
-      
-        <summary type="html">In a previous post we saw how to compute the number if ways in which a bunch of toys can be rotated among as many number of kids without repetition. We also saw that we were computing intermediate problems over an over again, instead of remembering the computed value and reusing it (i.e. dynamic programming). Let us try it now. We will first create a container to store and remember the results of intermediate computations as and when we perform them - in our case just a one dimensional array that stores how many ways we can distribute n toys among n kids. We can populate our container with the base cases (case of one kid and one toy and two kids and two toys). int ways[n+1]; // base case ways[1] = 0; ways[2] = 1; Now, we iterate through the remaining number of toys, upto n and do the computation by reusing computed values instead of recursively calling the function to compute. int ways_dp(int n) { int ways[n+1]; // base case ways[1] = 0; ways[2] = 1; for (int i = 3; i &amp;lt;= n; i++) ways[i] = (i-1) * (ways[i-1] + ways[i-2]); return ways[n]; } It is as simple as that.</summary>
       
 
       

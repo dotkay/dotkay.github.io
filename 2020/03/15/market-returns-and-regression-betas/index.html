@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Market Returns and Regression Betas</title>
+  <meta name="description" content="In a previous post we saw how volatile a stock is, compared to a broader market performance, by plotting the percentage change in weekly returns of the stock prices. We were able to visually see that a certain stock was moving much more vigorously than the market (S&amp;amp;P 500 in that case). In this post, I want to see how to find and measure the movement of a particular stock with respect to the market. Is there a standardized measure? Suppose an investor who holds multiple assets wants to measure how much risk a particular asset adds to his portfolio, is there a way he can quantify the risk? Statistically, covariance of an asset measures how much the asset moves compared to market movements Beta is a standardized measure of this covariance. covariance of asset with market Beta = --------------------------------- variance of the market Since we have market returns data that we used in our previous plot, we can run a regression on this data and try to fit a straight line to the data points in our dataset. The slope of the regression is the Beta. Rasset=α+β.RmktR_{asset} = \alpha + \beta . R_{mkt}Rasset​=α+β.Rmkt​ Let us use the statsmodels library to compute a linear regression. import statsmodels.api as sm ... x = sp500_returns y = nvda_returns x = sm.add_constant(x) nvda_reg = sm.OLS(endog=y, exog=x) nvda_reg_model = nvda_reg.fit() print(nvda_reg_model.summary()) OLS Regression Results ============================================================================== Dep. Variable: Adj Close R-squared: 0.265 Model: OLS Adj. R-squared: 0.262 Method: Least Squares F-statistic: 93.11 Date: Wed, 17 Mar 2021 Prob (F-statistic): 5.21e-19 Time: 20:12:27 Log-Likelihood: 414.26 No. Observations: 260 AIC: -824.5 Df Residuals: 258 BIC: -817.4 Df Model: 1 Covariance Type: nonrobust ============================================================================== coef std err t P&amp;gt;|t| [0.025 0.975] ------------------------------------------------------------------------------ const 0.0080 0.003 2.598 0.010 0.002 0.014 Adj Close 1.7961 0.186 9.649 0.000 1.430 2.163 ============================================================================== Omnibus: 73.992 Durbin-Watson: 2.085 Prob(Omnibus): 0.000 Jarque-Bera (JB): 639.151 Skew: 0.846 Prob(JB): 1.62e-139 Kurtosis: 10.492 Cond. No. 60.8 ============================================================================== Notes: [1] Standard Errors assume that the covariance matrix of the errors is correctly specified. Since we used (percentage change in ) adjusted closing prices in our returns (with the column name ‘Adj Close’ in our dataframe), we see that the beta of NVIDIA stock during the period of the regression (2015-2019) is 1.79. We also see the R-squared value of our regression which turns out to be 0.265 and this indicates that 26.5% of the risk can be attributed to the market risk while the remaining 73.5% of the risk is firm specific. We also see the P value of our regression and a bunch of other details. We can also plot our regression: p = sns.jointplot(x = sp500_returns, y = nvda_returns, kind = &quot;reg&quot;, fit_reg=True, height = 20, marginal_kws = dict(bins=100)) ...">
+  
+    
+    <meta name="keywords" content="S&P 500,market returns,regression,beta">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2020/03/15/market-returns-and-regression-betas/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Market Returns and Regression Betas">
+  <meta name="twitter:description" content="In a previous post we saw how volatile a stock is, compared to a broader market performance, by plotting the percentage change in weekly returns of the stock prices. We were able to visually see th...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2020/03/15/market-returns-and-regression-betas">Market Returns and Regression Betas &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2020-03-15T00:00:00+00:00" itemprop="datePublished">Mar 15, 2020</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/s-p-500/">S&amp;P 500</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/market-returns/">market returns</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/regression/">regression</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/beta/">beta</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2020/03/01/market-returns-and-stocks">previous post</a> we saw how volatile a stock is, compared to a broader market performance, by plotting the percentage change in weekly returns of the stock prices. We were able to visually see that a certain stock was moving much more vigorously than the market (S&amp;P 500 in that case).</p>
+
+<p>In this post, I want to see how to find and measure the movement of a particular stock with respect to the market. Is there a standardized measure? Suppose an investor who holds multiple assets wants to measure how much risk <em>a</em> particular asset adds to his portfolio, is there a way he can quantify the risk?</p>
+
+<blockquote>
+  <p>Statistically, <em>covariance</em> of an asset measures how much the asset moves compared to market movements</p>
+</blockquote>
+
+<p><em>Beta</em> is a standardized measure of this covariance.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        covariance of asset with market 
+Beta =  ---------------------------------
+            variance of the market
+</code></pre></div></div>
+
+<p>Since we have market returns data that we used in our previous plot, we can run a regression on this data and try to fit a straight line to the data points in our dataset. The slope of the regression is the <em>Beta</em>.</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mrow><mi>a</mi><mi>s</mi><mi>s</mi><mi>e</mi><mi>t</mi></mrow></msub><mo>=</mo><mi>α</mi><mo>+</mo><mi>β</mi><mi mathvariant="normal">.</mi><msub><mi>R</mi><mrow><mi>m</mi><mi>k</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">R_{asset} = \alpha + \beta . R_{mkt}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">e</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="mord">.</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.00773em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mathdefault mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>
+
+<p>Let us use the <a href="https://www.statsmodels.org">statsmodels</a> library to compute a linear regression.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="n">sm</span>
+<span class="p">...</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sp500_returns</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">nvda_returns</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">nvda_reg</span> <span class="o">=</span> <span class="n">sm</span><span class="p">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">endog</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">exog</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+<span class="n">nvda_reg_model</span> <span class="o">=</span> <span class="n">nvda_reg</span><span class="p">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">nvda_reg_model</span><span class="p">.</span><span class="n">summary</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:              Adj Close   R-squared:                       0.265
+Model:                            OLS   Adj. R-squared:                  0.262
+Method:                 Least Squares   F-statistic:                     93.11
+Date:                Wed, 17 Mar 2021   Prob (F-statistic):           5.21e-19
+Time:                        20:12:27   Log-Likelihood:                 414.26
+No. Observations:                 260   AIC:                            -824.5
+Df Residuals:                     258   BIC:                            -817.4
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.0080      0.003      2.598      0.010       0.002       0.014
+Adj Close      1.7961      0.186      9.649      0.000       1.430       2.163
+==============================================================================
+Omnibus:                       73.992   Durbin-Watson:                   2.085
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              639.151
+Skew:                           0.846   Prob(JB):                    1.62e-139
+Kurtosis:                      10.492   Cond. No.                         60.8
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</code></pre></div></div>
+
+<p>Since we used (percentage change in ) <em>adjusted closing prices</em> in our returns (with the column name ‘Adj Close’ in our dataframe), we see that the <em>beta</em> of NVIDIA stock during the period of the regression (2015-2019) is <code class="language-plaintext highlighter-rouge">1.79</code>. We also see the R-squared value of our regression which turns out to be 0.265 and this indicates that 26.5% of the risk can be attributed to the market risk while the remaining <code class="language-plaintext highlighter-rouge">73.5%</code> of the risk is firm specific. We also see the P value of our regression and a bunch of other details.</p>
+
+<p>We can also plot our regression:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">jointplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">sp500_returns</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">nvda_returns</span><span class="p">,</span>
+                 <span class="n">kind</span> <span class="o">=</span> <span class="s">"reg"</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                 <span class="n">height</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> 
+                 <span class="n">marginal_kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
+<span class="p">...</span>
+</code></pre></div></div>
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/fin_data_analysis/main/beta.png" /></center>
+</div>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -101,10 +101,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/08/20/derangements/">Sharing toys happily &rarr;</a>
+            <a class="post-link" href="/2018/08/24/derangements_dp/">Sharing toys again &rarr;</a>
           </h1>
 
-          <p class="post-meta">Aug 20, 2018 • 
+          <p class="post-meta">Aug 24, 2018 • 
   
   
     
@@ -115,6 +115,12 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -478,6 +484,641 @@
   
     
   
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/dynamic-programming/">dynamic programming</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In a <a href="https://dotkay.github.io/2018/08/20/derangements">previous post</a> we saw how to compute the number if ways in which a bunch of toys can be rotated among as many number of kids without repetition. We also saw that we were computing intermediate problems over an over again, instead of remembering the computed value and reusing it (i.e. dynamic programming). Let us try it now.</p>
+
+<p>We will first create a container to store and remember the results of intermediate computations as and when we perform them - in our case just a one dimensional array that stores how many ways we can distribute <em>n</em> toys among <em>n</em> kids. We can populate our container with the base cases (case of one kid and one toy and two kids and two toys).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">ways</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+
+<span class="c1">// base case</span>
+<span class="n">ways</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">ways</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></code></pre>
+</figure>
+
+<p>Now, we iterate through the remaining number of toys, upto <em>n</em> and do the computation by reusing computed values instead of recursively calling the function to compute.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">ways_dp</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">ways</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="c1">// base case</span>
+  <span class="n">ways</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="n">ways</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]);</span>
+  
+  <span class="k">return</span> <span class="n">ways</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>It is as simple as that.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/08/20/derangements/">Sharing toys happily &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Aug 20, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -487,6 +1128,12 @@
   
     
       <a href="/categories/recursion/">recursion</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -889,6 +1536,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1076,6 +1729,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1161,6 +1820,12 @@
   
     
       <a href="/categories/google/">Google</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1484,6 +2149,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1567,6 +2238,12 @@
   
     
       <a href="/categories/deep-learning/">deep learning</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1756,6 +2433,12 @@
   
     
       <a href="/categories/google/">Google</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2065,6 +2748,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2252,581 +2941,6 @@
   
     
   
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>While driving back from a camping along with my friends and looking at the vast possibly burnt areas, we started thinking why even in the <em>so called</em> hot bed of technology (Silicon Valley) we <a href="https://www.mercurynews.com/2018/07/30/why-planes-cant-fight-shastas-deadly-carr-fire/">hear</a> that fire fighting aircrafts had visibility problems because of the dense smoke. Why can’t we use autonomous drone technology for fighting wild fires (given that we use unmanned drones for warfare). Something to think about seriously.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/07/15/hidden-brain-languages-mind/">Languages, mind and our way of thinking... &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Jul 15, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/psychology/">psychology</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/languages/">languages</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/npr/">NPR</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
     
   
     
@@ -2838,14 +2952,7 @@
         </header>
 
         <div class="post-content">
-          <p>Allez les Bleus!!</p>
-
-<p>Just happened to listen to this week’s episode of one of the recent NPR podcast series titled <a href="https://www.npr.org/series/423302056/hidden-brain">Hidden Brain</a> and it got me thinking a lot. I speak almost 5 languages (not fluently but to different degrees of expertise) and I am not sure how my mind thinks. One thing for sure though is that I happen to think in my mother tongue and my mind translates it in (almost) real-time while I communicate, be it talking or writing down my thoughts as I do while writing this blog post. If languages do influence our thinking and understanding and more importantly the biases we cultivate, what does it mean for language translators - do they also convey the biases that are inherently influenced by one’s language? Or as a technologist I am also inclined to think what would it mean for AI systems (say chat-bots) that are meant to facilitate communication? I now tend to believe that they have to be designed with the intricacies of languages and the influences, biases that it carries along encoded into the system in order for it to be more acceptable. Even if not as a chat-bot, it would be a great system to train people to work with people of different cultures so that we understand different cultures better and comfortably communicate taking into account their nuances.</p>
-
-<p>If you are interested in listening to it, here it is:</p>
-<audio controls="">
-<source src="https://play.podtrac.com/npr-510308/ondemand.npr.org/anon.npr-mp3/npr/hiddenbrain/2018/07/20180712_hiddenbrain_hb_rad_-_watch_your_mouth__-_final_full_for_web.mp3" />
-</audio>
+          <p>While driving back from a camping along with my friends and looking at the vast possibly burnt areas, we started thinking why even in the <em>so called</em> hot bed of technology (Silicon Valley) we <a href="https://www.mercurynews.com/2018/07/30/why-planes-cant-fight-shastas-deadly-carr-fire/">hear</a> that fire fighting aircrafts had visibility problems because of the dense smoke. Why can’t we use autonomous drone technology for fighting wild fires (given that we use unmanned drones for warfare). Something to think about seriously.</p>
 
         </div>
         

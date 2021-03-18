@@ -101,10 +101,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/07/string-isogram/">Checking if a string is an isogram &rarr;</a>
+            <a class="post-link" href="/2018/04/08/rotate-array-ccw/">Rotating an array counter clockwise around a given index &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 7, 2018 • 
+          <p class="post-meta">Apr 8, 2018 • 
   
   
     
@@ -115,6 +115,12 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -478,6 +484,645 @@
   
     
   
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Given an array, how do you rotate it counter clockwise around a given input index position? i.e. If the input array was <code class="language-plaintext highlighter-rouge">[1, 2, 3, 4, 5, 6, 7, 8]</code>, the result of rotation around index <code class="language-plaintext highlighter-rouge">3</code> (that has the element 4) in the counter clockwise direction would be <code class="language-plaintext highlighter-rouge">[5, 6, 7, 8, 1, 2, 3, 4]</code>. The sequence of transformations the array goes through as each of the elements until the given index rotates would be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+2 3 4 5 6 7 8 1            --&gt; 1 has rotated away to the end of the array
+3 4 5 6 7 8 1 2            --&gt; 2 has rotated away following 1
+4 5 6 7 8 1 2 3            --&gt; now, it's 3's turn
+5 6 7 8 1 2 3 4            --&gt; the element at index 3 (i.e. 4) around which we
+                               wanted to rotate has also completed.
+</code></pre></div></div>
+
+<p>We can use the <a href="https://dotkay.github.io/2018/04/05/reverse-a-subarray">algorithm we developed to reverse a sub-array</a>, in order to achieve this rotation. The idea is simple:</p>
+
+<ol>
+  <li>First, reverse the sub-array consisting of elements from the beginning of the array until the pivot (around which we want to rotate the array) in place</li>
+  <li>Now, rotate the remaining sub-array alone (i.e. from the pivot until the end of the array</li>
+  <li>Complete it by reversing the entire array once</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4 5 6 7 8            --&gt; input array
+4 3 2 1 5 6 7 8            --&gt; step-1 first sub-array reversed
+4 3 2 1 8 7 6 5            --&gt; step-2 second sub-array reversed
+5 6 7 8 1 2 3 4            --&gt; step-3 rotation of the entire array 
+</code></pre></div></div>
+
+<p>An implementation would look like:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">rotate_arr_ccw</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">,</span> <span class="kt">int</span> <span class="n">pivot</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pivot</span><span class="p">);</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">pivot</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+  <span class="n">reverse_arr</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/04/07/string-isogram/">Checking if a string is an isogram &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 7, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -531,6 +1176,12 @@
   
     
       <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -909,6 +1560,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -940,6 +1597,12 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1149,6 +1812,12 @@
   
     
       <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1549,6 +2218,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1580,6 +2255,12 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1787,6 +2468,12 @@
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2144,6 +2831,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2175,6 +2868,12 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2384,6 +3083,12 @@
   
     
       <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2548,617 +3253,6 @@
 </figure>
 
 <p>Again, we have to check if the lengths of the input strings are the same. Without this check, we migth deduce that <code class="language-plaintext highlighter-rouge">ello</code> can be obtained from <code class="language-plaintext highlighter-rouge">hello</code> by rotating through <code class="language-plaintext highlighter-rouge">1</code> character position.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/04/03/string-rotation-check/">Checking for string rotations &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Apr 3, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/strings/">strings</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Today, let us play with some examples using “strings”. Let us see if we can write a function which, given two strings, would tell you if the input strings are rotations of each other. For example, <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">naan</code> are rotations of each other while <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">nana</code> are not. More simply, two strings are rotations if you can get from on to the other while moving the characters in order (without over-stepping):</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a-n-n-a   --&gt; 0. original string
-n-n-a-a   --&gt; 1. rotated by 1 ('a' moves to the end)
-n-a-a-n   --&gt; 2. rotated by 1
-</code></pre></div></div>
-
-<p>A very simple algorithm would just concatenate one of the input strings with itself and try to find the second string in the concatenation of the first. In the above example, this would be:</p>
-
-<ol>
-  <li>Concatenate one of the strings with itself. Say, we choose <code class="language-plaintext highlighter-rouge">anna</code> to concatenate and form the concatenated one <code class="language-plaintext highlighter-rouge">annaanna</code></li>
-  <li>Search for the occurence of the second string <code class="language-plaintext highlighter-rouge">naan</code> in the concatenation,</li>
-  <li>We see that <code class="language-plaintext highlighter-rouge">naan</code> is indeed a substring of the concatenation <em>an</em><strong>naan</strong><em>na</em> and a rotation of <code class="language-plaintext highlighter-rouge">anna</code>.</li>
-</ol>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">str_rotation</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">.</span><span class="n">length</span><span class="p">())</span>
-    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">concat_str</span><span class="p">;</span>
-  <span class="n">concat_str</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s1</span><span class="p">;</span>
-  <span class="kt">int</span> <span class="n">res_pos</span> <span class="o">=</span> <span class="n">concat_str</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">res_pos</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-  <span class="k">else</span> 
-    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>A caveat here is to check for the length of the two strings <em>a priori</em>. This is to avoid sub-strings of smaller length that would be identified as rotations by our algorithm. For example, without this check, we would deduce <code class="language-plaintext highlighter-rouge">ann</code> to be a rotation of <code class="language-plaintext highlighter-rouge">anna</code>.</p>
 
         </div>
         
