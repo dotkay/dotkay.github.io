@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Greedy
+title: Greedy algorithms vs Tik-Tok teenagers
 categories: [algorithms, C++, greedy]
 keywords: C++, algorithms, greedy, event scheduling
 external-url: https://dotkay.github.io/2018/10/01/event-scheduling
