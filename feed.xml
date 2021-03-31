@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-03-19T04:57:28+00:00</updated>
+  <updated>2021-03-31T15:19:39+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -1197,6 +1197,118 @@ Many of the reasoning engines built for reasoning about the correct of computer 
   
     <entry>
       
+      <title type="html">Greedy →</title>
+      
+      <link href="https://dotkay.github.io/2018/10/01/event-scheduling/" rel="alternate" type="text/html" title="Greedy" />
+      <published>2018-10-01T00:00:00+00:00</published>
+      <updated>2018-10-01T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/10/01/event-scheduling</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/10/01/event-scheduling/">&lt;p&gt;Suppose you are a famous celebrity getting several requests for interviews and appearances at events, of course with enough media presence, and you want to choose a few of the events so that you do not overcommit and keep your calendar relatively organized. You are relatively old fashioned and are having to compete against Tik-Tok teenagers for media clicks and so you want to accept as many invitations as possible so that it gives you maximum media coverage. The different events might be covered by different media outlets and so the more events you attend you get covered by more media outlets.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right, greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms; greed for life, for money, for love, knowledge has marked the upward surge of mankind.                 – Wall Street (1987)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A &lt;em&gt;greedy&lt;/em&gt; algorithm is one that creates a solution by making a local decision at each step with only local knowledge to optimize for some objective. In our case, our objective is to maximize the profit from doing jobs. And we want to identify the local decision rule that would also construct a globally optimal solution.&lt;/p&gt;
+
+&lt;p&gt;In our case, we want to accept as large a set of compatible invitations (invitations whose schedules do not conflict with one another) as possible. Your assistant provides you with the list of invitations and their schedules sufficiently in advance so that you can pick the ones that interest you. You start working out the possibilities in order to come up with the best algorithm.&lt;/p&gt;
+
+&lt;p&gt;The most obvious approach would be to accept the event that starts earliest, commit to it and pick other events depending on conflicts. But you see that you accepted such a thing, an event to clean a park, that consumed all of the day - just one event, and you declined four other events in order to do this.&lt;/p&gt;
+
+&lt;p&gt;You calendar actually looked something like this and you could have chosen the other three four events and had more media appearances.
+&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/cleaning_the_park.PNG&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;So you think accepting events in order of their duration, preferring shortest events over longer ones, avoiding conflicts, is the right way to go. Your calendar from that boring Tuesday when you accepted a lunch invitation from a boring old actor makes you rethink the approach. Not just that you had to endure the boring actor or the lunch was not that great, you had to decline two other events, one of them a live music show and that sounds more fun now.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/boring_lunch.PNG&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;So, you decide not to go with prioritizing shortest events. The lunch meeting was too boring even if it was short. You decide to choose your events based on the least number of conflicts - if an event has less conflicts than others in your schedule, you want to prioritize that. That sounds promising. After your instagram post with you wearing a Bitcoin pendant went viral a couple of weeks ago, many tv channels wanted to interview you. And you committed to three of these interviews - BBC, MSNBC and CBS easily minimizing the conflicts in your calendar. Although the calendar looks confusing to choose the best set of events from, it was less confusing than the questions during those tv interviews or your answers to them.&lt;/p&gt;
+
+&lt;p&gt;You choose BBC because it conflicts only with TMZ and Fox (the other possible schedule) while choosing TMZ would conflict with BBC, MTV and CNBC (more conflicts). You picked the other events similarly - you choose the sequence of events in the second row - BBC, MSNBC and CBS as they seem to have minimal conflicts than the others. But now, putting the available options together, you see that you could have chosen four interviews (from first row) and had more media clicks.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/tv_interviews.PNG&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Greedy&lt;/em&gt; algorithms are not very trivial. But they have been established for certain generic problems - commonly called &lt;em&gt;interval scheduling&lt;/em&gt; that can be extended to many such real-world examples. A &lt;em&gt;greedy&lt;/em&gt; rule that would lead to optimal pick of events is actually different from any of the choices above. The optimal choice is to pick the first request that finishes first (the idea being, you want to free up yourself as early as possible to get ready for the next event).&lt;/p&gt;
+
+&lt;p&gt;So, you sort the events of the day in increasing order of their finish times, pick the event that finishes first and among the rest of the events, pick the events that finish earlier and has no conflicts with already picked events.&lt;/p&gt;
+
+&lt;p&gt;Let us do it step by step, in a C++ program. Suppose you are given a list of events, each event described by its start and finish times.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Event&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;You first sort the given list of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; events (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;std::vector&amp;lt;Event&amp;gt; events&lt;/code&gt;) according to increasing order of their finish times.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Event&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Event&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Choose the first event that finishes. Let us assume we have a vector of events &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sch&lt;/code&gt; to collect our optimal schedule of events.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;sch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Now, you go through the rest of the events, check for conflicts and keep adding compatible events (events which do not conflict with the last selected event (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;events[last_sel&lt;/code&gt;)) to your schedule.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_sel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;sch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Armed with this algorithm, you can maximize the number of events you commit to, and get more media appearances.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+        <category term="greedy" />
+      
+
+      
+
+      
+        <summary type="html">Suppose you are a famous celebrity getting several requests for interviews and appearances at events, of course with enough media presence, and you want to choose a few of the events so that you do not overcommit and keep your calendar relatively organized. You are relatively old fashioned and are having to compete against Tik-Tok teenagers for media clicks and so you want to accept as many invitations as possible so that it gives you maximum media coverage. The different events might be covered by different media outlets and so the more events you attend you get covered by more media outlets. The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right, greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms; greed for life, for money, for love, knowledge has marked the upward surge of mankind. – Wall Street (1987) A greedy algorithm is one that creates a solution by making a local decision at each step with only local knowledge to optimize for some objective. In our case, our objective is to maximize the profit from doing jobs. And we want to identify the local decision rule that would also construct a globally optimal solution. In our case, we want to accept as large a set of compatible invitations (invitations whose schedules do not conflict with one another) as possible. Your assistant provides you with the list of invitations and their schedules sufficiently in advance so that you can pick the ones that interest you. You start working out the possibilities in order to come up with the best algorithm. The most obvious approach would be to accept the event that starts earliest, commit to it and pick other events depending on conflicts. But you see that you accepted such a thing, an event to clean a park, that consumed all of the day - just one event, and you declined four other events in order to do this. You calendar actually looked something like this and you could have chosen the other three four events and had more media appearances. So you think accepting events in order of their duration, preferring shortest events over longer ones, avoiding conflicts, is the right way to go. Your calendar from that boring Tuesday when you accepted a lunch invitation from a boring old actor makes you rethink the approach. Not just that you had to endure the boring actor or the lunch was not that great, you had to decline two other events, one of them a live music show and that sounds more fun now. So, you decide not to go with prioritizing shortest events. The lunch meeting was too boring even if it was short. You decide to choose your events based on the least number of conflicts - if an event has less conflicts than others in your schedule, you want to prioritize that. That sounds promising. After your instagram post with you wearing a Bitcoin pendant went viral a couple of weeks ago, many tv channels wanted to interview you. And you committed to three of these interviews - BBC, MSNBC and CBS easily minimizing the conflicts in your calendar. Although the calendar looks confusing to choose the best set of events from, it was less confusing than the questions during those tv interviews or your answers to them. You choose BBC because it conflicts only with TMZ and Fox (the other possible schedule) while choosing TMZ would conflict with BBC, MTV and CNBC (more conflicts). You picked the other events similarly - you choose the sequence of events in the second row - BBC, MSNBC and CBS as they seem to have minimal conflicts than the others. But now, putting the available options together, you see that you could have chosen four interviews (from first row) and had more media clicks. Greedy algorithms are not very trivial. But they have been established for certain generic problems - commonly called interval scheduling that can be extended to many such real-world examples. A greedy rule that would lead to optimal pick of events is actually different from any of the choices above. The optimal choice is to pick the first request that finishes first (the idea being, you want to free up yourself as early as possible to get ready for the next event). So, you sort the events of the day in increasing order of their finish times, pick the event that finishes first and among the rest of the events, pick the events that finish earlier and has no conflicts with already picked events. Let us do it step by step, in a C++ program. Suppose you are given a list of events, each event described by its start and finish times. struct Event { int start; int finish; }; You first sort the given list of n events (std::vector&amp;lt;Event&amp;gt; events) according to increasing order of their finish times. std::sort(events.begin(), events.end(), [] (Event e1, Event e2) { return e1.finish &amp;lt; e2.finish; }); Choose the first event that finishes. Let us assume we have a vector of events sch to collect our optimal schedule of events. sch.push_back(events[0]) Now, you go through the rest of the events, check for conflicts and keep adding compatible events (events which do not conflict with the last selected event (events[last_sel)) to your schedule. for (int i = 1; i &amp;lt; n; i++) { if (events[i].start &amp;gt;= events[last_sel].finish) sch.push_back(events[i]); } Armed with this algorithm, you can maximize the number of events you commit to, and get more media appearances.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Updates in a Segment Tree →</title>
       
       <link href="https://dotkay.github.io/2018/09/24/segment-tree-updates/" rel="alternate" type="text/html" title="Updates in a Segment Tree" />
@@ -1340,70 +1452,6 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
       
         <summary type="html">In our previous post we were wondering if we can count maximum number of coke cans dispensed from among a range faster than linear traversal of the array. We go back to our academic friend who taught us about Fenwick Tree for advice. Our academic friend thinks this is a very easy problem. While Fenwick tree is a wonderful data structure, it can only compute reversible operations. He says there is a similar data structure called Segment Tree that can be used for any binary associative operation, besides cumulative operations as in Fenwick tree. He did not mention about Segment tree earlier as it occupies more space than a Fenwick tree. So, what is this Segment tree? It is again a tree data structure, but we will work only with a linear array (just the interpretation is a tree). To construct a segment tree, we create an array twice the size of our original array. We then compute the max value of each pair of elements and store it in the location corresponding to the parent of the pair of elements. We already know that for any node n, the child nodes could be stored at 2n and 2n+1. So, in our array that is double the size of original array, all the elements towards the second half of the array would be the same as the original array (the child nodes) and they form the lowest layer of our tree interpretation (the leaf nodes). The pair-wise max form the next layer of nodes and so on until we converge on one root node that stores the max value in the array (the entire range). The following figure illustrates this: With this interpretation in mind, the construction of a segment tree is straight forward and it just involves tracking array indices to populate pair-wise max values. STree::STree(std::vector&amp;lt;int&amp;gt; _arr) { n = _arr.size(); st.assign(2*n, 0); for (int i = n; i &amp;lt; 2*n; i++) st[i] = _arr[i - n]; for (int i = n-1; i &amp;gt; 0; i--) st[i] = std::max(st[2*i], st[2*i+1]); } Now, finding the max in a range would just involve looking at a few nodes rather than traversing all the elements in the range. For example, if we want to find the max value in the range 1 to 5, we just need to look at the values at the nodes labelled 1:4and 5and compute the max among these two values, instead of looking at 5 values. int STree::rmq(int i, int j) { i += n; j += n; int max = INT_MIN; while (i &amp;lt; j) { if ((i &amp;amp; 1) == 1) { max = std::max(max, st[i]); i++; } if ((j &amp;amp; 1 == 1)) { j--; max = std::max(max, st[j]); } i /= 2; j /= 2; } return max; } But from past experience we also know that the values would need to be updated quite often. Can we also perform point updates as we did in our Fenwick tree - after all, this is another tree structure and we should be able to traverse it to make updates. We will see that in a future post.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Counting cokes for a different reward … →</title>
-      
-      <link href="https://dotkay.github.io/2018/09/02/range-max-queries/" rel="alternate" type="text/html" title="Counting cokes for a different reward ..." />
-      <published>2018-09-02T00:00:00+00:00</published>
-      <updated>2018-09-02T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/09/02/range-max-queries</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/09/02/range-max-queries/">&lt;p&gt;In a &lt;a href=&quot;https://dotkay.github.io/2018/02/01/cumulative-freq&quot;&gt;previous post&lt;/a&gt; we looked at the problem of counting coke cans dispensed for marketing rewards. Now, the new marketing manager is more detail oriented. He noticed that some shops have only one or a couple of coke vending machines while larger restaurants and offices have dozens of them. He wants to see which machine number dispenses the maximum number of coke cans from a range of machine numbers. And he has decided to index each establishment (restaurant or office complex) with just a single machine number. How would one go about computing the maxinum number of coke cans dispensed among a range of machines?&lt;/p&gt;
-
-&lt;p&gt;The solution, from our previous effort in solving a similar problem, is straight forward - we can maintain an array and compute the max value among a given range of indices.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RMQ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rmq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rarr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rarr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RMQ&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rmq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rarr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rarr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;But what happens when we have millions of such queries - as different advertisers might be querying our database to send various kinds of offers? Do we have to traverse the range every time, in order to compute the max value? Or can we do better?&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="C++" />
-      
-
-      
-
-      
-        <summary type="html">In a previous post we looked at the problem of counting coke cans dispensed for marketing rewards. Now, the new marketing manager is more detail oriented. He noticed that some shops have only one or a couple of coke vending machines while larger restaurants and offices have dozens of them. He wants to see which machine number dispenses the maximum number of coke cans from a range of machine numbers. And he has decided to index each establishment (restaurant or office complex) with just a single machine number. How would one go about computing the maxinum number of coke cans dispensed among a range of machines? The solution, from our previous effort in solving a similar problem, is straight forward - we can maintain an array and compute the max value among a given range of indices. int RMQ::rmq(int end) { int max = rarr[0]; for (int k = 0; k &amp;lt; end; k++) { max = std::max(max, rarr[k]); } return max; } int RMQ::rmq(int begin, int end) { int max = rarr[begin]; for (int k = begin; k &amp;lt; end; k++) { max = std::max(max, rarr[k]); } return max; } But what happens when we have millions of such queries - as different advertisers might be querying our database to send various kinds of offers? Do we have to traverse the range every time, in order to compute the max value? Or can we do better?</summary>
       
 
       
