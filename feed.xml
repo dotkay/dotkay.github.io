@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-  <generator uri="http://jekyllrb.com" version="3.9.0">Jekyll</generator>
+  <generator uri="http://jekyllrb.com" version="3.9.1">Jekyll</generator>
   
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-03-31T18:23:51+00:00</updated>
+  <updated>2021-05-09T19:21:31+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -221,6 +221,73 @@
 
       
         <summary type="html">We perceive our sense of self as an amalgamation of the different sensory inputs - visual, tactile, locomotive, etc., that our brain processes and interprets. Or in other words, our sense of self is an interpretation made for us by our brain (mind) after processing several inputs. In olden days philosophers who tried to understand one’s true self found it difficult to reason about the interpretation of sense of self - are we really who we are? or are we manifestations of our mind’s interpretation of several inputs? This is a fascinating topic and lately neuroscience research is trying to understand which parts of the brain are processing and how our brain creates such interpretations. In his book, The Man Who Wasn’t There, journalist Anil Ananthaswamy takes us through the neuroscience research on this topic. The main message of this book is that our sense of self is an interpretation of several inputs which are beyond just sensory inputs but our own physical body and society play a vital role. And in this age where Computer Scientists are working on Deep Learning as well as trying to understand the neurological pathways in order to build systems that mimic the human decision making apparatus, while that apparatus itself is not completely understood. What fascinates me about this study is how the mind’s computation of sense of self can be influenced (or cheated) by changing the mapping (think of it as lookup table entries) the mind preserves for different sensory and other inputs. In many cases, what we feel and believe our sense of self is, is just an interpretation (an entry in the table) that is fetched given the inputs. We can influence such inputs to pick up a different entry that would alter our sense of self. There is also a classic neuroscience experiment from the 90s that demonstrates how the mapping in our brain, representing our physical sense of self, can be altered within minutes. You can take a look at an example experiment below: I am intrigued about the possibility of changing our emotional sense of self and if it could be done non-invasively using technology. Such a possibility would be a big boost to curing several mental disorders just by altering the mapping in the mind, when we know how the mapping is created, where it is stored and how it is interpreted. Also, one needs to be aware of ramifications of this - can such mappings be altered by say adversarial inputs - visual or societal - in the form of social media posts or news articles. We might be destroying our own sense of self by letting our mind interpret the inputs that we consume, without us realizing the end result - thinking we are who our mind interprets (influenced interpretation/self) rather than who we really are (actual self).</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Electric Batteries and Supply Chain Economics →</title>
+      
+      <link href="https://dotkay.github.io/2020/09/13/electric-batteries/" rel="alternate" type="text/html" title="Electric Batteries and Supply Chain Economics" />
+      <published>2020-09-13T00:00:00+00:00</published>
+      <updated>2020-09-13T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2020/09/13/electric-batteries</id>
+      <content type="html" xml:base="https://dotkay.github.io/2020/09/13/electric-batteries/">&lt;p&gt;One of the many issues the global pandemic has exposed is the (mostly) single point of failure in global supply chain systems. Over the last couple of decades global corporations optimized their supply chain to such an extent that it became far from flexible, while being extremely optimized. While the supply chain disruptions in today’s products - from face masks to medical equipments got exposed, this post is about the future supply chain challenges.&lt;/p&gt;
+
+&lt;p&gt;With many countries rallying towards fighting climate change, electric vehicles are at the forefront of that fight. With the cost per kilowatt-hour touching $100/kWhr or even less, electric vehicles would not only make economic sense but also reduce the total cost of ownership drastically. While American companies like Tesla are at the head of the pack in innovation and execution, the components for uninterrupted production as well as security lie elsewhere - the supply chain for electric car batteries.&lt;/p&gt;
+
+&lt;p&gt;As Benchmark’s Simon Mores says there are two ways of reducing cost of Li-ion batteries:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Controlling the supply of raw materials that go into batteries&lt;/li&gt;
+  &lt;li&gt;Changing how batteries are made (scale)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;While the prices of raw materials were at all time high, companies like Tesla maintain lead by controlling the manufacturing process - “the scale” as 25-40% of the cost of an electric vehicle can be attributed to the cost of the battery. That is where Gigafactories become interesting and so does controlling the supply chain. But so far, American auto companies, to a large extent, have only been assembling the components that constitute the battery. There is a lot of effort that goes into a battery before this final assembly.&lt;/p&gt;
+
+&lt;p&gt;Let us break this apart looking at the value chain of electric battery manufacturing:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/misc/ev_bat_value_chain.PNG&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If one were to superimpose the geographies that control different parts of the value chain, one could immediately see the premonitions of future supply chain challenges.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/misc/ev_bat_value_chain_geo.PNG&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;More than 50% of every one of the raw materials is dependent on one geography, which is a recipe for future disruptions. As Benchmark’s Vivas Kumar points out, the only part of the value chain that can’t be moved around are the mines themselves. Every other part of the value chain can be located in different parts of the globe. Most of the early stages of the value chain like Cathode, cell manufacturing, etc. are controlled predominantly by specific geographies that would be a supply chain and security risk when electric vehicles become like mobile phones. A wise thing for such an industry like Auto to do is to shore up the different components so that the critical component (battery) supply is not disrupted in the future.&lt;/p&gt;
+
+&lt;p&gt;One has to wait and see if the electric battery supply chain gets reshored and does not become another disruption waiting to happen or if short term optimization goals will lead to long-term disasters, just as it is happening in semiconductors and electronics.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="electric battery" />
+      
+        <category term="Li" />
+      
+        <category term="Manufacturing" />
+      
+
+      
+
+      
+        <summary type="html">One of the many issues the global pandemic has exposed is the (mostly) single point of failure in global supply chain systems. Over the last couple of decades global corporations optimized their supply chain to such an extent that it became far from flexible, while being extremely optimized. While the supply chain disruptions in today’s products - from face masks to medical equipments got exposed, this post is about the future supply chain challenges. With many countries rallying towards fighting climate change, electric vehicles are at the forefront of that fight. With the cost per kilowatt-hour touching $100/kWhr or even less, electric vehicles would not only make economic sense but also reduce the total cost of ownership drastically. While American companies like Tesla are at the head of the pack in innovation and execution, the components for uninterrupted production as well as security lie elsewhere - the supply chain for electric car batteries. As Benchmark’s Simon Mores says there are two ways of reducing cost of Li-ion batteries: Controlling the supply of raw materials that go into batteries Changing how batteries are made (scale) While the prices of raw materials were at all time high, companies like Tesla maintain lead by controlling the manufacturing process - “the scale” as 25-40% of the cost of an electric vehicle can be attributed to the cost of the battery. That is where Gigafactories become interesting and so does controlling the supply chain. But so far, American auto companies, to a large extent, have only been assembling the components that constitute the battery. There is a lot of effort that goes into a battery before this final assembly. Let us break this apart looking at the value chain of electric battery manufacturing: If one were to superimpose the geographies that control different parts of the value chain, one could immediately see the premonitions of future supply chain challenges. More than 50% of every one of the raw materials is dependent on one geography, which is a recipe for future disruptions. As Benchmark’s Vivas Kumar points out, the only part of the value chain that can’t be moved around are the mines themselves. Every other part of the value chain can be located in different parts of the globe. Most of the early stages of the value chain like Cathode, cell manufacturing, etc. are controlled predominantly by specific geographies that would be a supply chain and security risk when electric vehicles become like mobile phones. A wise thing for such an industry like Auto to do is to shore up the different components so that the critical component (battery) supply is not disrupted in the future. One has to wait and see if the electric battery supply chain gets reshored and does not become another disruption waiting to happen or if short term optimization goals will lead to long-term disasters, just as it is happening in semiconductors and electronics.</summary>
       
 
       
@@ -1377,67 +1444,6 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
       
         <summary type="html">Suppose you are a famous celebrity getting several requests for interviews and appearances at events, of course with enough media presence, and you want to choose a few of the events so that you do not overcommit and keep your calendar relatively organized. You are relatively old fashioned and are having to compete against Tik-Tok teenagers for media clicks and so you want to accept as many invitations as possible so that it gives you maximum media coverage. The different events might be covered by different media outlets and so the more events you attend you get covered by more media outlets. The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right, greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms; greed for life, for money, for love, knowledge has marked the upward surge of mankind. – Wall Street (1987) A greedy algorithm is one that creates a solution by making a local decision at each step with only local knowledge to optimize for some objective. In our case, our objective is to maximize the profit from doing jobs. And we want to identify the local decision rule that would also construct a globally optimal solution. In our case, we want to accept as large a set of compatible invitations (invitations whose schedules do not conflict with one another) as possible. Your assistant provides you with the list of invitations and their schedules sufficiently in advance so that you can pick the ones that interest you. You start working out the possibilities in order to come up with the best algorithm. The most obvious approach would be to accept the event that starts earliest, commit to it and pick other events depending on conflicts. But you see that you accepted such a thing, an event to clean a park, that consumed all of the day - just one event, and you declined four other events in order to do this. You calendar actually looked something like this and you could have chosen the other three four events and had more media appearances. So you think accepting events in order of their duration, preferring shortest events over longer ones, avoiding conflicts, is the right way to go. Your calendar from that boring Tuesday when you accepted a lunch invitation from a boring old actor makes you rethink the approach. Not just that you had to endure the boring actor or the lunch was not that great, you had to decline two other events, one of them a live music show and that sounds more fun now. So, you decide not to go with prioritizing shortest events. The lunch meeting was too boring even if it was short. You decide to choose your events based on the least number of conflicts - if an event has less conflicts than others in your schedule, you want to prioritize that. That sounds promising. After your instagram post with you wearing a Bitcoin pendant went viral a couple of weeks ago, many tv channels wanted to interview you. And you committed to three of these interviews - BBC, MSNBC and CBS easily minimizing the conflicts in your calendar. Although the calendar looks confusing to choose the best set of events from, it was less confusing than the questions during those tv interviews or your answers to them. You choose BBC because it conflicts only with TMZ and Fox (the other possible schedule) while choosing TMZ would conflict with BBC, MTV and CNBC (more conflicts). You picked the other events similarly - you choose the sequence of events in the second row - BBC, MSNBC and CBS as they seem to have minimal conflicts than the others. But now, putting the available options together, you see that you could have chosen four interviews (from first row) and had more media clicks. Greedy algorithms are not very trivial. But they have been established for certain generic problems - commonly called interval scheduling that can be extended to many such real-world examples. A greedy rule that would lead to optimal pick of events is actually different from any of the choices above. The optimal choice is to pick the first request that finishes first (the idea being, you want to free up yourself as early as possible to get ready for the next event). So, you sort the events of the day in increasing order of their finish times, pick the event that finishes first and among the rest of the events, pick the events that finish earlier and has no conflicts with already picked events. Let us do it step by step, in a C++ program. Suppose you are given a list of events, each event described by its start and finish times. struct Event { int start; int finish; }; You first sort the given list of n events (std::vector&amp;lt;Event&amp;gt; events) according to increasing order of their finish times. std::sort(events.begin(), events.end(), [] (Event e1, Event e2) { return e1.finish &amp;lt; e2.finish; }); Choose the first event that finishes. Let us assume we have a vector of events sch to collect our optimal schedule of events. sch.push_back(events[0]) Now, you go through the rest of the events, check for conflicts and keep adding compatible events (events which do not conflict with the last selected event (events[last_sel)) to your schedule. for (int i = 1; i &amp;lt; n; i++) { if (events[i].start &amp;gt;= events[last_sel].finish) sch.push_back(events[i]); } Armed with this algorithm, you can maximize the number of events you commit to, and get more media appearances.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Updates in a Segment Tree →</title>
-      
-      <link href="https://dotkay.github.io/2018/09/24/segment-tree-updates/" rel="alternate" type="text/html" title="Updates in a Segment Tree" />
-      <published>2018-09-24T00:00:00+00:00</published>
-      <updated>2018-09-24T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/09/24/segment-tree-updates</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/09/24/segment-tree-updates/">&lt;p&gt;In our &lt;a href=&quot;https://dotkay.github.io/2018/09/12/segment-tree&quot;&gt;previous post&lt;/a&gt; we saw &lt;em&gt;Segment tree&lt;/em&gt; to compute binary associative operations on array ranges in an efficient manner. How do we go about updating elements and recomputing the max values, in an efficient manner?&lt;/p&gt;
-
-&lt;p&gt;Again, we know how to interpret our segment tree data structure (as a tree). We also know that the second half of our segment tree linear array contains the original array elements (leaf nodes). We make our update (change the value of an element) here first, and then bubble up the changes all the way to the root. We know that moving up the levels just involves looking for the pair-wise root nodes (at &lt;em&gt;n&lt;/em&gt; for the pair (&lt;em&gt;2n&lt;/em&gt;, &lt;em&gt;2n + 1&lt;/em&gt;)). This makes our implementation straight forward as shown below.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;STree&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;new_val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;st&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="data structures" />
-      
-        <category term="C++" />
-      
-        <category term="segment tree" />
-      
-
-      
-
-      
-        <summary type="html">In our previous post we saw Segment tree to compute binary associative operations on array ranges in an efficient manner. How do we go about updating elements and recomputing the max values, in an efficient manner? Again, we know how to interpret our segment tree data structure (as a tree). We also know that the second half of our segment tree linear array contains the original array elements (leaf nodes). We make our update (change the value of an element) here first, and then bubble up the changes all the way to the root. We know that moving up the levels just involves looking for the pair-wise root nodes (at n for the pair (2n, 2n + 1)). This makes our implementation straight forward as shown below. void STree::update(int index, int val) { index += n; st[index] = val; int new_val; while (index &amp;gt; 1) { index /= 2; new_val = std::max(st[index*2], st[index*2 + 1]); if (st[index] != new_val) st[index] = new_val; else return; } }</summary>
       
 
       

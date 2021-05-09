@@ -105,10 +105,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/03/06/heap/">Fast queries using heaps &rarr;</a>
+            <a class="post-link" href="/2018/03/09/min-heap/">Fast queries and min heap &rarr;</a>
           </h1>
 
-          <p class="post-meta">Mar 6, 2018 • 
+          <p class="post-meta">Mar 9, 2018 • 
   
   
     
@@ -119,6 +119,12 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -498,6 +504,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -693,6 +705,675 @@
   
     
   
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In a <a href="https://dotkay.github.io/2018/03/06/heap">previous post</a> we came to know of this awesome data structure that could be used when we want to do fast retrieval of elements with maximum or minimum key values. In such cases, we do not need to sort the entire set of elements. In this post, we will see the implementation of Min Heap (which allows us to retrieve minimum element efficiently). Implementation of Max Heap follows a similar structure and is straight forward.</p>
+
+<p>In this particular C++ implementation we use <code class="language-plaintext highlighter-rouge">std::vector</code> as the container for the elements of the heap. We ignore index <code class="language-plaintext highlighter-rouge">0</code> and our elements are stored from index <code class="language-plaintext highlighter-rouge">1</code>. This is just to keep track of parent and children nodes easily. For any node <em>k</em>, the parent node would be at <em>k/2</em> and children nodes at indices <em>2k</em> and <em>2k + 1</em>.</p>
+
+<p>Further, we will start with the following signature that provides the client methods to insert a new key <code class="language-plaintext highlighter-rouge">insert_item()</code>, retrieve the min valued key <code class="language-plaintext highlighter-rouge">get_min()</code> and also delete the min valued key <code class="language-plaintext highlighter-rouge">delete_min()</code> from the structure.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">MinHeap</span>
+<span class="p">{</span>
+  <span class="nl">private:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">heap</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+  <span class="nl">public:</span>
+    <span class="n">MinHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">get_min</span><span class="p">();</span>
+    <span class="kt">void</span> <span class="n">insert_item</span><span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
+    <span class="kt">void</span> <span class="n">delete_min</span><span class="p">();</span>
+<span class="p">};</span></code></pre>
+</figure>
+
+<p>The constructor is straight-forward. We just create a vector of capacity one more than the specified one (as we are ignoring entry at index <code class="language-plaintext highlighter-rouge">0</code>).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">MinHeap</span><span class="o">::</span><span class="n">MinHeap</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">heap</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">capacity</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Retrieving the min valued key is also straight-forward - just get the root of the tree. That is the beauty of this data structure. The way we accomplish having the min valued key always at the root is a little involved and it is incorporated into <code class="language-plaintext highlighter-rouge">insert_item()</code> and <code class="language-plaintext highlighter-rouge">delete_min()</code> methods.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">MinHeap</span><span class="o">::</span><span class="n">get_min</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="n">heap</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>We will see <code class="language-plaintext highlighter-rouge">insert_item()</code> and <code class="language-plaintext highlighter-rouge">delete_min()</code> methods in a future post.</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/03/06/heap/">Fast queries using heaps &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Mar 6, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/heap/">heap</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
 
 </p>
         </header>
@@ -728,6 +1409,12 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1107,6 +1794,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1302,6 +1995,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1327,6 +2026,12 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1735,6 +2440,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1778,6 +2489,12 @@
   
     
       <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2125,6 +2842,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2150,6 +2873,12 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2563,6 +3292,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2606,6 +3341,12 @@
   
     
       <a href="/categories/bitwise-operations/">bitwise operations</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2953,6 +3694,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2978,6 +3725,12 @@
   
     
       <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -3198,824 +3951,6 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/03/01/bits-sets-xors/">Of bits, sets and xors... &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Mar 1, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/bitwise-operations/">bitwise operations</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/bit-vectors/">bit-vectors</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>As ambiguous as the title may sound the contents of this topic would also surprise you every now and then. Yes, we are going to talk about bit-vectors and bitwise operations in C or C++.</p>
-
-<p>As we have been taught several times since childhood, computers can understand only 1s and 0s. We humans have 10 fingers and so we started counting in decimal number system (10 digits 0..9 and every other number is made of these 10 digits). However as present day computers use digital circuits one needed to invent a number system for the underlying functionality of transistors. To make things simple, they decided to interpret a voltage above a certain threshold as 1 and the voltage below a certain other threshold as 0 and all our computations revolve around it. For those interested in technology history, <a href="https://history-computer.com/ModernComputer/Electronic/ENIAC.html">ENIAC was actually a decimal machine</a>.</p>
-
-<p>Since our computers (as of now) are binary machines, everything - chars, strings, structs, music and videos are all represented as 0s and 1s. And we have primitive operations on these bits. Sounds like we are moving back to stone age, but be patient - we use these low level operations in system software even today due to the speed of such operations. We will concern ourselves with the most basic bitwise operations as below:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp;      -  Bitwise AND
-|      -  Bitwise OR
-~      -  Bitwise complement (i.e. negation)
-^      -  Bitwise XOR
-&gt;&gt;     -  Bitwise right-shift
-&lt;&lt;     -  Bitwise left-shift
-</code></pre></div></div>
-
-<p>As a quick note, <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> can also be used for division by 2. For example 4 is <code class="language-plaintext highlighter-rouge">0100</code> in binary and <code class="language-plaintext highlighter-rouge">4 &gt;&gt; 1</code> would amount to <code class="language-plaintext highlighter-rouge">0010</code> which is 2 (4 / 2 = 2) and this on further shift <code class="language-plaintext highlighter-rouge">2 &gt;&gt; 1</code> results in <code class="language-plaintext highlighter-rouge">0001</code> which is 1 (2 /2 = 1).</p>
-
-<p>Similarly, <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> can also be used for multiplication by 2. For example 2 is <code class="language-plaintext highlighter-rouge">0010</code> in binary and <code class="language-plaintext highlighter-rouge">2 &lt;&lt; 1</code> would result in <code class="language-plaintext highlighter-rouge">0100</code> which is 4 (2 * 2 = 4).</p>
-
-<p>One more quick aside is <em>2’s complement</em> - which is just a way of representing negative numbers. For example -2 would be represented (if we are allowed only 3-bits to represent) as <code class="language-plaintext highlighter-rouge">110</code> which is 2^3 - 2. In general, <em>-n</em> in 2’s complement is just <code class="language-plaintext highlighter-rouge">2^k - n</code> where <em>k</em> is the number of bits used to represent it.</p>
 
         </div>
         
