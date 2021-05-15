@@ -16,7 +16,7 @@ In our case, we want to accept as large a set of compatible invitations (invitat
 
 The most obvious approach would be to accept the event that starts earliest, commit to it and pick other events depending on conflicts. But you see that you accepted such a thing, an event to clean a park, that consumed all of the day - just one event, and you declined four other events in order to do this.
 
-You calendar actually looked something like this and you could have chosen the other three four events and had more media appearances.
+You calendar actually looked something like this and you could have chosen the other events and had more media appearances.
 <br>
 <div class="img_container">
 <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/cleaning_the_park.PNG"></center>
