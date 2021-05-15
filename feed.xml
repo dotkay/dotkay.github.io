@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-05-09T19:21:31+00:00</updated>
+  <updated>2021-05-15T17:58:21+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -1351,7 +1351,7 @@ Many of the reasoning engines built for reasoning about the correct of computer 
       <content type="html" xml:base="https://dotkay.github.io/2018/10/01/event-scheduling/">&lt;p&gt;Suppose you are a famous celebrity getting several requests for interviews and appearances at events, of course with enough media presence, and you want to choose a few of the events so that you do not overcommit and keep your calendar relatively organized. You are relatively old fashioned and are having to compete against Tik-Tok teenagers for media clicks and so you want to accept as many invitations as possible so that it gives you maximum media coverage. The different events might be covered by different media outlets and so the more events you attend you get covered by more media outlets.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right, greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms; greed for life, for money, for love, knowledge has marked the upward surge of mankind.                 – Wall Street (1987)&lt;/p&gt;
+  &lt;p&gt;The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right, greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms; greed for life, for money, for love, knowledge has marked the upward surge of mankind. &lt;br /&gt; – Wall Street (1987)&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;A &lt;em&gt;greedy&lt;/em&gt; algorithm is one that creates a solution by making a local decision at each step with only local knowledge to optimize for some objective. In our case, our objective is to maximize the profit from doing jobs. And we want to identify the local decision rule that would also construct a globally optimal solution.&lt;/p&gt;
