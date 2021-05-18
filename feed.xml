@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-05-15T18:00:43+00:00</updated>
+  <updated>2021-05-18T20:58:56+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -1264,6 +1264,112 @@ Many of the reasoning engines built for reasoning about the correct of computer 
   
     <entry>
       
+      <title type="html">Cost-efficient Water Connections →</title>
+      
+      <link href="https://dotkay.github.io/2018/11/11/water-connection/" rel="alternate" type="text/html" title="Cost-efficient Water Connections" />
+      <published>2018-11-11T00:00:00+00:00</published>
+      <updated>2018-11-11T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2018/11/11/water-connection</id>
+      <content type="html" xml:base="https://dotkay.github.io/2018/11/11/water-connection/">&lt;p&gt;Suppose you are the tech-savvy engineer recruited by Public Works Department in your rural county. The rural county has wonderful flora, fauna and a few environmentalists and ecologists have been recruited to take care of the environment. There are a few houses built to host these people. Since the settlement is very new, the county has asked you to design a efficient water connection map to bring water to these settlements from a water source at one corner of the area. There are known paths where these water pipelines could be laid in a way that will have minimal effect on the environment. And you have been entrusted with using some of these paths in such a way as to minimise the cost and at the same time make sure every house gets a water connection.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/kruskal_mst_1.PNG&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;You sit down and think that the map is nothing but an implicit graph, the cost of laying the pipelines being the weights on the graph’s edges. The vertices are the houses. You have one special vertex which is the community’s source of water. Your plan is to find the path from the source of water to every house in the community. Further, there might be several such paths and you would have to choose the one that has the lowest cost. You recall algorithms for minimum spanning trees that you had learned in your algorithms lessons a decade ago and decide to give it a go.&lt;/p&gt;
+
+&lt;p&gt;Algorithmically, you have a set of edges with weights, a set of vertices and a special start vertex. Suppose each edge is defined by a source vertex &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src&lt;/code&gt;, a destination vertex &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dest&lt;/code&gt; and the associated cost of laying the pipe between these vertices &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cost&lt;/code&gt; - represented by the following structure:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Edge&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;And our graph is defined by the total set of vertices &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;V&lt;/code&gt; (one source of water + the nodes representing houses) and a vector of Edges &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EdgeList&lt;/code&gt; each element is an Edge as defined above.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Assume that we also have a UnionFind data structure for us to use. Since we have to minimize the cost of construction, we try a greedy approach by picking the least expensive pipelines first - i.e., we sort &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edges&lt;/code&gt; in increasing order of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cost&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; 
+            &lt;span class=&quot;p&quot;&gt;[](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Once we pick the least cost edge, the next least cost edge may not be a neighbour of the current edge (i.e. having a common &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dest&lt;/code&gt; vertex). In order to prevent cycles, we maintain a UnionFind data structure and keep adding the (minimum cost) edges we choose. As we collect the minimum cost edges, we can compute the cost using an accumulator.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;
+  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kruskal_mst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;UnionFind&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; 
+            &lt;span class=&quot;p&quot;&gt;[](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mst_cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// min cost edge&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isSameSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;mst_cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formUnion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mst_cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;Finally, we will end up with the following minimum cost spanning tree, with pipelines laid with a total cost of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$990000&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/kruskal_mst_2.PNG&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="algorithms" />
+      
+        <category term="C++" />
+      
+        <category term="greedy" />
+      
+        <category term="Kruskal" />
+      
+        <category term="Minimum Spanning Tree" />
+      
+
+      
+
+      
+        <summary type="html">Suppose you are the tech-savvy engineer recruited by Public Works Department in your rural county. The rural county has wonderful flora, fauna and a few environmentalists and ecologists have been recruited to take care of the environment. There are a few houses built to host these people. Since the settlement is very new, the county has asked you to design a efficient water connection map to bring water to these settlements from a water source at one corner of the area. There are known paths where these water pipelines could be laid in a way that will have minimal effect on the environment. And you have been entrusted with using some of these paths in such a way as to minimise the cost and at the same time make sure every house gets a water connection. You sit down and think that the map is nothing but an implicit graph, the cost of laying the pipelines being the weights on the graph’s edges. The vertices are the houses. You have one special vertex which is the community’s source of water. Your plan is to find the path from the source of water to every house in the community. Further, there might be several such paths and you would have to choose the one that has the lowest cost. You recall algorithms for minimum spanning trees that you had learned in your algorithms lessons a decade ago and decide to give it a go. Algorithmically, you have a set of edges with weights, a set of vertices and a special start vertex. Suppose each edge is defined by a source vertex src, a destination vertex dest and the associated cost of laying the pipe between these vertices cost - represented by the following structure: struct Edge { int src; int dest; int cost; }; And our graph is defined by the total set of vertices V (one source of water + the nodes representing houses) and a vector of Edges EdgeList each element is an Edge as defined above. Graph(int V, std::vector&amp;lt;Edge&amp;gt; edges) Assume that we also have a UnionFind data structure for us to use. Since we have to minimize the cost of construction, we try a greedy approach by picking the least expensive pipelines first - i.e., we sort edges in increasing order of cost. std::sort(EdgeList.begin(), EdgeList.end(), [](Edge e1, Edge e2) { return e1.cost &amp;lt; e2.cost; }); Once we pick the least cost edge, the next least cost edge may not be a neighbour of the current edge (i.e. having a common src or dest vertex). In order to prevent cycles, we maintain a UnionFind data structure and keep adding the (minimum cost) edges we choose. As we collect the minimum cost edges, we can compute the cost using an accumulator. int Graph::kruskal_mst() { int V = size; UnionFind uf(V); std::sort(EdgeList.begin(), EdgeList.end(), [](Edge e1, Edge e2) { return e1.cost &amp;lt; e2.cost; }); int mst_cost = 0; int n = EdgeList.size(); for (int i = 0; i &amp;lt; n; i++) { Edge e = EdgeList[i]; // min cost edge if (!uf.isSameSet(e.src, e.dest)) { mst_cost += e.cost; uf.formUnion(e.src, e.dest); } } return mst_cost; } Finally, we will end up with the following minimum cost spanning tree, with pipelines laid with a total cost of $990000.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Pick the right courier … →</title>
       
       <link href="https://dotkay.github.io/2018/10/10/job-sequencing/" rel="alternate" type="text/html" title="Pick the right courier ..." />
@@ -1332,118 +1438,6 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
       
         <summary type="html">Suppose you are a messenger boy making money by transporting packages from one office to another. Some packages like food need to be transported by a specific time (say lunch time) and certain others can get delayed but still have to be transported before the end of the day (by the time the other office closes). For each such job, you get paid a little. For certain packages, like cheques or gifts, you get paid a little more. So, you want to choose the jobs in such a way that you maximize your profit. You can’t refuse a job for reasons other than having another job to do at the same time. You want to write an algorithm to help you choose the right set of jobs. As you are already greedy (or familiar with greedy algorithms), you can write one to solve this problem as well. This is just a variant of interval scheduling that we saw in our previous post. This case is commonly known as weighted interval scheduling as each interval (job) has a weight or value associated with it (profit) that we are trying to optimize for. In our case, our objective is to maximize the profit from doing jobs. And we want to identify the local decision rule that would also construct a globally optimal solution. Assume we have jobs that are defined by the following: struct Job { int id; int deadline; int profit; }; Since we want to maximize our profit, we first sort the jobs in decreasing order of profits. Now your acceptable set of jobs could be as large as the set of jobs available (what if all the jobs provide the same profit - you may want to do all of them to maximize your profit). So, you have a set that is as large as the initial set of jobs. // container for our final jobs (initialized to -1) // so that we would know if we filled in the slot already std::vector&amp;lt;int&amp;gt; sch_slot(n, -1); std::sort(jobs.begin(), jobs.end(), [] (Job const&amp;amp; j1, Job const&amp;amp; j2) {return j1.profit &amp;gt;= j2.profit; }); Next, we try to delay the job as much as it is allowed by the deadline. If lunch delivery can wait until noon, you don’t want to take up that job and deliver it at 9 while sacrificing some other profit opportunity available at 9. So, we go through the list of jobs (ordered according to profits) that are not scheduled and schedule it while delaying the schedule as much as the job deadline allows. So, if lunch delivery can wait until noon, we would schedule lunch delivery the last slot before noon (say 11-12). for (int i = 0; i &amp;lt; n; i++) { // delay the job as much as possible for (int j = jobs[i].deadline - 1; j &amp;gt;= 0; j--) { if (j &amp;lt; n &amp;amp;&amp;amp; sch_slot[j] == -1) { sch_slot[j] = jobs[i].id; break; } } }</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Greedy algorithms vs Tik-Tok teenagers →</title>
-      
-      <link href="https://dotkay.github.io/2018/10/01/event-scheduling/" rel="alternate" type="text/html" title="Greedy algorithms vs Tik-Tok teenagers" />
-      <published>2018-10-01T00:00:00+00:00</published>
-      <updated>2018-10-01T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/10/01/event-scheduling</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/10/01/event-scheduling/">&lt;p&gt;Suppose you are a famous celebrity getting several requests for interviews and appearances at events, of course with enough media presence, and you want to choose a few of the events so that you do not overcommit and keep your calendar relatively organized. You are relatively old fashioned and are having to compete against Tik-Tok teenagers for media clicks and so you want to accept as many invitations as possible so that it gives you maximum media coverage. The different events might be covered by different media outlets and so the more events you attend you get covered by more media outlets.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right, greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms; greed for life, for money, for love, knowledge has marked the upward surge of mankind. &lt;br /&gt; – Wall Street (1987)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;A &lt;em&gt;greedy&lt;/em&gt; algorithm is one that creates a solution by making a local decision at each step with only local knowledge to optimize for some objective. In our case, our objective is to maximize the profit from doing jobs. And we want to identify the local decision rule that would also construct a globally optimal solution.&lt;/p&gt;
-
-&lt;p&gt;In our case, we want to accept as large a set of compatible invitations (invitations whose schedules do not conflict with one another) as possible. Your assistant provides you with the list of invitations and their schedules sufficiently in advance so that you can pick the ones that interest you. You start working out the possibilities in order to come up with the best algorithm.&lt;/p&gt;
-
-&lt;p&gt;The most obvious approach would be to accept the event that starts earliest, commit to it and pick other events depending on conflicts. But you see that you accepted such a thing, an event to clean a park, that consumed all of the day - just one event, and you declined four other events in order to do this.&lt;/p&gt;
-
-&lt;p&gt;You calendar actually looked something like this and you could have chosen the other events and had more media appearances.
-&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/cleaning_the_park.PNG&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;So you think accepting events in order of their duration, preferring shortest events over longer ones, avoiding conflicts, is the right way to go. Your calendar from that boring Tuesday when you accepted a lunch invitation from a boring old actor makes you rethink the approach. Not just that you had to endure the boring actor or the lunch was not that great, you had to decline two other events, one of them a live music show and that sounds more fun now.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/boring_lunch.PNG&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;So, you decide not to go with prioritizing shortest events. The lunch meeting was too boring even if it was short. You decide to choose your events based on the least number of conflicts - if an event has less conflicts than others in your schedule, you want to prioritize that. That sounds promising. After your instagram post with you wearing a Bitcoin pendant went viral a couple of weeks ago, many tv channels wanted to interview you. And you committed to three of these interviews - BBC, MSNBC and CBS easily minimizing the conflicts in your calendar. Although the calendar looks confusing to choose the best set of events from, it was less confusing than the questions during those tv interviews or your answers to them.&lt;/p&gt;
-
-&lt;p&gt;You choose BBC because it conflicts only with TMZ and Fox (the other possible schedule) while choosing TMZ would conflict with BBC, MTV and CNBC (more conflicts). You picked the other events similarly - you choose the sequence of events in the second row - BBC, MSNBC and CBS as they seem to have minimal conflicts than the others. But now, putting the available options together, you see that you could have chosen four interviews (from first row) and had more media clicks.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/tv_interviews.PNG&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Greedy&lt;/em&gt; algorithms are not very trivial. But they have been established for certain generic problems - commonly called &lt;em&gt;interval scheduling&lt;/em&gt; that can be extended to many such real-world examples. A &lt;em&gt;greedy&lt;/em&gt; rule that would lead to optimal pick of events is actually different from any of the choices above. The optimal choice is to pick the first request that finishes first (the idea being, you want to free up yourself as early as possible to get ready for the next event).&lt;/p&gt;
-
-&lt;p&gt;So, you sort the events of the day in increasing order of their finish times, pick the event that finishes first and among the rest of the events, pick the events that finish earlier and has no conflicts with already picked events.&lt;/p&gt;
-
-&lt;p&gt;Let us do it step by step, in a C++ program. Suppose you are given a list of events, each event described by its start and finish times.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Event&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;You first sort the given list of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; events (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;std::vector&amp;lt;Event&amp;gt; events&lt;/code&gt;) according to increasing order of their finish times.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;
-            &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Event&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Event&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Choose the first event that finishes. Let us assume we have a vector of events &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sch&lt;/code&gt; to collect our optimal schedule of events.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;sch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Now, you go through the rest of the events, check for conflicts and keep adding compatible events (events which do not conflict with the last selected event (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;events[last_sel&lt;/code&gt;)) to your schedule.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_sel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;sch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Armed with this algorithm, you can maximize the number of events you commit to, and get more media appearances.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-        <category term="greedy" />
-      
-
-      
-
-      
-        <summary type="html">Suppose you are a famous celebrity getting several requests for interviews and appearances at events, of course with enough media presence, and you want to choose a few of the events so that you do not overcommit and keep your calendar relatively organized. You are relatively old fashioned and are having to compete against Tik-Tok teenagers for media clicks and so you want to accept as many invitations as possible so that it gives you maximum media coverage. The different events might be covered by different media outlets and so the more events you attend you get covered by more media outlets. The point is, ladies and gentleman, that greed, for lack of a better word, is good. Greed is right, greed works. Greed clarifies, cuts through, and captures the essence of the evolutionary spirit. Greed, in all of its forms; greed for life, for money, for love, knowledge has marked the upward surge of mankind. – Wall Street (1987) A greedy algorithm is one that creates a solution by making a local decision at each step with only local knowledge to optimize for some objective. In our case, our objective is to maximize the profit from doing jobs. And we want to identify the local decision rule that would also construct a globally optimal solution. In our case, we want to accept as large a set of compatible invitations (invitations whose schedules do not conflict with one another) as possible. Your assistant provides you with the list of invitations and their schedules sufficiently in advance so that you can pick the ones that interest you. You start working out the possibilities in order to come up with the best algorithm. The most obvious approach would be to accept the event that starts earliest, commit to it and pick other events depending on conflicts. But you see that you accepted such a thing, an event to clean a park, that consumed all of the day - just one event, and you declined four other events in order to do this. You calendar actually looked something like this and you could have chosen the other events and had more media appearances. So you think accepting events in order of their duration, preferring shortest events over longer ones, avoiding conflicts, is the right way to go. Your calendar from that boring Tuesday when you accepted a lunch invitation from a boring old actor makes you rethink the approach. Not just that you had to endure the boring actor or the lunch was not that great, you had to decline two other events, one of them a live music show and that sounds more fun now. So, you decide not to go with prioritizing shortest events. The lunch meeting was too boring even if it was short. You decide to choose your events based on the least number of conflicts - if an event has less conflicts than others in your schedule, you want to prioritize that. That sounds promising. After your instagram post with you wearing a Bitcoin pendant went viral a couple of weeks ago, many tv channels wanted to interview you. And you committed to three of these interviews - BBC, MSNBC and CBS easily minimizing the conflicts in your calendar. Although the calendar looks confusing to choose the best set of events from, it was less confusing than the questions during those tv interviews or your answers to them. You choose BBC because it conflicts only with TMZ and Fox (the other possible schedule) while choosing TMZ would conflict with BBC, MTV and CNBC (more conflicts). You picked the other events similarly - you choose the sequence of events in the second row - BBC, MSNBC and CBS as they seem to have minimal conflicts than the others. But now, putting the available options together, you see that you could have chosen four interviews (from first row) and had more media clicks. Greedy algorithms are not very trivial. But they have been established for certain generic problems - commonly called interval scheduling that can be extended to many such real-world examples. A greedy rule that would lead to optimal pick of events is actually different from any of the choices above. The optimal choice is to pick the first request that finishes first (the idea being, you want to free up yourself as early as possible to get ready for the next event). So, you sort the events of the day in increasing order of their finish times, pick the event that finishes first and among the rest of the events, pick the events that finish earlier and has no conflicts with already picked events. Let us do it step by step, in a C++ program. Suppose you are given a list of events, each event described by its start and finish times. struct Event { int start; int finish; }; You first sort the given list of n events (std::vector&amp;lt;Event&amp;gt; events) according to increasing order of their finish times. std::sort(events.begin(), events.end(), [] (Event e1, Event e2) { return e1.finish &amp;lt; e2.finish; }); Choose the first event that finishes. Let us assume we have a vector of events sch to collect our optimal schedule of events. sch.push_back(events[0]) Now, you go through the rest of the events, check for conflicts and keep adding compatible events (events which do not conflict with the last selected event (events[last_sel)) to your schedule. for (int i = 1; i &amp;lt; n; i++) { if (events[i].start &amp;gt;= events[last_sel].finish) sch.push_back(events[i]); } Armed with this algorithm, you can maximize the number of events you commit to, and get more media appearances.</summary>
       
 
       
