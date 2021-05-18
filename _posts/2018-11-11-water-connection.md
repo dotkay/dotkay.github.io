@@ -37,8 +37,8 @@ Graph(int V, std::vector<Edge> edges)
 Assume that we also have a UnionFind data structure for us to use. Since we have to minimize the cost of construction, we try a greedy approach by picking the least expensive pipelines first - i.e., we sort `edges` in increasing order of `cost`.
 
 {% highlight cpp %}
-  std::sort(EdgeList.begin(), EdgeList.end(), 
-            [](Edge e1, Edge e2) { return e1.cost < e2.cost; });
+std::sort(EdgeList.begin(), EdgeList.end(), 
+          [](Edge e1, Edge e2) { return e1.cost < e2.cost; });
 {% endhighlight %}
 
 Once we pick the least cost edge, the next least cost edge may not be a neighbour of the current edge (i.e. having a common `src` or `dest` vertex). In order to prevent cycles, we maintain a UnionFind data structure and keep adding the (minimum cost) edges we choose. As we collect the minimum cost edges, we can compute the cost using an accumulator.
