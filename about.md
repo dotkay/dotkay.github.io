@@ -6,7 +6,7 @@ permalink: /about/
 
 Welcome!
 
-I built this page in order to learn many things that interest me, to share my learnings and to get better at explaining the things I learn.
+I am an energetic engineer, a passionate educator, an erstwhile researcher and a failed entrepreneur. I am interested in a wide range of topics covering technology, entrepreneurship, economics, behavioral sciences, education, arts and culture. This page is a small attempt at discussing and explaining some of the many things that come to my mind from time to time.
 
 Thanks to the awesome [whiteglass] theme that enabled the design of this page.
 
