@@ -1,4 +1,4 @@
 images: 
-  - image: /uploads/misc/b.jpg
-    title: my bike
+  - title: my bike
+    image: /uploads/misc/b.jpg
   - image: /uploads/misc/c.jpg
