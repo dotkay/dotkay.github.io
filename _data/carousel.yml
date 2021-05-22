@@ -1,3 +1,4 @@
 images: 
   - image: /uploads/misc/b.jpg
+    text: sample text
   - image: /uploads/misc/c.jpg
