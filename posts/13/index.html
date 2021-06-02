@@ -105,10 +105,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/04/03/string-rotation-check/">Checking for string rotations &rarr;</a>
+            <a class="post-link" href="/2018/04/04/string-rotation-by-n-check/">Checking for string rotations by a fixed length &rarr;</a>
           </h1>
 
-          <p class="post-meta">Apr 3, 2018 • 
+          <p class="post-meta">Apr 4, 2018 • 
   
   
     
@@ -119,6 +119,8 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
     
   
     
@@ -526,6 +528,8 @@
   
     
   
+    
+  
 
   
   
@@ -579,6 +583,685 @@
   
     
       <a href="/categories/strings/">strings</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In <a href="https://dotkay.github.io/2018/04/03/string-rotation-check">yesterday’s post</a> we saw how to check if two given strings are rotations of each other. Today, we will add one other restriction to the problem and try to solve it. What if the algorithm needs to check if the two input strings are rotations of each other by a fixed length <code class="language-plaintext highlighter-rouge">n</code> which is also provided as an input to the function? For example, <code class="language-plaintext highlighter-rouge">anna</code> and <code class="language-plaintext highlighter-rouge">naan</code> are rotations of each other by <code class="language-plaintext highlighter-rouge">2</code> as we need to make two rotations (each rotation moves only 1 character) to get from one string to the other and similarly one cannot be obtained from the other by rotation of just 1.</p>
+
+<p>We use the same algorithm as before, but this time we will be careful to store the index position (when we search for one of the strings in the concatenation) and match it against the input <code class="language-plaintext highlighter-rouge">n</code>.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="nf">str_rot_by_n</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">!=</span> <span class="n">s2</span><span class="p">.</span><span class="n">length</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">index</span><span class="p">;</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span> <span class="o">=</span> <span class="n">s1</span> <span class="o">+</span> <span class="n">s1</span><span class="p">;</span>
+  <span class="n">index</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">npos</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">n</span> <span class="o">||</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">length</span><span class="p">()</span> <span class="o">-</span> <span class="n">n</span><span class="p">)))</span>
+      <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Again, we have to check if the lengths of the input strings are the same. Without this check, we migth deduce that <code class="language-plaintext highlighter-rouge">ello</code> can be obtained from <code class="language-plaintext highlighter-rouge">hello</code> by rotating through <code class="language-plaintext highlighter-rouge">1</code> character position.</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/04/03/string-rotation-check/">Checking for string rotations &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Apr 3, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/strings/">strings</a>
+    
+  
     
   
     
@@ -994,6 +1677,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
   
+    
+  
 
   
   
@@ -1025,6 +1710,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -1254,6 +1941,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
       <a href="/categories/arrays/">arrays</a>
+    
+  
     
   
     
@@ -1653,6 +2342,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
   
+    
+  
 
   
   
@@ -1684,6 +2375,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -1911,6 +2604,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
       <a href="/categories/trie/">trie</a>
+    
+  
     
   
     
@@ -2348,6 +3043,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
   
+    
+  
 
   
   
@@ -2379,6 +3076,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
     
   
     
@@ -2606,6 +3305,8 @@ n-a-a-n   --&gt; 2. rotated by 1
   
     
       <a href="/categories/trie/">trie</a>
+    
+  
     
   
     
@@ -2807,657 +3508,6 @@ n-a-a-n   --&gt; 2. rotated by 1
 </figure>
 
 <p>We will look at populating a Trie by inserting characters from a string into the Trie, as well as searching for a prefix in a future post.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/03/18/trie-one/">From spell check to routers to many more... &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Mar 18, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/trie/">trie</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Everyone has seen or even used a dictionary - may be this statement is more true of people from my generation than younger generations. In any case, a phonebook app in a smartphone also lists contact names in alphabetical order. Aakash would precede Amar which would precede Amit which preceeds Aqsa and so on. The common prefix between Amar and Amit is ‘Am’ - which tells us we could a tree data-structure, storing ‘Am’ in a node which has two children storing ‘i’, ‘a’ and so on. This also makes search easy and it follows the same technique we use to search for a word in a dictionary.</p>
-
-<p>There are several other applications where identifying and storing prefixes of strings efficiently can be very useful. Think about auto-completions in a texting app or Google search or how a <a href="https://github.com/julienschmidt/httprouter">router could do address matching efficiently</a>.</p>
-
-<p>This data structure must be something very popular as it seems to have several everyday and important applications. And it is the “Trie”. Whenever we have a large number of strings (like protein sequences or words in a language or all possible strings one could type in a Google search box) that share some common prefix, we need to use think about efficiently matching shared prefixes. Trie is very simple and straight-forward to implement as we will see in a future post.</p>
 
         </div>
         

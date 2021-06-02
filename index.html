@@ -105,10 +105,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2021/02/21/us-unemployment/">Jobs, Offshoring and Unemployment - US &rarr;</a>
+            <a class="post-link" href="/2021/03/15/us-job-loss-and-recovery/">U.S. - Job Losses and Recovery &rarr;</a>
           </h1>
 
-          <p class="post-meta">Feb 21, 2021 • 
+          <p class="post-meta">Mar 15, 2021 • 
   
   
     
@@ -279,6 +279,8 @@
   
     
       <a href="/categories/us/">US</a>,
+    
+  
     
   
     
@@ -526,6 +528,904 @@
   
     
   
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/economy/">economy</a>,
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/pandemic/">pandemic</a>
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In a <a href="https://dotkay.github.io/2021/02/21/us-unemployment">previous post</a>, we saw how many jobs the different states in the U.S. have lost over the years primarily due to trade deficits. In this post, we will visually analyze the <a href="https://www.bls.gov/charts/employment-situation/employment-levels-by-industry.htm">data from BLS</a> and compare the effects of 2008 recession and the ongoing pandemic on the state of employment in the U.S. across different sectors.</p>
+
+<p>The covid-19 pandemic has definitely wrecked the employment across several sectors of the labor economy and not just the hospitality sector. If we look at the employment numbers for an year starting from January 2020, job losses are evident. We also see the quick recovery (though not to January-2020 levels) in several of the sectors.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">job_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Manufacturing Jobs'</span><span class="p">,</span> <span class="s">'Hospitality Jobs'</span><span class="p">,</span> <span class="s">'Wholesale Jobs'</span><span class="p">,</span>
+       <span class="s">'Retail Jobs'</span><span class="p">,</span> <span class="s">'Transportation Jobs'</span><span class="p">,</span> <span class="s">'Construction Jobs'</span><span class="p">,</span>
+       <span class="s">'Education Health Services Jobs'</span><span class="p">,</span> <span class="s">'Finance Jobs'</span><span class="p">,</span> <span class="s">'Information Jobs'</span><span class="p">,</span>
+       <span class="s">'Mining Jobs'</span><span class="p">,</span> <span class="s">'Other Services Jobs'</span><span class="p">,</span> <span class="s">'Professional Services Jobs'</span><span class="p">,</span>
+       <span class="s">'Utilities Jobs'</span><span class="p">]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="p">.</span><span class="n">area</span><span class="p">(</span><span class="n">pandemic_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">"Month"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">job_cols</span><span class="p">,</span> 
+              <span class="n">template</span><span class="o">=</span><span class="s">'simple_white'</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">add_annotation</span><span class="p">(...)</span>
+<span class="p">...</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<iframe id="igraph" scrolling="yes" style="border:none;" seamless="seamless" src="https://plotly.com/~kkplot/10.embed" height="700" width="100%"></iframe>
+
+<p>If we zoom out in the data set and look at two decades of employment numbers all the way from January 2001 until January 2021, we also see the effect of 2008 recession on employment numbers. We also see how gradual and prolonged the effect of 2008 recession was. The job losses across sectors during the pandemic was sudden and steep and the recovery of numbers was also quick.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="p">.</span><span class="n">area</span><span class="p">(</span><span class="n">emp_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">"Month"</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">job_cols</span><span class="p">,</span> 
+                   <span class="n">template</span><span class="o">=</span><span class="s">'simple_white'</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">add_annotation</span><span class="p">(...)</span>
+<span class="p">...</span>
+<span class="n">fig</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+<iframe id="igraph" scrolling="yes" style="border:none;" seamless="seamless" src="https://plotly.com/~kkplot/12.embed" height="700" width="100%"></iframe>
+
+<p>We can just hope that the recovery from the pandemic continues quicker and reaches early 2020 levels, not only in the U.S. but across the globe. Given that the world is very globalized today than ever before, anyone is healthy and good only when everyone is healthy and good.</p>
+
+<p><span style="font-size: 70%">
+<i>The tabular BLS data was parsed using BeautifulSoup, and the plots were done using plotly and chart_studio.</i>
+</span></p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2021/02/21/us-unemployment/">Jobs, Offshoring and Unemployment - US &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Feb 21, 2021 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/us/">US</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/labor-market/">labor market</a>,
+    
+  
+    
+  
+    
+  
 
   
   
@@ -733,6 +1633,8 @@
   
     
       <a href="/categories/economy/">economy</a>
+    
+  
     
   
 
@@ -1017,6 +1919,8 @@
   
     
   
+    
+  
 
   
   
@@ -1216,6 +2120,8 @@
   
     
       <a href="/categories/markets/">markets</a>,
+    
+  
     
   
     
@@ -1435,6 +2341,8 @@
   
     
   
+    
+  
 
   
   
@@ -1638,6 +2546,8 @@
   
     
       <a href="/categories/wall-street/">wall street</a>
+    
+  
     
   
     
@@ -1928,6 +2838,8 @@
   
     
   
+    
+  
 
   
   
@@ -2137,6 +3049,8 @@
   
     
   
+    
+  
 
   
   
@@ -2262,6 +3176,8 @@
   
     
       <a href="/categories/s-p-500/">S&amp;P 500</a>,
+    
+  
     
   
     
@@ -2555,6 +3471,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -2807,6 +3725,8 @@
   
     
   
+    
+  
 
   
   
@@ -2882,6 +3802,8 @@
   
     
       <a href="/categories/psychology/">psychology</a>,
+    
+  
     
   
     
@@ -3225,6 +4147,8 @@
   
     
   
+    
+  
 
   
   
@@ -3416,6 +4340,8 @@
   
     
       <a href="/categories/neuroscience/">neuroscience</a>,
+    
+  
     
   
     
@@ -3643,6 +4569,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -3660,682 +4588,6 @@
 
 <p>I am intrigued about the possibility of changing our emotional sense of self and if it could be done non-invasively using technology. Such a possibility would be a big boost to curing several mental disorders just by altering the mapping in the mind, when we know how the mapping is created, where it is stored and how it is interpreted. Also, one needs to be aware of ramifications of this - can such mappings be altered by say adversarial inputs - visual or societal - in the form of social media posts or news articles. We might be destroying our own sense of self by letting our mind interpret the inputs that we consume, without us realizing the end result - thinking we are who our mind interprets (influenced interpretation/self) rather than who we really are (actual self).</p>
 
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2020/09/13/electric-batteries/">Electric Batteries and Supply Chain Economics &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Sep 13, 2020 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/electric-battery/">electric battery</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/li/">Li</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/manufacturing/">Manufacturing</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>One of the many issues the global pandemic has exposed is the (mostly) single point of failure in global supply chain systems. Over the last couple of decades global corporations optimized their supply chain to such an extent that it became far from flexible, while being extremely optimized. While the supply chain disruptions in today’s products - from face masks to medical equipments got exposed, this post is about the future supply chain challenges.</p>
-
-<p>With many countries rallying towards fighting climate change, electric vehicles are at the forefront of that fight. With the cost per kilowatt-hour touching $100/kWhr or even less, electric vehicles would not only make economic sense but also reduce the total cost of ownership drastically. While American companies like Tesla are at the head of the pack in innovation and execution, the components for uninterrupted production as well as security lie elsewhere - the supply chain for electric car batteries.</p>
-
-<p>As Benchmark’s Simon Mores says there are two ways of reducing cost of Li-ion batteries:</p>
-
-<ol>
-  <li>Controlling the supply of raw materials that go into batteries</li>
-  <li>Changing how batteries are made (scale)</li>
-</ol>
-
-<p>While the prices of raw materials were at all time high, companies like Tesla maintain lead by controlling the manufacturing process - “the scale” as 25-40% of the cost of an electric vehicle can be attributed to the cost of the battery. That is where Gigafactories become interesting and so does controlling the supply chain. But so far, American auto companies, to a large extent, have only been assembling the components that constitute the battery. There is a lot of effort that goes into a battery before this final assembly.</p>
-
-<p>Let us break this apart looking at the value chain of electric battery manufacturing:</p>
-
-<p><br /></p>
-<div class="img_container">
-  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/misc/ev_bat_value_chain.PNG" /></center>
-</div>
-
-<p>If one were to superimpose the geographies that control different parts of the value chain, one could immediately see the premonitions of future supply chain challenges.</p>
-
-<p><br /></p>
-<div class="img_container">
-  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/misc/ev_bat_value_chain_geo.PNG" /></center>
-</div>
-
-<p>More than 50% of every one of the raw materials is dependent on one geography, which is a recipe for future disruptions. As Benchmark’s Vivas Kumar points out, the only part of the value chain that can’t be moved around are the mines themselves. Every other part of the value chain can be located in different parts of the globe. Most of the early stages of the value chain like Cathode, cell manufacturing, etc. are controlled predominantly by specific geographies that would be a supply chain and security risk when electric vehicles become like mobile phones. A wise thing for such an industry like Auto to do is to shore up the different components so that the critical component (battery) supply is not disrupted in the future.</p>
-
-<p>One has to wait and see if the electric battery supply chain gets reshored and does not become another disruption waiting to happen or if short term optimization goals will lead to long-term disasters, just as it is happening in semiconductors and electronics.</p>
 
         </div>
         

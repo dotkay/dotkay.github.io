@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-05-31T00:11:59+00:00</updated>
+  <updated>2021-06-02T14:55:05+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,78 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">U.S. - Job Losses and Recovery →</title>
+      
+      <link href="https://dotkay.github.io/2021/03/15/us-job-loss-and-recovery/" rel="alternate" type="text/html" title="U.S. - Job Losses and Recovery" />
+      <published>2021-03-15T00:00:00+00:00</published>
+      <updated>2021-03-15T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2021/03/15/us-job-loss-and-recovery</id>
+      <content type="html" xml:base="https://dotkay.github.io/2021/03/15/us-job-loss-and-recovery/">&lt;p&gt;In a &lt;a href=&quot;https://dotkay.github.io/2021/02/21/us-unemployment&quot;&gt;previous post&lt;/a&gt;, we saw how many jobs the different states in the U.S. have lost over the years primarily due to trade deficits. In this post, we will visually analyze the &lt;a href=&quot;https://www.bls.gov/charts/employment-situation/employment-levels-by-industry.htm&quot;&gt;data from BLS&lt;/a&gt; and compare the effects of 2008 recession and the ongoing pandemic on the state of employment in the U.S. across different sectors.&lt;/p&gt;
+
+&lt;p&gt;The covid-19 pandemic has definitely wrecked the employment across several sectors of the labor economy and not just the hospitality sector. If we look at the employment numbers for an year starting from January 2020, job losses are evident. We also see the quick recovery (though not to January-2020 levels) in several of the sectors.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;job_cols&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Manufacturing Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Hospitality Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Wholesale Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;'Retail Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Transportation Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Construction Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;'Education Health Services Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Finance Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Information Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;'Mining Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Other Services Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Professional Services Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;'Utilities Jobs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;area&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pandemic_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Month&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;job_cols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+              &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'simple_white'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_annotation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(...)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;iframe id=&quot;igraph&quot; scrolling=&quot;yes&quot; style=&quot;border:none;&quot; seamless=&quot;seamless&quot; src=&quot;https://plotly.com/~kkplot/10.embed&quot; height=&quot;700&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;If we zoom out in the data set and look at two decades of employment numbers all the way from January 2001 until January 2021, we also see the effect of 2008 recession on employment numbers. We also see how gradual and prolonged the effect of 2008 recession was. The job losses across sectors during the pandemic was sudden and steep and the recovery of numbers was also quick.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;area&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emp_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Month&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;job_cols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;n&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'simple_white'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_annotation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(...)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;iframe id=&quot;igraph&quot; scrolling=&quot;yes&quot; style=&quot;border:none;&quot; seamless=&quot;seamless&quot; src=&quot;https://plotly.com/~kkplot/12.embed&quot; height=&quot;700&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;We can just hope that the recovery from the pandemic continues quicker and reaches early 2020 levels, not only in the U.S. but across the globe. Given that the world is very globalized today than ever before, anyone is healthy and good only when everyone is healthy and good.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;font-size: 70%&quot;&gt;
+&lt;i&gt;The tabular BLS data was parsed using BeautifulSoup, and the plots were done using plotly and chart_studio.&lt;/i&gt;
+&lt;/span&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="US" />
+      
+        <category term="labor market" />
+      
+        <category term="economy" />
+      
+        <category term="pandemic" />
+      
+
+      
+
+      
+        <summary type="html">In a previous post, we saw how many jobs the different states in the U.S. have lost over the years primarily due to trade deficits. In this post, we will visually analyze the data from BLS and compare the effects of 2008 recession and the ongoing pandemic on the state of employment in the U.S. across different sectors. The covid-19 pandemic has definitely wrecked the employment across several sectors of the labor economy and not just the hospitality sector. If we look at the employment numbers for an year starting from January 2020, job losses are evident. We also see the quick recovery (though not to January-2020 levels) in several of the sectors. job_cols = ['Manufacturing Jobs', 'Hospitality Jobs', 'Wholesale Jobs', 'Retail Jobs', 'Transportation Jobs', 'Construction Jobs', 'Education Health Services Jobs', 'Finance Jobs', 'Information Jobs', 'Mining Jobs', 'Other Services Jobs', 'Professional Services Jobs', 'Utilities Jobs'] fig = px.area(pandemic_df, x=&quot;Month&quot;, y=job_cols, template='simple_white') fig.add_annotation(...) ... fig.show() If we zoom out in the data set and look at two decades of employment numbers all the way from January 2001 until January 2021, we also see the effect of 2008 recession on employment numbers. We also see how gradual and prolonged the effect of 2008 recession was. The job losses across sectors during the pandemic was sudden and steep and the recovery of numbers was also quick. fig = px.area(emp_df, x=&quot;Month&quot;, y=job_cols, template='simple_white') fig.add_annotation(...) ... fig.show() We can just hope that the recovery from the pandemic continues quicker and reaches early 2020 levels, not only in the U.S. but across the globe. Given that the world is very globalized today than ever before, anyone is healthy and good only when everyone is healthy and good. The tabular BLS data was parsed using BeautifulSoup, and the plots were done using plotly and chart_studio.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1345,112 +1417,6 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
       
         <summary type="html">Happy New year friends! What a year 2018 has been for the topic of privacy and security - from the most loved social network scrambling for clues to save themselves to the other social network built by the world’s best engineers still couldn’t save their data, besides struggling to stay relevant. While Europe was quick to pass GDPR, many other countries even in the developed world are yet to catch up with such laws and regulations. 2018 was also the year that saw the surge in smart speakers and home automation - isn’t that ironic? But this story is not about the past, but about the future. Many top technology and auto companies rushing to fulfill the promise of self-driving or autonomous vehicles. It will definitely become a reality, to some extent, in at least the parts of the world where the infrastructure supports it. But the notion of foolproof security for such a technology is far from being achieved. With smartphone apps like Facebook, WhatsApp and Google+ security issues, we have only scratched the surface of the malevolent intent that is possible. Once autonomous vehicles and other IoT devices reach critical mass, the security issues are only going to multiply manifold and the impact of security flaws can have disastrous consequences. Imagine a malicious attacker taking control of traffic lights that talk to cars or cars talking to other cars to negotiate who gets to cross an intersection, or a mass rapid transit system that reroutes itself or changes frequency of rides depending on real-time ridership information using neural network based predictions. Imagine the impact of such a thing gone wrong. With the current day deep learning algorithms themselves not being tractable (i.e. one can not reliably track the computation from input data to the prediction step by step as in symbolic AI) it is going to be more challenging to resolve a security issue even after having identified it. Apologies for being pessimistic - but one should see this as a challenge for computer architecture and computer security research - a great time to be working in any of these fields. If you want a job for the next one year, learn web/mobile app development, if you need a job for the next five years, train yourself with deep learning skills, if you need a job for the rest of your life, start working on computer security. An interesting short documentary I happened to watch recently:</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Cost-efficient Water Connections →</title>
-      
-      <link href="https://dotkay.github.io/2018/11/11/water-connection/" rel="alternate" type="text/html" title="Cost-efficient Water Connections" />
-      <published>2018-11-11T00:00:00+00:00</published>
-      <updated>2018-11-11T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2018/11/11/water-connection</id>
-      <content type="html" xml:base="https://dotkay.github.io/2018/11/11/water-connection/">&lt;p&gt;Suppose you are the tech-savvy engineer recruited by Public Works Department in your rural county. The rural county has wonderful flora, fauna and a few environmentalists and ecologists have been recruited to take care of the environment. There are a few houses built to host these people. Since the settlement is very new, the county has asked you to design a efficient water connection map to bring water to these settlements from a water source at one corner of the area. There are known paths where these water pipelines could be laid in a way that will have minimal effect on the environment. And you have been entrusted with using some of these paths in such a way as to minimise the cost and at the same time make sure every house gets a water connection.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/kruskal_mst_1.PNG&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;You sit down and think that the map is nothing but an implicit graph, the cost of laying the pipelines being the weights on the graph’s edges. The vertices are the houses. You have one special vertex which is the community’s source of water. Your plan is to find the path from the source of water to every house in the community. Further, there might be several such paths and you would have to choose the one that has the lowest cost. You recall algorithms for minimum spanning trees that you had learned in your algorithms lessons a decade ago and decide to give it a go.&lt;/p&gt;
-
-&lt;p&gt;Algorithmically, you have a set of edges with weights, a set of vertices and a special start vertex. Suppose each edge is defined by a source vertex &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src&lt;/code&gt;, a destination vertex &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dest&lt;/code&gt; and the associated cost of laying the pipe between these vertices &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cost&lt;/code&gt; - represented by the following structure:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Edge&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;And our graph is defined by the total set of vertices &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;V&lt;/code&gt; (one source of water + the nodes representing houses) and a vector of Edges &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EdgeList&lt;/code&gt; each element is an Edge as defined above.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Assume that we also have a UnionFind data structure for us to use. Since we have to minimize the cost of construction, we try a greedy approach by picking the least expensive pipelines first - i.e., we sort &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edges&lt;/code&gt; in increasing order of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cost&lt;/code&gt;.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; 
-          &lt;span class=&quot;p&quot;&gt;[](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Once we pick the least cost edge, the next least cost edge may not be a neighbour of the current edge (i.e. having a common &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dest&lt;/code&gt; vertex). In order to prevent cycles, we maintain a UnionFind data structure and keep adding the (minimum cost) edges we choose. As we collect the minimum cost edges, we can compute the cost using an accumulator.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;
-  &lt;pre&gt;&lt;code class=&quot;language-cpp&quot; data-lang=&quot;cpp&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Graph&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kruskal_mst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;UnionFind&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; 
-            &lt;span class=&quot;p&quot;&gt;[](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mst_cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Edge&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EdgeList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// min cost edge&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isSameSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;mst_cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;formUnion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mst_cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/figure&gt;
-
-&lt;p&gt;Finally, we will end up with the following minimum cost spanning tree, with pipelines laid with a total cost of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$990000&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/kruskal_mst_2.PNG&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="algorithms" />
-      
-        <category term="C++" />
-      
-        <category term="greedy" />
-      
-        <category term="Kruskal" />
-      
-        <category term="Minimum Spanning Tree" />
-      
-
-      
-
-      
-        <summary type="html">Suppose you are the tech-savvy engineer recruited by Public Works Department in your rural county. The rural county has wonderful flora, fauna and a few environmentalists and ecologists have been recruited to take care of the environment. There are a few houses built to host these people. Since the settlement is very new, the county has asked you to design a efficient water connection map to bring water to these settlements from a water source at one corner of the area. There are known paths where these water pipelines could be laid in a way that will have minimal effect on the environment. And you have been entrusted with using some of these paths in such a way as to minimise the cost and at the same time make sure every house gets a water connection. You sit down and think that the map is nothing but an implicit graph, the cost of laying the pipelines being the weights on the graph’s edges. The vertices are the houses. You have one special vertex which is the community’s source of water. Your plan is to find the path from the source of water to every house in the community. Further, there might be several such paths and you would have to choose the one that has the lowest cost. You recall algorithms for minimum spanning trees that you had learned in your algorithms lessons a decade ago and decide to give it a go. Algorithmically, you have a set of edges with weights, a set of vertices and a special start vertex. Suppose each edge is defined by a source vertex src, a destination vertex dest and the associated cost of laying the pipe between these vertices cost - represented by the following structure: struct Edge { int src; int dest; int cost; }; And our graph is defined by the total set of vertices V (one source of water + the nodes representing houses) and a vector of Edges EdgeList each element is an Edge as defined above. Graph(int V, std::vector&amp;lt;Edge&amp;gt; edges) Assume that we also have a UnionFind data structure for us to use. Since we have to minimize the cost of construction, we try a greedy approach by picking the least expensive pipelines first - i.e., we sort edges in increasing order of cost. std::sort(EdgeList.begin(), EdgeList.end(), [](Edge e1, Edge e2) { return e1.cost &amp;lt; e2.cost; }); Once we pick the least cost edge, the next least cost edge may not be a neighbour of the current edge (i.e. having a common src or dest vertex). In order to prevent cycles, we maintain a UnionFind data structure and keep adding the (minimum cost) edges we choose. As we collect the minimum cost edges, we can compute the cost using an accumulator. int Graph::kruskal_mst() { int V = size; UnionFind uf(V); std::sort(EdgeList.begin(), EdgeList.end(), [](Edge e1, Edge e2) { return e1.cost &amp;lt; e2.cost; }); int mst_cost = 0; int n = EdgeList.size(); for (int i = 0; i &amp;lt; n; i++) { Edge e = EdgeList[i]; // min cost edge if (!uf.isSameSet(e.src, e.dest)) { mst_cost += e.cost; uf.formUnion(e.src, e.dest); } } return mst_cost; } Finally, we will end up with the following minimum cost spanning tree, with pipelines laid with a total cost of $990000.</summary>
       
 
       
