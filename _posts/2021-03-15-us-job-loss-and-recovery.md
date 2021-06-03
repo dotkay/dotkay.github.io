@@ -23,8 +23,7 @@ fig.add_annotation(...)
 fig.show()
 ```
 
-<iframe id="igraph" scrolling="yes" style="border:none;" seamless="seamless" src="https://plotly.com/~kkplot/10.embed" height="700" width="100%">
-</iframe>
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~kkplot/10.embed" height="525" width="100%"></iframe>
 
 If we zoom out in the data set and look at two decades of employment numbers all the way from January 2001 until January 2021, we also see the effect of 2008 recession on employment numbers. We also see how gradual and prolonged the effect of 2008 recession was. The job losses across sectors during the pandemic was sudden and steep and the recovery of numbers was also quick.
 
