@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-06-03T14:09:15+00:00</updated>
+  <updated>2021-06-04T13:19:40+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -44,7 +44,7 @@
 &lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;iframe id=&quot;igraph&quot; scrolling=&quot;no&quot; style=&quot;border:none;&quot; seamless=&quot;seamless&quot; src=&quot;https://plotly.com/~kkplot/10.embed&quot; height=&quot;525&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+&lt;iframe id=&quot;igraph&quot; scrolling=&quot;yes&quot; style=&quot;border:none;&quot; seamless=&quot;seamless&quot; src=&quot;https://plotly.com/~kkplot/10.embed&quot; height=&quot;700&quot; width=&quot;980&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;If we zoom out in the data set and look at two decades of employment numbers all the way from January 2001 until January 2021, we also see the effect of 2008 recession on employment numbers. We also see how gradual and prolonged the effect of 2008 recession was. The job losses across sectors during the pandemic was sudden and steep and the recovery of numbers was also quick.&lt;/p&gt;
 
@@ -54,7 +54,8 @@
 &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;iframe id=&quot;igraph&quot; scrolling=&quot;yes&quot; style=&quot;border:none;&quot; seamless=&quot;seamless&quot; src=&quot;https://plotly.com/~kkplot/12.embed&quot; height=&quot;700&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;iframe id=&quot;igraph&quot; scrolling=&quot;yes&quot; style=&quot;border:none;&quot; seamless=&quot;seamless&quot; src=&quot;https://plotly.com/~kkplot/12.embed&quot; height=&quot;700&quot; width=&quot;980&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;We can just hope that the recovery from the pandemic continues quicker and reaches early 2020 levels, not only in the U.S. but across the globe. Given that the world is very globalized today than ever before, anyone is healthy and good only when everyone is healthy and good.&lt;/p&gt;
 
