@@ -6,7 +6,7 @@ keywords: [US, YouTube, Pandemic, 2020]
 external-url: https://dotkay.github.io/2021/06/06/us-youtube-views
 ---
 
-For more than 15 months people around the world are mostly staying indoors, those who could are working from home, vacations and other outdoor entertainments have come to a standstill. At the same time, NetFlix, gaming, and other entertainment like TV and YouTube must have become more popular - after all, these are the forms of indoor entertainment. I decided to look at what people have been interested within this limited set of entertainment avenues. While I could not find most data, YouTube data was available and regularly updated. I decided to download the dataset that contains YouTube data from August 2020 until early June 2021. Let us see what people (in the U.S.) have been watching on YouTube during this period.
+For more than 15 months people around the world are mostly staying indoors, those who could are working from home, vacations and other outdoor entertainments have come to a standstill. At the same time, NetFlix, gaming, and other entertainment like TV and [YouTube](https://www.youtube.com/) must have become more popular - after all, these are the forms of indoor entertainment. I decided to look at what people have been interested within this limited set of entertainment avenues. While I could not find most data, YouTube data was available and regularly updated. I decided to download the dataset that contains YouTube data from August 2020 until early June 2021. Let us see what people (in the U.S.) have been watching on YouTube during this period.
 
 ```python
 yt_us = pd.read_csv('US_youtube_trending_data.csv')
