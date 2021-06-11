@@ -115,4 +115,4 @@ chart = sns.barplot(
 
 I see a lot of interesting channels - Khan Academy seems to have just made it to the list. I also see a channel `YouTube`. I see lots of interesting channel names and I hope to spend more time exploring those on YouTube very soon.
 
-The YouTube dataset is also available for other geographies. Someday, I would like to compare how the interests in different geographies differ by comparing YouTube channels' popularity. It may not be an accurate representation of interests at all, but it should be a fun exercise.
+The [YouTube dataset](https://www.kaggle.com/rsrishav/youtube-trending-video-dataset) is also available for other geographies. Someday, I would like to compare how the interests in different geographies differ by comparing YouTube channels' popularity. It may not be an accurate representation of interests at all, but it should be a fun exercise.
