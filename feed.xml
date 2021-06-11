@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-06-04T13:19:40+00:00</updated>
+  <updated>2021-06-11T17:35:53+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,149 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">What have people been watching on YouTube? →</title>
+      
+      <link href="https://dotkay.github.io/2021/06/06/us-youtube-views/" rel="alternate" type="text/html" title="What have people been watching on YouTube?" />
+      <published>2021-06-06T00:00:00+00:00</published>
+      <updated>2021-06-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2021/06/06/us-youtube-views</id>
+      <content type="html" xml:base="https://dotkay.github.io/2021/06/06/us-youtube-views/">&lt;p&gt;For more than 15 months people around the world are mostly staying indoors, those who could are working from home, vacations and other outdoor entertainments have come to a standstill. At the same time, NetFlix, gaming, and other entertainment like TV and &lt;a href=&quot;https://www.youtube.com/&quot;&gt;YouTube&lt;/a&gt; must have become more popular - after all, these are the forms of indoor entertainment. I decided to look at what people have been interested within this limited set of entertainment avenues. While I could not find most data, YouTube data was available and regularly updated. I decided to download the dataset that contains YouTube data from August 2020 until early June 2021. Let us see what people (in the U.S.) have been watching on YouTube during this period.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'US_youtube_trending_data.csv'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;yt_categories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'US_category_id.json'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtypes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The different features in the dataset are (after casting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;publishedAt&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trending_date&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;datetime&lt;/code&gt; type):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;video_id                          object
+title                             object
+publishedAt          datetime64[ns, UTC]
+channelId                         object
+channelTitle                      object
+categoryId                        object
+trending_date        datetime64[ns, UTC]
+tags                              object
+view_count                         int64
+likes                              int64
+dislikes                           int64
+comment_count                      int64
+thumbnail_link                    object
+comments_disabled                   bool
+ratings_disabled                    bool
+description                       object
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There are different categories of videos in the dataset, and these are the number of videos in each category.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/n_cat_videos.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I am surpised by the number of videos in some of the categories or the categorization itself. There is a category on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;People &amp;amp; Blogs&lt;/code&gt; - I am not sure what it refers to. I do know artists have their own channels and YouTube is a more lively form of a blog, but there is also Music (some of the channels there might also be by music artists). While I try and understand how the different videos are categorized, let us look at some other stats.&lt;/p&gt;
+
+&lt;p&gt;Let us find out how many aggregate views each of the different categories has:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cat_view_count_df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'categoryId'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;agg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'sum'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;chart&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;barplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cat_view_count_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'categoryId'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;palette&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Set2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cat_view_count_df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;category&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/nviews_cat_videos.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Not surprisingly, Music, Entertainment and Gaming are right at the top. Unfortunately, Education category is way behind. I find YouTube as a wonderful source of education. But may be this is due to Coursera, Udacity, etc. having their own video encoders and decoders and do not have their content on YouTube.&lt;/p&gt;
+
+&lt;p&gt;Let us see which were the Top 50 most viewed videos during the time period, in the U.S.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# create a new column 'count_max_view' to collect max view_count
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'count_max_view'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'video_id'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# sort the column so that we can pick out the top 50
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top50&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'count_max_view'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;by&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'count_max_view'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; 
+                                                                          &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# remove non alpha-numeric characters from the titles
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;top50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[^a-zA-Z0-9]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And let us plot the dataset to see which ones are on the top:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;catplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'title'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'bar'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;palette&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'muted'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;aspect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/top50_yt_videos.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Since I am fond of Education, I would like to see which YouTube channels have maxinum number of views and check if any of my favourite channels appear in the list.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;yt_edu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yt_us&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'categoryId'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Education'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;yt_edu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yt_edu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'channelTitle'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;agg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'sum'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;chart&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;barplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yt_edu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'channelTitle'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;palette&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Set2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;yt_edu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'view_count'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;channelTitle&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/yt_edu_views.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;I see a lot of interesting channels - Khan Academy seems to have just made it to the list. I also see a channel &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YouTube&lt;/code&gt;. I see lots of interesting channel names and I hope to spend more time exploring those on YouTube very soon.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://www.kaggle.com/rsrishav/youtube-trending-video-dataset&quot;&gt;YouTube dataset&lt;/a&gt; is also available for other geographies. Someday, I would like to compare how the interests in different geographies differ by comparing YouTube channels’ popularity. It may not be an accurate representation of interests at all, but it should be a fun exercise.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="US" />
+      
+        <category term="YouTube" />
+      
+        <category term="Education" />
+      
+        <category term="Pandemic" />
+      
+
+      
+
+      
+        <summary type="html">For more than 15 months people around the world are mostly staying indoors, those who could are working from home, vacations and other outdoor entertainments have come to a standstill. At the same time, NetFlix, gaming, and other entertainment like TV and YouTube must have become more popular - after all, these are the forms of indoor entertainment. I decided to look at what people have been interested within this limited set of entertainment avenues. While I could not find most data, YouTube data was available and regularly updated. I decided to download the dataset that contains YouTube data from August 2020 until early June 2021. Let us see what people (in the U.S.) have been watching on YouTube during this period. yt_us = pd.read_csv('US_youtube_trending_data.csv') yt_categories = pd.read_json('US_category_id.json') yt_us.dtypes The different features in the dataset are (after casting publishedAt and trending_date to datetime type): video_id object title object publishedAt datetime64[ns, UTC] channelId object channelTitle object categoryId object trending_date datetime64[ns, UTC] tags object view_count int64 likes int64 dislikes int64 comment_count int64 thumbnail_link object comments_disabled bool ratings_disabled bool description object There are different categories of videos in the dataset, and these are the number of videos in each category. I am surpised by the number of videos in some of the categories or the categorization itself. There is a category on People &amp;amp; Blogs - I am not sure what it refers to. I do know artists have their own channels and YouTube is a more lively form of a blog, but there is also Music (some of the channels there might also be by music artists). While I try and understand how the different videos are categorized, let us look at some other stats. Let us find out how many aggregate views each of the different categories has: cat_view_count_df = yt_us.groupby(['categoryId'])['view_count'].agg(['sum']) chart = sns.barplot( data=cat_view_count_df, x='categoryId', y='view_count', palette='Set2', order=cat_view_count_df.sort_values('view_count', ascending=False).category ) Not surprisingly, Music, Entertainment and Gaming are right at the top. Unfortunately, Education category is way behind. I find YouTube as a wonderful source of education. But may be this is due to Coursera, Udacity, etc. having their own video encoders and decoders and do not have their content on YouTube. Let us see which were the Top 50 most viewed videos during the time period, in the U.S. # create a new column 'count_max_view' to collect max view_count yt_us['count_max_view'] = yt_us.groupby(['video_id'])['view_count'].transform(max) # sort the column so that we can pick out the top 50 top50 = yt_us[yt_us['view_count'] == yt_us['count_max_view']].sort_values(by=['count_max_view'], ascending=False).head(50) # remove non alpha-numeric characters from the titles top50.title = top50.title.str.replace('[^a-zA-Z0-9]', '') And let us plot the dataset to see which ones are on the top: fig = sns.catplot( data=top50, x='title', y='view_count', kind='bar', palette='muted', aspect=2, legend=False ) Since I am fond of Education, I would like to see which YouTube channels have maxinum number of views and check if any of my favourite channels appear in the list. yt_edu = yt_us[yt_us['categoryId'] == 'Education'] yt_edu = yt_edu.groupby(['channelTitle'])['view_count'].agg(['sum']) chart = sns.barplot( data=yt_edu, x='channelTitle', y='view_count', palette='Set2', order=yt_edu.sort_values('view_count', ascending=False).channelTitle ) I see a lot of interesting channels - Khan Academy seems to have just made it to the list. I also see a channel YouTube. I see lots of interesting channel names and I hope to spend more time exploring those on YouTube very soon. The YouTube dataset is also available for other geographies. Someday, I would like to compare how the interests in different geographies differ by comparing YouTube channels’ popularity. It may not be an accurate representation of interests at all, but it should be a fun exercise.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1366,58 +1509,6 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
       
         <summary type="html">I got into this discussion over lunch when I heard about the Netflix series “Black Mirror” which allows the audience to choose among a set of possible story endings. This is an excellent development, in my view, in that it not only brings more suspense and interest or attention to the content, on the lighter side it would also prevent spoilers. Ever since I heard about south Indian movies that had different climaxes (although to appease the fan base in different regions), I have always wondered why not have multiple possibilities for a movie climax and serve (stream) the appropriate one depending on the goal of the movie audience - i.e., if the goal is to just watch the movie and return home happy, one could have a happy ending, if the viewer is adventurous or an FPS gamer, one could have a violent or tragic ending, etc. Now that we have personalization using big data analytics everywhere, it should be possible for a streaming service to identify the likes and dislikes of the audience based on previous perferences, reviews, age, likes, and the many similar features to identify the best climax for each specific viewer, besides providing the viewer the choice to choose from alternate climaxes. Of course, the cost is in the making of several different versions of a movie or TV series which in a way could be reduced using today’s CGI that only gets better over time. The upshot would be more viewership and more discussion centered around the various climaxes. Instead of viewers just watching the movie and rating them, each different climax of the same movie would get rated by different personalities. Such a service could also stream a movie ending in such a way as to cheer you up when you are dull or to pump you up when you are demotivated. Movies will never be the same again! If such a personalization of streaming content were to happen who would lead the way? Would it be Amazon Fire TV who has the machine learning backend to make personalization happen, NetFlix who has the influence to get the producers to make several interesting versions of a movie or TV series or Apple TV service if Apple were to get its innovation crown back? What do you think?</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">New year, Privacy and Security →</title>
-      
-      <link href="https://dotkay.github.io/2019/01/01/privacy-and-security/" rel="alternate" type="text/html" title="New year, Privacy and Security" />
-      <published>2019-01-01T00:00:00+00:00</published>
-      <updated>2019-01-01T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2019/01/01/privacy-and-security</id>
-      <content type="html" xml:base="https://dotkay.github.io/2019/01/01/privacy-and-security/">&lt;p&gt;Happy New year friends!&lt;/p&gt;
-
-&lt;p&gt;What a year 2018 has been for the topic of privacy and security - from the most loved &lt;a href=&quot;https://www.nytimes.com/2018/03/19/technology/facebook-cambridge-analytica-explained.html&quot;&gt;social network&lt;/a&gt; scrambling for clues to save themselves to the other &lt;a href=&quot;https://www.theguardian.com/technology/2018/dec/10/google-to-shut-down-early-after-privacy-flaw-affects-over-50m-users&quot;&gt;social network&lt;/a&gt; built by the world’s best engineers still couldn’t save their data, besides struggling to stay relevant. While Europe was quick to pass &lt;a href=&quot;https://eugdpr.org/&quot;&gt;GDPR&lt;/a&gt;, many other countries even in the developed world are yet to catch up with such laws and regulations. 2018 was also the year that saw the &lt;a href=&quot;https://techcrunch.com/2018/12/28/smart-speakers-hit-critical-mass-in-2018/&quot;&gt;surge in smart speakers&lt;/a&gt; and home automation - isn’t that ironic?&lt;/p&gt;
-
-&lt;p&gt;But this story is not about the past, but about the future. Many top technology and auto companies rushing to fulfill the promise of self-driving or autonomous vehicles. It will definitely become a reality, to some extent, in at least the parts of the world where the infrastructure supports it. But the notion of foolproof security for such a technology is far from being achieved. With smartphone apps like Facebook, WhatsApp and Google+ security issues, we have only scratched the surface of the malevolent intent that is possible. Once autonomous vehicles and other IoT devices reach critical mass, the security issues are only going to multiply manifold and the impact of security flaws can have disastrous consequences. Imagine a malicious attacker taking control of traffic lights that talk to cars or cars talking to other cars to negotiate who gets to cross an intersection, or a mass rapid transit system that reroutes itself or changes frequency of rides depending on real-time ridership information using neural network based predictions. Imagine the impact of such a thing gone wrong. With the current day deep learning algorithms themselves not being tractable (i.e. one can not reliably track the computation from input data to the prediction step by step as in &lt;a href=&quot;https://skymind.ai/wiki/symbolic-reasoning&quot;&gt;symbolic AI&lt;/a&gt;) it is going to be more challenging to resolve a security issue even after having identified it. Apologies for being pessimistic - but one should see this as a challenge for computer architecture and computer security research - a great time to be working in any of these fields.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;If you want a job for the next one year, learn web/mobile app development, if you need a job for the next five years, train yourself with deep learning skills, if you need a job for the rest of your life, start working on computer security.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;An interesting short documentary I happened to watch recently:&lt;/p&gt;
-
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/KGX-c5BJNFk&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="technology" />
-      
-        <category term="privacy" />
-      
-        <category term="security" />
-      
-
-      
-
-      
-        <summary type="html">Happy New year friends! What a year 2018 has been for the topic of privacy and security - from the most loved social network scrambling for clues to save themselves to the other social network built by the world’s best engineers still couldn’t save their data, besides struggling to stay relevant. While Europe was quick to pass GDPR, many other countries even in the developed world are yet to catch up with such laws and regulations. 2018 was also the year that saw the surge in smart speakers and home automation - isn’t that ironic? But this story is not about the past, but about the future. Many top technology and auto companies rushing to fulfill the promise of self-driving or autonomous vehicles. It will definitely become a reality, to some extent, in at least the parts of the world where the infrastructure supports it. But the notion of foolproof security for such a technology is far from being achieved. With smartphone apps like Facebook, WhatsApp and Google+ security issues, we have only scratched the surface of the malevolent intent that is possible. Once autonomous vehicles and other IoT devices reach critical mass, the security issues are only going to multiply manifold and the impact of security flaws can have disastrous consequences. Imagine a malicious attacker taking control of traffic lights that talk to cars or cars talking to other cars to negotiate who gets to cross an intersection, or a mass rapid transit system that reroutes itself or changes frequency of rides depending on real-time ridership information using neural network based predictions. Imagine the impact of such a thing gone wrong. With the current day deep learning algorithms themselves not being tractable (i.e. one can not reliably track the computation from input data to the prediction step by step as in symbolic AI) it is going to be more challenging to resolve a security issue even after having identified it. Apologies for being pessimistic - but one should see this as a challenge for computer architecture and computer security research - a great time to be working in any of these fields. If you want a job for the next one year, learn web/mobile app development, if you need a job for the next five years, train yourself with deep learning skills, if you need a job for the rest of your life, start working on computer security. An interesting short documentary I happened to watch recently:</summary>
       
 
       

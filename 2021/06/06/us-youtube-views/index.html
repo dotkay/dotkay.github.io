@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mathjax Support -->
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>What have people been watching on YouTube?</title>
+  <meta name="description" content="For more than 15 months people around the world are mostly staying indoors, those who could are working from home, vacations and other outdoor entertainments have come to a standstill. At the same time, NetFlix, gaming, and other entertainment like TV and YouTube must have become more popular - after all, these are the forms of indoor entertainment. I decided to look at what people have been interested within this limited set of entertainment avenues. While I could not find most data, YouTube data was available and regularly updated. I decided to download the dataset that contains YouTube data from August 2020 until early June 2021. Let us see what people (in the U.S.) have been watching on YouTube during this period. yt_us = pd.read_csv(&#39;US_youtube_trending_data.csv&#39;) yt_categories = pd.read_json(&#39;US_category_id.json&#39;) yt_us.dtypes The different features in the dataset are (after casting publishedAt and trending_date to datetime type): video_id object title object publishedAt datetime64[ns, UTC] channelId object channelTitle object categoryId object trending_date datetime64[ns, UTC] tags object view_count int64 likes int64 dislikes int64 comment_count int64 thumbnail_link object comments_disabled bool ratings_disabled bool description object There are different categories of videos in the dataset, and these are the number of videos in each category. I am surpised by the number of videos in some of the categories or the categorization itself. There is a category on People &amp;amp; Blogs - I am not sure what it refers to. I do know artists have their own channels and YouTube is a more lively form of a blog, but there is also Music (some of the channels there might also be by music artists). While I try and understand how the different videos are categorized, let us look at some other stats. Let us find out how many aggregate views each of the different categories has: cat_view_count_df = yt_us.groupby([&#39;categoryId&#39;])[&#39;view_count&#39;].agg([&#39;sum&#39;]) chart = sns.barplot( data=cat_view_count_df, x=&#39;categoryId&#39;, y=&#39;view_count&#39;, palette=&#39;Set2&#39;, order=cat_view_count_df.sort_values(&#39;view_count&#39;, ascending=False).category ) Not surprisingly, Music, Entertainment and Gaming are right at the top. Unfortunately, Education category is way behind. I find YouTube as a wonderful source of education. But may be this is due to Coursera, Udacity, etc. having their own video encoders and decoders and do not have their content on YouTube. Let us see which were the Top 50 most viewed videos during the time period, in the U.S. # create a new column &#39;count_max_view&#39; to collect max view_count yt_us[&#39;count_max_view&#39;] = yt_us.groupby([&#39;video_id&#39;])[&#39;view_count&#39;].transform(max) # sort the column so that we can pick out the top 50 top50 = yt_us[yt_us[&#39;view_count&#39;] == yt_us[&#39;count_max_view&#39;]].sort_values(by=[&#39;count_max_view&#39;], ascending=False).head(50) # remove non alpha-numeric characters from the titles top50.title = top50.title.str.replace(&#39;[^a-zA-Z0-9]&#39;, &#39;&#39;) And let us plot the dataset to see which ones are on the top: fig = sns.catplot( data=top50, x=&#39;title&#39;, y=&#39;view_count&#39;, kind=&#39;bar&#39;, palette=&#39;muted&#39;, aspect=2, legend=False ) Since I am fond of Education, I would like to see which YouTube channels have maxinum number of views and check if any of my favourite channels appear in the list. yt_edu = yt_us[yt_us[&#39;categoryId&#39;] == &#39;Education&#39;] yt_edu = yt_edu.groupby([&#39;channelTitle&#39;])[&#39;view_count&#39;].agg([&#39;sum&#39;]) chart = sns.barplot( data=yt_edu, x=&#39;channelTitle&#39;, y=&#39;view_count&#39;, palette=&#39;Set2&#39;, order=yt_edu.sort_values(&#39;view_count&#39;, ascending=False).channelTitle ) I see a lot of interesting channels - Khan Academy seems to have just made it to the list. I also see a channel YouTube. I see lots of interesting channel names and I hope to spend more time exploring those on YouTube very soon. The YouTube dataset is also available for other geographies. Someday, I would like to compare how the interests in different geographies differ by comparing YouTube channels’ popularity. It may not be an accurate representation of interests at all, but it should be a fun exercise.">
+  
+    
+    <meta name="keywords" content="US,YouTube,Pandemic">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2021/06/06/us-youtube-views/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Quotidien" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="What have people been watching on YouTube?">
+  <meta name="twitter:description" content="For more than 15 months people around the world are mostly staying indoors, those who could are working from home, vacations and other outdoor entertainments have come to a standstill. At the same ...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Quotidien</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2021/06/06/us-youtube-views">What have people been watching on YouTube? &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2021-06-06T00:00:00+00:00" itemprop="datePublished">Jun 6, 2021</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/us/">US</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/youtube/">YouTube</a>,
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/education/">Education</a>,
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/pandemic/">Pandemic</a>
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>For more than 15 months people around the world are mostly staying indoors, those who could are working from home, vacations and other outdoor entertainments have come to a standstill. At the same time, NetFlix, gaming, and other entertainment like TV and <a href="https://www.youtube.com/">YouTube</a> must have become more popular - after all, these are the forms of indoor entertainment. I decided to look at what people have been interested within this limited set of entertainment avenues. While I could not find most data, YouTube data was available and regularly updated. I decided to download the dataset that contains YouTube data from August 2020 until early June 2021. Let us see what people (in the U.S.) have been watching on YouTube during this period.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yt_us</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'US_youtube_trending_data.csv'</span><span class="p">)</span>
+<span class="n">yt_categories</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_json</span><span class="p">(</span><span class="s">'US_category_id.json'</span><span class="p">)</span>
+<span class="n">yt_us</span><span class="p">.</span><span class="n">dtypes</span>
+</code></pre></div></div>
+
+<p>The different features in the dataset are (after casting <code class="language-plaintext highlighter-rouge">publishedAt</code> and <code class="language-plaintext highlighter-rouge">trending_date</code> to <code class="language-plaintext highlighter-rouge">datetime</code> type):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>video_id                          object
+title                             object
+publishedAt          datetime64[ns, UTC]
+channelId                         object
+channelTitle                      object
+categoryId                        object
+trending_date        datetime64[ns, UTC]
+tags                              object
+view_count                         int64
+likes                              int64
+dislikes                           int64
+comment_count                      int64
+thumbnail_link                    object
+comments_disabled                   bool
+ratings_disabled                    bool
+description                       object
+</code></pre></div></div>
+
+<p>There are different categories of videos in the dataset, and these are the number of videos in each category.</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/n_cat_videos.png" /></center>
+</div>
+
+<p>I am surpised by the number of videos in some of the categories or the categorization itself. There is a category on <code class="language-plaintext highlighter-rouge">People &amp; Blogs</code> - I am not sure what it refers to. I do know artists have their own channels and YouTube is a more lively form of a blog, but there is also Music (some of the channels there might also be by music artists). While I try and understand how the different videos are categorized, let us look at some other stats.</p>
+
+<p>Let us find out how many aggregate views each of the different categories has:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cat_view_count_df</span> <span class="o">=</span> <span class="n">yt_us</span><span class="p">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'categoryId'</span><span class="p">])[</span><span class="s">'view_count'</span><span class="p">].</span><span class="n">agg</span><span class="p">([</span><span class="s">'sum'</span><span class="p">])</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">barplot</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">cat_view_count_df</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s">'categoryId'</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s">'view_count'</span><span class="p">,</span>
+        <span class="n">palette</span><span class="o">=</span><span class="s">'Set2'</span><span class="p">,</span>
+        <span class="n">order</span><span class="o">=</span><span class="n">cat_view_count_df</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">'view_count'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">category</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/nviews_cat_videos.png" /></center>
+</div>
+
+<p>Not surprisingly, Music, Entertainment and Gaming are right at the top. Unfortunately, Education category is way behind. I find YouTube as a wonderful source of education. But may be this is due to Coursera, Udacity, etc. having their own video encoders and decoders and do not have their content on YouTube.</p>
+
+<p>Let us see which were the Top 50 most viewed videos during the time period, in the U.S.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create a new column 'count_max_view' to collect max view_count
+</span><span class="n">yt_us</span><span class="p">[</span><span class="s">'count_max_view'</span><span class="p">]</span> <span class="o">=</span> <span class="n">yt_us</span><span class="p">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'video_id'</span><span class="p">])[</span><span class="s">'view_count'</span><span class="p">].</span><span class="n">transform</span><span class="p">(</span><span class="nb">max</span><span class="p">)</span>
+<span class="c1"># sort the column so that we can pick out the top 50
+</span><span class="n">top50</span> <span class="o">=</span> <span class="n">yt_us</span><span class="p">[</span><span class="n">yt_us</span><span class="p">[</span><span class="s">'view_count'</span><span class="p">]</span> <span class="o">==</span> <span class="n">yt_us</span><span class="p">[</span><span class="s">'count_max_view'</span><span class="p">]].</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s">'count_max_view'</span><span class="p">],</span> 
+                                                                          <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">head</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+<span class="c1"># remove non alpha-numeric characters from the titles
+</span><span class="n">top50</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">top50</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="nb">str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'[^a-zA-Z0-9]'</span><span class="p">,</span> <span class="s">''</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And let us plot the dataset to see which ones are on the top:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">catplot</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">top50</span><span class="p">,</span>
+            <span class="n">x</span><span class="o">=</span><span class="s">'title'</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="s">'view_count'</span><span class="p">,</span>
+            <span class="n">kind</span><span class="o">=</span><span class="s">'bar'</span><span class="p">,</span>
+            <span class="n">palette</span><span class="o">=</span><span class="s">'muted'</span><span class="p">,</span>
+            <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">legend</span><span class="o">=</span><span class="bp">False</span>
+<span class="p">)</span>
+</code></pre></div></div>
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/top50_yt_videos.png" /></center>
+</div>
+
+<p>Since I am fond of Education, I would like to see which YouTube channels have maxinum number of views and check if any of my favourite channels appear in the list.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">yt_edu</span> <span class="o">=</span> <span class="n">yt_us</span><span class="p">[</span><span class="n">yt_us</span><span class="p">[</span><span class="s">'categoryId'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'Education'</span><span class="p">]</span>
+<span class="n">yt_edu</span> <span class="o">=</span> <span class="n">yt_edu</span><span class="p">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">'channelTitle'</span><span class="p">])[</span><span class="s">'view_count'</span><span class="p">].</span><span class="n">agg</span><span class="p">([</span><span class="s">'sum'</span><span class="p">])</span>
+<span class="n">chart</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">barplot</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">yt_edu</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s">'channelTitle'</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s">'view_count'</span><span class="p">,</span>
+        <span class="n">palette</span><span class="o">=</span><span class="s">'Set2'</span><span class="p">,</span>
+        <span class="n">order</span><span class="o">=</span><span class="n">yt_edu</span><span class="p">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s">'view_count'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">).</span><span class="n">channelTitle</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/data_science/master/plots/yt_edu_views.png" /></center>
+</div>
+
+<p>I see a lot of interesting channels - Khan Academy seems to have just made it to the list. I also see a channel <code class="language-plaintext highlighter-rouge">YouTube</code>. I see lots of interesting channel names and I hope to spend more time exploring those on YouTube very soon.</p>
+
+<p>The <a href="https://www.kaggle.com/rsrishav/youtube-trending-video-dataset">YouTube dataset</a> is also available for other geographies. Someday, I would like to compare how the interests in different geographies differ by comparing YouTube channels’ popularity. It may not be an accurate representation of interests at all, but it should be a fun exercise.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
