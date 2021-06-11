@@ -2,7 +2,7 @@
 layout: post
 title: What have people been watching on YouTube?
 categories: [US, YouTube, Education, Pandemic]
-keywords: [US, YouTube, Pandemic, 2020]
+keywords: [US, YouTube, Pandemic]
 external-url: https://dotkay.github.io/2021/06/06/us-youtube-views
 ---
 
