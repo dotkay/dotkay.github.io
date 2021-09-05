@@ -108,7 +108,7 @@ fig = px.scatter(
 )
 
 ```
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~kkplot/24.embed" height="750" width="600">
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~kkplot/24.embed" height="800" width="1100">
 </iframe>
 
 <br>
