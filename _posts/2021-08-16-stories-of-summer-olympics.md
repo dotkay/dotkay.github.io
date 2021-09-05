@@ -78,7 +78,7 @@ fig = px.bar(df.loc[df["Country"].isin(top_n(10).index)],
 
 There are more politics stories in Olympics. The apparent gaps in the plot below makes one wonder what happened those years. The 1916 summer Olympics, to be hosted by Berlin, were cancelled due to World War I, a first cancellation in the 20 year history of Olympics during those days. The 1940 Olympics to be hosted by Tokyo were rescheduled to be hosted by Finland (due to Japan's invasion of China in 1937) and eventually cancelled due to the outbreak of World War II. Again, the 1944 Summer Olympics to be hosted by London got cancelled due to World War II. The 2020 Olympics hosted by Tokyo was rescheduled to 2021 due to the outbreak of Covid. It took tremendous courage and organization by Japan and the participating countries to put up a great show during the pandemic.
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~kkplot/21.embed" height="800" width="100%">
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~kkplot/21.embed" height="800" width="1000">
 </iframe>
 
 ```python
