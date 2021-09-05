@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-09-05T14:05:50+00:00</updated>
+  <updated>2021-09-05T14:18:19+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -93,7 +93,7 @@
 
 &lt;p&gt;There are more politics stories in Olympics. The apparent gaps in the plot below makes one wonder what happened those years. The 1916 summer Olympics, to be hosted by Berlin, were cancelled due to World War I, a first cancellation in the 20 year history of Olympics during those days. The 1940 Olympics to be hosted by Tokyo were rescheduled to be hosted by Finland (due to Japan’s invasion of China in 1937) and eventually cancelled due to the outbreak of World War II. Again, the 1944 Summer Olympics to be hosted by London got cancelled due to World War II. The 2020 Olympics hosted by Tokyo was rescheduled to 2021 due to the outbreak of Covid. It took tremendous courage and organization by Japan and the participating countries to put up a great show during the pandemic.&lt;/p&gt;
 
-&lt;iframe id=&quot;igraph&quot; scrolling=&quot;no&quot; style=&quot;border:none;&quot; seamless=&quot;seamless&quot; src=&quot;https://plotly.com/~kkplot/21.embed&quot; height=&quot;800&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+&lt;iframe id=&quot;igraph&quot; scrolling=&quot;no&quot; style=&quot;border:none;&quot; seamless=&quot;seamless&quot; src=&quot;https://plotly.com/~kkplot/21.embed&quot; height=&quot;800&quot; width=&quot;1000&quot;&gt;&lt;/iframe&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_final&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fillna&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idcols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
                          &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idcols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:])&lt;/span&gt;
