@@ -105,10 +105,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/10/01/event-scheduling/">Greedy algorithms vs Tik-Tok teenagers &rarr;</a>
+            <a class="post-link" href="/2018/10/10/job-sequencing/">Pick the right courier ... &rarr;</a>
           </h1>
 
-          <p class="post-meta">Oct 1, 2018 • 
+          <p class="post-meta">Oct 10, 2018 • 
   
   
     
@@ -119,6 +119,12 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -554,6 +560,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -645,6 +657,760 @@
   
     
       <a href="/categories/greedy/">greedy</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Suppose you are a messenger boy making money by transporting packages from one office to another. Some packages like food need to be transported by a specific time (say lunch time) and certain others can get delayed but still have to be transported before the end of the day (by the time the other office closes). For each such job, you get paid a little. For certain packages, like cheques or gifts, you get paid a little more. So, you want to choose the jobs in such a way that you maximize your profit. You can’t refuse a job for reasons other than having another job to do at the same time. You want to write an algorithm to help you choose the right set of jobs.</p>
+
+<p>As you are already greedy (or familiar with <em>greedy algorithms</em>), you can write one to solve this problem as well. This is just a variant of <em>interval scheduling</em> that we saw in our <a href="https://dotkay.github.io/2018/10/01/event-scheduling">previous post</a>. This case is commonly known as <em>weighted interval scheduling</em> as each interval (job) has a weight or value associated with it (profit) that we are trying to optimize for. In our case, our objective is to maximize the profit from doing jobs. And we want to identify the local decision rule that would also construct a globally optimal solution.</p>
+
+<p>Assume we have jobs that are defined by the following:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="nc">Job</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">deadline</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">profit</span><span class="p">;</span>
+<span class="p">};</span></code></pre>
+</figure>
+
+<p>Since we want to maximize our profit, we first sort the jobs in decreasing order of profits. Now your acceptable set of jobs could be as large as the set of jobs available (what if all the jobs provide the same profit - you may want to do all of them to maximize your profit). So, you have a set that is as large as the initial set of jobs.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="c1">// container for our final jobs (initialized to -1)</span>
+<span class="c1">// so that we would know if we filled in the slot already</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sch_slot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">sort</span><span class="p">(</span><span class="n">jobs</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">jobs</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span>
+          <span class="p">[]</span> <span class="p">(</span><span class="n">Job</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">j1</span><span class="p">,</span> <span class="n">Job</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">j2</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">j1</span><span class="p">.</span><span class="n">profit</span> <span class="o">&gt;=</span> <span class="n">j2</span><span class="p">.</span><span class="n">profit</span><span class="p">;</span> <span class="p">});</span></code></pre>
+</figure>
+
+<p>Next, we try to delay the job as much as it is allowed by the deadline. If lunch delivery can wait until noon, you don’t want to take up that job and deliver it at 9 while sacrificing some other profit opportunity available at 9. So, we go through the list of jobs (ordered according to profits) that are not scheduled and schedule it while delaying the schedule as much as the job deadline allows. So, if lunch delivery can wait until noon, we would schedule lunch delivery the last slot before noon (say 11-12).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="c1">// delay the job as much as possible</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">deadline</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">--</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">sch_slot</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="p">{</span>
+        <span class="n">sch_slot</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">jobs</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">id</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span></code></pre>
+</figure>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2018/10/01/event-scheduling/">Greedy algorithms vs Tik-Tok teenagers &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Oct 1, 2018 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/greedy/">greedy</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1094,6 +1860,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1125,6 +1897,12 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1540,6 +2318,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1629,6 +2413,12 @@
   
     
       <a href="/categories/segment-tree/">segment tree</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2028,6 +2818,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2059,6 +2855,12 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2474,6 +3276,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2563,6 +3371,12 @@
   
     
       <a href="/categories/segment-tree/">segment tree</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2992,6 +3806,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -3023,6 +3843,12 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
     
   
     
@@ -3438,6 +4264,12 @@
   
     
   
+    
+  
+    
+  
+    
+  
 
 </p>
         </header>
@@ -3470,725 +4302,6 @@
 </figure>
 
 <p>But what happens when we have millions of such queries - as different advertisers might be querying our database to send various kinds of offers? Do we have to traverse the range every time, in order to compute the max value? Or can we do better?</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2018/08/24/derangements_dp/">Sharing toys again &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 24, 2018 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/c/">C++</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/dynamic-programming/">dynamic programming</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2018/08/20/derangements">previous post</a> we saw how to compute the number if ways in which a bunch of toys can be rotated among as many number of kids without repetition. We also saw that we were computing intermediate problems over an over again, instead of remembering the computed value and reusing it (i.e. dynamic programming). Let us try it now.</p>
-
-<p>We will first create a container to store and remember the results of intermediate computations as and when we perform them - in our case just a one dimensional array that stores how many ways we can distribute <em>n</em> toys among <em>n</em> kids. We can populate our container with the base cases (case of one kid and one toy and two kids and two toys).</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="n">ways</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-
-<span class="c1">// base case</span>
-<span class="n">ways</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="n">ways</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span></code></pre>
-</figure>
-
-<p>Now, we iterate through the remaining number of toys, upto <em>n</em> and do the computation by reusing computed values instead of recursively calling the function to compute.</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">ways_dp</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">ways</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-
-  <span class="c1">// base case</span>
-  <span class="n">ways</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="n">ways</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-    <span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ways</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">]);</span>
-  
-  <span class="k">return</span> <span class="n">ways</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>It is as simple as that.</p>
 
         </div>
         
