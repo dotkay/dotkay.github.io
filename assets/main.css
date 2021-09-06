@@ -151,12 +151,6 @@ pre {
 .img_container {
   text-align: center; }
 
-iframe {
-  overflow: scroll;
-  width: 1349px;
-  height: 100%;
-  border: 1px solid black; }
-
 /**
  * Site header
  */
