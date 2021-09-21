@@ -1822,36 +1822,39 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
 <p>Below is a simple implementation of Binary Search as found in several text-books, production software, etc. The input parameters are an array <code class="language-plaintext highlighter-rouge">arr</code> of size <code class="language-plaintext highlighter-rouge">n</code> and we are interested in searching for a target element <code class="language-plaintext highlighter-rouge">t</code> using binary search. If the target element is not found, we will return <code class="language-plaintext highlighter-rouge">-1</code> and if found, we will return the index of the element in the array.</p>
 
-<pre><code class="language-C">int bsearch(int arr[], int n, int t)
-{
-  int lo = 0;
-  int hi = n - 1;
-  int mid;
-  while (lo &lt;= hi)
-  {
-    mid = (lo + hi)/2;
-    if (arr[mid] == t)
-      return mid;
-    if (arr[mid] &lt; t)
-      lo = mid + 1;
-    if (arr[mid] &gt; t)
-      hi = mid - 1;
-  }
-  return -1;
-}
-</code></pre>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">bsearch</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">lo</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">mid</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">lo</span> <span class="o">&lt;=</span> <span class="n">hi</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">hi</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">mid</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">)</span>
+      <span class="n">lo</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">t</span><span class="p">)</span>
+      <span class="n">hi</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
 
 <p>What could go wrong in this program? One can write a bunch of unit tests and it would, most likely, go through fine. And if you think there is some very corner case scenario that is happening here, you are not alone. This bug was undiscovered for decades - we all know binary search algorithm is not something new. When this was discovered, it turned out that not only this binary search algorithm, but many others that involve binary search as a sub-routine was also wrong. <a href="https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html">Google’s blogpost on this</a> goes into interesting details and it turns out it also <a href="https://bugs.openjdk.java.net/browse/JDK-6412541">existed in JDK</a>.</p>
 
 <p>The bug is related to arithmetic overflow when computing <code class="language-plaintext highlighter-rouge">mid</code> in:</p>
 
-<pre><code class="language-C">mid = (lo + hi)/2;
-</code></pre>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">hi</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span></code></pre>
+</figure>
 
 <p>A potential fix for this would be to rewrite the above as:</p>
 
-<pre><code class="language-C">mid = lo + ((hi - lo)/2);
-</code></pre>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">mid</span> <span class="o">=</span> <span class="n">lo</span> <span class="o">+</span> <span class="p">((</span><span class="n">hi</span> <span class="o">-</span> <span class="n">lo</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span></code></pre>
+</figure>
 
 <p>After all, we should not be trusting our programs as much as we do, before analyzing them.</p>
 
