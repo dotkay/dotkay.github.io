@@ -3,7 +3,7 @@ layout: post
 title: Is This Program Correct?
 katex: True
 categories: [C, bugs, program verification]
-keywords: [C, bugs, program verification]
+keywords: [C, bugs, program verification, formal methods]
 external-url: https://dotkay.github.io/2019/02/03/is-this-program-correct
 ---
 
