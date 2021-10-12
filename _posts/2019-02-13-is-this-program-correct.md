@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Is This Program Correct?
+title: How About This Program? Is This Correct?
 katex: True
 categories: [C, bugs, program verification]
 keywords: [C, bugs, program verification, formal methods]
