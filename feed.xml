@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-10-12T13:58:46+00:00</updated>
+  <updated>2021-10-21T13:55:15+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,104 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Stories in Charts →</title>
+      
+      <link href="https://dotkay.github.io/2021/09/22/stories-in-charts/" rel="alternate" type="text/html" title="Stories in Charts" />
+      <published>2021-09-22T00:00:00+00:00</published>
+      <updated>2021-09-22T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2021/09/22/stories-in-charts</id>
+      <content type="html" xml:base="https://dotkay.github.io/2021/09/22/stories-in-charts/">&lt;p&gt;In this post, we will see the most ubiquitous, most useful and also the most easily mis-interpreted data visualization tools - &lt;em&gt;charts&lt;/em&gt;. They come in various forms and they are used to represent different aspects of the underlying data. The key assumption is that the visual representation is easier to interpret quickly than in a tabular format. More often, one kind of story a chart conveys might hide another kind of story a different chart, of the underlying dataset, might have conveyed. It is not uncommon to find that the reader would interpret the chart in a way different from what the writer wanted to convey, in which case it is best for the writer to clarify the message being driven.&lt;/p&gt;
+
+&lt;p&gt;For example, let us look at the latest global vaccination data. When you look at the per-capita vaccination rates of different countries, and say you pick the top 50 countries, you would see a chart similar to the following (the chart below is from September, 2021). More specifically, the chart shows the number of fully vaccinated people per hundred of the population.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/people_vax_per_100.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;What story does this tell? While per-capita numbers are a way to normalize the data, it crucially depends on the story that one wants to tell. Does this indicate the ease of availability of vaccines? Does it indicate the effectiveness of the healthcare system? Does this indicate the willingness of people to get the vaccine? Or something else?&lt;/p&gt;
+
+&lt;p&gt;Let us look at the absolute numbers for the same data and look at the chart.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/people_vax.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:gray; font-size: 50%; text-align: left;&quot;&gt;
+Data regarding fully vaccinated population from China was missing from the dataset and hence it does not show up in the chart. China had the most fully vaccinated population (absolute numbers) in September, 2021.
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;We see a different picture. What story does this tell?&lt;/p&gt;
+
+&lt;p&gt;While both of the above charts convey useful information, it is necessary to understand what useful story could be told using the above. For example, the first chart (per-capita) could indicate what percentage of the total population is vaccinated. This could indicate to what extent the spread of the virus or hospitalizations could be contained and that very likely these countries could get out of the pandemic sooner and become safer to travel to. It does not indicate the effectiveness of the healthcare system or the challenges in getting more people vaccinated, etc.&lt;/p&gt;
+
+&lt;p&gt;The second chart shows the absolute number of people vaccinated in many countries. The difference between the two charts could show the challenges in getting the population vaccinated - it could be geographical as in some countries might be too large posing a logistics challenge, it could be the size of the population - even if enough vaccines are in supply more would be needed to get the entire population vaccinated or it could be a short supply of vaccines - again because of lack of storage or the price or a weak healthcare infrastructure.&lt;/p&gt;
+
+&lt;p&gt;On similar lines, when you look at GDP data and plot the top 50 countries by GDP the chart looks something like the following.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/gdp_2018_top_50.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;span style=&quot;color:gray; font-size: 50%; text-align: left;&quot;&gt;
+The GDP numbers are from 2018 rather than latest numbers in order to avoid the variations of the effects of the pandemic on GDP.
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;It shows the wealthiest countries (in terms of GDP). But does the wealth trickle down to every individual? Again, there might be challenges like population, management of funds, etc. Once you look at per-capita numbers one could see how different countries fare.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/gdp_per_capita_2018_top_50.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When you look at the GDP growth rate, it tells a different story - the countries that are improving from their past year. Yes, Libya did have 15% GDP growth in 2018.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/data_science/master/plots/gdp_growth_rate_2018.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The chart we choose should depend on the story we want to tell. It is imperative to explicitly explain the choice of chart and how it tells the story the writer wants to tell and also the stories it does not.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&quot;color:gray; font-size: 70%; text-align: left;&quot;&gt;
+The vaccination data used here is from a &lt;a href=&quot;https://www.kaggle.com/gpreda/covid-world-vaccination-progress&quot; target=&quot;_self&quot;&gt;Kaggle dataset&lt;/a&gt;.
+&lt;/span&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="vaccination" />
+      
+        <category term="gdp" />
+      
+        <category term="per-capita" />
+      
+        <category term="charts" />
+      
+        <category term="data science" />
+      
+
+      
+
+      
+        <summary type="html">In this post, we will see the most ubiquitous, most useful and also the most easily mis-interpreted data visualization tools - charts. They come in various forms and they are used to represent different aspects of the underlying data. The key assumption is that the visual representation is easier to interpret quickly than in a tabular format. More often, one kind of story a chart conveys might hide another kind of story a different chart, of the underlying dataset, might have conveyed. It is not uncommon to find that the reader would interpret the chart in a way different from what the writer wanted to convey, in which case it is best for the writer to clarify the message being driven. For example, let us look at the latest global vaccination data. When you look at the per-capita vaccination rates of different countries, and say you pick the top 50 countries, you would see a chart similar to the following (the chart below is from September, 2021). More specifically, the chart shows the number of fully vaccinated people per hundred of the population. What story does this tell? While per-capita numbers are a way to normalize the data, it crucially depends on the story that one wants to tell. Does this indicate the ease of availability of vaccines? Does it indicate the effectiveness of the healthcare system? Does this indicate the willingness of people to get the vaccine? Or something else? Let us look at the absolute numbers for the same data and look at the chart. Data regarding fully vaccinated population from China was missing from the dataset and hence it does not show up in the chart. China had the most fully vaccinated population (absolute numbers) in September, 2021. We see a different picture. What story does this tell? While both of the above charts convey useful information, it is necessary to understand what useful story could be told using the above. For example, the first chart (per-capita) could indicate what percentage of the total population is vaccinated. This could indicate to what extent the spread of the virus or hospitalizations could be contained and that very likely these countries could get out of the pandemic sooner and become safer to travel to. It does not indicate the effectiveness of the healthcare system or the challenges in getting more people vaccinated, etc. The second chart shows the absolute number of people vaccinated in many countries. The difference between the two charts could show the challenges in getting the population vaccinated - it could be geographical as in some countries might be too large posing a logistics challenge, it could be the size of the population - even if enough vaccines are in supply more would be needed to get the entire population vaccinated or it could be a short supply of vaccines - again because of lack of storage or the price or a weak healthcare infrastructure. On similar lines, when you look at GDP data and plot the top 50 countries by GDP the chart looks something like the following. The GDP numbers are from 2018 rather than latest numbers in order to avoid the variations of the effects of the pandemic on GDP. It shows the wealthiest countries (in terms of GDP). But does the wealth trickle down to every individual? Again, there might be challenges like population, management of funds, etc. Once you look at per-capita numbers one could see how different countries fare. When you look at the GDP growth rate, it tells a different story - the countries that are improving from their past year. Yes, Libya did have 15% GDP growth in 2018. The chart we choose should depend on the story we want to tell. It is imperative to explicitly explain the choice of chart and how it tells the story the writer wants to tell and also the stories it does not. The vaccination data used here is from a Kaggle dataset.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1516,50 +1614,6 @@ Notes:
 
       
         <summary type="html">Lately, I have been reading about several businesses and trying to understand their product offerings, value proposition of the products, business model and how they came to be. With a natural inclination for technology products and a curiosity about startups and business models, this has been an enjoyable learning experience and I am hoping to share a lot of my learning through this medium. Let’s start with LinkedIn. LinkedIn’s Vision Create economic opportunity for every member of the global workforce. I liked the simple and clear vision statement but was wondering why it mentions only economic opportunity while LinkedIn’s products offer much more or could it be the case that all the benefits the products offer can be tied to economic opportunity? I started researching about what this term economic opportunity entails and found this answer in Quora: When somebody is willing to pay you money for doing something that you are willing and able to do, that is an “economic opportunity”. It can be a small business idea or a job.If you can produce a product or provide a service that people are willing to pay for, that is a small business opportunity. If you have an ability or skill that an employer needs, that is a job opportunity. Basically, an economic opportunity is the chance to do work that somebody is willing to pay you for. You don’t have to “like” the work. You just have to be able to competently do it. If you like your work, all the better for you. But we work to earn money that is paid by other people. The work we do is for other people’s benefit. The money they pay us is for our benefit. It is a reciprocal pay-earn, demand-supply economic relationship. They pay us money for supplying them what they want. I, however, feel that LinkedIn also provides knowledge opportunity (learning), business/marketing opportunity (sales leads) and career opportunity (jobs for professionals) and talent development (hiring solutions for recruiters) opportunity, etc. There might be some or some aspects of these on which you cannot really put a dollar value on in order for them to be called an economic opportunity. LinkedIn’s Mission The mission of LinkedIn is simple: connect the world’s professionals to make them more productive and successful. Again, a short and crisp mission statement. But, again I believe that the main benefit is making professionals more skilled, equipped, informed, etc., rather than just productive. LinkedIn’s Products LinkedIn to many is just a networking site for professionals. But once you look at the suite of products it is much more than that. LinkedIn’s products are organized under four themes: Hire Market Sell Learn The various products under each of these themes are shown below: It is difficult to categorize each of the products into advertisement-based or subscription-based one as some of them overlap both business models. The HIRE theme is mainly for human resources professionals to track, follow, and manage recruiting pipeline for their organizations. I believe this could be one of the most active products (along with learning) on the platform. The MARKET theme helps in setting up marketing campaigns, reach out to potential resources for marketing purposes, set up custom pages, and serve advertisements on the pages and possibly through emails. Although it sounds like a lot of features, I believe they would have a very stiff competition from the likes of Google and Facebook. Although the advertisements would be more relevant to hiring and professional marketing, the eyeballs on these wouldn’t be as much as on Google search and Facebook feeds. However, with the volume of professionals in the network, hiring ads would get the best reach on this platform. The SELL theme sounds like a specialized Salesforce platform. The LEARN theme is an upcoming Coursera. Although it may not offer a wide variety of specializations for now, with data from the HIRE theme, it would be a more powerful medium for specialized skill development targeted at specific job roles in specific industries. We need to wait and watch how well Microsoft uses the data from one to better the offerings of another. Although LinkedIn membership is free, there is also a premium subscription which could be considered as a separate product in itself (creating significant revenue) and it is needed to use several of the other products, for example InMail. LinkedIn’s business LinkedIn has become a significant business unit of Microsoft. According to a source In the 2019 fiscal year, LinkedIn brought in $6.8 billion worth of revenue, contributing to $38.1 billion of commercial cloud revenue for Microsoft, which in turn made up part of $126 billion total revenue. Further the numbers below from Microsoft’s earnings and LinkedIn newsroom validate the importance of LinkedIn and its potential. LinkedIn’s Opportunity And that shows the opportunity for LinkedIn. Along with the above, GitHub - the world’s largest software development platform or the playground for developers was snapped up by Microsoft. This indicates a very huge potential. The data from HIRE theme above combined with LEARN theme and fueled by GitHub platform is a wonderful growth opportunity. GitHub + LinkedIn for developers would be Instagram for fashionistas and for businesses and recruiters this would be the Instagram for fashion brands seeking ambassadors and influencers. Probably some day very soon let me write about the opportunity for data science and AI in stitching all the above products together as one awesome fabric. Thats all for now!</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">The Magic Money Tree →</title>
-      
-      <link href="https://dotkay.github.io/2019/07/01/mmt/" rel="alternate" type="text/html" title="The Magic Money Tree" />
-      <published>2019-07-01T00:00:00+00:00</published>
-      <updated>2019-07-01T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2019/07/01/mmt</id>
-      <content type="html" xml:base="https://dotkay.github.io/2019/07/01/mmt/">&lt;p&gt;As people who know me understand, I read articles and listen to podcasts on a variety of topics ranging from technology, social science, society, economics, etc. Economics is one of my favourites, as it is very relatable to our day to day lives, besides involving mathematical modelling (which, for the same reasons as Deep Learning techniques of today, can only be close to a very good approximation but never accurate). While listening to BBC’s Business Daily podcasts, I stumbled upon this episode on Modern Monetary Theory. The title of the podcast - “Magic Money Tree” caught my attention and it turned out to be an interesting take on a proposal by one of the former Hedge Fund manager about central banks being able to print more money when needed. I did have this idea when I was a kid before I realized inflation and value of goods and how they are tied to abundance of ciculation of money, interest rates and consumer spending. I am not an economist but I am worried how this could lead to powerful economies manipulating their inflation thereby leading to disastrous consequences in parts of the world whose currencies are not global trade currencies.&lt;/p&gt;
-
-&lt;p&gt;For those interested in listening to the episode, you can do it here:&lt;/p&gt;
-&lt;audio controls=&quot;&quot;&gt;
-&lt;source src=&quot;http://open.live.bbc.co.uk/mediaselector/6/redir/version/2.0/mediaset/audio-nondrm-download-low/proto/http/vpid/p079cpnd.mp3&quot; /&gt; 
-&lt;/audio&gt;
-
-&lt;p&gt;Are there wonderful teachers among expert economists who can
-help me understand?&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="Money" />
-      
-        <category term="Monetary Policy" />
-      
-
-      
-
-      
-        <summary type="html">As people who know me understand, I read articles and listen to podcasts on a variety of topics ranging from technology, social science, society, economics, etc. Economics is one of my favourites, as it is very relatable to our day to day lives, besides involving mathematical modelling (which, for the same reasons as Deep Learning techniques of today, can only be close to a very good approximation but never accurate). While listening to BBC’s Business Daily podcasts, I stumbled upon this episode on Modern Monetary Theory. The title of the podcast - “Magic Money Tree” caught my attention and it turned out to be an interesting take on a proposal by one of the former Hedge Fund manager about central banks being able to print more money when needed. I did have this idea when I was a kid before I realized inflation and value of goods and how they are tied to abundance of ciculation of money, interest rates and consumer spending. I am not an economist but I am worried how this could lead to powerful economies manipulating their inflation thereby leading to disastrous consequences in parts of the world whose currencies are not global trade currencies. For those interested in listening to the episode, you can do it here: Are there wonderful teachers among expert economists who can help me understand?</summary>
       
 
       

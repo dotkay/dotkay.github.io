@@ -105,10 +105,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2017/11/13/stacks/">Stacks &rarr;</a>
+            <a class="post-link" href="/2017/11/14/stack_operations/">Stack using Arrays - Operations &rarr;</a>
           </h1>
 
-          <p class="post-meta">Nov 13, 2017 • 
+          <p class="post-meta">Nov 14, 2017 • 
   
   
     
@@ -119,6 +119,14 @@
   
     
       <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -574,6 +582,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -615,6 +631,802 @@
   
     
       <a href="/categories/stacks/">stacks</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>In our <a href="https://dotkay.github.io/2017/11/13/stacks">previous post</a> we introduced the <em>Stack</em> data structure implemented using arrays. Now, we will see how to implement the operations on such a Stack - in particular we will learn how to implement the following methods:</p>
+
+<ul>
+  <li>Push(item) - to push the input item into the stack</li>
+  <li>Pop() - to pop an item from the stack</li>
+  <li>top_of_stack() - to track the item in the top of the stack</li>
+  <li>is_empty() - to check if the stack is empty</li>
+</ul>
+
+<p>As we have already seen Queues, we pretty much have an idea of how to go about doing this. While in the case of a queue, we initialized front and rear and used those to see when we can add elements and which index to increment, here we initialized top (for <em>top of stack</em>) to <code class="language-plaintext highlighter-rouge">-1</code> and we shall use that while performing our operations. We are tracking only <em>top</em>, so we increment the index when we <em>push()</em>, decrement it when we <em>pop()</em> and check the value to determine when the stack is empty as shown in the code fragment below:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">push</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// check if there's place to push</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">MAXSIZE</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Stack overflow!"</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="c1">// if there's place store the item</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="n">arr</span><span class="p">[</span><span class="o">++</span><span class="n">top</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Stack</span><span class="o">::</span><span class="n">pop</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// check if there's anything to pop</span>
+  <span class="c1">// or if the stack is empty</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">top</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="n">out_of_range</span><span class="p">(</span><span class="s">"Stack underflow!"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">top</span><span class="o">--</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">Stack</span><span class="o">::</span><span class="n">top_of_stack</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">top</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="kt">bool</span> <span class="n">Stack</span><span class="o">::</span><span class="n">is_empty</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">top</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>That was easy!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/11/13/stacks/">Stacks &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Nov 13, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/stacks/">stacks</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1091,6 +1903,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1122,6 +1942,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1363,6 +2191,14 @@
   
     
       <a href="/categories/queues/">queues</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1861,6 +2697,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1892,6 +2736,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2133,6 +2985,14 @@
   
     
       <a href="/categories/queues/">queues</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2621,6 +3481,14 @@
   
     
   
+    
+  
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2652,6 +3520,14 @@
   
     
       <a href="/categories/data-structures/">data structures</a>,
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2893,6 +3769,14 @@
   
     
       <a href="/categories/queues/">queues</a>
+    
+  
+    
+  
+    
+  
+    
+  
     
   
     
@@ -3122,746 +4006,6 @@
 </figure>
 
 <p>Although pretty straight-forward, Queues have a variety of applications. We will soon see some applications when we discuss Graph data structures.</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/11/09/queues/">Queues &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Nov 9, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/algorithms/">algorithms</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/data-structures/">data structures</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/queues/">queues</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>Let’s look at another important data structure - the <em>Queue</em>. As the name indicates, it is used just to model a queue of objects. The collection of objects in the queue will be served (or processed) much like how a queue of people in front of a ticket vending counter are served - the first one in the queue gets served first, and the last one in the queue gets served last. This kind of system is more popularly called <em>FIFO</em> (for First-In-First-Out system). Queue, is just a collection of objects - which means we can use an array to model them (to hold the objects) or alternatively we could also use a linked list (which also just holds a collection of objects). The operations on those objects should follow the FIFO order, while the container itself could be anything. Let use first model it using an array:</p>
-
-<figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="cp">#define MAXSIZE 100
-</span><span class="k">class</span> <span class="nc">Queue</span> <span class="p">{</span>
-  <span class="nl">private:</span>
-    <span class="kt">int</span> <span class="n">front</span><span class="p">,</span> <span class="n">rear</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">MAXSIZE</span><span class="p">];</span>
-  <span class="nl">public:</span>
-    <span class="n">Queue</span> <span class="p">();</span>
-    <span class="kt">void</span> <span class="n">enqueue</span> <span class="p">(</span><span class="kt">int</span> <span class="n">item</span><span class="p">);</span>
-    <span class="kt">int</span> <span class="n">dequeue</span> <span class="p">();</span>
-    <span class="kt">bool</span> <span class="n">is_empty</span> <span class="p">();</span>
-<span class="p">};</span>
-
-<span class="n">Queue</span><span class="o">::</span><span class="n">Queue</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="n">front</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="n">rear</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span></code></pre>
-</figure>
-
-<p>We have two private members - <em>front</em> and <em>rear</em> - <em>front</em> gets served first. Objects get added to the container using the <em>enqueue()</em> method and they get processed in FIFO order using <em>dequeue()</em> method. We will look at these operations in future posts.</p>
 
         </div>
         
