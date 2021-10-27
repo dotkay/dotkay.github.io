@@ -186,6 +186,8 @@
     
   
     
+  
+    
       <a href="/categories/technology/">technology</a>,
     
   
@@ -435,6 +437,8 @@
     
   
     
+  
+    
       <a href="/categories/products/">products</a>,
     
   
@@ -592,6 +596,8 @@
   
 
   
+  
+    
   
     
   
@@ -943,6 +949,8 @@
     
   
     
+  
+    
       <a href="/categories/technology/">technology</a>,
     
   
@@ -1188,6 +1196,8 @@
     
   
     
+  
+    
       <a href="/categories/deep-learning/">deep learning</a>,
     
   
@@ -1349,6 +1359,8 @@
   
 
   
+  
+    
   
     
   
@@ -1686,6 +1698,8 @@
     
   
     
+  
+    
       <a href="/categories/technology/">technology</a>,
     
   
@@ -1851,6 +1865,8 @@
   
 
   
+  
+    
   
     
   
@@ -2184,6 +2200,8 @@
     
   
     
+  
+    
       <a href="/categories/psychology/">psychology</a>,
     
   
@@ -2353,6 +2371,8 @@
   
 
   
+  
+    
   
     
   
@@ -2833,6 +2853,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -2857,12 +2879,20 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/06/30/python-dict-order/">Python, dictionaries, mutation and insertion order &rarr;</a>
+            <a class="post-link" href="/2018/07/03/shipping-value-rec/">Making value from shipping products &rarr;</a>
           </h1>
 
-          <p class="post-meta">Jun 30, 2018 • 
+          <p class="post-meta">Jul 3, 2018 • 
   
   
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
     
   
     
@@ -2919,12 +2949,6 @@
   
     
   
-    
-  
-    
-  
-    
-      <a href="/categories/mutable/">mutable</a>,
     
   
     
@@ -3109,125 +3133,7 @@
     
   
     
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/dict/">dict</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
+      <a href="/categories/recursion/">recursion</a>,
     
   
     
@@ -3280,127 +3186,6 @@
   
     
   
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <a href="/categories/memory-management/">memory management</a>,
     
   
     
@@ -3655,7 +3440,9 @@
     
   
     
-      <a href="/categories/insertion-order/">insertion order</a>,
+  
+    
+      <a href="/categories/knapsack/">knapsack</a>,
     
   
     
@@ -3848,7 +3635,7 @@
     
   
     
-  
+      <a href="/categories/c/">C++</a>
     
   
     
@@ -3884,7 +3671,9 @@
     
   
     
-      <a href="/categories/python/">Python</a>
+  
+    
+  
     
   
     
@@ -4070,38 +3859,43 @@
         </header>
 
         <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2018/06/24/python-tuple-mem-mgmt/">earlier post</a>, we saw tuples, which are immutable data-types in Python, but in the case of a tuple of lists, we were able to modify the contents of the list. Now, we will see dictionary objects in Python and see if they behave as expected. Recall that dictionaries are mutable objects in Python.</p>
+          <p>Suppose you own a few small boats and are making money shipping goods between UK and continental Europe. Your boats are small and they have limited capacity. You have your busy days once in a while but almost always you need to choose the products so that you can create maximum value. Your fee is not based on the weight of the products rather on the value of the products that you ship.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mem_addr</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
+<p>Brexit vote happened and all of a sudden you get requests for shipping products that you have never shipped before. You are not sure how to decide which products to ship. Given a bunch of products like fish, cheese, expensive wine, Louis Vuitton bags, etc. along with their weight and their value, you want to decide how many of each item to include in order to get maximum value. Remember that you have small boats which have limited carrying capacity.</p>
 
-<span class="n">d1</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">k1</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k2</span> <span class="o">=</span> <span class="s">'a'</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by d1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">d1</span><span class="p">)))</span>
+<p>Several years ago, you got a CS degree and you think it might come to use now. You decide to write a program in order to figure out maximum value that you could obtain. All good. You pick up your chromebook and start framing the problem. You have a list of items - their weights and values. You know the capacity of your boat (you do it for one boat at a time, as if one boat is in France, one is in UK and the third is in Amsterdam).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a list w: weights of items
+a list v: corresponding value of the items
+threshold: capacity of your boat
 </code></pre></div></div>
+<p>Now, you can include the item to be carried in your boat or exclude it and tell the merchant to wait for the next trip or find another shipping agency. For an item <code class="language-plaintext highlighter-rouge">i</code>, once you decide to include it, your value would increase by <code class="language-plaintext highlighter-rouge">v[i]</code> and you will have <code class="language-plaintext highlighter-rouge">threshold - w[i]</code> capacity left in your boat. If you decide to exclude item <code class="language-plaintext highlighter-rouge">i</code>, you will have no value from that item (as you are not transporting it) but you will have <code class="language-plaintext highlighter-rouge">threshold</code> capacity to fill. It should be an easy problem then:</p>
 
-<p>The memory referenced by <code class="language-plaintext highlighter-rouge">d1</code> seems to be <code class="language-plaintext highlighter-rouge">0x28be6286ee8</code>. Now, let us try to modify the contents of our dictionary. In particular, let us add a new key and a corresponding value.</p>
+<blockquote>
+  <p>for each of the items, you find the max value from the two choices you have: including an item <code class="language-plaintext highlighter-rouge">i</code> or excluding the item <code class="language-plaintext highlighter-rouge">i</code></p>
+</blockquote>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d1</span><span class="p">[</span><span class="s">'k3'</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.5</span>
-<span class="k">print</span><span class="p">(</span><span class="s">'memory referenced by d1: {0}'</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">mem_addr</span><span class="p">(</span><span class="n">d1</span><span class="p">)))</span>
-</code></pre></div></div>
+<p>It is as simple as <code class="language-plaintext highlighter-rouge">max(incl, excl)</code> where <code class="language-plaintext highlighter-rouge">incl</code> and <code class="language-plaintext highlighter-rouge">excl</code> refer to the value you obtain by deciding to include the item <code class="language-plaintext highlighter-rouge">i</code> or exclude the item <code class="language-plaintext highlighter-rouge">i</code>. Once you include the item <code class="language-plaintext highlighter-rouge">i</code>, you would be left with one less item in your candidate set to pick the next one. Intuitively you can keep recursing until there are no more items left or until your threshold is reached. You go about writing a recursive algorithm to help you decide.</p>
 
-<p>The memory referenced by <code class="language-plaintext highlighter-rouge">d1</code> still seems to be <code class="language-plaintext highlighter-rouge">0x28be6286ee8</code>. So, dictionaries seem to be well behaved. I like them.</p>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">knapsack</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">w</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">threshold</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// base case</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">threshold</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">INT8_MIN</span><span class="p">;</span>
 
-<p>However, for people who are still stuck with an older version (Python &lt;= 3.5) and moving to Python &gt;= 3.6, there are some surprises with dictionaries. For example, let us try with Python 3.6 first:</p>
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">threshold</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d2</span> <span class="o">=</span> <span class="p">{</span> <span class="s">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">'d'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s">'e'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">'f'</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s">'g'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s">'h'</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s">'i'</span><span class="p">:</span> <span class="mi">9</span> <span class="p">}</span>
-<span class="k">print</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
-</code></pre></div></div>
+  <span class="c1">// include the current element in the solution</span>
+  <span class="kt">int</span> <span class="n">incl</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+</span> <span class="n">knapsack</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">-</span> <span class="n">w</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+  <span class="c1">// exclude the current element</span>
+  <span class="kt">int</span> <span class="n">excl</span> <span class="o">=</span> <span class="n">knapsack</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">threshold</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">incl</span><span class="p">,</span> <span class="n">excl</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
 
-<p>prints out:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
-</code></pre></div></div>
-
-<p>And if you notice, the keys are in order they were specified when <code class="language-plaintext highlighter-rouge">d2</code> was created. With Python &lt;= 3.5 however, this was the output (v2.7.13):</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'c': 3, 'b': 2, 'e': 5, 'd': 4, 'g': 7, 'f': 6, 'i': 9, 'h': 8}
-</code></pre></div></div>
-
-<p>The reason for the above surprise is just that in Python 3.6 dictionaries got an order-preserving implementation and it became a standard since Python 3.7.</p>
+<p>Is this the most efficient way of writing this though? Think about it.</p>
 
         </div>
         
