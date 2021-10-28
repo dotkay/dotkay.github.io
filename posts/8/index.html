@@ -188,6 +188,8 @@
     
   
     
+  
+    
       <a href="/categories/technology/">technology</a>,
     
   
@@ -439,6 +441,8 @@
     
   
     
+  
+    
       <a href="/categories/products/">products</a>,
     
   
@@ -596,6 +600,8 @@
   
 
   
+  
+    
   
     
   
@@ -951,6 +957,8 @@
     
   
     
+  
+    
       <a href="/categories/technology/">technology</a>,
     
   
@@ -1198,6 +1206,8 @@
     
   
     
+  
+    
       <a href="/categories/deep-learning/">deep learning</a>,
     
   
@@ -1359,6 +1369,8 @@
   
 
   
+  
+    
   
     
   
@@ -1700,6 +1712,8 @@
     
   
     
+  
+    
       <a href="/categories/technology/">technology</a>,
     
   
@@ -1865,6 +1879,8 @@
   
 
   
+  
+    
   
     
   
@@ -2202,6 +2218,8 @@
     
   
     
+  
+    
       <a href="/categories/psychology/">psychology</a>,
     
   
@@ -2371,6 +2389,8 @@
   
 
   
+  
+    
   
     
   
@@ -2855,6 +2875,8 @@
   
     
   
+    
+  
 
 </p>
         </header>
@@ -2879,10 +2901,10 @@
       <li>
         <header class="post-header">
           <h1 class="post-title">
-            <a class="post-link" href="/2018/07/03/shipping-value-rec/">Making value from shipping products &rarr;</a>
+            <a class="post-link" href="/2018/07/06/shipping-value-mem/">Making value from shipping products efficiently &rarr;</a>
           </h1>
 
-          <p class="post-meta">Jul 3, 2018 • 
+          <p class="post-meta">Jul 6, 2018 • 
   
   
     
@@ -3125,6 +3147,8 @@
   
     
   
+    
+  
 
   
   
@@ -3133,8 +3157,6 @@
     
   
     
-      <a href="/categories/recursion/">recursion</a>,
-    
   
     
   
@@ -3200,6 +3222,10 @@
   
     
   
+    
+  
+    
+      <a href="/categories/memoization/">memoization</a>,
     
   
     
@@ -3611,6 +3637,8 @@
   
     
   
+    
+  
 
   
   
@@ -3854,48 +3882,71 @@
   
     
   
+    
+  
 
 </p>
         </header>
 
         <div class="post-content">
-          <p>Suppose you own a few small boats and are making money shipping goods between UK and continental Europe. Your boats are small and they have limited capacity. You have your busy days once in a while but almost always you need to choose the products so that you can create maximum value. Your fee is not based on the weight of the products rather on the value of the products that you ship.</p>
+          <p>Last week, you <a href="https://dotkay.github.io/2018/07/03/shipping-value-rec">wrote a recursive algorithm</a> to choose which products to accept for your shipping. Brexit is all over the news and with different kinds of cross border levies that might come into place, your shipping business has become even more chaotic. You get lots of items that need to be shipped but most of them low value and you don’t want to pass up on those. So you want to make your algorithm scale up to large number of items and still create the best value for you. Your CS skills are rusty at this point and you are busy reading and discussing Brexit news. You decide to meet an old classmate in a pub just to rant about Brexit. He had gone to school with you studying CS and is now a lecturer in a small college nearby.</p>
 
-<p>Brexit vote happened and all of a sudden you get requests for shipping products that you have never shipped before. You are not sure how to decide which products to ship. Given a bunch of products like fish, cheese, expensive wine, Louis Vuitton bags, etc. along with their weight and their value, you want to decide how many of each item to include in order to get maximum value. Remember that you have small boats which have limited carrying capacity.</p>
-
-<p>Several years ago, you got a CS degree and you think it might come to use now. You decide to write a program in order to figure out maximum value that you could obtain. All good. You pick up your chromebook and start framing the problem. You have a list of items - their weights and values. You know the capacity of your boat (you do it for one boat at a time, as if one boat is in France, one is in UK and the third is in Amsterdam).</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a list w: weights of items
-a list v: corresponding value of the items
-threshold: capacity of your boat
-</code></pre></div></div>
-<p>Now, you can include the item to be carried in your boat or exclude it and tell the merchant to wait for the next trip or find another shipping agency. For an item <code class="language-plaintext highlighter-rouge">i</code>, once you decide to include it, your value would increase by <code class="language-plaintext highlighter-rouge">v[i]</code> and you will have <code class="language-plaintext highlighter-rouge">threshold - w[i]</code> capacity left in your boat. If you decide to exclude item <code class="language-plaintext highlighter-rouge">i</code>, you will have no value from that item (as you are not transporting it) but you will have <code class="language-plaintext highlighter-rouge">threshold</code> capacity to fill. It should be an easy problem then:</p>
+<p>You meet him in the pub, and after getting tired of Brexit discussions, you start reminiscing about your college days and the teachers you had. You recall the algorithm you wrote the previous week and start telling your friend about it. You friend is asking you why you had to write a recursive algorithm and how do you plan to scale it up when you have lots of inputs. You don’t want to think hard on the problem and you just order another drink. You show your algorithm to your friend in your chromebook. Your friend, being a lecturer, opens starts editing the program and tells you:</p>
 
 <blockquote>
-  <p>for each of the items, you find the max value from the two choices you have: including an item <code class="language-plaintext highlighter-rouge">i</code> or excluding the item <code class="language-plaintext highlighter-rouge">i</code></p>
+  <p>Those who cannot remember the past are condemned to repeat it</p>
 </blockquote>
 
-<p>It is as simple as <code class="language-plaintext highlighter-rouge">max(incl, excl)</code> where <code class="language-plaintext highlighter-rouge">incl</code> and <code class="language-plaintext highlighter-rouge">excl</code> refer to the value you obtain by deciding to include the item <code class="language-plaintext highlighter-rouge">i</code> or exclude the item <code class="language-plaintext highlighter-rouge">i</code>. Once you include the item <code class="language-plaintext highlighter-rouge">i</code>, you would be left with one less item in your candidate set to pick the next one. Intuitively you can keep recursing until there are no more items left or until your threshold is reached. You go about writing a recursive algorithm to help you decide.</p>
+<p>You think he is talking about one of the many previous trips to the bar when you got heavily drunk. You don’t remember those vividly anyway. He was actually talking about remembering intermediate results as you make recursive calls. He shows you how to quickly put a hash-table and store the intermediate results as you make recursive calls.</p>
+
+<p>You declare an unordered map <code class="language-plaintext highlighter-rouge">lookup</code> and populate it when we compute <code class="language-plaintext highlighter-rouge">max(incl, excl)</code>.</p>
 
 <figure class="highlight">
-  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">int</span> <span class="nf">knapsack</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">w</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">threshold</span><span class="p">)</span>
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">lookup</span><span class="p">;</span>
+<span class="c1">// initially, we have n items and `t` threshold</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">key</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">t</span><span class="p">);</span></code></pre>
+</figure>
+
+<p>For every item <code class="language-plaintext highlighter-rouge">i</code> we have to decide whether or not to carry, we look at the value of the item and also the remaining threshold <code class="language-plaintext highlighter-rouge">t</code> when we make recursive calls to <code class="language-plaintext highlighter-rouge">knapsack()</code> function. We can check if we have a result already computed and stored (as a result of a previous call).</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
 <span class="p">{</span>
-  <span class="c1">// base case</span>
-  <span class="k">if</span> <span class="p">(</span><span class="n">threshold</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">INT8_MIN</span><span class="p">;</span>
-
-  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">threshold</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-
-  <span class="c1">// include the current element in the solution</span>
-  <span class="kt">int</span> <span class="n">incl</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+</span> <span class="n">knapsack</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">threshold</span> <span class="o">-</span> <span class="n">w</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
-  <span class="c1">// exclude the current element</span>
-  <span class="kt">int</span> <span class="n">excl</span> <span class="o">=</span> <span class="n">knapsack</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">threshold</span><span class="p">);</span>
-  <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">incl</span><span class="p">,</span> <span class="n">excl</span><span class="p">);</span>
+  <span class="p">...</span>
+  <span class="c1">// make recursive calls; compute incl, excl</span>
+  <span class="c1">// compute max(incl, excl)</span>
+  <span class="n">lookup</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">incl</span><span class="p">,</span> <span class="n">excl</span><span class="p">);</span>
+  <span class="p">...</span>
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Is this the most efficient way of writing this though? Think about it.</p>
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">lookup</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">knapsack</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">w</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">v</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// base case</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">INT8_MIN</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">key</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="s">":"</span> <span class="o">+</span> <span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">lookup</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">==</span> <span class="n">lookup</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+  <span class="p">{</span>
+    <span class="c1">// include the current element in the solution</span>
+    <span class="kt">int</span> <span class="n">incl</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+</span> <span class="n">knapsack</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span> <span class="o">-</span> <span class="n">w</span><span class="p">[</span><span class="n">n</span><span class="p">]);</span>
+    <span class="c1">// exclude the current element</span>
+    <span class="kt">int</span> <span class="n">excl</span> <span class="o">=</span> <span class="n">knapsack</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">);</span>
+    <span class="n">lookup</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">incl</span><span class="p">,</span> <span class="n">excl</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="n">lookup</span><span class="p">[</span><span class="n">key</span><span class="p">];</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>The next day, you realize that you are able to use the algorithm modified by your friend on much larger number of items. Remembering is not that bad after all.</p>
 
         </div>
         
