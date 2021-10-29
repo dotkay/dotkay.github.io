@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <!-- Mathjax Support -->
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [['$','$']]
+    }
+  });
 </script>
 <head>
   <meta charset="utf-8">
@@ -1157,7 +1162,7 @@
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Note that the time complexity of the above solution is <em>O(2^(m+n))</em>.</p>
+<p>Note that the time complexity of the above solution is $O(2^{m+n})$.</p>
 
         </div>
         
