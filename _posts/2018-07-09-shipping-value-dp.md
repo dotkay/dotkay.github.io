@@ -20,7 +20,6 @@ He goes on to write that it could also be solved in a `bottom-up` fashion rather
 
 The idea here is to store the results of intermediate subproblems in some data structure (very much like the [hash-table we saw earlier](https://dotkay.github.io/2018/07/06/shipping-value-mem)) and refer to the values in the data structure as we build solutions to larger subproblems. Since we look at the number of items left to decide (whether to accept or not) and the threshold (capacity) of our boat, we use a 2D vector `max_val` to store the result.
 
-
 {% highlight cpp %}
 std::vector<std::vector<int>> max_val(n+1, std::vector<int>(t+1));
 {% endhighlight %}
@@ -45,7 +44,6 @@ for (int j = 0; j <= t; j++)
 {% endhighlight %}
 
 We can now build solutions for other values of `i` (1..n) and `j` (1..t) by iterating over the possible values and using the solutions to the smallest subproblems computed above. Now again, we need to check if an item `i` would fit in our boat (it would fit only if it is within the ships remaining capacity). If it would fit, we need to check if it is a good choice to carry it, for which we do a comparision of the value we obtain with and without the item `i`, very similar to `incl` and `excl` earlier. If `j` is the remaining threshold, and `w[i-1]` is the weight of the current item,
-
 
 {% highlight cpp %}
 // if item i fits in the knapsack, add its value
