@@ -21,7 +21,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
   
   <title>Computing elements that result in maximum product</title>
-  <meta name="description" content="Suppose we are given an unsorted array of integers and asked to find the pair of elements from the array that results in maximum product, how do we go about computing it? A naïve approach is to find the product of each pair and maintain the maximum product seen so far. This would be an (O(n^2)) algorithm. Let us start with this and improve on it. void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); int max_prod = INT_MIN; int max_i, max_j; for (int i = 0; i &amp;lt; n-1; i++) { for (int j = i + 1; j &amp;lt; n; j++) { if (arr[i] * arr[j] &amp;gt; max_prod) { max_prod = arr[i] * arr[j]; max_i = i; max_j = j; } } } std::cout &amp;lt;&amp;lt; arr[max_i] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[max_j] &amp;lt;&amp;lt; std::endl; } Can we do better than (O(n^2))? Clearly, yes. We know that we could sort an array efficiently in (O(n log n)). We could sort the array and the maximum product would be either the product of the largest two elements or smallest two elements (if they are both negative). void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); std::sort(arr.begin(), arr.end()); if (arr[0] * arr[1] &amp;gt; arr[n-1] * arr[n-2]) std::cout &amp;lt;&amp;lt; arr[0] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[1] &amp;lt;&amp;lt; std::endl; else std::cout &amp;lt;&amp;lt; arr[n-1] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[n-2] &amp;lt;&amp;lt; std::endl; } Now, can we do better than (O(n log n))?">
+  <meta name="description" content="Suppose we are given an unsorted array of integers and asked to find the pair of elements from the array that results in maximum product, how do we go about computing it? A naïve approach is to find the product of each pair and maintain the maximum product seen so far. This would be an (O(n^2)) algorithm. Let us start with this and improve on it. void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); int max_prod = INT_MIN; int max_i, max_j; for (int i = 0; i &amp;lt; n-1; i++) { for (int j = i + 1; j &amp;lt; n; j++) { if (arr[i] * arr[j] &amp;gt; max_prod) { max_prod = arr[i] * arr[j]; max_i = i; max_j = j; } } } std::cout &amp;lt;&amp;lt; arr[max_i] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[max_j] &amp;lt;&amp;lt; std::endl; } Can we do better than (O(n^2))? Clearly, yes. We know that we could sort an array efficiently in (O(n log n)). We could sort the array and the maximum product would be either the product of the largest two elements or smallest two elements (if they are both negative). void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); std::sort(arr.begin(), arr.end()); if (arr[0] * arr[1] &amp;gt; arr[n-1] * arr[n-2]) std::cout &amp;lt;&amp;lt; arr[0] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[1] &amp;lt;&amp;lt; std::endl; else std::cout &amp;lt;&amp;lt; arr[n-1] &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; arr[n-2] &amp;lt;&amp;lt; std::endl; } Now, can we do better than $O(n log n)$?">
   
     
     <meta name="keywords" content="data structures,arrays,algorithms,C++">
@@ -1146,7 +1146,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Now, can we do better than (O(n log n))?</p>
+<p>Now, can we do better than $O(n log n)$?</p>
 
 
   </div>
