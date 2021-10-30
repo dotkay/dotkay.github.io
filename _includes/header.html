@@ -4,7 +4,7 @@
     <!-- Mathjax Support 
     <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a> 
     -->
-    <a class="site-title-img">{{ site.title-img | escape }}</a>
+    <img src="{{site.title-img | escape}}" width="150" height="120">
 
     <nav class="site-nav">
       {% for link in site.data.navigation.main %}
