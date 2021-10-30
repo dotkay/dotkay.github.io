@@ -84,7 +84,7 @@ blockquote {
   border-left: 4px solid #e8e8e8;
   padding-left: 15px;
   font-size: 18px;
-  letter-spacing: -1px;
+  letter-spacing: -0.03125em;
   font-style: italic; }
   blockquote > :last-child {
     margin-bottom: 0; }
@@ -167,6 +167,12 @@ pre {
   float: left; }
   .site-title, .site-title:visited {
     color: #424242; }
+
+.site-title-img {
+  border-radius: 8px;
+  width: 150px;
+  height: 120px;
+  float: left; }
 
 .site-nav {
   float: right;
