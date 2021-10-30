@@ -1,8 +1,10 @@
 <header class="site-header">
 
   <div class="wrapper">
-
-    <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+    <!-- Mathjax Support 
+    <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a> 
+    -->
+    <a class="site-title-img" href="{{ "/" | relative_url }}">{{ site.title-img | escape }}</a>
 
     <nav class="site-nav">
       {% for link in site.data.navigation.main %}
