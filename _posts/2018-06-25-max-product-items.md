@@ -50,4 +50,3 @@ void maxprod(std::vector<int> arr)
 {% endhighlight %}
 
 Now, can we do better than $O(n log n)$?
-
