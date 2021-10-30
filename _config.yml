@@ -1,5 +1,6 @@
 theme: jekyll-whiteglass
-title: Quotidien
+# title: Quotidien
+title-img: "/assets/images/dotk.png"
 description: Learning by teaching
 url: "https://dotkay.github.io"
 timezone: PDT
