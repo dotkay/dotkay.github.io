@@ -5,7 +5,7 @@
     <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a> 
     -->
     <img src="{{site.title-img | escape}}" width="120" height="90">
-
+    <hr class="nublue">
     <nav class="site-nav">
       {% for link in site.data.navigation.main %}
         {% if link.url contains "http" %}
