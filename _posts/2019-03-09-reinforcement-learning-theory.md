@@ -46,7 +46,7 @@ $$
 v(s) = \mathbb{E}[R_{t+1} + \gamma v(S_{t+1}) \mid S_t = s]
 $$
 
-Since are trying to program systems that have agency, the agent can take actions in order to optimize its reward. We also introduce a set of actions and this introduction makes the reward not only a function of a state *s* but also on the action *a* that we take while in state *s*. I could take an action $a_1$ to spend \$300 on a Nintendo console or I can take an alternative action $a_2$ of investing \$300 in TSLA. These two actions would yield, most likely, very different rewards, starting at the same state (of having $300 to spend). We can rewrite our transition probabilities and rewards by incorporating action.
+Since are trying to program systems that have agency, the agent can take actions in order to optimize its reward. We also introduce a set of actions and this introduction makes the reward not only a function of a state *s* but also on the action *a* that we take while in state *s*. I could take an action $a_1$ to spend \$300 on a Nintendo console or I can take an alternative action $a_2$ of investing \$300 in TSLA. These two actions would yield, most likely, very different rewards, starting at the same state (of having \$300 to spend). We can rewrite our transition probabilities and rewards by incorporating action.
 
 $$
 \mathcal{P}_{ss'}^{a} = \mathbb{P}[S_{t+1} = s' \mid S_t = s, A_t = a]
@@ -54,7 +54,7 @@ $$
 
 and 
 $$
-\mathcal{R}_s^{a} = \mathbb{E}[R_{t+1} \mid S_t = s, A_t = a]
+\mathcal{R}_{s}^{a} = \mathbb{E}[R_{t+1} \mid S_t = s, A_t = a]
 $$
 
 That was too much of formalism for a post. We will look at more terminologies and formalisms before we dive into some examples to concretize our understanding.
