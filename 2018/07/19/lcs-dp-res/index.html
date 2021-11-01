@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mathjax Support -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [['$','$']]
+    }
+  });
+</script>
+<script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>String subsequences - Extracting the LCS</title>
+  <meta name="description" content="In the previous post we saw how to compute the length of the longest common subsequence (LCS). The algorithm returned an integer value indicating the length of the LCS. How do we go about extracting the LCS? With a simple extension to the previous algorithm, we can also extract the string sequence that is the LCS. In particular, we will traverse the populated lookup table and extract the LCS from that. Let us consider a simple example, so that we can work it out by hand. Let the string s1 be ABCD and string s2 be BAD. Once we populate the lookup table as shown previously, it would look something like the one below Populating the lookup table is the same as in our previous post, with just a reference to our lookup table passed to our function. void lcs_dp(std::string s1, std::string s2, int m, int n, std::vector&amp;lt;std::vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; lookup) Note that when either of the strings is empty, LCS is also empty and hence the length of the LCS is 0. If one observes the LCS algorithm carefully, when a character of the strings match, in order to compute the value at (i, j) we look at the smaller subproblem (diagonally above and to the left - at coordinates (i-1, j-1) and add 1 to it. if (s1[i-1] == s2[j-1]) lookup[i][j] = lookup[i-1][j-1] + 1; This tells us that if there is a match, the character in the string s1[m-1] (or s2[n-1]) would be a part of the LCS and hence we collect it in our result string and call our processing (the lookup table) function on the rest of the table, starting at (m-1, n-1). If there is no match, then we compute the max of the subsequence lengths from (m-1, n) and (m, n-1). Potentially these could be two subsequences with the last character (that matched) the same. else lookup[i][j] = std::max(lookup[i-1][j], lookup[i][j-1]); Essentially, for the value of the cell (i, j) we were computing the max of the values in the top cell (i-1, j) and the left cell (i, j-1). In order to extract the LCS, we hence need to move in the direction of the max (i.e. whether the current cell value was influenced by the top cell or the left cell). Putting this together, std::string get_lcs(std::string s1, std::string s2, int m, int n, std::vector&amp;lt;std::vector&amp;lt;int&amp;gt;&amp;gt;&amp;amp; lookup) { if (m == 0 || n == 0) return std::string(&quot;&quot;); if (s1[m-1] == s2[n-1]) return get_lcs(s1, s2, m-1, n-1, lookup) + s1[m-1]; int top_cell = lookup[m-1][n]; int left_cell = lookup[m][n-1]; if (top_cell &amp;gt; left_cell) // go up return get_lcs(s1, s2, m-1, n, lookup); else // go left return get_lcs(s1, s2, m, n-1, lookup); } One possible traversal for extracting the LCS is shown below: But LCS is not unique. There can be many LCS for a pair of strings. How do we collect all of the longest common subsequences?">
+  
+    
+    <meta name="keywords" content="algorithms,dynamic programming,lcs,C++">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2018/07/19/lcs-dp-res/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="String subsequences - Extracting the LCS">
+  <meta name="twitter:description" content="In the previous post we saw how to compute the length of the longest common subsequence (LCS). The algorithm returned an integer value indicating the length of the LCS. How do we go about extractin...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+    <!-- Mathjax Support 
+    <a class="site-title" href="/"></a> 
+    -->
+    <img src="/assets/images/dotk.png" width="50" height="30">
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2018/07/19/lcs-dp-res">String subsequences - Extracting the LCS &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2018-07-19T00:00:00+00:00" itemprop="datePublished">Jul 19, 2018</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/dynamic-programming/">dynamic programming</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/lcs/">lcs</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In the <a href="https://dotkay.github.io/2018/07/17/lcs-dp">previous post</a> we saw how to compute the length of the longest common subsequence (LCS). The algorithm returned an integer value indicating the length of the LCS. How do we go about extracting the LCS? With a simple extension to the previous algorithm, we can also extract the string sequence that is the LCS. In particular, we will traverse the populated lookup table and extract the LCS from that.</p>
+
+<p>Let us consider a simple example, so that we can work it out by hand. Let the string <em>s1</em> be <em>ABCD</em> and string <em>s2</em> be <em>BAD</em>. Once we populate the lookup table as shown previously, it would look something like the one below</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/lcs.png" /></center>
+</div>
+
+<p>Populating the lookup table is the same as in our previous post, with just a reference to our lookup table passed to our function.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">lcs_dp</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">lookup</span><span class="p">)</span></code></pre>
+</figure>
+
+<p>Note that when either of the strings is empty, LCS is also empty and hence the length of the LCS is 0.</p>
+
+<p>If one observes the LCS algorithm carefully, when a character of the strings match, in order to compute the value at <em>(i, j)</em> we look at the smaller subproblem (diagonally above and to the left - at coordinates <em>(i-1, j-1)</em> and add 1 to it.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">s2</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">lookup</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span></code></pre>
+</figure>
+
+<p>This tells us that if there is a match, the character in the string <em>s1[m-1]</em> (or <em>s2[n-1]</em>) would be a part of the LCS and hence we collect it in our result string and call our processing (the lookup table) function on the rest of the table, starting at <em>(m-1, n-1)</em>.</p>
+
+<p>If there is no match, then we compute the max of the subsequence lengths from <em>(m-1, n)</em> and <em>(m, n-1)</em>. Potentially these could be two subsequences with the last character (that matched) the same.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="k">else</span> 
+  <span class="n">lookup</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">max</span><span class="p">(</span><span class="n">lookup</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">lookup</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span></code></pre>
+</figure>
+
+<p>Essentially, for the value of the cell <em>(i, j)</em> we were computing the max of the values in the top cell <em>(i-1, j)</em> and the left cell <em>(i, j-1)</em>. In order to extract the LCS, we hence need to move in the direction of the max (i.e. whether the current cell value was influenced by the top cell or the left cell).</p>
+
+<p>Putting this together,</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="nf">get_lcs</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s2</span><span class="p">,</span> 
+                    <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> 
+                    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">lookup</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
+  
+  <span class="k">if</span> <span class="p">(</span><span class="n">s1</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">s2</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">get_lcs</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">lookup</span><span class="p">)</span> <span class="o">+</span> <span class="n">s1</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+  
+  <span class="kt">int</span> <span class="n">top_cell</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
+  <span class="kt">int</span> <span class="n">left_cell</span> <span class="o">=</span> <span class="n">lookup</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="n">top_cell</span> <span class="o">&gt;</span> <span class="n">left_cell</span><span class="p">)</span>
+    <span class="c1">// go up</span>
+    <span class="k">return</span> <span class="n">get_lcs</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">lookup</span><span class="p">);</span>
+  <span class="k">else</span>
+    <span class="c1">// go left</span>
+    <span class="k">return</span> <span class="n">get_lcs</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">lookup</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>One possible traversal for extracting the LCS is shown below:</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/algo_illustrations/lcs.png" /></center>
+</div>
+
+<p>But LCS is not unique. There can be many LCS for a pair of strings. How do we collect all of the longest common subsequences?</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
