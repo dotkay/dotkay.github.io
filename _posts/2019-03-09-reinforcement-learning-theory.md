@@ -53,6 +53,7 @@ $$
 $$
 
 and 
+
 $$
 \mathcal{R}_{s}^{a} = \mathbb{E}[R_{t+1} \mid S_t = s, A_t = a]
 $$
