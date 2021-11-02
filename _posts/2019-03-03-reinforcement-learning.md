@@ -19,4 +19,8 @@ There are some fundamental concepts and terminologies in *reinforcement learning
 
 The **state** of the system is defined by the valuation of the state variables. If I am a trader in the stock market, my goal is to take actions (buy/sell stocks) in order to increase my reward (profit). My state would be the value of the money I have and a better state would be one in which the value is more (through aggregating profits through a sequence of actions). We talk about sequence of states (i.e. we take action from a state, move to another state, receive reward and take another action, and so on). Our goal is to make sure we reach a state by taking profitable **actions** where the value we obtain, going forward from that state, is maximized. 
 
-In future posts, we will formalize many of these concepts and introduce some more.
+In future posts, we will formalize many of these concepts and introduce some more. 
+
+<span style="color:gray; font-size: 70%; text-align: left;">
+These are all inspired by the wonderful course on <a href="https://youtube.com/playlist?list=PLqYmG7hTraZDM-OYHWgPebj2MfCFzFObQ" target="_self">Reinforcement Learning</a> by Prof. David Silver .
+</span>
