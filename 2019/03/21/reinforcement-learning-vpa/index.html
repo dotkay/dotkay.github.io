@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mathjax Support -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [['$','$']]
+    }
+  });
+</script>
+<script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Reinforcement Learning - Value, Policy and Action</title>
+  <meta name="description" content="In a previous post, we looked at some more terminology in order to dive into Reinforcement Learning (RL). We will see some more key constituents of RL in this one. In particular, we will see how we evaluate states and policies and how actions play a role. We already saw that states are evaluated using state value function - v(s) that tells us how good a state s is. We also know that our agent can decide to take certain actions to move from one state to another. The agent, ideally, should take the best action - the one that would maximize the value of the states the agent would end up in, by taking the action(s). We talked about an example of taking two actions that correspond to spending $300 in two different ways. Since there could be multiple actions with different probabilities, each action would lead to a different outcome. What determines the actions we take? Are there rules that allow us to decide? A policy denoted by $\pi$ is a distribution of actions over states, i.e. it denotes the probabilities of different actions given a state s. This completely defines the behavior of the agent. The agent uses a policy to decide what actions to take. Hence in RL, we need to identify the best policy - that would lead us to states with maximum returns. More formally, \[\pi(a \mid s) = \mathbb{P}[A_t = a \mid S_t = s]\] Given a policy $\pi$ the transition dynamics defined by our Markov process would take us through a sequence of states that would get us rewards for that policy. Since actions help us transition from one state to another, the overall transition dynamics (it is after all a probabilistic system and each action has a specific probability of being taken) would be the average of all the actions that take us through the different sequences of states. More formally, \[\mathcal{P}^{\pi}_{s, s&#39;} = \sum_{a \in A} \pi(a \mid s)\mathcal{P}_{s, s&#39;}^{a}\] The rewards would therefore be, \[\mathcal{R}_{s}^{\pi} = \sum_{a \in A} \pi(a \mid s)\mathcal{R}^{a}_{s}\] Given a policy $\pi$, we can encapsulate all the knowledge we need in two functions: State value function $v_{\pi}(s)$ that denotes how good is it to be in state $s$ following policy $\pi$ \[v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \mid S_t = s]\] Action value function $q_{\pi}(s, a)$ that denotes how good is it to take an action $a$ while being in state $s$ \[q_{\pi}(s, a) = \mathbb{E}_{\pi}[G_t \mid S_t = s, A_t = a]\] Stepping back from formalizing, let us rething what is our ultimate goal when we program an agent. We want to: Identify what are the best states to be in (with the help of state value function) Identify what action to choose whatever state we end up in (with the help of action value function) But we are not just satisfied by knowing how good a state is or even how good an action in a given state is. We want to find the best (optimal) values for state value function and action value functions - denoted by $v_{}(s)$ and $q_{}(s, a)$ over all possible policies. These are governed by two equations: Bellman Expectation Equation - that helps us with evaluating states and actions Bellman Optimality Equation - that helps us in identifying optimal states and actions The formalisms we came up in this and in the previous post would help us arrive at the above equations.">
+  
+    
+    <meta name="keywords" content="technology,ai,reinforcement learning">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2019/03/21/reinforcement-learning-vpa/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Reinforcement Learning - Value, Policy and Action">
+  <meta name="twitter:description" content="In a previous post, we looked at some more terminology in order to dive into Reinforcement Learning (RL). We will see some more key constituents of RL in this one. In particular, we will see how we...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+    <!-- Mathjax Support 
+    <a class="site-title" href="/"></a> 
+    -->
+    <img src="/assets/images/dotk.png" width="40" height="30">
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2019/03/21/reinforcement-learning-vpa">Reinforcement Learning - Value, Policy and Action &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2019-03-21T00:00:00+00:00" itemprop="datePublished">Mar 21, 2019</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/technology/">technology</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/ai/">ai</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/reinforcement-learning/">reinforcement learning</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In a <a href="https://dotkay.github.io/2019/03/09/reinforcement-learning-theory">previous post</a>, we looked at some more terminology in order to dive into Reinforcement Learning (RL). We will see some more key constituents of RL in this one. In particular, we will see how we evaluate states and policies and how actions play a role.</p>
+
+<p>We already saw that states are evaluated using <em>state value function - v(s)</em> that tells us how good a state <em>s</em> is. We also know that our agent can decide to take certain actions to move from one state to another. The agent, ideally, should take the best action - the one that would maximize the value of the states the agent would end up in, by taking the action(s). We talked about an example of taking two actions that correspond to spending $300 in two different ways. Since there could be multiple actions with different probabilities, each action would lead to a different outcome. What determines the actions we take? Are there rules that allow us to decide?</p>
+
+<p>A policy denoted by $\pi$ is a distribution of actions over states, i.e. it denotes the probabilities of different actions given a state <em>s</em>. This completely defines the behavior of the agent. The agent uses a policy to decide what actions to take. Hence in RL, we need to identify the best policy - that would lead us to states with maximum returns. More formally,</p>
+
+\[\pi(a \mid s) = \mathbb{P}[A_t = a \mid S_t = s]\]
+
+<p>Given a policy $\pi$ the transition dynamics defined by our Markov process would take us through a sequence of states that would get us rewards for that policy. Since actions help us transition from one state to another, the overall transition dynamics (it is after all a probabilistic system and each action has a specific probability of being taken) would be the average of all the actions that take us through the different sequences of states. More formally,</p>
+
+\[\mathcal{P}^{\pi}_{s, s'} = \sum_{a \in A} \pi(a \mid s)\mathcal{P}_{s, s'}^{a}\]
+
+<p>The rewards would therefore be,</p>
+
+\[\mathcal{R}_{s}^{\pi} = \sum_{a \in A} \pi(a \mid s)\mathcal{R}^{a}_{s}\]
+
+<p>Given a policy $\pi$, we can encapsulate all the knowledge we need in two functions:</p>
+
+<ol>
+  <li>State value function $v_{\pi}(s)$ that denotes <em>how good is it to be in state $s$ following policy $\pi$</em></li>
+</ol>
+
+\[v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \mid S_t = s]\]
+
+<ol>
+  <li>Action value function $q_{\pi}(s, a)$ that denotes <em>how good is it to take an action $a$ while being in state $s$</em></li>
+</ol>
+
+\[q_{\pi}(s, a) = \mathbb{E}_{\pi}[G_t \mid S_t = s, A_t = a]\]
+
+<p>Stepping back from formalizing, let us rething what is our ultimate goal when we program an agent. We want to:</p>
+
+<ul>
+  <li>Identify what are the best states to be in (with the help of state value function)</li>
+  <li>Identify what action to choose whatever state we end up in (with the help of action value function)</li>
+</ul>
+
+<p>But we are not just satisfied by knowing how good a state is or even how good an action in a given state is. We want to find the best (optimal) values for state value function and action value functions - denoted by $v_{<em>}(s)$ and $q_{</em>}(s, a)$ over all possible policies. These are governed by two equations:</p>
+
+<ol>
+  <li>Bellman Expectation Equation - that helps us with evaluating states and actions</li>
+  <li>Bellman Optimality Equation - that helps us in identifying optimal states and actions</li>
+</ol>
+
+<p>The formalisms we came up in this and in the previous post would help us arrive at the above equations.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
