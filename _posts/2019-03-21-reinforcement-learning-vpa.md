@@ -47,7 +47,7 @@ Stepping back from formalizing, let us rething what is our ultimate goal when we
 - Identify what are the best states to be in (with the help of state value function)
 - Identify what action to choose whatever state we end up in (with the help of action value function)
 
-But we are not just satisfied by knowing how good a state is or even how good an action in a given state is. We want to find the best (optimal) values for state value function and action value functions - denoted by $ v_{*} (s)$ and $ q_{*} (s, a)$ over all possible policies. These are governed by two equations:
+But we are not just satisfied by knowing how good a state is or even how good an action in a given state is. We want to find the best (optimal) values for state value function and action value functions - denoted by $ v_* (s)$ and $ q_* (s, a)$ over all possible policies. These are governed by two equations:
 
 1. Bellman Expectation Equation - that helps us with evaluating states and actions
 2. Bellman Optimality Equation - that helps us in identifying optimal states and actions
