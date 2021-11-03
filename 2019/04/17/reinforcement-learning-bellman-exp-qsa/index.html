@@ -20,15 +20,15 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
   
   
-  <title>Bellman Expectation Equations - State Value Function</title>
-  <meta name="description" content="In a previous post, we briefly introduced Bellman Expectation Equation and Bellman Optimality Equation. Let us recall the first of the two main functions state value function that we would be working with. State value function $v_{\pi}(s)$ that denotes how good is it to be in state $s$ following policy $\pi$ \[v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \mid S_t = s]\] Since we know, from an earlier post that the return $G_t$ is the total discounted rewards starting from state s. \[G_t = R_{t+1} + \gamma R_{t+1} + \cdots = \sum_{i=0}^{\infty} \gamma^{i} R_{t+i+1}\] Using the above in $v_{\pi}(s)$, \[v_{\pi}(s) = \mathbb{E}_{\pi}[R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s]\] Since a policy $\pi$ is a distribution of actions over states, from each state s we will have different actions with different probabilities. We might take an action $a_1$ to invest $300 in stock market and at that point we are committed to that action $a_1$. The environment (which might only be partially observable) might react in such a way as to create a market crash or it might reach in such a way as to boost our profits. Following policy $\pi$, from state s, we have two possible actions $a_1$ and $a_2$ with probabilities $\pi(a_1 \mid s)$ and $\pi(a_2 \mid s)$. From the point of view of state s, the value of the state is the average over all possible actions we could take from state s, following policy $\pi$. In this case we have two actions and hence it would be the average over these two. Since the probability of an action $a_i$ is $\pi(a_i \mid s)$ and the outcome is the value of action $a_i$ given by the action value function $q_{\pi}(s, a_i)$ the expectation is $\pi(a_i \mid s) . q_{\pi}(s, a_i)$ Each of these actions might lead us to different sequences of states depending on how the environment reacts. We will see how to formulate this in a future post.">
+  <title>Bellman Expectation Equations - Action Value Function</title>
+  <meta name="description" content="In a previous post we saw Bellman Expectation Equation for state value function $v_{\pi}(s)$. Following similar derivations, we can also derive Bellman Expectation Equation for the action value function $q_{\pi}(s, a)$. Action value function $q_{\pi}(s, a)$ that denotes how good is it to take an action $a$ while being in state $s$ \[q_{\pi}(s, a) = \mathbb{E}_{\pi}[G_t \mid S_t = s, A_t = a]\] Since we know, from an earlier post that the return $G_t$ is the total discounted rewards starting from state s. \[G_t = R_{t+1} + \gamma R_{t+1} + \cdots = \sum_{i=0}^{\infty} \gamma^{i} R_{t+i+1}\] Using the above in $q_{\pi}(s, a)$, \[q_{\pi}(s, a) = \mathbb{E}_{\pi}[R_{t+1} + \gamma q_{\pi}(S_{t+1}, A_{t+1}) \mid S_t = s, A_t = a]\] Given a policy $\pi$, how good the action $a_1$ is would be known only by evaluating the action value function $q_{\pi}(s, a_1)$ for action $a_1$ while in state s , very analogous to evaluating the state value function $v_{\pi}(s)$ to evaluate how good the state s is. Suppose we have commited to an action a, the environment could react and take us to different states. Recall the earlier example, where we could have invested $300 in the stock market and the environment could have taken us to a state beneficial to us or to a state of despair. Formally, there could be different transitions possible out of our current state, with different transition probabilities, leading to different states. For example, an action a from state s could take us to state $s_1$ with probability $P_{ss_1}^{a}$ or to state $s_2$ with probability $P_{ss_2}^{a}$. When we are at a state where we have committed the action ($300 invested in stock) represented by the black filled circle, the value of the action would be the average of all the transition dynamics (as we do not know how the environment would react, yet). Putting the state value function and action value function together, Similarly, we could put the action value function and state value function together, as below. This might look like lot many equations, but when we write an algorithm to implement these, we would use the equations as it is and hence these are very important to be understood.">
   
     
     <meta name="keywords" content="technology,ai,reinforcement learning">
   
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="https://dotkay.github.io/2019/04/06/reinforcement-learning-bellman-exp/">
+  <link rel="canonical" href="https://dotkay.github.io/2019/04/17/reinforcement-learning-bellman-exp-qsa/">
   
   
   <link rel="alternate" type="application/rss+xml" title="" href="https://dotkay.github.io/feed.xml">
@@ -38,8 +38,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
   <meta name="twitter:card" content="summary">
   
-  <meta name="twitter:title" content="Bellman Expectation Equations - State Value Function">
-  <meta name="twitter:description" content="In a previous post, we briefly introduced Bellman Expectation Equation and Bellman Optimality Equation. Let us recall the first of the two main functions state value function that we would be worki...">
+  <meta name="twitter:title" content="Bellman Expectation Equations - Action Value Function">
+  <meta name="twitter:description" content="In a previous post we saw Bellman Expectation Equation for state value function $v_{\pi}(s)$. Following similar derivations, we can also derive Bellman Expectation Equation for the action value fun...">
   
   
 
@@ -107,9 +107,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2019/04/06/reinforcement-learning-bellman-exp">Bellman Expectation Equations - State Value Function &rarr;</a></h1>
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2019/04/17/reinforcement-learning-bellman-exp-qsa">Bellman Expectation Equations - Action Value Function &rarr;</a></h1>
     
-    <p class="post-meta"><time datetime="2019-04-06T00:00:00+00:00" itemprop="datePublished">Apr 6, 2019</time> • 
+    <p class="post-meta"><time datetime="2019-04-17T00:00:00+00:00" itemprop="datePublished">Apr 17, 2019</time> • 
   
   
     
@@ -867,30 +867,42 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>In a <a href="https://dotkay.github.io/2019/03/21/reinforcement-learning-vpa">previous post</a>, we briefly introduced <em>Bellman Expectation Equation</em> and <em>Bellman Optimality Equation</em>. Let us recall the first of the two main functions <em>state value function</em> that we would be working with.</p>
+    <p>In a <a href="https://dotkay.github.io/2019/04/06/reinforcement-learning-bellman-exp">previous post</a> we saw <em>Bellman Expectation Equation</em> for <em>state value function</em> $v_{\pi}(s)$. Following similar derivations, we can also derive Bellman Expectation Equation for the action value function $q_{\pi}(s, a)$.</p>
 
-<p><strong>State value function</strong> $v_{\pi}(s)$ that denotes <em>how good is it to be in state $s$ following policy $\pi$</em></p>
+<p><strong>Action value function</strong> $q_{\pi}(s, a)$ that denotes <em>how good is it to take an action $a$ while being in state $s$</em></p>
 
-\[v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \mid S_t = s]\]
+\[q_{\pi}(s, a) = \mathbb{E}_{\pi}[G_t \mid S_t = s, A_t = a]\]
 
 <p>Since we know, from an <a href="https://dotkay.github.io/2019/03/09/reinforcement-learning-theory">earlier post</a> that the return $G_t$ is the total discounted rewards starting from state <em>s</em>.</p>
 
 \[G_t = R_{t+1} + \gamma R_{t+1} + \cdots = \sum_{i=0}^{\infty} \gamma^{i} R_{t+i+1}\]
 
-<p>Using the above in $v_{\pi}(s)$,</p>
+<p>Using the above in $q_{\pi}(s, a)$,</p>
 
-\[v_{\pi}(s) = \mathbb{E}_{\pi}[R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s]\]
+\[q_{\pi}(s, a) = \mathbb{E}_{\pi}[R_{t+1} + \gamma q_{\pi}(S_{t+1}, A_{t+1}) \mid S_t = s, A_t = a]\]
 
-<p>Since a policy $\pi$ is a distribution of actions over states, from each state <em>s</em> we will have different actions with different probabilities. We might take an action $a_1$ to invest $300 in stock market and at that point we are committed to that action $a_1$. The environment (which might only be partially observable) might react in such a way as to create a market crash or it might reach in such a way as to boost our profits.</p>
+<p>Given a policy $\pi$, how good the action $a_1$ is would be known only by evaluating the <em>action value function</em> $q_{\pi}(s, a_1)$ for action $a_1$ while in state <em>s</em> , very analogous to evaluating the <em>state value function</em> $v_{\pi}(s)$ to evaluate how good the state <em>s</em> is. Suppose we have commited to an action <em>a</em>, the environment could react and take us to different states. Recall the earlier example, where we could have invested $300 in the stock market and the environment could have taken us to a state beneficial to us or to a state of despair. Formally, there could be different transitions possible out of our current state, with different transition probabilities, leading to different states. For example, an action <em>a</em> from state <em>s</em> could take us to state $s_1$ with probability $P_{ss_1}^{a}$ or to state $s_2$ with probability $P_{ss_2}^{a}$. When we are at a state where we have committed the action ($300 invested in stock) represented by the black filled circle, the value of the action would be the average of all the transition dynamics (as we do not know how the environment would react, yet).</p>
 
 <p><br /></p>
 <div class="img_container">
-  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/rl_illustrations/v_s_new.png" width="500" /></center>
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/rl_illustrations/q_sa_new.png" width="650" /></center>
 </div>
 
-<p>Following policy $\pi$, from state <em>s</em>, we have two possible actions $a_1$ and $a_2$ with probabilities $\pi(a_1 \mid s)$ and $\pi(a_2 \mid s)$. From the point of view of state <em>s</em>, the value of the state is the average over all possible actions we could take from state <em>s</em>, following policy $\pi$. In this case we have two actions and hence it would be the average over these two. Since the probability of an action $a_i$ is $\pi(a_i \mid s)$ and the outcome is the value of action $a_i$ given by the action value function $q_{\pi}(s, a_i)$ the expectation is $\pi(a_i \mid s) . q_{\pi}(s, a_i)$</p>
+<p>Putting the state value function and action value function together,</p>
 
-<p>Each of these actions might lead us to different sequences of states depending on how the environment reacts. We will see how to formulate this in a future post.</p>
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/rl_illustrations/v_q_sa_new.png" width="450" /></center>
+</div>
+
+<p>Similarly, we could put the action value function and state value function together, as below.</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/rl_illustrations/v_q_sa_2.png" width="550" /></center>
+</div>
+
+<p>This might look like lot many equations, but when we write an algorithm to implement these, we would use the equations as it is and hence these are very important to be understood.</p>
 
   </div>
 
