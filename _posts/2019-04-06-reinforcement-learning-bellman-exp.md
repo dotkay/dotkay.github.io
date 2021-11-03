@@ -14,10 +14,10 @@ $$
 v_{\pi}(s) = \mathbb{E}_{\pi}[G_t \mid S_t = s]
 $$
 
-Since we know, from an [earlier post](https://dotkay.github.io/2019/03/09/reinforcement-learning-theory) that the state value function is the expected value of discounted rewards starting from state *s*.
+Since we know, from an [earlier post](https://dotkay.github.io/2019/03/09/reinforcement-learning-theory) that the return $G_t$ is the total discounted rewards starting from state *s*.
 
 $$
-v(s) = \mathbb{E}[R_{t+1} + \gamma v(S_{t+1}) \mid S_t = s] 
+G_t = R_{t+1} + \gamma R_{t+1} + \cdots = \sum_{i=0}^{\infty} \gamma^{i} R_{t+i+1}
 $$
 
 Using the above in $v_{\pi}(s)$, 
@@ -30,7 +30,7 @@ Since a policy $\pi$ is a distribution of actions over states, from each state *
 
 <br>
 <div class="img_container">
-<center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/rl_illustrations/v_s_new.png"></center>
+<center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/rl_illustrations/v_s_new.png" width=500></center>
 </div>
 
 Following policy $\pi$, from state *s*, we have two possible actions $a_1$ and $a_2$ with probabilities $\pi(a_1 \mid s)$ and $\pi(a_2 \mid s)$. From the point of view of state *s*, the value of the state is the average over all possible actions we could take from state *s*, following policy $\pi$. In this case we have two actions and hence it would be the average over these two. Since the probability of an action $a_i$ is $\pi(a_i \mid s)$ and the outcome is the value of action $a_i$ given by the action value function $q_{\pi}(s, a_i)$ the expectation is $\pi(a_i \mid s) . q_{\pi}(s, a_i)$
