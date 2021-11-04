@@ -3579,8 +3579,8 @@ Many of the reasoning engines built for reasoning about the correct of computer 
 
 <p>We shall look at <em>ForestLake</em> which is a game where an agent decides the movements of a character on a grid world. <code class="language-plaintext highlighter-rouge">gym.make()</code> creates the environment, <code class="language-plaintext highlighter-rouge">reset()</code> initializes it and <code class="language-plaintext highlighter-rouge">render()</code> renders it.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>env = gym.make('FrozenLake-v1').env
-env.render()
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="p">.</span><span class="n">make</span><span class="p">(</span><span class="s">'FrozenLake-v1'</span><span class="p">).</span><span class="n">env</span>
+<span class="n">env</span><span class="p">.</span><span class="n">render</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>The rendered environment prints the following.
