@@ -20,7 +20,7 @@ from gym import envs
 
 We shall look at *ForestLake* which is a game where an agent decides the movements of a character on a grid world. `gym.make()` creates the environment, `reset()` initializes it and `render()` renders it.
 
-```
+```python
 env = gym.make('FrozenLake-v1').env
 env.render()
 ```
