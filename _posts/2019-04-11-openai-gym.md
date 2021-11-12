@@ -6,7 +6,7 @@ keywords: [technology, ai, openai gym, reinforcement learning]
 external-url: https://dotkay.github.io/2019/04/11/openai-gym
 ---
 
-In some [previous post]() we saw some theory behind reinforcement learning (RL). It is better to augment the theory with some practical examples in order to absorb the concepts clearly. While one can always get into some computer games and trying to build agents, observing the environment, taking some actions (game moves), it is worthwhile to start small and get an understanding of the many terminologies involved.
+In some [previous post](https://dotkay.github.io/2019/03/21/reinforcement-learning-vpa) we saw some theory behind reinforcement learning (RL). It is better to augment the theory with some practical examples in order to absorb the concepts clearly. While one can always get into some computer games and trying to build agents, observing the environment, taking some actions (game moves), it is worthwhile to start small and get an understanding of the many terminologies involved.
 
 [OpenAI](https://openai.com/) provides [OpenAI Gym](https://gym.openai.com/) that enables us to play with several varieties of examples to learn, experiment with and compare RL algorithms. We will see how to use one of the smallest examples in this post and map the terminologies from the theory section to the code fragments and return values of the gym toolkit.
 
