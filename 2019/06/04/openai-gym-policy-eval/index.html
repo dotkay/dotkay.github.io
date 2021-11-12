@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mathjax Support -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [['$','$']]
+    }
+  });
+</script>
+<script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Evaluating a policy</title>
+  <meta name="description" content="In one of the previous posts we saw how to evaluate the value of a state s $v_{\pi}(s)$. In this post, we will try to implement it using OpenAI Gym. Let us recall the following image that would help us in writing our policy evaluation function. The main goal of policy evaluation is to find the state value function of the states in the system, given a policy $\pi$. To recap, for a given state $s$, there could be multiple possible actions and probabilities of each of the actions. Once we commit to an action, the environment could perform its turn of the action and our action could take us to different potential ‘next’ states, each with a probability of transition. We average over all the action probabilities $\pi(a_i \mid s)$ and over the transition probabilities $P_{ss’_{i}}^{a_i}$ and compute immediate reward and discounted rewards on next state. The (pseudo)code fragment for the different components are given alongside the figure below for better intuition. In the pseudocode above, prob(a) denotes the probability of action a (i.e. $\pi(a \mid s)$), s’ denotes the possible next state, and prob(s&#39;) denotes the transition dynamics (i.e. $P^{a}_{ss’}$). Putting the above together in code: def policy_eval(policy, env, gamma=0.9, th=1e-9, max_iter=10000): # number of iterations of evaluation eval_iter = 1 # initialize the value function for each state v = np.zeros(env.observation_space.n) # repeat update until change in value is below th for i in range(int(max_iter)): # initialize change in value to 0 delta = 0 # for each state in env for st in range(env.observation_space.n): # initialize new value of current state v_new = 0 # for each state s, # v_new(s) = E[R_t+1 + gamma * V[s&#39;]] # average over all possible actions that can be taken from st for a, a_prob in enumerate(policy[st]): # v_new(s) = Sum[a_prob * nxt_st_prob * [r + gamma * v[s&#39;]]] # check how good the next_st is for nxt_st_prob, nxt_st, reward, done in env.P[st][a]: # calculate bellman expectation v_new += a_prob * nxt_st_prob * (reward + gamma * v[nxt_st]) # check to see if new state is better delta = max(delta, np.abs(v[st] - v_new)) # update V v[st] = v_new eval_iter += 1 # if value change is &amp;lt; th, terminate if delta &amp;lt; th: return v The above function has some more details. It iteratively does it for a given max_iter number of iterations. Further, there is also an input threshold th which is used to decide when to stop updating the state value function v, by measuring the difference (delta) between the existing value and new value until it is negligible (as defined by th).">
+  
+    
+    <meta name="keywords" content="technology,ai,openai gym,reinforcement learning">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2019/06/04/openai-gym-policy-eval/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Evaluating a policy">
+  <meta name="twitter:description" content="In one of the previous posts we saw how to evaluate the value of a state s $v_{\pi}(s)$. In this post, we will try to implement it using OpenAI Gym. Let us recall the following image that would hel...">
+  
+  
+
+  
+  
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+    <!-- Mathjax Support 
+    <a class="site-title" href="/"></a> 
+    -->
+    <img src="/assets/images/dotk.png" width="40" height="30">
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2019/06/04/openai-gym-policy-eval">Evaluating a policy &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2019-06-04T00:00:00+00:00" itemprop="datePublished">Jun 4, 2019</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/technology/">technology</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/ai/">ai</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/openai-gym/">openai gym</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/reinforcement-learning/">reinforcement learning</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>In one of the <a href="https://dotkay.github.io/2019/04/17/reinforcement-learning-bellman-exp-qsa">previous posts</a> we saw how to evaluate the value of a state <em>s</em> $v_{\pi}(s)$. In this post, we will try to implement it using <a href="https://gym.openai.com/">OpenAI Gym</a>. Let us recall the following image that would help us in writing our policy evaluation function.</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/rl_illustrations/v_q_sa_new.png" width="450" /></center>
+</div>
+
+<p>The main goal of <em>policy evaluation</em> is to find the state value function of the states in the system, given a policy $\pi$. To recap, for a given state $s$, there could be multiple possible actions and probabilities of each of the actions. Once we commit to an action, the environment could perform its turn of the action and our action could take us to different potential ‘next’ states, each with a probability of transition. We average over all the action probabilities $\pi(a_i \mid s)$ and over the transition probabilities $P_{ss’_{i}}^{a_i}$ and compute immediate reward and discounted rewards on next state.</p>
+
+<p>The (pseudo)code fragment for the different components are given alongside the figure below for better intuition.</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/tmp/main/rl_illustrations/policy_iter.png" width="700" /></center>
+</div>
+
+<p>In the pseudocode above, <code class="language-plaintext highlighter-rouge">prob(a)</code> denotes the probability of action <em>a</em> (i.e. $\pi(a \mid s)$), <em>s’</em> denotes the possible next state, and <code class="language-plaintext highlighter-rouge">prob(s')</code> denotes the transition dynamics (i.e. $P^{a}_{ss’}$).</p>
+
+<p>Putting the above together in code:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">policy_eval</span><span class="p">(</span><span class="n">policy</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">th</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="c1"># number of iterations of evaluation
+</span>    <span class="n">eval_iter</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># initialize the value function for each state
+</span>    <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">observation_space</span><span class="p">.</span><span class="n">n</span><span class="p">)</span>
+    <span class="c1"># repeat update until change in value is below th
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">max_iter</span><span class="p">)):</span>
+        <span class="c1"># initialize change in value to 0
+</span>        <span class="n">delta</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># for each state in env
+</span>        <span class="k">for</span> <span class="n">st</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">observation_space</span><span class="p">.</span><span class="n">n</span><span class="p">):</span>
+            <span class="c1"># initialize new value of current state
+</span>            <span class="n">v_new</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1"># for each state s, 
+</span>            <span class="c1"># v_new(s) = E[R_t+1 + gamma * V[s']]
+</span>            <span class="c1"># average over all possible actions that can be taken from st
+</span>            <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">a_prob</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">policy</span><span class="p">[</span><span class="n">st</span><span class="p">]):</span>
+                <span class="c1"># v_new(s) = Sum[a_prob * nxt_st_prob * [r + gamma * v[s']]]
+</span>                <span class="c1"># check how good the next_st is
+</span>                <span class="k">for</span> <span class="n">nxt_st_prob</span><span class="p">,</span> <span class="n">nxt_st</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="ow">in</span> <span class="n">env</span><span class="p">.</span><span class="n">P</span><span class="p">[</span><span class="n">st</span><span class="p">][</span><span class="n">a</span><span class="p">]:</span>
+                    <span class="c1"># calculate bellman expectation
+</span>                    <span class="n">v_new</span> <span class="o">+=</span> <span class="n">a_prob</span> <span class="o">*</span> <span class="n">nxt_st_prob</span> <span class="o">*</span> <span class="p">(</span><span class="n">reward</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">v</span><span class="p">[</span><span class="n">nxt_st</span><span class="p">])</span>
+                    
+            <span class="c1"># check to see if new state is better
+</span>            <span class="n">delta</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">st</span><span class="p">]</span> <span class="o">-</span> <span class="n">v_new</span><span class="p">))</span>
+            <span class="c1"># update V
+</span>            <span class="n">v</span><span class="p">[</span><span class="n">st</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_new</span>
+        <span class="n">eval_iter</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="c1"># if value change is &lt; th, terminate
+</span>        <span class="k">if</span> <span class="n">delta</span> <span class="o">&lt;</span> <span class="n">th</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">v</span>
+</code></pre></div></div>
+
+<p>The above function has some more details. It iteratively does it for a given <code class="language-plaintext highlighter-rouge">max_iter</code> number of iterations. Further, there is also an input threshold <code class="language-plaintext highlighter-rouge">th</code> which is used to decide when to stop updating the state value function <em>v</em>, by measuring the difference (<code class="language-plaintext highlighter-rouge">delta</code>) between the existing value and new value until it is negligible (as defined by <code class="language-plaintext highlighter-rouge">th</code>).</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
