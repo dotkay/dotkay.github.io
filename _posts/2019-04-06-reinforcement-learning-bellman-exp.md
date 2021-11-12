@@ -26,7 +26,7 @@ $$
 v_{\pi}(s) = \mathbb{E}_{\pi}[R_{t+1} + \gamma v_{\pi}(S_{t+1}) \mid S_t = s] 
 $$
 
-Since a policy $\pi$ is a distribution of actions over states, from each state *s* we will have different actions with different probabilities. We might take an action $a_1$ to invest \$300 in stock market and at that point we are committed to that action $a_1$. The environment (which might only be partially observable) might react in such a way as to create a market crash or it might reach in such a way as to boost our profits. 
+Since a policy $\pi$ is a distribution of actions over states, from each state *s* we will have different actions with different probabilities. We might take an action $a_1$ to invest 300 in stock market and at that point we are committed to that action $a_1$. The environment (which might only be partially observable) might react in such a way as to create a market crash or it might reach in such a way as to boost our profits. 
 
 <br>
 <div class="img_container">
