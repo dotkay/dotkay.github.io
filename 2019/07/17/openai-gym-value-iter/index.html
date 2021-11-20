@@ -21,7 +21,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
   
   <title>Improving a Policy Using Value Iteration</title>
-  <meta name="description" content="In a previous post we saw how to evaluate a policy and iteratively improve it. The value iteration algorithm in an alternative formalism to iteratively improve a policy. In policy iteration, we started with a random policy, evaluated the state value function, took a greedy step and iteratively updated the state value function. Here, we will start with a initial state value function and iteratively update it. We will start with an initial value function: v = np.zeros(env.observation_space.n) We use one_step_lookahead() from our previous example to compute the action values. action_values_vec = one_step_lookahead(env, s, v) best_val = np.max(action_values_vec) We will pick the action that has maximum value and update our value function. Essentially, in each iteration $k+1$, we update our value function using the value of the value function in iteration $k$, by picking the action that would fetch us the maximum value. \[v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]\] Compute the values and update until convergence. action_vec = one_step_lookahead(env, s, v) best_a = np.argmax(action_vec) Update the policy by picking the best action. Putting it together: def value_iter(env, gamma=0.9, th=1e-9, max_iter=10000): # (1) initialize the value function for each state v = np.zeros(env.observation_space.n) # iterate until converges w.r.t th for i in range(int(max_iter)): # initialize change in value to 0 delta = 0 # for each state in environment for s in range(env.observation_space.n): # (2) look one step ahead and compute action-value function action_values_vec = one_step_lookahead(env, s, v) # (3) select the best action value from # action values from one-step lookahead best_val = np.max(action_values_vec) # calculate the change in value delta = max(delta, np.abs(v[s] - best_val)) # update the value function v v[s] = best_val # check stopping condition if delta &amp;lt; th: print(f&#39;\nvalue iteration converged in {i} iterations&#39;) break # create a policy policy = np.zeros([env.observation_space.n, env.action_space.n]) for s in range(env.observation_space.n): # look one step ahead and compute action-value function action_vec = one_step_lookahead(env, s, v) # (4) select the best action from actions from one-step lookahead best_a = np.argmax(action_vec) # update policy policy[s][best_a] = 1.0 return policy, v Policy iteration works in two phases in each iteration: 1. we evaluate the policy, 2. we improve the policy (and make updates). The value iteration combines these two phases into one. We do not explicitly evaluate a policy. Instead, we just sweep through all possible actions and find the action that leads to the best action value. Both approaches implicitly update state value function and action value function in each iteration.">
+  <meta name="description" content="In a previous post we saw how to evaluate a policy and iteratively improve it. The value iteration algorithm in an alternative formalism to iteratively improve a policy. In policy iteration, we started with a random policy, evaluated the state value function, took a greedy step and iteratively updated the state value function. Here, we will start with a initial state value function and iteratively update it. We will start with an initial value function We use one_step_lookahead() from our previous example to compute the action values. We will pick the action that has maximum value and update our value function. Essentially, in each iteration $k+1$, we update our value function using the value of the value function in iteration $k$, by picking the action that would fetch us the maximum value. \(v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]\) Compute the values and update until convergence. Update the policy by picking the best action. Putting it together: def value_iter(env, gamma=0.9, th=1e-9, max_iter=10000): # (1) initialize the value function for each state v = np.zeros(env.observation_space.n) # iterate until converges w.r.t th for i in range(int(max_iter)): # initialize change in value to 0 delta = 0 # for each state in environment for s in range(env.observation_space.n): # (2) look one step ahead and compute action-value function action_values_vec = one_step_lookahead(env, s, v) # (3) select the best action value from # action values from one-step lookahead best_val = np.max(action_values_vec) # calculate the change in value delta = max(delta, np.abs(v[s] - best_val)) # update the value function v v[s] = best_val # check stopping condition if delta &amp;lt; th: print(f&#39;\nvalue iteration converged in {i} iterations&#39;) break # create a policy policy = np.zeros([env.observation_space.n, env.action_space.n]) for s in range(env.observation_space.n): # look one step ahead and compute action-value function action_vec = one_step_lookahead(env, s, v) # (4) select the best action from actions from one-step lookahead best_a = np.argmax(action_vec) # update policy policy[s][best_a] = 1.0 return policy, v Policy iteration works in two phases in each iteration: 1. we evaluate the policy, 2. we improve the policy (and make updates). The value iteration combines these two phases into one. We do not explicitly evaluate a policy. Instead, we just sweep through all possible actions and find the action that leads to the best action value. Both approaches implicitly update state value function and action value function in each iteration.">
   
     
     <meta name="keywords" content="technology,ai,openai gym,reinforcement learning">
@@ -1129,35 +1129,11 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
     <p>In a <a href="https://dotkay.github.io/2019/06/17/openai-gym-policy-iter">previous post</a> we saw how to <a href="https://dotkay.github.io/2019/06/04/openai-gym-policy-eval">evaluate a policy</a> and iteratively improve it. The value iteration algorithm in an alternative formalism to iteratively improve a policy. In policy iteration, we started with a random policy, evaluated the state value function, took a greedy step and iteratively updated the state value function. Here, we will start with a initial state value function and iteratively update it.</p>
 
 <ol>
-  <li>We will start with an initial value function:</li>
-</ol>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">observation_space</span><span class="p">.</span><span class="n">n</span><span class="p">)</span>
-</code></pre></div></div>
-
-<ol>
+  <li>We will start with an initial value function</li>
   <li>We use <code class="language-plaintext highlighter-rouge">one_step_lookahead()</code> from our <a href="https://dotkay.github.io/2019/06/17/openai-gym-policy-iter">previous example</a> to compute the action values.</li>
-</ol>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">action_values_vec</span> <span class="o">=</span> <span class="n">one_step_lookahead</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="n">best_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">action_values_vec</span><span class="p">)</span>
-</code></pre></div></div>
-
-<ol>
-  <li>We will pick the action that has maximum value and update our value function. Essentially, in each iteration $k+1$, we update our value function using the value of the value function in iteration $k$, by picking the action that would fetch us the maximum value.</li>
-</ol>
-
-\[v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]\]
-
-<ol>
+  <li>We will pick the action that has maximum value and update our value function. Essentially, in each iteration $k+1$, we update our value function using the value of the value function in iteration $k$, by picking the action that would fetch us the maximum value.
+\(v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]\)</li>
   <li>Compute the values and update until convergence.</li>
-</ol>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">action_vec</span> <span class="o">=</span> <span class="n">one_step_lookahead</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="n">best_a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">action_vec</span><span class="p">)</span>
-</code></pre></div></div>
-
-<ol>
   <li>Update the policy by picking the best action.</li>
 </ol>
 
