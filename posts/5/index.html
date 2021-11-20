@@ -1146,8 +1146,9 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   <li>Update the policy by picking the best action.</li>
 </ol>
 
-<p>The iterative updates are achieved using Bellman Optimality equation:
-\(v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]\)</p>
+<p>The iterative updates are achieved using Bellman Optimality equation:</p>
+
+\[v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]\]
 
 <p>Putting it together:</p>
 
