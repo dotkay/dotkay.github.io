@@ -17,10 +17,10 @@ Here's a simple sketch of the algorithm:
 5. Update the policy by picking the best action.
 
 The iterative updates are achieved using Bellman Optimality equation:
+
 $$
 v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]
 $$
-
 
 Putting it together:
 
