@@ -1140,15 +1140,15 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   <li>We will start with an initial value function:</li>
 </ol>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">observation_space</span><span class="p">.</span><span class="n">n</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">observation_space</span><span class="p">.</span><span class="n">n</span><span class="p">)</span>
 </code></pre></div></div>
 
 <ol>
   <li>We use <code class="language-plaintext highlighter-rouge">one_step_lookahead()</code> from our <a href="https://dotkay.github.io/2019/06/17/openai-gym-policy-iter">previous example</a> to compute the action values.</li>
 </ol>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">action_values_vec</span> <span class="o">=</span> <span class="n">one_step_lookahead</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-  <span class="n">best_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">action_values_vec</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">action_values_vec</span> <span class="o">=</span> <span class="n">one_step_lookahead</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="n">best_val</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">action_values_vec</span><span class="p">)</span>
 </code></pre></div></div>
 
 <ol>
@@ -1161,8 +1161,8 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   <li>Compute the values and update until convergence.</li>
 </ol>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">action_vec</span> <span class="o">=</span> <span class="n">one_step_lookahead</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-  <span class="n">best_a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">action_vec</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">action_vec</span> <span class="o">=</span> <span class="n">one_step_lookahead</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="n">best_a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">action_vec</span><span class="p">)</span>
 </code></pre></div></div>
 
 <ol>
