@@ -10,29 +10,29 @@ In a [previous post](https://dotkay.github.io/2019/06/17/openai-gym-policy-iter)
 
 1. We will start with an initial value function:
 
-  ```python
-  v = np.zeros(env.observation_space.n)
-  ```
+```python
+v = np.zeros(env.observation_space.n)
+```
 
 2. We use `one_step_lookahead()` from our [previous example](https://dotkay.github.io/2019/06/17/openai-gym-policy-iter) to compute the action values. 
 
-  ```python
-  action_values_vec = one_step_lookahead(env, s, v)
-  best_val = np.max(action_values_vec)
-  ```
+```python
+action_values_vec = one_step_lookahead(env, s, v)
+best_val = np.max(action_values_vec)
+```
 
 3. We will pick the action that has maximum value and update our value function. Essentially, in each iteration $k+1$, we update our value function using the value of the value function in iteration $k$, by picking the action that would fetch us the maximum value.
   
-  $$
-  v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]
-  $$
+$$
+v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]
+$$
 
 4. Compute the values and update until convergence.
 
-  ```python
-  action_vec = one_step_lookahead(env, s, v)
-  best_a = np.argmax(action_vec)
-  ```
+```python
+action_vec = one_step_lookahead(env, s, v)
+best_a = np.argmax(action_vec)
+```
 
 5. Update the policy by picking the best action.
 
