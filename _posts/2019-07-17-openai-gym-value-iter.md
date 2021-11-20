@@ -20,6 +20,7 @@ In a [previous post](https://dotkay.github.io/2019/06/17/openai-gym-policy-iter)
   ```
 
 3. We will pick the action that has maximum value and update our value function. Essentially, in each iteration $k+1$, we update our value function using the value of the value function in iteration $k$, by picking the action that would fetch us the maximum value. 
+
 $$
 v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]
 $$
