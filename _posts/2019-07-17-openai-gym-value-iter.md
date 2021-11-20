@@ -8,32 +8,13 @@ external-url: https://dotkay.github.io/2019/07/17/openai-gym-value-iter
 
 In a [previous post](https://dotkay.github.io/2019/06/17/openai-gym-policy-iter) we saw how to [evaluate a policy](https://dotkay.github.io/2019/06/04/openai-gym-policy-eval) and iteratively improve it. The value iteration algorithm in an alternative formalism to iteratively improve a policy. In policy iteration, we started with a random policy, evaluated the state value function, took a greedy step and iteratively updated the state value function. Here, we will start with a initial state value function and iteratively update it. 
 
-1. We will start with an initial value function:
-
-```python
-v = np.zeros(env.observation_space.n)
-```
-
+1. We will start with an initial value function
 2. We use `one_step_lookahead()` from our [previous example](https://dotkay.github.io/2019/06/17/openai-gym-policy-iter) to compute the action values. 
-
-```python
-action_values_vec = one_step_lookahead(env, s, v)
-best_val = np.max(action_values_vec)
-```
-
 3. We will pick the action that has maximum value and update our value function. Essentially, in each iteration $k+1$, we update our value function using the value of the value function in iteration $k$, by picking the action that would fetch us the maximum value.
-  
 $$
 v_{k+1}(s) = \max_{a} \mathbb{E}[R_{t+1} + \gamma . v_k(S_{t+1}) \mid S_t = s, A_t = a]
 $$
-
 4. Compute the values and update until convergence.
-
-```python
-action_vec = one_step_lookahead(env, s, v)
-best_a = np.argmax(action_vec)
-```
-
 5. Update the policy by picking the best action.
 
 Putting it together:
