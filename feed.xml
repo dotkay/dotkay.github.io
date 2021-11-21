@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-11-20T18:07:43+00:00</updated>
+  <updated>2021-11-21T00:33:11+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -249,6 +249,74 @@ The data used here is from a &lt;a href=&quot;https://www.kaggle.com/amirba/olym
 
       
         <summary type="html">This is about the stories of Summer Olympics - not just one story but many stories and not just the recently concluded Tokyo Olympics, but all of the Olympic games since the first one in Athens in 1896. Although the analysis of the medals won by different countries would make the story read like a story medals and achievements statistics, there are other stories hidden within. We will narrate many of those as we do the analysis. We will use pandas library to do the data analysis and plotly to create our plots that would tell a visual story. import pandas as pd import plotly.express as px When we look at the hosts we see many western powers with Brazil and China (then emerging economies) hosting in 2008 and 2016 respectively. Of course, hosting an Olympics is no small thing - the infrastructure, safety, accessibility, etc. play a huge role and many of these cost money. London seems to be the only city that has hosted Olympics thrice. total_medals_by_host_city = summer_df.groupby(['City', 'Year'], as_index=False)['Medal'].count() fig = px.bar(total_medals_by_host_city, x='City', y='Medal', hover_data = ['Medal', 'Year'], color='Medal', title='Medals Awarded at Each Venue') fig.add_annotation(x='London', y=1690, text=&quot;London has hosted Olympics thrice...&quot;, ... ... opacity=1.0 ) The number of events in each of the Olympics also seems to be different, as evidenced by the total number of medals awarded during the games. With Paris and London regularly competing for the best European City regularly I believe it is high time Paris got a chance to host the Summer Olympic games, and very glad 2024 Olympics are going to be held in Paris. I also hope more and more emerging economies to be able to host the games. The motivation and interest in sports such events would infuse is invaluable. When we look at the cumulative number of medals won from the start of Summer Olympic games, USA clearly leads. But more important to note here is Russia which was more excellent in sports, science and technology, arts and culture, etc., when it was Soviet Union. Also interesting to note is the presence of an entry Individual athletes - athletes who chose to compete under the Olympic flag instead of any specific country. This is a political story. total_medals_by_country = summer_df.groupby('Country', as_index=False)['Medal'].count() fig = px.bar(total_medals_by_country, x='Country', y='Medal', hover_data = ['Medal'], color='Medal', title='Cumulative Number of Medals Won (1896-2021)') There were many instances where athletes who requested to compete independently and were refused - for example, the ones who emigrated from Communist Europe during the cold war, as well as some during the 1976 Olympic boycott. The first provisions were made by IOC (International Olympic Committee) during the 1980 Summer Olympics hosted at Moscow. When we look at the countries that shine on the top of the medals table regularly the familiar pattern is clear. It is mostly European countries, USA, Australia and more recently China. Although we might have cheered Usain Bolt’s sprints and track and field athletics being one of the most anticipated events of the Summer Olympic games, in terms of total number of medals, many western countries top the table year after year. This also indicates the broad variety and the number of events in the summer games. There is also a political story hidden here, that of the 1980 Summer Olympics. There were only two cities that bid to host the games - Los Angeles and Moscow and eventually Moscow won. If you notice the 1980 Olympics that was hosted by Moscow, Russia seems to be the clear leader in terms of number of medals. Almost always, one expects host country to win several medals, but scoring more medals than the usual competitive powers is always a big achievement. Many nations boycotted the 1980 Olympics, led by the USA to protest against the Soviet-Afghan war. It had the smallest participation - just around 80 countries. def top_n(n): return ( df .groupby(&quot;Country&quot;) .agg({&quot;Medal Count&quot;: &quot;sum&quot;}) .sort_values(&quot;Medal Count&quot;, ascending=False) .head(n) ) df = summer_df.groupby(['Year', 'Country', 'Medal']).size().reset_index() df.columns = ['Year', 'Country', 'Medal', 'Medal Count'] fig = px.bar(df.loc[df[&quot;Country&quot;].isin(top_n(10).index)], x='Year', y='Medal Count', hover_data = ['Country', 'Medal Count', 'Medal'], color='Country', barmode='stack', color_continuous_scale=px.colors.sequential.Viridis, title='Medal Winners in Olympics') There are more politics stories in Olympics. The apparent gaps in the plot below makes one wonder what happened those years. The 1916 summer Olympics, to be hosted by Berlin, were cancelled due to World War I, a first cancellation in the 20 year history of Olympics during those days. The 1940 Olympics to be hosted by Tokyo were rescheduled to be hosted by Finland (due to Japan’s invasion of China in 1937) and eventually cancelled due to the outbreak of World War II. Again, the 1944 Summer Olympics to be hosted by London got cancelled due to World War II. The 2020 Olympics hosted by Tokyo was rescheduled to 2021 due to the outbreak of Covid. It took tremendous courage and organization by Japan and the participating countries to put up a great show during the pandemic. df_final = (df).fillna(0).sort_values(idcols) .groupby(idcols[1:]) .cumsum() .rename(columns={0: 'Cumulative Total Medals'}) .reset_index() .merge(dfnoc, on='NOC') Now, to finish it off, let us see how the top 25 medal winners (measured as per medals won in 2020) have fared over the years in terms of total medals won. The rise of China as a major sporting nation is very apparent. fig = px.scatter( df_final.loc[df_final[&quot;Country&quot;].isin(top_n(25).index)], x=&quot;Country&quot;, y=&quot;Cumulative Total Medals&quot;, log_y=True, size=&quot;Cumulative Total Medals&quot;, color_discrete_sequence=[&quot;brown&quot;,&quot;gold&quot;,&quot;silver&quot;], color=&quot;Medal&quot;, animation_frame=&quot;Year&quot;, hover_name=&quot;Country&quot;, title=&quot;The Olympics Story&quot;, ) While this short post tells several stories behind the Summer Olympics, I would like to write a future post on the stories behind Paralympics which will would be stories of courge, inspiration and extraordinary commitment. The data used here is from a Kaggle dataset. This Kaggle dataset was also used to get NOC (National Olympic Committee) codes of the different countries. Some of the numbers in the dataset does not seem to agree with tables in Wikipedia, nevertheless the differences are not huge to change the story.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">More Software and Silicon than Steel →</title>
+      
+      <link href="https://dotkay.github.io/2021/07/07/software-silicon-steel/" rel="alternate" type="text/html" title="More Software and Silicon than Steel" />
+      <published>2021-07-07T00:00:00+00:00</published>
+      <updated>2021-07-07T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2021/07/07/software-silicon-steel</id>
+      <content type="html" xml:base="https://dotkay.github.io/2021/07/07/software-silicon-steel/">&lt;p&gt;Automakers are in the news lately, not for the the usual reasons like launching fully electric models of their vehicles, or factory closures or emission scandals. They are in the news because of semiconductor shortage, throwing many into a state of shock. For people following the auto industry this is only as common as &lt;a href=&quot;https://www.techradar.com/news/chip-maker-for-apple-qualcomm-amd-warns-chip-shortage-to-last-through-2022&quot;&gt;Apple, Qualcomm or AMD’s woes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The rise of the ECUs&lt;/strong&gt;
+For more than a decade now, there has been more and more software and silicon that go into automobiles than steel. A typical automobile has about a couple of hundred Electronic Control Units (ECUs) which are microcontrollers each receiving inputs from different (like tire pressure, oil, seat belt, engine temperature, etc.) and producing outputs that translate to action (like a dashboard indicator light on low tire pressure, etc.). Since the cost of sensors have been going down rapidly, more and more of them are added in today’s vehicles and hence more ECUs to process them. The software that goes along is also tightly coupled with the hardware and these ECUs are bought from different OEMs. Much like a computer architecture, most of the automakers connect these ECUs through a common bus usually over a Controller Area Network &lt;a href=&quot;https://www.engineersgarage.com/can-protocol-understanding-the-controller-area-network-protocol/&quot;&gt;(CAN)&lt;/a&gt;. The number of ECUs have only been increasing with the number of features. Rain sensors, daylight sensors, blind-spot sensors, parking sensors are all commonplace in today’s vehicles.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/misc/auto_ecus.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;span style=&quot;color:gray; font-size: 60%;&quot;&gt;
+Source: How Computer Science Helps Car Technology - Bruce Yellin
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;From ECUs to DCUs&lt;/strong&gt;
+ECUs constitute a &lt;em&gt;decentralized&lt;/em&gt; architecture - each ECU controls a particular function. With the increasing number of ECUs controlling critical functions like ADAS (Advanced Driver Assist Systems), autonomous driving, radars, etc., the industry has been moving to an architecture called DCU (Domain Control Unit) wherein instead of hundreds of ECUs a few DCUs would control multiple functions. This has been enabled by advances in semiconductors (performance and power) over the years and the decreasing cost of sensors. In a sense, DCUs constitute a &lt;em&gt;centralized&lt;/em&gt; architecture. Much like how a PC Operating System can make way for high priority tasks, the software enabling the DCUs could prioritize critical functions. Further, this also enables flexibility and extensibility. The hardware (sensors and processing power) would remain in the vehicle and new software when installed would provide a new feature, much like how you have a CPU and memory (hardware) in your laptop and you can install Microsoft Office (software) if and when needed. From CAN, the automobiles are trying to move on to ethernet based architecture for many of the functionalities because of the faster transmission speed and more data per frame. CAN provides predictable and collision-free network access between nodes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Into the Future&lt;/strong&gt;
+With advanced sensors (like cameras and lidar) providing streaming, high resolution data, the processing power of the hardware needs to be beefed up in order to process them in real-time. This has enabled the makers of high performance processors to enter the market to compete with the many ECU vendors. NVIDIA and Intel are two of the major processor makers that are making their presence felt in the automotive space, besides Qualcomm and others. With hardware being the muscle, more and more value would be added by innovation in software (the mind). For example, a camera might just send frames of a snowy scene which software could then process, along with some real-time data it receives from neibouring vehicles or cellular phone towers, etc. and create an actionable insight for the actuators. Software can use the historical data from the vehicle for diagnosis and more importantly prognosis of faults. With the decreasing cost of sensors the data collected will explode in volume over time and the automotive software stack might also include a cloud component to store data for continuous processing.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;As the importance of electronics and software has grown, so has complexity. Take the exploding number of software lines of code (SLOC) contained in modern cars as an example. In 2010, some vehicles had about ten million SLOC; by 2016, this expanded by a factor of 15, to roughly 150 million lines. Snowballing complexity is causing significant software-related quality issues, as evidenced by millions of recent vehicle recalls - &lt;a href=&quot;https://www.mckinsey.com/industries/automotive-and-assembly/our-insights/rethinking-car-software-and-electronics-architecture&quot;&gt;McKinsey &amp;amp; Co.&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;With most vehicles made of steel and aluminium the value differentiator was brought about by the (electronic) features over the past decade. The next decade would usher in a new era of value differentiation enabled by software innovations. Who would own the hardware and operating system (much like Windows and Intel or Android and ARM in PC and mobile generation) of the era of automobile innovation is yet to be seen.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;We really designed the Model S to be a very sophisticated computer on wheels 
+– Elon Musk, 2015&lt;/p&gt;
+&lt;/blockquote&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="automotive" />
+      
+        <category term="semiconductors" />
+      
+        <category term="software" />
+      
+        <category term="IoT" />
+      
+
+      
+
+      
+        <summary type="html">Automakers are in the news lately, not for the the usual reasons like launching fully electric models of their vehicles, or factory closures or emission scandals. They are in the news because of semiconductor shortage, throwing many into a state of shock. For people following the auto industry this is only as common as Apple, Qualcomm or AMD’s woes. The rise of the ECUs For more than a decade now, there has been more and more software and silicon that go into automobiles than steel. A typical automobile has about a couple of hundred Electronic Control Units (ECUs) which are microcontrollers each receiving inputs from different (like tire pressure, oil, seat belt, engine temperature, etc.) and producing outputs that translate to action (like a dashboard indicator light on low tire pressure, etc.). Since the cost of sensors have been going down rapidly, more and more of them are added in today’s vehicles and hence more ECUs to process them. The software that goes along is also tightly coupled with the hardware and these ECUs are bought from different OEMs. Much like a computer architecture, most of the automakers connect these ECUs through a common bus usually over a Controller Area Network (CAN). The number of ECUs have only been increasing with the number of features. Rain sensors, daylight sensors, blind-spot sensors, parking sensors are all commonplace in today’s vehicles. Source: How Computer Science Helps Car Technology - Bruce Yellin From ECUs to DCUs ECUs constitute a decentralized architecture - each ECU controls a particular function. With the increasing number of ECUs controlling critical functions like ADAS (Advanced Driver Assist Systems), autonomous driving, radars, etc., the industry has been moving to an architecture called DCU (Domain Control Unit) wherein instead of hundreds of ECUs a few DCUs would control multiple functions. This has been enabled by advances in semiconductors (performance and power) over the years and the decreasing cost of sensors. In a sense, DCUs constitute a centralized architecture. Much like how a PC Operating System can make way for high priority tasks, the software enabling the DCUs could prioritize critical functions. Further, this also enables flexibility and extensibility. The hardware (sensors and processing power) would remain in the vehicle and new software when installed would provide a new feature, much like how you have a CPU and memory (hardware) in your laptop and you can install Microsoft Office (software) if and when needed. From CAN, the automobiles are trying to move on to ethernet based architecture for many of the functionalities because of the faster transmission speed and more data per frame. CAN provides predictable and collision-free network access between nodes. Into the Future With advanced sensors (like cameras and lidar) providing streaming, high resolution data, the processing power of the hardware needs to be beefed up in order to process them in real-time. This has enabled the makers of high performance processors to enter the market to compete with the many ECU vendors. NVIDIA and Intel are two of the major processor makers that are making their presence felt in the automotive space, besides Qualcomm and others. With hardware being the muscle, more and more value would be added by innovation in software (the mind). For example, a camera might just send frames of a snowy scene which software could then process, along with some real-time data it receives from neibouring vehicles or cellular phone towers, etc. and create an actionable insight for the actuators. Software can use the historical data from the vehicle for diagnosis and more importantly prognosis of faults. With the decreasing cost of sensors the data collected will explode in volume over time and the automotive software stack might also include a cloud component to store data for continuous processing. As the importance of electronics and software has grown, so has complexity. Take the exploding number of software lines of code (SLOC) contained in modern cars as an example. In 2010, some vehicles had about ten million SLOC; by 2016, this expanded by a factor of 15, to roughly 150 million lines. Snowballing complexity is causing significant software-related quality issues, as evidenced by millions of recent vehicle recalls - McKinsey &amp;amp; Co. With most vehicles made of steel and aluminium the value differentiator was brought about by the (electronic) features over the past decade. The next decade would usher in a new era of value differentiation enabled by software innovations. Who would own the hardware and operating system (much like Windows and Intel or Android and ARM in PC and mobile generation) of the era of automobile innovation is yet to be seen. We really designed the Model S to be a very sophisticated computer on wheels – Elon Musk, 2015</summary>
       
 
       
@@ -1501,117 +1569,6 @@ Notes:
 
       
         <summary type="html">Over the last couple of decades, internet search has evolved a lot. This evolution has several facets - on one hand technology changes like Web 2.0, semantic web, richer media, etc., and on the other hand going from generic to specific - or unbundling and bundling of search. In the early days of search engines, one would search every generic thing on the search engine application. If we want to see if there are good Pizzerias near our hotel during a trip to Paris, we would look for pizzerias in Paris and whichever fancy restaurant had made an effort to create a website (a static one) might show up. As technologies evolved and when we were able to interact more with the webpages (Javascript, PHP, CSS), one could also click on a dropdown menu and check out the price list of the pizzeria which might change seasonally, and of course several advertisement banners the show information about the baseball game happening nearby. One was also able to give feedback on the website for other visitors to see. Fast forward to today, with the evolution of the so called So-Lo-Mo (for Social, Location, Mobile), we could search for pizzerias in a 5 km radius around 75014. And we do not even do it on Bing or Google, rather on a specific application like Yelp. Besides the list of pizzerias around 75014 (location), the app would also show us what different people liked in the pizzeria and their opinion (social). Further we do not need to search for a cyber-cafe or a dial-up network in the hotel room. We can use this application from a cellular phone (mobile) which has a GPS that allows us to pin-point our location on a map in case we get lost looking for the pizzeria. From searching on one single generic search page, we have moved on to specific apps that provide specific search information. If we want to know how good is a movie, rather than asking Google, we go and check the rating for the movie in IMDB. If we want to watch an awesome movie starring Margot Robbie, you search in Netflix for movies Margot Robbie stars in and pick one. If you want to look for your school friend whom you lost touch with, you search for him in Facebook. While the unbundled search started becoming more and more popular in the western world, in Asia the popular WeChat app started bundling it. More than calling it bundling, it severed as a gateway to searching many specialized goods and services from within the main search app. Many of these services (called MiniProgram) can be accessed only from within the WeChat app. One could think of WeChat as a mobile operating system within an app. All you want from a mobile operating system is a bunch of useful apps that serve your needs (unlike desktop operating system that has somewhat different set of characteristics) and WeChat provides exactly that. Lately, Facebook is trying to bundle more services (search, shopping, payment, etc.) into one. What makes a great search experience? Everything bundled in one - which makes it simple to search or is it better to have specialized, standalone search applications - less clutter, more refined for what we are looking for? Many top product companies are confused about this very question. The answer is not going to be simple. No one method will ever become the dominant option and so many companies need to evaluate the markets where they want to grow or maintain dominance in order to make this decision. In a future post, we will debate the impact of the different choices on search advertising.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">LinkedIn’s Business →</title>
-      
-      <link href="https://dotkay.github.io/2019/12/01/linkedin-business/" rel="alternate" type="text/html" title="LinkedIn's Business" />
-      <published>2019-12-01T00:00:00+00:00</published>
-      <updated>2019-12-01T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2019/12/01/linkedin-business</id>
-      <content type="html" xml:base="https://dotkay.github.io/2019/12/01/linkedin-business/">&lt;p&gt;Lately, I have been reading about several businesses and trying to understand their product offerings, value proposition of the products, business model and how they came to be. With a natural inclination for technology products and a curiosity about startups and business models, this has been an enjoyable learning experience and I am hoping to share a lot of my learning through this medium. Let’s start with LinkedIn.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;LinkedIn’s Vision&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Create economic opportunity for every member of the global workforce.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;dl&gt;
-  &lt;dt&gt;I liked the simple and clear vision statement but was wondering why it mentions only &lt;em&gt;economic opportunity&lt;/em&gt; while LinkedIn’s products offer much more or could it be the case that all the benefits the products offer can be tied to economic opportunity? I started researching about what this term &lt;em&gt;economic opportunity&lt;/em&gt; entails and found &lt;a href=&quot;https://www.quora.com/How-are-economic-opportunities-defined&quot;&gt;this answer&lt;/a&gt; in Quora:&lt;/dt&gt;
-  &lt;dt&gt;&lt;br /&gt;&lt;/dt&gt;
-  &lt;dd&gt;
-    &lt;p&gt;&lt;em&gt;When somebody is willing to pay you money for doing something that you are willing and able to do, that is an “economic opportunity”. It can be a small business idea or a job.If you can produce a product or provide a service that people are willing to pay for, that is a small business opportunity. If you have an ability or skill that an employer needs, that is a job opportunity.&lt;/em&gt;&lt;/p&gt;
-  &lt;/dd&gt;
-  &lt;dd&gt;
-    &lt;p&gt;&lt;em&gt;Basically, an economic opportunity is the chance to do work that somebody is willing to pay you for. You don’t have to “like” the work. You just have to be able to competently do it. If you like your work, all the better for you. But we work to earn money that is paid by other people. The work we do is for other people’s benefit. The money they pay us is for our benefit. It is a reciprocal pay-earn, demand-supply economic relationship. They pay us money for supplying them what they want.&lt;/em&gt;&lt;/p&gt;
-  &lt;/dd&gt;
-&lt;/dl&gt;
-
-&lt;p&gt;I, however, feel that LinkedIn also provides knowledge opportunity (learning), business/marketing opportunity (sales leads) and career opportunity (jobs for professionals) and talent development (hiring solutions for recruiters) opportunity, etc. There might be some or some aspects of these on which you cannot really put a dollar value on in order for them to be called an &lt;em&gt;economic opportunity&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;LinkedIn’s Mission&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;The mission of LinkedIn is simple: connect the world’s professionals to make them more productive and successful.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Again, a short and crisp mission statement. But, again I believe that the main benefit is making professionals more skilled, equipped, informed, etc., rather than just productive.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;LinkedIn’s Products&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;LinkedIn to many is just a networking site for professionals. But once you look at the suite of products it is much more than that. LinkedIn’s products are organized under four themes:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Hire&lt;/li&gt;
-  &lt;li&gt;Market&lt;/li&gt;
-  &lt;li&gt;Sell&lt;/li&gt;
-  &lt;li&gt;Learn&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The various products under each of these themes are shown below:&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/products/linkedin_products.jpg&quot; alt=&quot;LinkedIn's Products&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It is difficult to categorize each of the products into &lt;em&gt;advertisement-based&lt;/em&gt; or &lt;em&gt;subscription-based&lt;/em&gt; one as some of them overlap both business models. The &lt;em&gt;HIRE&lt;/em&gt; theme is mainly for human resources professionals to track, follow, and manage recruiting pipeline for their organizations. I believe this could be one of the most active products (along with learning) on the platform. The &lt;em&gt;MARKET&lt;/em&gt; theme helps in setting up marketing campaigns, reach out to potential resources for marketing purposes, set up custom pages, and serve advertisements on the pages and possibly through emails. Although it sounds like a lot of features, I believe they would have a very stiff competition from the likes of Google and Facebook. Although the advertisements would be more relevant to hiring and professional marketing, the eyeballs on these wouldn’t be as much as on Google search and Facebook feeds. However, with the volume of professionals in the network, hiring ads would get the best reach on this platform. The &lt;em&gt;SELL&lt;/em&gt; theme sounds like a specialized Salesforce platform.  The &lt;em&gt;LEARN&lt;/em&gt; theme is an upcoming Coursera. Although it may not offer a wide variety of specializations for now, with data from the &lt;em&gt;HIRE&lt;/em&gt; theme, it would be a more powerful medium for specialized skill development targeted at specific job roles in specific industries. We need to wait and watch how well Microsoft uses the data from one to better the offerings of another. Although LinkedIn membership is free, there is also a premium subscription which could be considered as a separate product in itself (creating significant revenue) and it is needed to use several of the other products, for example InMail.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;LinkedIn’s business&lt;/strong&gt;&lt;/p&gt;
-
-&lt;dl&gt;
-  &lt;dt&gt;LinkedIn has become a significant business unit of Microsoft. According to a &lt;a href=&quot;https://www.businessofapps.com/data/linkedin-statistics/&quot;&gt;source&lt;/a&gt;&lt;/dt&gt;
-  &lt;dt&gt;&lt;br /&gt;&lt;/dt&gt;
-  &lt;dd&gt;
-    &lt;p&gt;&lt;em&gt;In the 2019 fiscal year, LinkedIn brought in $6.8 billion worth of revenue, contributing to $38.1 billion of commercial cloud revenue for Microsoft, which in turn made up part of $126 billion total revenue.&lt;/em&gt;&lt;/p&gt;
-  &lt;/dd&gt;
-&lt;/dl&gt;
-
-&lt;p&gt;Further the numbers below from Microsoft’s earnings and LinkedIn newsroom validate the importance of LinkedIn and its potential.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/products/linkedin_fy20_q1.PNG&quot; alt=&quot;LinkedIn FY20 Q1&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/products/linkedin_stats.PNG&quot; alt=&quot;LinkedIn impact&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;LinkedIn’s Opportunity&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/images/products/linkedin_worldwide.png&quot; alt=&quot;LinkedIn Stats&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;And that shows the opportunity for LinkedIn. Along with the above, GitHub - the world’s largest software development platform or the playground for developers was snapped up by Microsoft. This indicates a very huge potential. The data from &lt;em&gt;HIRE&lt;/em&gt; theme above combined with &lt;em&gt;LEARN&lt;/em&gt; theme and fueled by GitHub platform is a wonderful growth opportunity. GitHub + LinkedIn for developers would be Instagram for fashionistas and for businesses and recruiters this would be the Instagram for fashion brands seeking ambassadors and influencers. Probably some day very soon let me write about the opportunity for data science and AI in stitching all the above products together as one awesome fabric.&lt;/p&gt;
-
-&lt;p&gt;Thats all for now!&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="technology" />
-      
-        <category term="products" />
-      
-        <category term="business" />
-      
-        <category term="LinkedIn" />
-      
-
-      
-
-      
-        <summary type="html">Lately, I have been reading about several businesses and trying to understand their product offerings, value proposition of the products, business model and how they came to be. With a natural inclination for technology products and a curiosity about startups and business models, this has been an enjoyable learning experience and I am hoping to share a lot of my learning through this medium. Let’s start with LinkedIn. LinkedIn’s Vision Create economic opportunity for every member of the global workforce. I liked the simple and clear vision statement but was wondering why it mentions only economic opportunity while LinkedIn’s products offer much more or could it be the case that all the benefits the products offer can be tied to economic opportunity? I started researching about what this term economic opportunity entails and found this answer in Quora: When somebody is willing to pay you money for doing something that you are willing and able to do, that is an “economic opportunity”. It can be a small business idea or a job.If you can produce a product or provide a service that people are willing to pay for, that is a small business opportunity. If you have an ability or skill that an employer needs, that is a job opportunity. Basically, an economic opportunity is the chance to do work that somebody is willing to pay you for. You don’t have to “like” the work. You just have to be able to competently do it. If you like your work, all the better for you. But we work to earn money that is paid by other people. The work we do is for other people’s benefit. The money they pay us is for our benefit. It is a reciprocal pay-earn, demand-supply economic relationship. They pay us money for supplying them what they want. I, however, feel that LinkedIn also provides knowledge opportunity (learning), business/marketing opportunity (sales leads) and career opportunity (jobs for professionals) and talent development (hiring solutions for recruiters) opportunity, etc. There might be some or some aspects of these on which you cannot really put a dollar value on in order for them to be called an economic opportunity. LinkedIn’s Mission The mission of LinkedIn is simple: connect the world’s professionals to make them more productive and successful. Again, a short and crisp mission statement. But, again I believe that the main benefit is making professionals more skilled, equipped, informed, etc., rather than just productive. LinkedIn’s Products LinkedIn to many is just a networking site for professionals. But once you look at the suite of products it is much more than that. LinkedIn’s products are organized under four themes: Hire Market Sell Learn The various products under each of these themes are shown below: It is difficult to categorize each of the products into advertisement-based or subscription-based one as some of them overlap both business models. The HIRE theme is mainly for human resources professionals to track, follow, and manage recruiting pipeline for their organizations. I believe this could be one of the most active products (along with learning) on the platform. The MARKET theme helps in setting up marketing campaigns, reach out to potential resources for marketing purposes, set up custom pages, and serve advertisements on the pages and possibly through emails. Although it sounds like a lot of features, I believe they would have a very stiff competition from the likes of Google and Facebook. Although the advertisements would be more relevant to hiring and professional marketing, the eyeballs on these wouldn’t be as much as on Google search and Facebook feeds. However, with the volume of professionals in the network, hiring ads would get the best reach on this platform. The SELL theme sounds like a specialized Salesforce platform. The LEARN theme is an upcoming Coursera. Although it may not offer a wide variety of specializations for now, with data from the HIRE theme, it would be a more powerful medium for specialized skill development targeted at specific job roles in specific industries. We need to wait and watch how well Microsoft uses the data from one to better the offerings of another. Although LinkedIn membership is free, there is also a premium subscription which could be considered as a separate product in itself (creating significant revenue) and it is needed to use several of the other products, for example InMail. LinkedIn’s business LinkedIn has become a significant business unit of Microsoft. According to a source In the 2019 fiscal year, LinkedIn brought in $6.8 billion worth of revenue, contributing to $38.1 billion of commercial cloud revenue for Microsoft, which in turn made up part of $126 billion total revenue. Further the numbers below from Microsoft’s earnings and LinkedIn newsroom validate the importance of LinkedIn and its potential. LinkedIn’s Opportunity And that shows the opportunity for LinkedIn. Along with the above, GitHub - the world’s largest software development platform or the playground for developers was snapped up by Microsoft. This indicates a very huge potential. The data from HIRE theme above combined with LEARN theme and fueled by GitHub platform is a wonderful growth opportunity. GitHub + LinkedIn for developers would be Instagram for fashionistas and for businesses and recruiters this would be the Instagram for fashion brands seeking ambassadors and influencers. Probably some day very soon let me write about the opportunity for data science and AI in stitching all the above products together as one awesome fabric. Thats all for now!</summary>
       
 
       
