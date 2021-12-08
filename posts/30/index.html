@@ -114,6 +114,613 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
       <li>
         <header class="post-header">
           <h1 class="post-title">
+            <a class="post-link" href="/2017/09/02/max-pairwise-product/">Maximum pairwise product &rarr;</a>
+          </h1>
+
+          <p class="post-meta">Sep 2, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/algorithms/">algorithms</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/c/">C++</a>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Let’s take a quick look at a simple problem:</p>
+
+<p><em>Given a list of numbers, how would you determine the maximum pairwise product of numbers in the list?</em></p>
+
+<p>For example, if we have the list <code class="language-plaintext highlighter-rouge">[1; 3; 5; -2]</code> the maximum pairwise product is <code class="language-plaintext highlighter-rouge">15</code>, which is the product of <code class="language-plaintext highlighter-rouge">3</code> and <code class="language-plaintext highlighter-rouge">5</code>.</p>
+
+<p>The straigt-forward approach is to compute all possible pairwise products and identify the maximum among the intermediate results:</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">MaxPairwiseProduct</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">long</span> <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// result to hold the max pairwise product</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="kt">long</span> <span class="kt">long</span> <span class="n">product</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	  <span class="n">product</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">];</span> 
+	  <span class="k">if</span> <span class="p">(</span><span class="n">product</span> <span class="o">&gt;</span> <span class="n">result</span><span class="p">)</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="n">product</span><span class="p">;</span>
+	  <span class="p">}</span>
+	<span class="p">}</span>
+  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Since we have two loops that iterate over the list of numbers, the time complexity is O(n<sup>2</sup>).</p>
+
+<p>Can we do better? Yes, we can. The idea is to find the maximum and the second maximum elements in the list - and their product would be the maximum pairwise product.</p>
+
+<figure class="highlight">
+  <pre><code class="language-cpp" data-lang="cpp"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">MaxPairwiseProductFast</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+  <span class="kt">long</span> <span class="kt">long</span> <span class="n">product</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">// find the max element in the collection 'numbers'</span>
+  <span class="kt">int</span> <span class="n">max_index1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">max_index1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_index1</span><span class="p">))</span> <span class="p">{</span>
+	  <span class="n">max_index1</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// largest number in the list</span>
+	  <span class="p">}</span>
+  <span class="p">}</span>
+	
+  <span class="kt">int</span> <span class="n">max_index2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">((</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index1</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="n">max_index2</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">||</span>
+	  <span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_index2</span><span class="p">)))</span> <span class="p">{</span>
+	    <span class="n">max_index2</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span> <span class="c1">// second largest number in the list</span>
+	  <span class="p">}</span>
+  <span class="p">}</span>
+	
+  <span class="n">product</span> <span class="o">=</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index1</span><span class="p">]</span> <span class="o">*</span> <span class="n">numbers</span><span class="p">[</span><span class="n">max_index2</span><span class="p">];</span>
+  <span class="k">return</span> <span class="p">((</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span> <span class="n">product</span><span class="p">);</span>
+<span class="p">}</span></code></pre>
+</figure>
+
+<p>Simple and sweet!</p>
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
             <a class="post-link" href="/2017/09/01/pack-repetitions-into-sublists/">Packing consecutive repetitions in a list into sublists &rarr;</a>
           </h1>
 
@@ -378,6 +985,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -385,6 +998,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -976,6 +1595,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1237,6 +1862,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -1244,6 +1875,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -1832,6 +2469,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2093,6 +2736,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2100,6 +2749,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2666,6 +3321,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
   
+    
+  
+    
+  
+    
+  
 
   
   
@@ -2673,6 +3334,12 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
     
       <a href="/categories/ocaml/">ocaml</a>
+    
+  
+    
+  
+    
+  
     
   
     
@@ -2953,608 +3620,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
 </figure>
 
 <p>In most functional programming languages our <code class="language-plaintext highlighter-rouge">leftee</code> is actually called <code class="language-plaintext highlighter-rouge">fold_left</code> and is tail recursive. There’s also a <code class="language-plaintext highlighter-rouge">fold_right</code> which is not tail recursive, because of the way it applies the function to the list elements. More on this in a later post!</p>
-
-        </div>
-        
-      </li>
-    
-      
-      
-
-      <li>
-        <header class="post-header">
-          <h1 class="post-title">
-            <a class="post-link" href="/2017/08/28/more-about-auxiliary-functions-and-recursions/">More about auxiliary functions and recursions &rarr;</a>
-          </h1>
-
-          <p class="post-meta">Aug 28, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/recursion/">recursion</a>,
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-  
-  
-    
-  
-    
-      <a href="/categories/ocaml/">ocaml</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
-        </header>
-
-        <div class="post-content">
-          <p>In an <a href="https://dotkay.github.io/2017/08/25/some-more-examples-of-tail-recursion/">earlier posts</a>, tail recursions were introduced using two very simple functions <code class="language-plaintext highlighter-rouge">tr_lst_sum</code> and <code class="language-plaintext highlighter-rouge">tr_lst_rev</code>. In this post, let us carefully observe the structure of some simple tail recursive functions and see what they have in common. We will understand and use this information to write a generic function that can be used to write these other functions. Sounds like inception movie eh? Let’s get started!</p>
-
-<p>Here’s the tail recursive version of <code class="language-plaintext highlighter-rouge">lst_sum</code> to sum an input list <code class="language-plaintext highlighter-rouge">lst</code> of elements.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
-    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
-    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_sum</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_lst_sum</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>And here’s the tail recursive version of <code class="language-plaintext highlighter-rouge">lst_len</code> to compute the length of an input list <code class="language-plaintext highlighter-rouge">lst</code> of elements.</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">let</span> <span class="k">rec</span> <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="n">acc</span> <span class="o">=</span>
-    <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-    <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
-    <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">aux_lst_len</span> <span class="n">t</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-  <span class="k">in</span>
-  <span class="n">aux_lst_len</span> <span class="n">lst</span> <span class="mi">0</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Let’s carefully observe the above two functions and try to understand the pattern - the recipe for such a computation. In both the functions,</p>
-
-<ol>
-  <li>We have an initial accumulator (in this case the value is <code class="language-plaintext highlighter-rouge">0</code> but it could be anything in general)</li>
-  <li>We traverse the list, apply the auxiliary function to the initial value of the accumulator and a list element and compute a new value for the accumulator.
-2.1. We do the above step to each element of the list (by calling the auxiliary function recursively/repeatedly on each element) and compute new values for the accumulator on the way</li>
-  <li>When we are done with the entire list, we return the accumulator contents as the result</li>
-</ol>
-
-<p>Now, if we just denote the auxiliary function by <code class="language-plaintext highlighter-rouge">faux</code>, it has a general shape - <code class="language-plaintext highlighter-rouge">faux acc lst</code> - we do traverse the list <code class="language-plaintext highlighter-rouge">lst</code>, but this is the general shape that we observe - call <code class="language-plaintext highlighter-rouge">faux</code> on the initial value of the accumulator <code class="language-plaintext highlighter-rouge">acc</code> and a list element and use the resulting value as the new value of the accumulator for the next call. For example, in the above functions the new values of the accumulators are <code class="language-plaintext highlighter-rouge">(acc + h)</code> and <code class="language-plaintext highlighter-rouge">(acc + 1)</code>. Now, let’s try to wrap this all into a single function, which we would call a <code class="language-plaintext highlighter-rouge">leftee</code> - which would take three parameters - an accumulator <code class="language-plaintext highlighter-rouge">acc</code>, a function <code class="language-plaintext highlighter-rouge">f</code> to apply (to the accumulator and list element), and of course a list <code class="language-plaintext highlighter-rouge">lst</code> to work on and will look like <code class="language-plaintext highlighter-rouge">leftee f acc lst</code>. We call it <code class="language-plaintext highlighter-rouge">leftee</code> for a reason… (I think readers are already getting a hint as to where this is headed. Good!).</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="k">rec</span> <span class="n">leftee</span> <span class="n">f</span> <span class="n">acc</span> <span class="n">lst</span> <span class="o">=</span>
-  <span class="k">match</span> <span class="n">lst</span> <span class="k">with</span>
-  <span class="o">|</span> <span class="bp">[]</span> <span class="o">-&gt;</span> <span class="n">acc</span>
-  <span class="o">|</span> <span class="n">h</span><span class="o">::</span><span class="n">t</span> <span class="o">-&gt;</span> <span class="n">leftee</span> <span class="n">f</span> <span class="p">(</span><span class="n">f</span> <span class="n">acc</span> <span class="n">h</span><span class="p">)</span> <span class="n">t</span><span class="p">;;</span>
-<span class="c">(* ('a -&gt; 'b -&gt; 'a) -&gt; 'a -&gt; 'b list -&gt; 'a = &lt;fun&gt; *)</span></code></pre>
-</figure>
-
-<p>As we see above the new value of the accumulator is the function applied to the current value of the accumulator <code class="language-plaintext highlighter-rouge">acc</code> and a list element <code class="language-plaintext highlighter-rouge">h</code>.</p>
-
-<p>Now, let’s rewrite <code class="language-plaintext highlighter-rouge">tr_lst_sum</code> and <code class="language-plaintext highlighter-rouge">tr_lst_len</code> using our <code class="language-plaintext highlighter-rouge">leftee</code>:</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_sum</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span> <span class="o">+</span> <span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Here <code class="language-plaintext highlighter-rouge">( + )</code> is the function - just the addition operator. Isn’t it super concise? Aren’t you in love with this already?</p>
-
-<figure class="highlight">
-  <pre><code class="language-ocaml" data-lang="ocaml"><span class="k">let</span> <span class="n">tr_lst_len</span> <span class="n">lst</span> <span class="o">=</span> <span class="n">leftee</span> <span class="p">(</span><span class="k">fun</span> <span class="n">x</span> <span class="n">_</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">0</span> <span class="n">lst</span><span class="p">;;</span></code></pre>
-</figure>
-
-<p>Food for thought - how would you use <code class="language-plaintext highlighter-rouge">leftee</code> to reverse an input list?</p>
-
 
         </div>
         
