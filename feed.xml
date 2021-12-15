@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-12-15T03:49:14+00:00</updated>
+  <updated>2021-12-15T03:57:07+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -34,8 +34,6 @@
 
 &lt;p&gt;&lt;strong&gt;Graphics Hardware (Semiconductors)&lt;/strong&gt;
 Computer processors have not just packed more and more transistors but the capabilities of graphics hardware have grown by leaps and bounds the last decade. The semiconductor process technology, new memory technologies, new functions and features driven by deep learning applications, real-time ray tracing, etc. have enabled a new era of computation possibilities at scale that until recently required expensive servers running over long periods of time in order to achieve the same computation. A big part of this is driven by semiconductor process technology (32nm in 2009 to 5nm in 2020) that enabled packing several transistors in a small area (of the die). Similar advances in memory technologies (3D stacked DRAM, advances in DDR as well as HBM and other new memory technologies) helped in increasing the on board storage by a large factor, as required by heavy graphics applications. Similar advances have also resulted in packing enough computation in small form factors like mobile phones, security cameras and other IoT devices. It has resulted in our ability to play games with a reasonably good graphics on our mobile phones. It has also enabled IoT devices to perform data analytics real time as and when they collect sensory data on the field.&lt;/p&gt;
-
-&lt;iframe width=&quot;480&quot; height=&quot;360&quot; src=&quot;https://www.youtube.com/watch?v=NgcYLIvlp_k&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;&lt;strong&gt;Graphics Software (VR, AR, Photogrammetry, etc.)&lt;/strong&gt;&lt;/p&gt;
 
