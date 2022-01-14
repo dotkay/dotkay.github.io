@@ -3,6 +3,7 @@ layout: post
 title: Do you have some change?
 categories: [algorithms, recursion, C++]
 keywords: [recursion, algorithms, C++]
+mathjax: true
 external-url: https://dotkay.github.io/2018/05/07/coin-change-rec
 ---
 
