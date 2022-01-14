@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Computing elements that result in maximum product
-katex: True
 categories: [data structures, arrays, algorithms, C++]
 keywords: [data structures, arrays, algorithms, C++]
 external-url: https://dotkay.github.io/2018/06/25/max-product-items
@@ -9,7 +8,7 @@ external-url: https://dotkay.github.io/2018/06/25/max-product-items
 
 Suppose we are given an unsorted array of integers and asked to find the pair of elements from the array that results in maximum product, how do we go about computing it?
 
-A naïve approach is to find the product of each pair and maintain the maximum product seen so far. This would be an \(O(n^2)\) algorithm. Let us start with this and improve on it.
+A naïve approach is to find the product of each pair and maintain the maximum product seen so far. This would be an O(n^2) algorithm. Let us start with this and improve on it.
 
 {% highlight cpp %}
 void maxprod(std::vector<int> arr)
@@ -34,7 +33,7 @@ void maxprod(std::vector<int> arr)
 }
 {% endhighlight %}
 
-Can we do better than \(O(n^2)\)? Clearly, yes. We know that we could sort an array efficiently in \(O(n log n)\). We could sort the array and the maximum product would be either the product of the largest two elements or smallest two elements (if they are both negative). 
+Can we do better than O(n^2)? Clearly, yes. We know that we could sort an array efficiently in O(n log n). We could sort the array and the maximum product would be either the product of the largest two elements or smallest two elements (if they are both negative). 
 
 {% highlight cpp %}
 void maxprod(std::vector<int> arr)
@@ -49,4 +48,4 @@ void maxprod(std::vector<int> arr)
 }
 {% endhighlight %}
 
-Now, can we do better than $O(n log n)$?
+Now, can we do better than O(n log n)?

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: How About This Program? Is This Correct?
-katex: True
 categories: [C, bugs, program verification]
 keywords: [C, bugs, program verification, formal methods]
 external-url: https://dotkay.github.io/2019/02/13/is-this-program-correct

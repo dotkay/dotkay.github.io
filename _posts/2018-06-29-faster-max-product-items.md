@@ -1,13 +1,12 @@
 ---
 layout: post
 title: Computing elements that result in maximum product efficiently
-katex: True
 categories: [data structures, arrays, algorithms, C++]
 keywords: [data structures, arrays, algorithms, C++]
 external-url: https://dotkay.github.io/2018/06/29/faster-max-product-items
 ---
 
-In a [previous post](https://dotkay.github.io/2018/06/25/max-product-items) we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than \(O(n logn\). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product.
+In a [previous post](https://dotkay.github.io/2018/06/25/max-product-items) we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product.
 
 {% highlight cpp %}
 void maxprod(std::vector<int> arr)
