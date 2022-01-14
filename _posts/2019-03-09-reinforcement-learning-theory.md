@@ -3,8 +3,6 @@ layout: post
 title: Reinforcement Learning - Theoretical Foundations
 categories: [technology, ai, reinforcement learning]
 keywords: [technology, ai, reinforcement learning]
-katex: true
-mathjax: false
 external-url: https://dotkay.github.io/2019/03/09/reinforcement-learning-theory
 ---
 
