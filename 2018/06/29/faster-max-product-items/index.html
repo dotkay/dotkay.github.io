@@ -21,7 +21,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
   
   <title>Computing elements that result in maximum product efficiently</title>
-  <meta name="description" content="In a previous post we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than (O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product. void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); int max1 = arr[0], max2 = INT_MIN; int min1 = arr[0], min2 = INT_MAX; for (int i = 1; i &amp;lt; n; i++) { if (arr[i] &amp;gt; max1) { max2 = max1; max1 = arr[i]; } else if (arr[i] &amp;gt; max2) max2 = arr[i]; if (arr[i] &amp;lt; min1) { min2 = min1; min1 = arr[i]; } else if (arr[i] &amp;lt; min2) min2 = arr[i]; } if (max1 * max2 &amp;gt; min1 * min2) std::cout &amp;lt;&amp;lt; max1 &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; max2 &amp;lt;&amp;lt; std::endl; else std::cout &amp;lt;&amp;lt; min1 &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; min2 &amp;lt;&amp;lt; std::endl; } The algorithm is very straight-forward that the code itself is self explanatory.">
+  <meta name="description" content="In a previous post we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product. void maxprod(std::vector&amp;lt;int&amp;gt; arr) { int n = arr.size(); int max1 = arr[0], max2 = INT_MIN; int min1 = arr[0], min2 = INT_MAX; for (int i = 1; i &amp;lt; n; i++) { if (arr[i] &amp;gt; max1) { max2 = max1; max1 = arr[i]; } else if (arr[i] &amp;gt; max2) max2 = arr[i]; if (arr[i] &amp;lt; min1) { min2 = min1; min1 = arr[i]; } else if (arr[i] &amp;lt; min2) min2 = arr[i]; } if (max1 * max2 &amp;gt; min1 * min2) std::cout &amp;lt;&amp;lt; max1 &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; max2 &amp;lt;&amp;lt; std::endl; else std::cout &amp;lt;&amp;lt; min1 &amp;lt;&amp;lt; &quot;, &quot; &amp;lt;&amp;lt; min2 &amp;lt;&amp;lt; std::endl; } The algorithm is very straight-forward that the code itself is self explanatory.">
   
     
     <meta name="keywords" content="data structures,arrays,algorithms,C++">
@@ -39,15 +39,10 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   <meta name="twitter:card" content="summary">
   
   <meta name="twitter:title" content="Computing elements that result in maximum product efficiently">
-  <meta name="twitter:description" content="In a previous post we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than (O(n logn). It turns out we can do a linear ...">
+  <meta name="twitter:description" content="In a previous post we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than O(n logn). It turns out we can do a linear s...">
   
   
 
-  
-    <!-- KaTeX -->
-    <link rel="stylesheet" href="/assets/plugins/katex.0.11.1/katex.min.css">
-  
-  
   <script type="text/javascript">
   WebFontConfig = {
     google: { families: [ 'Bitter:400,700,400italic:latin' ] }
@@ -1201,7 +1196,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>In a <a href="https://dotkay.github.io/2018/06/25/max-product-items">previous post</a> we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than (O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product.</p>
+    <p>In a <a href="https://dotkay.github.io/2018/06/25/max-product-items">previous post</a> we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">maxprod</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span>

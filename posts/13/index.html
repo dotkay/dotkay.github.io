@@ -40,8 +40,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
   
   
 
-  
-  
   <script type="text/javascript">
   WebFontConfig = {
     google: { families: [ 'Bitter:400,700,400italic:latin' ] }
@@ -2612,7 +2610,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
         </header>
 
         <div class="post-content">
-          <p>In a <a href="https://dotkay.github.io/2018/06/25/max-product-items">previous post</a> we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than (O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product.</p>
+          <p>In a <a href="https://dotkay.github.io/2018/06/25/max-product-items">previous post</a> we were wondering if we can compute the elements (from a given unsorted array of integers) that result in maximum product faster than O(n logn). It turns out we can do a linear scan of the array, keeping track of the largest two and the smallest two elements. One of these pairs would result in the maximum product.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">maxprod</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span>
@@ -3751,7 +3749,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
         <div class="post-content">
           <p>Suppose we are given an unsorted array of integers and asked to find the pair of elements from the array that results in maximum product, how do we go about computing it?</p>
 
-<p>A naïve approach is to find the product of each pair and maintain the maximum product seen so far. This would be an (O(n^2)) algorithm. Let us start with this and improve on it.</p>
+<p>A naïve approach is to find the product of each pair and maintain the maximum product seen so far. This would be an O(n^2) algorithm. Let us start with this and improve on it.</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">maxprod</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span>
@@ -3776,7 +3774,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Can we do better than (O(n^2))? Clearly, yes. We know that we could sort an array efficiently in (O(n log n)). We could sort the array and the maximum product would be either the product of the largest two elements or smallest two elements (if they are both negative).</p>
+<p>Can we do better than O(n^2)? Clearly, yes. We know that we could sort an array efficiently in O(n log n). We could sort the array and the maximum product would be either the product of the largest two elements or smallest two elements (if they are both negative).</p>
 
 <figure class="highlight">
   <pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="nf">maxprod</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">)</span>
@@ -3791,7 +3789,7 @@ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-M
 <span class="p">}</span></code></pre>
 </figure>
 
-<p>Now, can we do better than $O(n log n)$?</p>
+<p>Now, can we do better than O(n log n)?</p>
 
         </div>
         
