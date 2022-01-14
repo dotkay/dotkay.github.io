@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "jekyll-paginate", "~> 1.1"
   s.add_runtime_dependency "jekyll-sitemap", "~> 1.0"
 
-  s.add_development_dependency "bundler", "~> 2.2.1"
+  s.add_development_dependency "bundler", "~> 2.3.5"
   s.add_development_dependency "rake"
 end
