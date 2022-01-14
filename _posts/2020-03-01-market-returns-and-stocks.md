@@ -3,6 +3,7 @@ layout: post
 title: Market Returns and Stock Prices
 categories: [S&P 500, DJIA, stock market, returns]
 keywords: [S&P 500, DJIA, stock market, returns]
+mathjax: true
 external-url: https://dotkay.github.io/2020/03/01/market-returns-and-stocks
 ---
 
