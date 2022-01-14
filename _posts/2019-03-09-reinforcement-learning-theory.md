@@ -13,7 +13,7 @@ In the [previous post](https://dotkay.github.io/2019/03/03/reinforcement-learnin
 A *state* is considered Markov if it captures all the relevant information from history. It might have started from initial state and gone through 100 transitions, but one does not need to remember the 100 intermediate states in order to know the system. The current state must somehow capture all of the relevant information. For example, if I say my age is 30 years (state), it fully captures what my age was in each of the last 30 years (state in each year in history). More formally, 
 
 $$
-  \mathbb{P}[S_{t+1} \mid S_t] = \mathbb{P}[S_{t+1} \mid S_1, \cdots, S_t]
+  \\mathbb{P}[S_{t+1} \\mid S_t] = \\mathbb{P}[S_{t+1} \\mid S_1, \\cdots, S_t]
 $$
 
 We also talk about state transitions. More often these are probabilistic transitions. If I am a 30 year old engineer (my current state), there is a relatively high probability I can start afresh and learn machine learning from YouTube and become a machine learning engineer (new state) but there is a very low probability that I can start afresh and become as gymnast (new state). Given a current state *s*, there is a probabilistic transition relation to next state *s'*. More formally,
