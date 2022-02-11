@@ -109,3 +109,6 @@ In all, 2021 was a fantastic year for Formula One. I wish the most crucial and d
 
 Looking forward to more competition in 2022.
 
+<span style="font-size: 70%">
+<i>The data is from a Kaggle dataset revised with the last race results of 2021, and the plots were done using matplotlib, seaborn.</i>
+</span>
