@@ -104,9 +104,6 @@ If the tree map makes you think GER (Germany) and GBR (Great Britain) are equal,
 
 In all, 2021 was a fantastic year for Formula One. I wish the most crucial and deciding race had not ended in a controversial way. Sergio Perez played the best team-mate and tons of thanks to Lewis and Max for the entertainment. 
 
-<div class="img_container">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7QJ-N-AQJYc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 Looking forward to more competition in 2022.
 
 <span style="font-size: 70%">
