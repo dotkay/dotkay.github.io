@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']],
+            processEscapes: true
+          }
+        });
+    </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Languages, Culture and Communication</title>
+  <meta name="description" content="Languages have always played a very important role in society and in our cultural evolutions. It has been the vehicle that allowed human beings to collaborate, coexist and achieve great things as well as to deceive, conspire and destroy. Languages have also evolved over time carrying with them many cultural norms, shades of history while also losing some. The same language might sound differently across an ocean or even across geographic land boundaries. Some languages like Sanskrit, though less ambiguous and more efficient, are struggling to survive while others like English are flourishing despite being more ambiguous. In the age of AI based natural language processing (NLP) is it possible to encode some of these norms and cultural connotations in order to make automated translations more close to native spoken languages? NLP systems are a commonplace today, mostly in the form of personal assistants like Alexa and chatbots like a customer service system. While they are able to understand and respond to usual queries or translate text to a surprising level of accuracy, they are far from matching human levels of communication. My claim is that NLP research is yet to discover the means to encode the several cultural connotations that come with languages, especially while translating from one to another. While NLP algorithms like LSTM and Transformers implicitly encode some of the context needed for better understanding of a statement, a pair of languages might be too different to capture all the context implicitly. Is capturing all of the context necessary? May not be. However, capturing important nuances might be. I have been playing around with the Hugging Face (:hugs:) API for quite sometime and really enjoying the easeness of use - ability to work with different popular transformer models for different types of NLP tasks. And of course, the ability to use several different famous models makes the result almost unbelievable. The pipeline() - fundamental component in the Transformers library serves as a pipeline between the different steps in an NLP pipeline. For example, we may want to connect a preprocessing step to an analysis step and then to a post-processing step. I believe the ease of use and the availability of several models makes Hugging Face the go-to tool for NLP. from transformers import pipeline When instantiating, the pipeline() expects the user to provide the NLP task we are interested in performing as well as an optional model (when not provided, a default model is used). We can create, for example, a sentiment analyzer by providing sentiment-analysis as the task. If we do not specify a model to be used, it defaults to Distilbert model. sanalyzer = pipeline(&#39;sentiment-analysis&#39;) We can pass strings that we want to analyze the sentiment for. sanalyzer(&quot;I plan to learn&quot;) and it returns the sentiment and a score of the sentiment. &amp;gt; [{&#39;label&#39;: &#39;POSITIVE&#39;, &#39;score&#39;: 0.9988747239112854}] So “learn” seems to be a positive thing to do. Let’s keep going with this: sanalyzer(&quot;I plan to learn Spanish&quot;) &amp;gt; [{&#39;label&#39;: &#39;POSITIVE&#39;, &#39;score&#39;: 0.9941837191581726}] So, learning Spanish also seems to be a positive thing to do. However, sanalyzer(&quot;I plan to learn some more Spanish.&quot;) &amp;gt; [{&#39;label&#39;: &#39;NEGATIVE&#39;, &#39;score&#39;: 0.9369450807571411}] I am not sure why, but learning some more seems to have a negative connotation (may be “some more” indicates some lacking that one is trying to improve upon?). However, if I add an additional phrase the overall sentiment seems to become positive. sanalyzer(&quot;I plan to learn some more Spanish. I want to be able to live and work in Spain.&quot;) &amp;gt; [{&#39;label&#39;: &#39;POSITIVE&#39;, &#39;score&#39;: 0.9970537424087524}] These are just some of the challenges with current NLP systems. The result could be interpreted in several ways and if the training (of which a model is a result of) was done on specific set of (data from a specific culture or a communication pattern), some phrases might get inferred as NEGATIVE though it would not seem negative to the user of such systems. Another example showing a subtle difference: sanalyzer(&quot;I plan to learn enough Corporate Finance in order to get a great job&quot;) &amp;gt; [{&#39;label&#39;: &#39;NEGATIVE&#39;, &#39;score&#39;: 0.5767139792442322}] returns a NEGATIVE sentiment while sanalyzer(&quot;I plan to learn Corporate Finance in order to get a great job&quot;) &amp;gt; [{&#39;label&#39;: &#39;POSITIVE&#39;, &#39;score&#39;: 0.902138888835907}] returns a POSITIVE one: More intriguing are the expressions that we use depending on cultures and traditions. In many languages, we use different pronouns and verb conjugations depending on if we are talking to elders using a formal language or talking to friends or children (informal language) - like vous vs tu in French, aap vs tum in Hindi, avar vs avan in Tamil, iyaal vs ival in Malayalam, etc. Humans have learnt to make that judgement call even when we talk over the phone - we choose formal or informal language depending on how much respect or importance we attach to the person we are talking to, even if it is a stranger and we are speaking to them for the first time. However, NLP systems do not have that context explicitly encoded and it is difficult to implicitly encode them as some languages do not have such differences and while translating from such languages, one would have to possibly over-correct. en_fr_translator = pipeline(&quot;translation_en_to_fr&quot;) en_fr_translator(&quot;Would you like some coffee?&quot;) &amp;gt; [{&#39;translation_text&#39;: &#39;Avez-vous envie de prendre du café ?&#39;}] As we see, we could offer coffee to a close friend (informal language) or we could be a barista offering coffee to a stranger or a customer (using formal language). These are very difficult to encode implicitly. Even when there are some clues in the statement, like the following sentence which talks about balloons which most likely only children would be interested in, most systems would prefer a formal language in order to be absolutely correct. en_fr_translator(&quot;Do you want a balloon?&quot;) &amp;gt; [{&#39;translation_text&#39;: &#39;Voulez-vous un ballon?&#39;}] There are also everyday language (colloquial) that differs from a more grammatically correct business or literary language. At times, the differences between the two is so large that chatbots may sound weird. Let us contrast English-French translation with French-English translation to check this. en_fr_translator(&quot;There&#39;s no one here.&quot;) &amp;gt; [{&#39;translation_text&#39;: &quot;Il n&#39;y a personne ici.&quot;}] In spoken French, one usually leaves out the negation (ne) in certain cases and so “Il y a personne ici.” would also actually mean “There’s no one here.” fr_en_translator(&quot;Il y a personne ici.&quot;) &amp;gt; [{&#39;translation_text&#39;: &quot;There&#39;s no one here.&quot;}] Another example, which might sound very counter-intuitive for people new to the French language. en_fr_translator(&quot;I have&quot;) &amp;gt; [{&#39;translation_text&#39;: &quot;J&#39;ai&quot;}] en_fr_translator(&quot;more bread.&quot;) &amp;gt; [{&#39;translation_text&#39;: &#39;plus de pain.&#39;}] Such statements are not always compositional. fr_en_translator(&quot;J&#39;ai plus de pain.&quot;) &amp;gt; [{&#39;translation_text&#39;: &quot;I don&#39;t have any more bread.&quot;}] Many NLP systems are trained on formal and informal phrases and hence would be great translators, they may not always be a great teacher. The fluidity of languages makes languages evolve, creating new words, phrases, letting go some rules of grammar and these are exactly what make languages beatiful and a treasure trove for linguists. These are also the same challenges that make NLP a fascinating subject for Computer Scientists. I am eagerly looking forward to understanding the research in this area hoping that there would be some architecture that would enable us encode some of these connotations implicitly, making NLP systems crawl a little closer towards human-like spoken languages.">
+  
+    
+    <meta name="keywords" content="Languages,Communication,NLP,Hugging Face">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2022/02/22/languages-culture-communication/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Languages, Culture and Communication">
+  <meta name="twitter:description" content="Languages have always played a very important role in society and in our cultural evolutions. It has been the vehicle that allowed human beings to collaborate, coexist and achieve great things as w...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+    <!-- Mathjax Support 
+    <a class="site-title" href="/"></a> 
+    -->
+    <img src="/assets/images/dotk.png" width="40" height="30">
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2022/02/22/languages-culture-communication">Languages, Culture and Communication &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2022-02-22T00:00:00+00:00" itemprop="datePublished">Feb 22, 2022</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/nlp/">NLP</a>,
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/languages/">Languages</a>,
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/hugging-face/">Hugging Face</a>
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Languages have always played a very important role in society and in our cultural evolutions. It has been the vehicle that allowed human beings to collaborate, coexist and achieve great things as well as to deceive, conspire and destroy. Languages have also evolved over time carrying with them many cultural norms, shades of history while also losing some. The same language might sound differently across an ocean or even across geographic land boundaries. Some languages like Sanskrit, though less ambiguous and more efficient, are struggling to survive while others like English are flourishing despite being more ambiguous. In the age of AI based natural language processing (NLP) is it possible to encode some of these norms and cultural connotations in order to make automated translations more close to native spoken languages?</p>
+
+<p>NLP systems are a commonplace today, mostly in the form of personal assistants like Alexa and chatbots like a customer service system. While they are able to understand and respond to usual queries or translate text to a surprising level of accuracy, they are far from matching human levels of communication. My claim is that NLP research is yet to discover the means to encode the several cultural connotations that come with languages, especially while translating from one to another. While NLP algorithms like LSTM and Transformers implicitly encode some of the context needed for better understanding of a statement, a pair of languages might be too different to capture all the context implicitly. Is capturing all of the context necessary? May not be. However, capturing important nuances might be.</p>
+
+<p>I have been playing around with the Hugging Face (:hugs:) API for quite sometime and really enjoying the easeness of use - ability to work with different popular transformer models for different types of NLP tasks. And of course, the ability to use several different famous models makes the result almost unbelievable. The <code class="language-plaintext highlighter-rouge">pipeline()</code> - fundamental component in the <em>Transformers</em> library serves as a pipeline between the different steps in an NLP pipeline. For example, we may want to connect a preprocessing step to an analysis step and then to a post-processing step. I believe the ease of use and the availability of several models makes Hugging Face the go-to tool for NLP.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+</code></pre></div></div>
+
+<p>When instantiating, the <code class="language-plaintext highlighter-rouge">pipeline()</code> expects the user to provide the NLP task we are interested in performing as well as an optional model (when not provided, a default model is used).</p>
+
+<p>We can create, for example, a sentiment analyzer by providing <code class="language-plaintext highlighter-rouge">sentiment-analysis</code> as the task. If we do not specify a model to be used, it defaults to Distilbert model.</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sanalyzer</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s">'sentiment-analysis'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>We can pass strings that we want to analyze the sentiment for.</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sanalyzer</span><span class="p">(</span><span class="s">"I plan to learn"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>and it returns the sentiment and a score of the sentiment.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; [{'label': 'POSITIVE', 'score': 0.9988747239112854}]
+</code></pre></div></div>
+
+<p>So “learn” seems to be a positive thing to do. Let’s keep going with this:</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sanalyzer</span><span class="p">(</span><span class="s">"I plan to learn Spanish"</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'label'</span><span class="p">:</span> <span class="s">'POSITIVE'</span><span class="p">,</span> <span class="s">'score'</span><span class="p">:</span> <span class="mf">0.9941837191581726</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>So, learning Spanish also seems to be a positive thing to do. However,</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sanalyzer</span><span class="p">(</span><span class="s">"I plan to learn some more Spanish."</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'label'</span><span class="p">:</span> <span class="s">'NEGATIVE'</span><span class="p">,</span> <span class="s">'score'</span><span class="p">:</span> <span class="mf">0.9369450807571411</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>I am not sure why, but learning some more seems to have a negative connotation (may be “some more” indicates some lacking that one is trying to improve upon?). However, if I add an additional phrase the overall sentiment seems to become positive.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sanalyzer</span><span class="p">(</span><span class="s">"I plan to learn some more Spanish. I want to be able to live and work in Spain."</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'label'</span><span class="p">:</span> <span class="s">'POSITIVE'</span><span class="p">,</span> <span class="s">'score'</span><span class="p">:</span> <span class="mf">0.9970537424087524</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>These are just some of the challenges with current NLP systems. The result could be interpreted in several ways and if the training (of which a model is a result of) was done on specific set of (data from a specific culture or a communication pattern), some phrases might get inferred as <code class="language-plaintext highlighter-rouge">NEGATIVE</code> though it would not seem negative to the user of such systems. Another example showing a subtle difference:</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sanalyzer</span><span class="p">(</span><span class="s">"I plan to learn enough Corporate Finance in order to get a great job"</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'label'</span><span class="p">:</span> <span class="s">'NEGATIVE'</span><span class="p">,</span> <span class="s">'score'</span><span class="p">:</span> <span class="mf">0.5767139792442322</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>returns a <code class="language-plaintext highlighter-rouge">NEGATIVE</code> sentiment while</p>
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sanalyzer</span><span class="p">(</span><span class="s">"I plan to learn Corporate Finance in order to get a great job"</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'label'</span><span class="p">:</span> <span class="s">'POSITIVE'</span><span class="p">,</span> <span class="s">'score'</span><span class="p">:</span> <span class="mf">0.902138888835907</span><span class="p">}]</span>
+</code></pre></div></div>
+<p>returns a <code class="language-plaintext highlighter-rouge">POSITIVE</code> one:</p>
+
+<p>More intriguing are the expressions that we use depending on cultures and traditions. In many languages, we use different pronouns and verb conjugations depending on if we are talking to elders using a formal language or talking to friends or children (informal language) - like <em>vous</em> vs <em>tu</em> in French, <em>aap</em> vs <em>tum</em> in Hindi, <em>avar</em> vs <em>avan</em> in Tamil, <em>iyaal</em> vs <em>ival</em> in Malayalam, etc. Humans have learnt to make that judgement call even when we talk over the phone - we choose formal or informal language depending on how much respect or importance we attach to the person we are talking to, even if it is a stranger and we are speaking to them for the first time. However, NLP systems do not have that context explicitly encoded and it is difficult to implicitly encode them as some languages do not have such differences and while translating from such languages, one would have to possibly over-correct.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">en_fr_translator</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s">"translation_en_to_fr"</span><span class="p">)</span>
+<span class="n">en_fr_translator</span><span class="p">(</span><span class="s">"Would you like some coffee?"</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'translation_text'</span><span class="p">:</span> <span class="s">'Avez-vous envie de prendre du café ?'</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>As we see, we could offer coffee to a close friend (informal language) or we could be a barista offering coffee to a stranger or a customer (using formal language). These are very difficult to encode implicitly. Even when there are some clues in the statement, like the following sentence which talks about <em>balloons</em> which most likely only children would be interested in, most systems would prefer a formal language in order to be absolutely correct.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">en_fr_translator</span><span class="p">(</span><span class="s">"Do you want a balloon?"</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'translation_text'</span><span class="p">:</span> <span class="s">'Voulez-vous un ballon?'</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>There are also everyday language (colloquial) that differs from a more grammatically correct business or literary language. At times, the differences between the two is so large that chatbots may sound weird. Let us contrast English-French translation with French-English translation to check this.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">en_fr_translator</span><span class="p">(</span><span class="s">"There's no one here."</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'translation_text'</span><span class="p">:</span> <span class="s">"Il n'y a personne ici."</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>In spoken French, one usually leaves out the negation (<em>ne</em>) in certain cases and so “<em>Il y a personne ici.</em>” would also actually mean “<em>There’s no one here.</em>”</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fr_en_translator</span><span class="p">(</span><span class="s">"Il y a personne ici."</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'translation_text'</span><span class="p">:</span> <span class="s">"There's no one here."</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>Another example, which might sound very counter-intuitive for people new to the French language.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">en_fr_translator</span><span class="p">(</span><span class="s">"I have"</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'translation_text'</span><span class="p">:</span> <span class="s">"J'ai"</span><span class="p">}]</span>
+<span class="n">en_fr_translator</span><span class="p">(</span><span class="s">"more bread."</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'translation_text'</span><span class="p">:</span> <span class="s">'plus de pain.'</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>Such statements are not always compositional.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fr_en_translator</span><span class="p">(</span><span class="s">"J'ai plus de pain."</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="p">[{</span><span class="s">'translation_text'</span><span class="p">:</span> <span class="s">"I don't have any more bread."</span><span class="p">}]</span>
+</code></pre></div></div>
+
+<p>Many NLP systems are trained on formal and informal phrases and hence would be great translators, they may not always be a great teacher. The fluidity of languages makes languages evolve, creating new words, phrases, letting go some rules of grammar and these are exactly what make languages beatiful and a treasure trove for linguists. These are also the same challenges that make NLP a fascinating subject for Computer Scientists. I am eagerly looking forward to understanding the research in this area hoping that there would be some architecture that would enable us encode some of these connotations implicitly, making NLP systems crawl a little closer towards human-like spoken languages.</p>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
