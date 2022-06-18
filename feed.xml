@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2022-04-03T14:42:47+00:00</updated>
+  <updated>2022-06-18T04:48:51+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -16,6 +16,261 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Logic, Languages and Reasoning →</title>
+      
+      <link href="https://dotkay.github.io/2022/04/24/logic-languages-reasoning/" rel="alternate" type="text/html" title="Logic, Languages and Reasoning" />
+      <published>2022-04-24T00:00:00+00:00</published>
+      <updated>2022-04-24T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2022/04/24/logic-languages-reasoning</id>
+      <content type="html" xml:base="https://dotkay.github.io/2022/04/24/logic-languages-reasoning/">&lt;p&gt;Human languages developed and evolved over thousands of years. Though most languages have a structure (defined by the rules of grammar) we think of spoken languages as a series of informal statements (“informal” compared to the “formal” rigor of mathematical statements). While informal statements helped human species to communicate and collaborate, eventually evolving languages themselves, informal statements were not enough for settling arguments, legal disputes or discovering (new) knowledge from existing knowledge. Socrates, Plato’s teacher, is credited with coming up with inductive arguments and universal definitions. Aristotle’s logic consisted of formulating statements and deriving new knowledge (conclusion) from the knowledge contained in a set of statements (&lt;em&gt;premises&lt;/em&gt;) guided by rules that he called &lt;em&gt;syllogisms&lt;/em&gt;. Aristotle, a student of Plato, is credited with the earliest study of logic, &lt;em&gt;formal logic&lt;/em&gt;, in his collected works &lt;em&gt;[Organon]&lt;/em&gt;(https://archive.org/details/AristotleOrganon/mode/2up). Plato also contributed to the study of reasoning. While Plato relied on &lt;em&gt;deduction&lt;/em&gt; from &lt;em&gt;a priori&lt;/em&gt; knowledge and postulated that knowledge of things that happen can be deduced from the knowledge of universal ideas, Aristotle’s epistemology postulated that knowledge of things that happen build up to universal knowledge collectively. Together the main recipes for reasoning - induction, deduction and abduction - were discovered that are the pillars for making reasoning infallible.&lt;/p&gt;
+
+&lt;p&gt;Mathematicians developed it further for mathematical reasoning which got shaped, like many mathematical computations, into &lt;em&gt;automated reasoning&lt;/em&gt; using computer programs by computer scientists. Mathematical logic is the cornerstone of systems that are used for reasoning about the correctness of computer programs.&lt;/p&gt;
+
+&lt;p&gt;We can use &lt;a href=&quot;https://www.nltk.org/&quot;&gt;NLTK&lt;/a&gt;’s Python API to play with it to see what it means to encode English sentences as logical formulas. Once we are able to encode knowledge (in English sentences) we can use well formed rules of logic to deduce new information, also called &lt;em&gt;logical inference&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;nltk&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;nltk&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;load_parser&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;grammar_file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'file:///nltk_data/grammars/book_grammars/simple-sem.fcfg'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;load_parser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grammar_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;stmt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Angus gives a bone to every dog'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;trees&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stmt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;trees&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'SEM'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This gives the semantics in the form of a logical formula:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;all z2.(dog(z2) -&amp;gt; exists z1.(bone(z1) &amp;amp; give(angus,z1,z2)))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Further more, one could use the theorem prover that comes along with NLTK to check for consistency among statements and prove goals (conclusion) given a list of statements (premises). For example, one could write&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mini_has_ball&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;read_expr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'has(mini)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mini2jane&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;read_expr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'pass(mini, jane)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;read_expr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'all x. all y. (pass(x, y) -&amp;gt; has(y))'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We just encoded some English statements as well as the assumption that if &lt;em&gt;x&lt;/em&gt; passes the ball to &lt;em&gt;y&lt;/em&gt;, then &lt;em&gt;y&lt;/em&gt; will have the ball. We can use a theorem prover to prove a goal that &lt;em&gt;jane has the ball&lt;/em&gt; and check if it follows from our assumptions, i.e. of the goal can be derived given the assumptions&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;jane_has_ball&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;read_expr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'has(jane)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prover&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nltk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Prover9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prover&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jane_has_ball&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mini2jane&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;and the prover, if it can establish a proof, will return:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;True
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This kind of encoding and logical reasoning might be needed to answer questions like the last one we saw in a &lt;a href=&quot;https://dotkay.github.io/2022/03/21/languages-logic-computation&quot;&gt;previous post&lt;/a&gt;. One might also need more expressive logics in order to encode statements about temporal events succinctly. However, languages themselves are stochastic systems which would imply that we would never be able to come up with logically accurate formulations of the sentences we use in everyday conversations, especially when it involves conversations involving languages that are not one’s native language and might have grammatical mistakes and still convey the intended message. Legal documents or financial documents, for example, could be structured in a precise format that might allow one to formulate the sentences in a logical language and make queries that can return an accurate answer that can be reasoned about if needed - think of a healthcare database to which policy makers submit queries in a natural language. A deep learning based approach, which looks at several usage patterns, to arrive at an approximate formulation which would still enable one to deduce new information from a set of facts already provided. This would be more crucial in developing (explainable) AI systems that can be reasoned about, which is especially crucial in healthcare and other critical domains where AI systems are beginning to find their place.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://images.metmuseum.org/CRDImages/ep/original/DP-13139-001.jpg#center&quot; alt=&quot;img&quot; /&gt;
+&lt;em&gt;Death of Socrates, by Jacques Louis David (Credits: The Met)&lt;/em&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="NLP" />
+      
+        <category term="logic" />
+      
+        <category term="reasoning" />
+      
+        <category term="computation" />
+      
+        <category term="NLTK" />
+      
+
+      
+
+      
+        <summary type="html">Human languages developed and evolved over thousands of years. Though most languages have a structure (defined by the rules of grammar) we think of spoken languages as a series of informal statements (“informal” compared to the “formal” rigor of mathematical statements). While informal statements helped human species to communicate and collaborate, eventually evolving languages themselves, informal statements were not enough for settling arguments, legal disputes or discovering (new) knowledge from existing knowledge. Socrates, Plato’s teacher, is credited with coming up with inductive arguments and universal definitions. Aristotle’s logic consisted of formulating statements and deriving new knowledge (conclusion) from the knowledge contained in a set of statements (premises) guided by rules that he called syllogisms. Aristotle, a student of Plato, is credited with the earliest study of logic, formal logic, in his collected works [Organon](https://archive.org/details/AristotleOrganon/mode/2up). Plato also contributed to the study of reasoning. While Plato relied on deduction from a priori knowledge and postulated that knowledge of things that happen can be deduced from the knowledge of universal ideas, Aristotle’s epistemology postulated that knowledge of things that happen build up to universal knowledge collectively. Together the main recipes for reasoning - induction, deduction and abduction - were discovered that are the pillars for making reasoning infallible. Mathematicians developed it further for mathematical reasoning which got shaped, like many mathematical computations, into automated reasoning using computer programs by computer scientists. Mathematical logic is the cornerstone of systems that are used for reasoning about the correctness of computer programs. We can use NLTK’s Python API to play with it to see what it means to encode English sentences as logical formulas. Once we are able to encode knowledge (in English sentences) we can use well formed rules of logic to deduce new information, also called logical inference. import nltk from nltk import load_parser grammar_file = 'file:///nltk_data/grammars/book_grammars/simple-sem.fcfg' lp = load_parser(grammar_file) stmt = 'Angus gives a bone to every dog' trees = lp.parse(stmt.split()) for tree in trees: print(tree.label()['SEM']) This gives the semantics in the form of a logical formula: all z2.(dog(z2) -&amp;gt; exists z1.(bone(z1) &amp;amp; give(angus,z1,z2))) Further more, one could use the theorem prover that comes along with NLTK to check for consistency among statements and prove goals (conclusion) given a list of statements (premises). For example, one could write mini_has_ball = read_expr('has(mini)') mini2jane = read_expr('pass(mini, jane)') rules = read_expr('all x. all y. (pass(x, y) -&amp;gt; has(y))') We just encoded some English statements as well as the assumption that if x passes the ball to y, then y will have the ball. We can use a theorem prover to prove a goal that jane has the ball and check if it follows from our assumptions, i.e. of the goal can be derived given the assumptions jane_has_ball = read_expr('has(jane)') prover = nltk.Prover9() prover.prove(jane_has_ball, [rules, mini2jane]) and the prover, if it can establish a proof, will return: True This kind of encoding and logical reasoning might be needed to answer questions like the last one we saw in a previous post. One might also need more expressive logics in order to encode statements about temporal events succinctly. However, languages themselves are stochastic systems which would imply that we would never be able to come up with logically accurate formulations of the sentences we use in everyday conversations, especially when it involves conversations involving languages that are not one’s native language and might have grammatical mistakes and still convey the intended message. Legal documents or financial documents, for example, could be structured in a precise format that might allow one to formulate the sentences in a logical language and make queries that can return an accurate answer that can be reasoned about if needed - think of a healthcare database to which policy makers submit queries in a natural language. A deep learning based approach, which looks at several usage patterns, to arrive at an approximate formulation which would still enable one to deduce new information from a set of facts already provided. This would be more crucial in developing (explainable) AI systems that can be reasoned about, which is especially crucial in healthcare and other critical domains where AI systems are beginning to find their place. Death of Socrates, by Jacques Louis David (Credits: The Met)</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Languages, Logic and Computation →</title>
+      
+      <link href="https://dotkay.github.io/2022/03/21/languages-logic-computation/" rel="alternate" type="text/html" title="Languages, Logic and Computation" />
+      <published>2022-03-21T00:00:00+00:00</published>
+      <updated>2022-03-21T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2022/03/21/languages-logic-computation</id>
+      <content type="html" xml:base="https://dotkay.github.io/2022/03/21/languages-logic-computation/">&lt;p&gt;A &lt;a href=&quot;https://dotkay.github.io/2022/02/22/languages-culture-communication&quot;&gt;previous post&lt;/a&gt; spoke about state-of-the-art NLP systems that are based on Transformers and some of the challenges around using such systems for translations. Although they could translate almost accurately, they may not match the nuances of spoken (informal) languages. There are other challenges around &lt;em&gt;Question Answering&lt;/em&gt; systems - another tasks such NLP systems are capable of doing. In this post, this is explored futher to see when some computation (as in logical inference rather than mathematical inference) is needed to come up with an answer. We play with &lt;a href=&quot;https://openai.com/&quot;&gt;OpenAI&lt;/a&gt; APIs to see how the state-of-the-art NLP systems excel at language understanding and also where they have gaps to fill.&lt;/p&gt;
+
+&lt;p&gt;English, like many other languages, is a little ambiguous. There are well established rules of English grammar but I believe there are several statements in common parlance that have introduce some ambiguity. While I tried &lt;a href=&quot;https://openai.com/&quot;&gt;OpenAI&lt;/a&gt;, in particular the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;text-davinci-002&lt;/code&gt; engine on a variety of English statements and the results were astounding, when I kept going on, there were some statements where the answer was not exactly clear.&lt;/p&gt;
+
+&lt;p&gt;One of the was what &lt;em&gt;she&lt;/em&gt; refers to in a statement like &lt;em&gt;Anna hit Clara because she was drunk&lt;/em&gt;. Though it looks ambiguous I believe as &lt;em&gt;Anna&lt;/em&gt; is the subject, the &lt;em&gt;she&lt;/em&gt; in the statement must refer to &lt;em&gt;Anna&lt;/em&gt;. OpenAI does seem to tell me that the &lt;em&gt;she&lt;/em&gt; in the statement refers to &lt;em&gt;Anna&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create(
+      engine=&quot;text-davinci-002&quot;,
+      prompt=&quot;Anna hit Clara because she was drunk.\n\nQ: Who was drunk?\nA:&quot;,
+      top_p=1,
+      ...
+    )
+&amp;gt;&amp;gt;&amp;gt; print(response)
+{
+  &quot;choices&quot;: [
+    {
+      ...
+      &quot;text&quot;: &quot; Anna was drunk.&quot;
+    }
+  ],
+...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If I rephrase the above statement as &lt;em&gt;Anna hit Clara because she was drunk. Was Clara drunk?&lt;/em&gt;, OpenAI was humble enough to admit that it does not know, which is impressive as there isn’t enough context to infer if &lt;em&gt;Clara&lt;/em&gt; was drunk.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create(
+      engine=&quot;text-davinci-002&quot;,
+      prompt=&quot;Anna hit Clara because she was drunk.\n\nQ: Was Clara drunk?\nA:&quot;,
+      ...
+      stop=[&quot;\n&quot;]
+    )
+&amp;gt;&amp;gt;&amp;gt; print(response)
+{
+  &quot;choices&quot;: [
+    {
+      ...
+      &quot;text&quot;: &quot; I don't know.&quot;
+    }
+  ],
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What impressed me the most was the ability to do formulaic calculations and return an answer.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create(
+      engine=&quot;text-davinci-002&quot;,
+      prompt=&quot;The sale price of a decent house in California is about a million dollars. 20%
+      of the price needs to be paid as down payment. In addition, the county levies a 
+      property tax of 1.2% on the sale price of the house. John takes a 30 year fixed rate 
+      mortgage at 3.5% interest rate.\n\nQ: What would be John's monthly cost of ownership? 
+      \nA:&quot;,
+      ...
+    )
+&amp;gt;&amp;gt;&amp;gt; print(response)
+{
+  &quot;choices&quot;: [
+    {
+      ... 
+      &quot;text&quot;: &quot; John's monthly cost of ownership would be $4,167.&quot;
+    }
+  ],
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;While the ability to solve when numerical information was provided was too impressive, there was some struggle when the answer involved logical interpretation and numerical computation. For example, the query in the following requires interpreting what “boundary” is and how it contributes to the answer.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create(
+      engine=&quot;text-davinci-002&quot;,
+      prompt=&quot;Dhoni scored a single off the first ball of the 11th over. Sachin scored two
+      consecutive boundaries followed by a single. Dhoni hit the biggest six of the match. 
+      He then followed it up with a single and retained strike. \n\nQ: How many runs were 
+      scored off the 11th over? \nA:&quot;,
+      ...
+    )
+&amp;gt;&amp;gt;&amp;gt; print(response)
+{
+  &quot;choices&quot;: [
+    {
+      ...
+      &quot;text&quot;: &quot; 15&quot;
+    }
+  ],
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Human languages are such that they involve logical interpretation, deduction and computation. It is precisely this challenge that leads to misinterpretation, miscommunication and chaos - you can think of the last time a celebrity or a politican claimed his comments were misinterpreted or taken out of context. However, we as human beings deal with these every day and are attuned to the fallacies and inaccuracies. Our communication system, the one that distinguishes us from many other species, is itself a stochastic one.&lt;/p&gt;
+
+&lt;p&gt;Some statements require logical deduction which is challenging for deep learning systems (that learn from patterns contained in a training corpus). For example,&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create(
+      engine=&quot;text-davinci-002&quot;,
+      prompt=&quot;marco passed the ball to miel, miel quickly gave it to don who passed it on to
+      sky. sky ran with it for a while and gave it to anna.\n\nQ: Does marco have the ball 
+      now?\nA:&quot;,
+      ...
+   )
+   &amp;gt;&amp;gt;&amp;gt; print(response)
+{
+  &quot;choices&quot;: [
+    {
+      ...
+      &quot;text&quot;: &quot; No&quot;
+    }
+  ],
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;While the system is able to deduce that &lt;em&gt;marco&lt;/em&gt; does not have the ball, a deduction performed to answer &lt;em&gt;who has the ball?&lt;/em&gt; doesn’t seem to work well.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create(
+      engine=&quot;text-davinci-002&quot;,
+      prompt=&quot;marco passed the ball to miel, miel quickly gave it to don who passed it on to
+      sky. sky ran with it for a while and gave it to anna.\n\nQ: Who has the ball now?\nA:&quot;,
+      ...
+    )
+&amp;gt;&amp;gt;&amp;gt; print(response)
+{
+  &quot;choices&quot;: [
+    {
+      ...
+      &quot;text&quot;: &quot;&quot;
+    }
+  ],
+  ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There is immense research interest in this area and the progress being made is as impressive as that has been achieved so far. Hopefully, in a future post, I will be able to show an NLP system that combines logical reasoning with deep learning and is able to answer much more fancier questions. I am looking forward to it.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="NLP" />
+      
+        <category term="logic" />
+      
+        <category term="computation" />
+      
+        <category term="OpenAI" />
+      
+
+      
+
+      
+        <summary type="html">A previous post spoke about state-of-the-art NLP systems that are based on Transformers and some of the challenges around using such systems for translations. Although they could translate almost accurately, they may not match the nuances of spoken (informal) languages. There are other challenges around Question Answering systems - another tasks such NLP systems are capable of doing. In this post, this is explored futher to see when some computation (as in logical inference rather than mathematical inference) is needed to come up with an answer. We play with OpenAI APIs to see how the state-of-the-art NLP systems excel at language understanding and also where they have gaps to fill. English, like many other languages, is a little ambiguous. There are well established rules of English grammar but I believe there are several statements in common parlance that have introduce some ambiguity. While I tried OpenAI, in particular the text-davinci-002 engine on a variety of English statements and the results were astounding, when I kept going on, there were some statements where the answer was not exactly clear. One of the was what she refers to in a statement like Anna hit Clara because she was drunk. Though it looks ambiguous I believe as Anna is the subject, the she in the statement must refer to Anna. OpenAI does seem to tell me that the she in the statement refers to Anna. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;Anna hit Clara because she was drunk.\n\nQ: Who was drunk?\nA:&quot;, top_p=1, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; Anna was drunk.&quot; } ], ... } If I rephrase the above statement as Anna hit Clara because she was drunk. Was Clara drunk?, OpenAI was humble enough to admit that it does not know, which is impressive as there isn’t enough context to infer if Clara was drunk. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;Anna hit Clara because she was drunk.\n\nQ: Was Clara drunk?\nA:&quot;, ... stop=[&quot;\n&quot;] ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; I don't know.&quot; } ], ... } What impressed me the most was the ability to do formulaic calculations and return an answer. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;The sale price of a decent house in California is about a million dollars. 20% of the price needs to be paid as down payment. In addition, the county levies a property tax of 1.2% on the sale price of the house. John takes a 30 year fixed rate mortgage at 3.5% interest rate.\n\nQ: What would be John's monthly cost of ownership? \nA:&quot;, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; John's monthly cost of ownership would be $4,167.&quot; } ], ... } While the ability to solve when numerical information was provided was too impressive, there was some struggle when the answer involved logical interpretation and numerical computation. For example, the query in the following requires interpreting what “boundary” is and how it contributes to the answer. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;Dhoni scored a single off the first ball of the 11th over. Sachin scored two consecutive boundaries followed by a single. Dhoni hit the biggest six of the match. He then followed it up with a single and retained strike. \n\nQ: How many runs were scored off the 11th over? \nA:&quot;, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; 15&quot; } ], ... } Human languages are such that they involve logical interpretation, deduction and computation. It is precisely this challenge that leads to misinterpretation, miscommunication and chaos - you can think of the last time a celebrity or a politican claimed his comments were misinterpreted or taken out of context. However, we as human beings deal with these every day and are attuned to the fallacies and inaccuracies. Our communication system, the one that distinguishes us from many other species, is itself a stochastic one. Some statements require logical deduction which is challenging for deep learning systems (that learn from patterns contained in a training corpus). For example, &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;marco passed the ball to miel, miel quickly gave it to don who passed it on to sky. sky ran with it for a while and gave it to anna.\n\nQ: Does marco have the ball now?\nA:&quot;, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; No&quot; } ], ... } While the system is able to deduce that marco does not have the ball, a deduction performed to answer who has the ball? doesn’t seem to work well. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;marco passed the ball to miel, miel quickly gave it to don who passed it on to sky. sky ran with it for a while and gave it to anna.\n\nQ: Who has the ball now?\nA:&quot;, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot;&quot; } ], ... } There is immense research interest in this area and the progress being made is as impressive as that has been achieved so far. Hopefully, in a future post, I will be able to show an NLP system that combines logical reasoning with deep learning and is able to answer much more fancier questions. I am looking forward to it.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1502,157 +1757,6 @@ description                       object
 
       
         <summary type="html">In an earlier post, we learnt something that we do not see everyday, even if we work in a coal mine, as the variety of energy and the consumption end points blind us from looking at the full picture. Today, we will look at some trends that we see all around us, all the time - Electric vehicles (EVs). For most of us, an electric car immediately reminds us of Tesla - the innovative American automobile manufacturer that is to become the world’s most valuable automobile company very soon. Tesla is also the company that created an electric car revolution. Tesla’s success, in many ways, drove other automakers to accelerate their offering of all-electric products. We saw that the transition was not overnight. Many built hybrid vehicles (HEV), range-extended electric vehicles, plug-in hybrid vehicles (PHEV), before building all electric, or battery electric vehicles (BEV). However, if one is to guess which country on the planet has the most number of electric cars it would most likely be the US or EU, because of Tesla and the likes of VW or BMW (both of which make electric cars). Let’s see how the actual answer unfolds. IEA’s global outlook and data show some impressive numbers. To quote from their report, Only about 17 000 electric cars were on the world’s roads in 2010. By 2019, that number had swelled to 7.2 million, 47% of which were in The People’s Republic of China. Further, despite purchase subsidies for electric cars were cut in many geographies (like tax credits in the US) and the resulting drop in electric car sales, the total number electric vehicles in China, EU and the US are still very impressive - 2.58 million BEVs in China compared to 0.88 million BEVs in the US and 0.97 million BEVs in the EU. One would start thinking what other industries are getting transformed along with the transformation of automotive industry. The implications of this transformation are huge touching several industries from service industry, retail and insurance. The analysis of the transformation itself would give fascninating insights. That would be the topic of a future post.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Covid vs Coal →</title>
-      
-      <link href="https://dotkay.github.io/2020/06/01/covid-vs-coal/" rel="alternate" type="text/html" title="Covid vs Coal" />
-      <published>2020-06-01T00:00:00+00:00</published>
-      <updated>2020-06-01T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2020/06/01/covid-vs-coal</id>
-      <content type="html" xml:base="https://dotkay.github.io/2020/06/01/covid-vs-coal/">&lt;p&gt;I was listening to an interesting news program on renewable energy recently that made claims and projections about the current state and future of energy - primarily about renewable energy overtaking coal as the major source of energy. As a result of Covid, demand for electricity has fallen and as coal has become more and more expensive than renewable counterparts, coal based electricity is facing an uphill battle. Will coal survive the covid crisis, in developed countries, is yet to be seen.&lt;/p&gt;
-
-&lt;p&gt;This prompted me to dig further into the data on energy production and consumption in the US. I was indeed surprised to see that coal based energy production is in fact decreasing in the US, and is decreasing drastically. I was surpised by two factors. First, I thought only under-developed or developing countries were the places where coal based energy was a major source, primarily due to the lack of infrastructure (like efficient transmission grids) and the cost of renewable energy (solar panels, wind turbines, etc.). Second, nuclear power production has flattened out somewhere in the last decade, and is now overtaken by renewable energy. With several nuclear power plants built over the decades, some of them dangerously &lt;a href=&quot;http://www.nbcnews.com/id/42103936/ns/world_news-asia_pacific/t/what-are-odds-us-nuke-plants-ranked-quake-risk/&quot;&gt;close to fault lines&lt;/a&gt;, I was expecting more energy to be generated by nuclear plants. It turned out that was not the case.&lt;/p&gt;
-
-&lt;p&gt;Looking at the data, coal production is indeed decreasing and at such a rate that it is almost close to what it was in the 1950s. While renewable energy is all set to overtake coal based energy and experts predict 2020 to be the year for this to happen. In fact, renewable energy production has already overtaken nuclear energy.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;p&gt;&lt;img src=&quot;/assets/images/energy/coal_vs_renewable.PNG&quot; alt=&quot;Coal vs Renewable Energy&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;p&gt;While the above is certainly positive news, there are several other fossil fuels (natural gas, crude oil, etc.) just like there are several renewable energy sources (hydroelectric,  solar, wind, etc.). Looking at more details at the different sources of fossil fuels, although coal production has reduced, total fossil fuel production is still way more than renewable energy production as the following chart shows.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;p&gt;&lt;img src=&quot;/assets/images/energy/fossil_vs_renewable.PNG&quot; alt=&quot;Fossil Fuels vs Renewable Energy&quot; class=&quot;img=responsive&quot; /&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Stay tuned for more insights into energy production and consumption in residential and transportation sectors.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="energy" />
-      
-        <category term="coal" />
-      
-        <category term="renewable energy" />
-      
-        <category term="US" />
-      
-
-      
-
-      
-        <summary type="html">I was listening to an interesting news program on renewable energy recently that made claims and projections about the current state and future of energy - primarily about renewable energy overtaking coal as the major source of energy. As a result of Covid, demand for electricity has fallen and as coal has become more and more expensive than renewable counterparts, coal based electricity is facing an uphill battle. Will coal survive the covid crisis, in developed countries, is yet to be seen. This prompted me to dig further into the data on energy production and consumption in the US. I was indeed surprised to see that coal based energy production is in fact decreasing in the US, and is decreasing drastically. I was surpised by two factors. First, I thought only under-developed or developing countries were the places where coal based energy was a major source, primarily due to the lack of infrastructure (like efficient transmission grids) and the cost of renewable energy (solar panels, wind turbines, etc.). Second, nuclear power production has flattened out somewhere in the last decade, and is now overtaken by renewable energy. With several nuclear power plants built over the decades, some of them dangerously close to fault lines, I was expecting more energy to be generated by nuclear plants. It turned out that was not the case. Looking at the data, coal production is indeed decreasing and at such a rate that it is almost close to what it was in the 1950s. While renewable energy is all set to overtake coal based energy and experts predict 2020 to be the year for this to happen. In fact, renewable energy production has already overtaken nuclear energy. While the above is certainly positive news, there are several other fossil fuels (natural gas, crude oil, etc.) just like there are several renewable energy sources (hydroelectric, solar, wind, etc.). Looking at more details at the different sources of fossil fuels, although coal production has reduced, total fossil fuel production is still way more than renewable energy production as the following chart shows. Stay tuned for more insights into energy production and consumption in residential and transportation sectors.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Online Education - ‘Right’ing the Privilege →</title>
-      
-      <link href="https://dotkay.github.io/2020/05/25/online-education-part-1/" rel="alternate" type="text/html" title="Online Education - 'Right'ing the Privilege" />
-      <published>2020-05-25T00:00:00+00:00</published>
-      <updated>2020-05-25T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2020/05/25/online-education-part-1</id>
-      <content type="html" xml:base="https://dotkay.github.io/2020/05/25/online-education-part-1/">&lt;p&gt;As we have been watching over the years, quality education no longer requires us to move to a different city to attend a quality university. It is available right on our smart device. With several universities around the world having some set of courses that are offered online and with the growth of several companies like Udacity, Coursera, Udemy and the like offering MOOCs (Massive Open Online Courses) the scale of reach for quality education is also much bigger - after all no university classroom is equipped to handle a million students simultaneously. So it is fair to say that anyone anywhere can get access to quality education right at their fingertips. Or is it? Are we missing something else?&lt;/p&gt;
-
-&lt;p&gt;The COVID pandemic has exposed the inqualities, not only in employment but also in access to quality education. With several schools shut, the only options several schools have is to deliver their courses online. While many schools themselves are not well equipped to deliver education as a digital service, many more students and their households do not have the means to provide them with the necessary infrastructure.&lt;/p&gt;
-
-&lt;p&gt;In a study, McKinsey &amp;amp; Co. compared 6th grade performance under different scenarios - returning to classrooms in 2020, early 2021 and mid 2021 and the results are shocking. The report also computes the average months of learning lost, due to low-quality remote learning, to be about 7-11 months even if schools open in early 2021 for in person learning.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/misc/mckinsey_6th_grade_school.png&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-
-&lt;p&gt;The report also says that this can have a drastic impact on the future of students and thereby the GDP of the country, due to many students dropping out of school due to their inability to access education.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/misc/mckinsey_gdp_loss_due_to_school.png&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-
-&lt;p&gt;And these results might just be the tip of the iceberg. Even if the government is able to subsidise infrastructure needs for online education over the next several months, that alone is not going to solve the problem. The dynamics of online education, especially for younger children, have many challenges:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;There is a certain energy that is brought about by many teachers in the physical classroom, that motivates students to listen and learn. This is difficult for many teachers to replicate online.&lt;/li&gt;
-  &lt;li&gt;Just as not every YouTube video is interesting not every subject is going to be equally interesting when listened to online.&lt;/li&gt;
-  &lt;li&gt;Attention span of students away from a regular, formal school environment is going to be different (lower) and this would reduce the learning experience as well as the knowledge gained.&lt;/li&gt;
-  &lt;li&gt;Many schools and teachers may not be proficient or may not have the workforce to deal with the many system administration issues that need to be tackled in real-time for delivering classes online.&lt;/li&gt;
-  &lt;li&gt;Accessing such online education also requires relatively stable devices - even if chromebooks are relatively cheaper, many households - especially in the developing world where tablets and chromebooks are still a discretionary expense.&lt;/li&gt;
-  &lt;li&gt;Many parts of the developing world also do not have the necessary internet infrastructure to handle streaming videos at a large scale. Note that the number of students in a class in the developing world is also large.&lt;/li&gt;
-  &lt;li&gt;Moving from blackboard teaching to digital content creation takes time and it is not always easy.&lt;/li&gt;
-  &lt;li&gt;Some topics, like biology or chemistry labs, just cannot happen through remote learning.&lt;/li&gt;
-  &lt;li&gt;Students with learning disabilities would need the teacher in person in order to be able to learn&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Given these various challenges and the data and projections provided in McKinsey &amp;amp; Co.’s report, it is fair to say that (online) education is still a privilege and not a right. What possible solutions could local governments, corporations and teachers come up with?&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Governments&lt;/strong&gt; could fast track the implementation of broadband networks, possibly by subsidising companies to do so in case the government is not able to do it themselves. Many other services, besides education, rely on efficient internet infrastructure and in the years to come, the number of services dependent on such infrastructure is only going to increase. They could also provide low income households with computing devices so that they can access education when delivered digitally. This reminds me of the days when state governments in India provided bicycles to students in government schools so that they can commute and access education provided in far away schools.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Corporations&lt;/strong&gt; could make devices exclusively for school students. These need to be rugged, inexpensive and with a long battery life. In order for this to be feasible as a business, corporations could:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Make the devices modular so that one could collect back damaged or older devices, recycle the parts into refurbished devices.&lt;/li&gt;
-  &lt;li&gt;Sacrifice non-essential elements that add up to the price (like different sets of fancy ports, etc.) for longer battery life and higher quality.&lt;/li&gt;
-  &lt;li&gt;Partner with school districts to loan such devices which could be collected back periodically for refurbishing.&lt;/li&gt;
-  &lt;li&gt;Collaborate on creating uniform content creation tools that would enable the teachers to create interesting content faster.&lt;/li&gt;
-  &lt;li&gt;Help teachers create engaging content from their knowledge of YouTube or Coursera views and feedback.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Teachers&lt;/strong&gt; could learn to create engaging digital content - stories, animations and charts that would capture the interests of students, increasing their attention span even when in an environment different from regular classrooms. Teachers could:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Collaborate and share content so that they can spend more time focussing on students’ development and learning than creating content.&lt;/li&gt;
-  &lt;li&gt;Collaborate and share best practices so that new teachers or even volunteers can get better at keeping the students engaged and teach.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;There is also a big role parents play in such situations, along with teachers. These are extraordinary times - while technologies like Zoom and Cloud computing allow many of us to work remotely, education is one domain where despite technological advancements several challenges remain to be solved.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="online" />
-      
-        <category term="education" />
-      
-        <category term="inequality" />
-      
-        <category term="MOOC" />
-      
-
-      
-
-      
-        <summary type="html">As we have been watching over the years, quality education no longer requires us to move to a different city to attend a quality university. It is available right on our smart device. With several universities around the world having some set of courses that are offered online and with the growth of several companies like Udacity, Coursera, Udemy and the like offering MOOCs (Massive Open Online Courses) the scale of reach for quality education is also much bigger - after all no university classroom is equipped to handle a million students simultaneously. So it is fair to say that anyone anywhere can get access to quality education right at their fingertips. Or is it? Are we missing something else? The COVID pandemic has exposed the inqualities, not only in employment but also in access to quality education. With several schools shut, the only options several schools have is to deliver their courses online. While many schools themselves are not well equipped to deliver education as a digital service, many more students and their households do not have the means to provide them with the necessary infrastructure. In a study, McKinsey &amp;amp; Co. compared 6th grade performance under different scenarios - returning to classrooms in 2020, early 2021 and mid 2021 and the results are shocking. The report also computes the average months of learning lost, due to low-quality remote learning, to be about 7-11 months even if schools open in early 2021 for in person learning. The report also says that this can have a drastic impact on the future of students and thereby the GDP of the country, due to many students dropping out of school due to their inability to access education. And these results might just be the tip of the iceberg. Even if the government is able to subsidise infrastructure needs for online education over the next several months, that alone is not going to solve the problem. The dynamics of online education, especially for younger children, have many challenges: There is a certain energy that is brought about by many teachers in the physical classroom, that motivates students to listen and learn. This is difficult for many teachers to replicate online. Just as not every YouTube video is interesting not every subject is going to be equally interesting when listened to online. Attention span of students away from a regular, formal school environment is going to be different (lower) and this would reduce the learning experience as well as the knowledge gained. Many schools and teachers may not be proficient or may not have the workforce to deal with the many system administration issues that need to be tackled in real-time for delivering classes online. Accessing such online education also requires relatively stable devices - even if chromebooks are relatively cheaper, many households - especially in the developing world where tablets and chromebooks are still a discretionary expense. Many parts of the developing world also do not have the necessary internet infrastructure to handle streaming videos at a large scale. Note that the number of students in a class in the developing world is also large. Moving from blackboard teaching to digital content creation takes time and it is not always easy. Some topics, like biology or chemistry labs, just cannot happen through remote learning. Students with learning disabilities would need the teacher in person in order to be able to learn Given these various challenges and the data and projections provided in McKinsey &amp;amp; Co.’s report, it is fair to say that (online) education is still a privilege and not a right. What possible solutions could local governments, corporations and teachers come up with? Governments could fast track the implementation of broadband networks, possibly by subsidising companies to do so in case the government is not able to do it themselves. Many other services, besides education, rely on efficient internet infrastructure and in the years to come, the number of services dependent on such infrastructure is only going to increase. They could also provide low income households with computing devices so that they can access education when delivered digitally. This reminds me of the days when state governments in India provided bicycles to students in government schools so that they can commute and access education provided in far away schools. Corporations could make devices exclusively for school students. These need to be rugged, inexpensive and with a long battery life. In order for this to be feasible as a business, corporations could: Make the devices modular so that one could collect back damaged or older devices, recycle the parts into refurbished devices. Sacrifice non-essential elements that add up to the price (like different sets of fancy ports, etc.) for longer battery life and higher quality. Partner with school districts to loan such devices which could be collected back periodically for refurbishing. Collaborate on creating uniform content creation tools that would enable the teachers to create interesting content faster. Help teachers create engaging content from their knowledge of YouTube or Coursera views and feedback. Teachers could learn to create engaging digital content - stories, animations and charts that would capture the interests of students, increasing their attention span even when in an environment different from regular classrooms. Teachers could: Collaborate and share content so that they can spend more time focussing on students’ development and learning than creating content. Collaborate and share best practices so that new teachers or even volunteers can get better at keeping the students engaged and teach. There is also a big role parents play in such situations, along with teachers. These are extraordinary times - while technologies like Zoom and Cloud computing allow many of us to work remotely, education is one domain where despite technological advancements several challenges remain to be solved.</summary>
       
 
       

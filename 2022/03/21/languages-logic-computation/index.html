@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']],
+            processEscapes: true
+          }
+        });
+    </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Languages, Logic and Computation</title>
+  <meta name="description" content="A previous post spoke about state-of-the-art NLP systems that are based on Transformers and some of the challenges around using such systems for translations. Although they could translate almost accurately, they may not match the nuances of spoken (informal) languages. There are other challenges around Question Answering systems - another tasks such NLP systems are capable of doing. In this post, this is explored futher to see when some computation (as in logical inference rather than mathematical inference) is needed to come up with an answer. We play with OpenAI APIs to see how the state-of-the-art NLP systems excel at language understanding and also where they have gaps to fill. English, like many other languages, is a little ambiguous. There are well established rules of English grammar but I believe there are several statements in common parlance that have introduce some ambiguity. While I tried OpenAI, in particular the text-davinci-002 engine on a variety of English statements and the results were astounding, when I kept going on, there were some statements where the answer was not exactly clear. One of the was what she refers to in a statement like Anna hit Clara because she was drunk. Though it looks ambiguous I believe as Anna is the subject, the she in the statement must refer to Anna. OpenAI does seem to tell me that the she in the statement refers to Anna. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;Anna hit Clara because she was drunk.\n\nQ: Who was drunk?\nA:&quot;, top_p=1, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; Anna was drunk.&quot; } ], ... } If I rephrase the above statement as Anna hit Clara because she was drunk. Was Clara drunk?, OpenAI was humble enough to admit that it does not know, which is impressive as there isn’t enough context to infer if Clara was drunk. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;Anna hit Clara because she was drunk.\n\nQ: Was Clara drunk?\nA:&quot;, ... stop=[&quot;\n&quot;] ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; I don&#39;t know.&quot; } ], ... } What impressed me the most was the ability to do formulaic calculations and return an answer. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;The sale price of a decent house in California is about a million dollars. 20% of the price needs to be paid as down payment. In addition, the county levies a property tax of 1.2% on the sale price of the house. John takes a 30 year fixed rate mortgage at 3.5% interest rate.\n\nQ: What would be John&#39;s monthly cost of ownership? \nA:&quot;, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; John&#39;s monthly cost of ownership would be $4,167.&quot; } ], ... } While the ability to solve when numerical information was provided was too impressive, there was some struggle when the answer involved logical interpretation and numerical computation. For example, the query in the following requires interpreting what “boundary” is and how it contributes to the answer. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;Dhoni scored a single off the first ball of the 11th over. Sachin scored two consecutive boundaries followed by a single. Dhoni hit the biggest six of the match. He then followed it up with a single and retained strike. \n\nQ: How many runs were scored off the 11th over? \nA:&quot;, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; 15&quot; } ], ... } Human languages are such that they involve logical interpretation, deduction and computation. It is precisely this challenge that leads to misinterpretation, miscommunication and chaos - you can think of the last time a celebrity or a politican claimed his comments were misinterpreted or taken out of context. However, we as human beings deal with these every day and are attuned to the fallacies and inaccuracies. Our communication system, the one that distinguishes us from many other species, is itself a stochastic one. Some statements require logical deduction which is challenging for deep learning systems (that learn from patterns contained in a training corpus). For example, &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;marco passed the ball to miel, miel quickly gave it to don who passed it on to sky. sky ran with it for a while and gave it to anna.\n\nQ: Does marco have the ball now?\nA:&quot;, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot; No&quot; } ], ... } While the system is able to deduce that marco does not have the ball, a deduction performed to answer who has the ball? doesn’t seem to work well. &amp;gt;&amp;gt;&amp;gt; response = openai.Completion.create( engine=&quot;text-davinci-002&quot;, prompt=&quot;marco passed the ball to miel, miel quickly gave it to don who passed it on to sky. sky ran with it for a while and gave it to anna.\n\nQ: Who has the ball now?\nA:&quot;, ... ) &amp;gt;&amp;gt;&amp;gt; print(response) { &quot;choices&quot;: [ { ... &quot;text&quot;: &quot;&quot; } ], ... } There is immense research interest in this area and the progress being made is as impressive as that has been achieved so far. Hopefully, in a future post, I will be able to show an NLP system that combines logical reasoning with deep learning and is able to answer much more fancier questions. I am looking forward to it.">
+  
+    
+    <meta name="keywords" content="NLP,logic,computation,OpenAI">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2022/03/21/languages-logic-computation/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Languages, Logic and Computation">
+  <meta name="twitter:description" content="A previous post spoke about state-of-the-art NLP systems that are based on Transformers and some of the challenges around using such systems for translations. Although they could translate almost a...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+    <!-- Mathjax Support 
+    <a class="site-title" href="/"></a> 
+    -->
+    <img src="/assets/images/dotk.png" width="40" height="30">
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2022/03/21/languages-logic-computation">Languages, Logic and Computation &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2022-03-21T00:00:00+00:00" itemprop="datePublished">Mar 21, 2022</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/nlp/">NLP</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/logic/">logic</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/computation/">computation</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/openai/">OpenAI</a>
+    
+  
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>A <a href="https://dotkay.github.io/2022/02/22/languages-culture-communication">previous post</a> spoke about state-of-the-art NLP systems that are based on Transformers and some of the challenges around using such systems for translations. Although they could translate almost accurately, they may not match the nuances of spoken (informal) languages. There are other challenges around <em>Question Answering</em> systems - another tasks such NLP systems are capable of doing. In this post, this is explored futher to see when some computation (as in logical inference rather than mathematical inference) is needed to come up with an answer. We play with <a href="https://openai.com/">OpenAI</a> APIs to see how the state-of-the-art NLP systems excel at language understanding and also where they have gaps to fill.</p>
+
+<p>English, like many other languages, is a little ambiguous. There are well established rules of English grammar but I believe there are several statements in common parlance that have introduce some ambiguity. While I tried <a href="https://openai.com/">OpenAI</a>, in particular the <code class="language-plaintext highlighter-rouge">text-davinci-002</code> engine on a variety of English statements and the results were astounding, when I kept going on, there were some statements where the answer was not exactly clear.</p>
+
+<p>One of the was what <em>she</em> refers to in a statement like <em>Anna hit Clara because she was drunk</em>. Though it looks ambiguous I believe as <em>Anna</em> is the subject, the <em>she</em> in the statement must refer to <em>Anna</em>. OpenAI does seem to tell me that the <em>she</em> in the statement refers to <em>Anna</em>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; response = openai.Completion.create(
+      engine="text-davinci-002",
+      prompt="Anna hit Clara because she was drunk.\n\nQ: Who was drunk?\nA:",
+      top_p=1,
+      ...
+    )
+&gt;&gt;&gt; print(response)
+{
+  "choices": [
+    {
+      ...
+      "text": " Anna was drunk."
+    }
+  ],
+...
+}
+</code></pre></div></div>
+
+<p>If I rephrase the above statement as <em>Anna hit Clara because she was drunk. Was Clara drunk?</em>, OpenAI was humble enough to admit that it does not know, which is impressive as there isn’t enough context to infer if <em>Clara</em> was drunk.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; response = openai.Completion.create(
+      engine="text-davinci-002",
+      prompt="Anna hit Clara because she was drunk.\n\nQ: Was Clara drunk?\nA:",
+      ...
+      stop=["\n"]
+    )
+&gt;&gt;&gt; print(response)
+{
+  "choices": [
+    {
+      ...
+      "text": " I don't know."
+    }
+  ],
+  ...
+}
+</code></pre></div></div>
+
+<p>What impressed me the most was the ability to do formulaic calculations and return an answer.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; response = openai.Completion.create(
+      engine="text-davinci-002",
+      prompt="The sale price of a decent house in California is about a million dollars. 20%
+      of the price needs to be paid as down payment. In addition, the county levies a 
+      property tax of 1.2% on the sale price of the house. John takes a 30 year fixed rate 
+      mortgage at 3.5% interest rate.\n\nQ: What would be John's monthly cost of ownership? 
+      \nA:",
+      ...
+    )
+&gt;&gt;&gt; print(response)
+{
+  "choices": [
+    {
+      ... 
+      "text": " John's monthly cost of ownership would be $4,167."
+    }
+  ],
+  ...
+}
+</code></pre></div></div>
+
+<p>While the ability to solve when numerical information was provided was too impressive, there was some struggle when the answer involved logical interpretation and numerical computation. For example, the query in the following requires interpreting what “boundary” is and how it contributes to the answer.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; response = openai.Completion.create(
+      engine="text-davinci-002",
+      prompt="Dhoni scored a single off the first ball of the 11th over. Sachin scored two
+      consecutive boundaries followed by a single. Dhoni hit the biggest six of the match. 
+      He then followed it up with a single and retained strike. \n\nQ: How many runs were 
+      scored off the 11th over? \nA:",
+      ...
+    )
+&gt;&gt;&gt; print(response)
+{
+  "choices": [
+    {
+      ...
+      "text": " 15"
+    }
+  ],
+  ...
+}
+</code></pre></div></div>
+
+<p>Human languages are such that they involve logical interpretation, deduction and computation. It is precisely this challenge that leads to misinterpretation, miscommunication and chaos - you can think of the last time a celebrity or a politican claimed his comments were misinterpreted or taken out of context. However, we as human beings deal with these every day and are attuned to the fallacies and inaccuracies. Our communication system, the one that distinguishes us from many other species, is itself a stochastic one.</p>
+
+<p>Some statements require logical deduction which is challenging for deep learning systems (that learn from patterns contained in a training corpus). For example,</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; response = openai.Completion.create(
+      engine="text-davinci-002",
+      prompt="marco passed the ball to miel, miel quickly gave it to don who passed it on to
+      sky. sky ran with it for a while and gave it to anna.\n\nQ: Does marco have the ball 
+      now?\nA:",
+      ...
+   )
+   &gt;&gt;&gt; print(response)
+{
+  "choices": [
+    {
+      ...
+      "text": " No"
+    }
+  ],
+  ...
+}
+</code></pre></div></div>
+
+<p>While the system is able to deduce that <em>marco</em> does not have the ball, a deduction performed to answer <em>who has the ball?</em> doesn’t seem to work well.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; response = openai.Completion.create(
+      engine="text-davinci-002",
+      prompt="marco passed the ball to miel, miel quickly gave it to don who passed it on to
+      sky. sky ran with it for a while and gave it to anna.\n\nQ: Who has the ball now?\nA:",
+      ...
+    )
+&gt;&gt;&gt; print(response)
+{
+  "choices": [
+    {
+      ...
+      "text": ""
+    }
+  ],
+  ...
+}
+</code></pre></div></div>
+
+<p>There is immense research interest in this area and the progress being made is as impressive as that has been achieved so far. Hopefully, in a future post, I will be able to show an NLP system that combines logical reasoning with deep learning and is able to answer much more fancier questions. I am looking forward to it.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
