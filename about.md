@@ -14,8 +14,7 @@ I am interested in programming languages, algorithms and automated reasoning. Be
 
 Outside work, I am curious about a plethora of topics - from people, languages, traditions, philosophy, economics and the intersection of these with AI and other technologies and their impact on society and human behaviors. I am happy to discuss any or many of these over :coffee:. I am also passionate about education, mentorship and talent development and regularly mentor at [School42](https://42.fr/en/homepage/), [Technovation](https://www.technovation.org/), [Nodeschool](https://nodeschool.io/) and [ACM SIGPLAN(M)](https://www.sigplan.org/LongTermMentoring/).
 
-<font size="2" color='gray'>_Thanks to the awesome whiteglass theme that enabled the design of this page._
+<font size="2" color='gray'>_Thanks to the awesome whiteglass theme that enabled the design of this page._</font>
 
-<br>
 
 <font size="1" color='gray'>:warning: DISCLAIMER: Opinions expressed in the blog are my own and do not represent my employer's.</font>
