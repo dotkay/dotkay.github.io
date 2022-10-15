@@ -27,6 +27,7 @@ plugins:
   - jekyll-archives
   - jekyll-paginate
   - jekyll-sitemap
+  - jemoji
 
 permalink: /:year/:month/:day/:title/
 paginate_path: /posts/:num/
