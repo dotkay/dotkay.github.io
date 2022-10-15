@@ -16,4 +16,6 @@ Outside work, I am curious about a plethora of topics - from people, languages, 
 
 <font size="2" color='gray'>_Thanks to the awesome whiteglass theme that enabled the design of this page._
 
+<br>
+
 <font size="1" color='gray'>:warning: DISCLAIMER: Opinions expressed in the blog are my own and do not represent my employer's.</font>
