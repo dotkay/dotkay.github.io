@@ -4,7 +4,7 @@ title: "About"
 permalink: /about/
 ---
 
-Welcome to my corner of the web.
+Welcome to my corner of the web!
 
 Previously, I was a Computer Scientist at INRIA, Île de France in [Christine Paulin-Mohring's](https://www.lri.fr/~paulin/) team working with an amazing, intelligent set of researchers on tools and techniques for reasoning about safety critical software. I worked with [Claude Marché](https://marche.gitlabpages.inria.fr/home/) on algorithms for automatically generating invariants to help deductive verification of safety critical programs using Frama-C platform. I also got to work with the awesome [Jean-Christophe Filliâtre](https://www.lri.fr/~filliatr/) on [_Functory_](https://github.com/backtracking/functory) - a distributed computing library for [Objective Caml](https://ocaml.org/). 
 
