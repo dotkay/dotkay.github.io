@@ -3,6 +3,7 @@ layout: page
 title: "About"
 permalink: /about/
 ---
+
 Welcome to my corner of the web.
 
 I am interested in a plethora of topics - from people, languages, traditions, philosophy, economics and the intersection of these with AI and other technologies and their impact on society and human behaviors.
