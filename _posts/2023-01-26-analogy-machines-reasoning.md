@@ -22,9 +22,11 @@ Prof. Hinton contrasted symbolic reasoning and analogical reasoning and claimed 
 
 > It is quite likely we will get some kind of symbiosis. AI will make us far more competent. It is changing our view of what we are ... it is changing people's view from the idea that the essence of a person is a deliberate reasoning machine; the essence is much more a huge analogy machine ... that seems far more like our real nature, than reasoning machines   -- Geoffrey Hinton 
 
+There used to be research interest in identifying which language constructs would make the best compiler or the best programming language and Computer scientists have looked at languages like [Sanskrit](http://gallium.inria.fr/~huet/PUBLIC/Panini_machine.pdf) to and deconstruct [Panini's rules](https://bhavana.org.in/computing-processes-and-pan%CC%A3inis-as%CC%A3t%CC%A3adhyayi/). 
+
 However, languages themselves are not the same as are human thoughts and expressions of thoughts. Some languages have ways of expressing things that certain other languages do not. Some people have ways of articulating their thoughts that many others do not. Given this large variance, I am waiting to see how long before LLMs can become a more effective teacher or a more effective comedian.
 
-There used to be research interest in identifying which language constructs would make the best compiler or the best programming language and Computer scientists have looked at languages like [Sanskrit](http://gallium.inria.fr/~huet/PUBLIC/Panini_machine.pdf) to and deconstruct [Panini's rules](https://bhavana.org.in/computing-processes-and-pan%CC%A3inis-as%CC%A3t%CC%A3adhyayi/). I am also waiting to see what would be the best language for a machine to express thoughts would be - would it even be a textual language or would it be a visual one? Conversely what would be the best mode to communicate with an analogy machine be?
+I am also waiting to see what would be the best language for a machine to express thoughts would be - would it even be a textual language or would it be a visual one? Conversely what would be the best mode to communicate with an analogy machine be?
 
  
 
