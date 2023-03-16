@@ -26,7 +26,7 @@ There used to be research interest in identifying which language constructs woul
 
 However, languages themselves are not the same as are human thoughts and expressions of thoughts. Some languages have ways of expressing things that certain other languages do not. Some people have ways of articulating their thoughts that many others do not. Given this large variance, I am waiting to see how long before LLMs can become a more effective teacher or a more effective comedian.
 
-I am also waiting to see what would be the best language for a machine to express thoughts would be - would it even be a textual language or would it be a visual one? Conversely what would be the best mode to communicate with an analogy machine be?
+I am also waiting to see what would be the best language for a machine to express thoughts would be - would it even be a textual language or would it be a visual one? Conversely what would be the best mode to communicate with an analogy machine be? How would you reason about what analogies it used to arrive at a prediction and in what sequence or order it used the analogies - much like a deductive reasoning engine for programming languages.
 
  
 
