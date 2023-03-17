@@ -12,7 +12,7 @@ As a part of my PhD in Computer Science I worked with [Alessandro Cimatti](https
 
 I am interested in programming languages, algorithms and automated reasoning. Besides, I am also curious about NLP and machine learning on graph structures and the intersection of logical reasoning and deep learning. My knowledge of Mathematics and Computer Science, along with my experience in deep learning accelerators is helping with this curiosity.
 
-Outside work, I am curious about a plethora of topics - from people, languages, traditions, philosophy, economics and the intersection of these with AI and other technologies and their impact on society and human behaviors. I am happy to discuss any or many of these over :coffee:. I am also passionate about education, mentorship and talent development and regularly mentor at [School42](https://42.fr/en/homepage/), [Technovation](https://www.technovation.org/), [Nodeschool](https://nodeschool.io/) and [ACM SIGPLAN(M)](https://www.sigplan.org/LongTermMentoring/).
+Outside work, I am curious about a plethora of topics - from people, languages, traditions, philosophy, economics and the intersection of these with AI and other technologies and their impact on society and human behaviors. I am happy to discuss any or many of these over :coffee:. I am also passionate about education, teaching, mentorship and talent development and regularly mentor at [School42](https://42.fr/en/homepage/), [Technovation](https://www.technovation.org/), [Nodeschool](https://nodeschool.io/) and [ACM SIGPLAN(M)](https://www.sigplan.org/LongTermMentoring/).
 
 <font size="2" color='gray'>Thanks to the awesome whiteglass theme that enabled the design of this page.</font>
 <br>
