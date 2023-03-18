@@ -5,12 +5,7 @@ rvm:
   - 2.6.0
 env:
   global:
-    - secure: "b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABDQKf7kXI
-DtzLsPit7xnmOiAAAAEAAAAAEAAAAzAAAAC3NzaC1lZDI1NTE5AAAAIORq0oQTRHSco9ca
-vQRvT1iWpLOoVr695pH7jjUF+EXyAAAAoFb0VZ7sqV7xyPYVOPMuxO+iQbT09RKNsY+0G8
-CBePn20ZhN2De+Mw7zhYpWp/pji0zDG6Snmlnxg0hW64ObdLrpBxv2M1NIv7V5WBVANyTC
-aOwA+AtBPrT7WLPw4owWrohnpIyX9NLOE9xmrpniqO32Dx3fjQZdTb3+4qqoWhMZokLRRf
-Z5f3LvRLqsnN/GUg1ar4DSyOl4sqGwkINutoM="
+    - secure:
 before_install:
   - gem update --system
   - gem update --remote bundler
