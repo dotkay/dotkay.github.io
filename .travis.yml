@@ -5,7 +5,7 @@ rvm:
   - 2.6.0
 env:
   global:
-    - secure:
+    - secure: "HARb36FdJXdEgYaf32tz1DjR6nQ6xmgFKxy5e5h7PlzQP0hbfs8rmWoQGN7+eS18tT4L8DX4mocKksj5TaIvf1lQwAFcclUio6X/e0PDiA/kncnUnt5wd7o/UTxy770qLAxtSYIc2HGHmkZArIODrPjBQTuuyOEiV8ZmhAnS3SltNj5bqZLJ5XaqrGW+6+AEFWvRbfBNpKE4FkCH/EVXjsLWyigbxXinE8kg8LTmHxeialv3a1KDQNVk0zS/Qf6QsobBcvlN+nv0HRQbvssYiyxUHun/FsOUPbhy+gud308pr+OZ8l3kJ/dui4e9/QLuLcfMpmwekJQwxBKek1vArN+itjYd2xWOAGhTXWOyLrbUy34F6AKffbvx2jrIPCggOE7224FRsaEhVwnR63vVZA2Yajd5Jd+ruR1FkcSAcK6y9viwH3TSIs9g4s98ISu1wLdrB59HQT2Q5XVa8sh1wUhUpCGCS98rMzzHu2MjU6uq+zqt9ugs+Qz5u9K/FNcCtZhNOf2uaMOoPuui+CiT/RAhk2eiTVgRIfOnMtR3ND5vDi2D8RcixpCwvguTl4Qc5c7WLEzrgwmhB1mTnLKJ082j6SN9P83q86MFCPlyKnNesOSfnUHmFRkmWajY7SQrCQD4Gw2EAl/3hRXYI3g1bnhut98rRTtc6B1VTjFI2Lc="
 before_install:
   - gem update --system
   - gem update --remote bundler
