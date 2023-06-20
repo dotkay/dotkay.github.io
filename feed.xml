@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2023-06-20T14:32:24+00:00</updated>
+  <updated>2023-06-20T14:37:50+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,79 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Logical Reasoning and Knowledge Discovery →</title>
+      
+      <link href="https://dotkay.github.io/2023/03/28/knowledge-and-discovery/" rel="alternate" type="text/html" title="Logical Reasoning and Knowledge Discovery" />
+      <published>2023-03-28T00:00:00+00:00</published>
+      <updated>2023-03-28T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2023/03/28/knowledge-and-discovery</id>
+      <content type="html" xml:base="https://dotkay.github.io/2023/03/28/knowledge-and-discovery/">&lt;p&gt;When a Deep Learning &lt;a href=&quot;https://news.mit.edu/2020/artificial-intelligence-identifies-new-antibiotic-0220&quot;&gt;algorithm invented Halicin&lt;/a&gt;, there was instant speculation about the ability of Deep Learning algorithms to discover new knowledge which in this case was a new antibiotic compound. This compound also seemed to have a new structure that was different from existing antibiotic compounds. Does this constitute new knowledge? Of course, it does. After all, the structure of the compound was not known earlier. This is akin to solving a Sudoku puzzle by searching through an enormous search space and arriving at a solution. The solution &lt;em&gt;is&lt;/em&gt; new knowledge - depending on the way you look at it.&lt;/p&gt;
+
+&lt;p&gt;While AI systems today are more akin to &lt;a href=&quot;https://dotkay.github.io/2023/01/26/analogy-machines-reasoning&quot;&gt;&lt;em&gt;analogy machines&lt;/em&gt; than &lt;em&gt;reasoning machines&lt;/em&gt;&lt;/a&gt; there is an intense debate about what kind of a machine would lead us to our quest of Artificial General Intelligence (AGI) - is the ability to reason needed at all? After all, human beings ourselves learn more through experiences and we reason more from our past experiences than from the rule book. However, according to Stanislas Dehaene’s book &lt;a href=&quot;https://www.amazon.com/How-We-Learn-Brains-Machine/dp/0525559884&quot;&gt;&lt;em&gt;How We Learn&lt;/em&gt;&lt;/a&gt; we have certain intuition built into our brain that enables us to learn abstract concepts. In his book, he notes:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Characteristic of the human species is a relentless search for abstract rules, high-level conclusions that are extracted from a specific situation and subsequently tested on new observations 
+…
+Learning means managing an internal hierarchy of rules and trying to infer the most general ones that summarize a whole series of observations.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This looks similar to logical reasoning (in the sense of mathematical logic in the realm of formal methods) where conclusions are inferred from hypotheses using a sequence of deduction rules. In order to illustrate this, let me pick one of the puzzles from &lt;a href=&quot;https://www.tptp.org/&quot;&gt;TPTP library&lt;/a&gt; - the &lt;em&gt;Aunt Agatha&lt;/em&gt; puzzle which is as follows:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Someone who lives in Dreadbury Mansion killed Aunt Agatha. Agatha, the butler, and Charles live in Dreadbury Mansion, and are the only people who live therein. A killer always hates his victim, and is never richer than his victim. Charles hates no one that Aunt Agatha hates. Agatha hates everyone except the butler. The butler hates everyone not richer than Aunt Agatha. The butler hates everyone Aunt Agatha hates. No one hates everyone. Agatha is not the butler. Therefore: Agatha killed herself.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;If one were to encode the given facts in mathematical logic and prove the conclusion (the conjecture that Agatha killed herself) is deducible from the given facts, say in a theorem prover (like Vampire), it would be able to not only prove the conjecture, the &lt;em&gt;logical reasoning system&lt;/em&gt; in Vampire would be able to show the sequence of steps that was used to arrive at the conclusion from the assumptions.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;29. lives(sK0) [cnf transformation 26]
+30. killed(sK0,agatha) [cnf transformation 26]
+...
+...
+...
+79. ~hates(butler,butler) [superposition 41,78]
+...
+...
+82. hates(charles,agatha) &amp;lt;- (1) [backward demodulation 44,57]
+89. ~hates(agatha,agatha) &amp;lt;- (1) [resolution 82,37]
+...
+...
+93. $false [avatar sat refutation 66,71,81,92]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;A Vampire proof run would also discover new knowledge (i.e. new facts not explicitly stated in our input set of facts). For example, it could deduce that the butler does not hate himself (line 79 above) which is not explicitly mentioned in the set of assumptions (derived from our natural natural language text). Such a kind of logical reasoning would be a great cornerstone for &lt;em&gt;explainable AI systems&lt;/em&gt; of the future. However, languages themselves are ambiguous and translating from an ambiguous natural language into an unambiguous formulas in first order logic (as in this case) is not a trivial task. Maybe, just maybe one could generate such formulas themselves by training a model using a large corpus of natual language text and the corresponding logical formulas that would be able to capture the essence of natual language statements, context, etc. in logical form.&lt;/p&gt;
+
+&lt;p&gt;Note that the present day AI systems though demonstrate exemplary generative skills across text, images and video, the content generated, though novel in some cases, is an emergent behavior that arises from the vast knowledge base the model was trained on. Hence, it still lacks the capability to reason how it generated a particular content (it can not produce a sequence of deductions for example).&lt;/p&gt;
+
+&lt;p&gt;A symbiotic combination of logical reasoning and analogy based reasoning would enable both an efficient generation of impressive content while at the same time being able to reason about the chain of thought involved in the process. &lt;a href=&quot;https://arxiv.org/abs/2201.08860&quot;&gt;GreaseLM&lt;/a&gt; and &lt;a href=&quot;https://proceedings.mlr.press/v139/ren21a.html&quot;&gt;LEGO&lt;/a&gt; are research efforts towards infusing reasoning capabilities in language models. They however work on pruning and traversing a knowledge graph based on the context from embedding vectors, rather than translating the knowledge into formulas in mathematical logic. AI systems that need to solve problems in mathematics and to derive &lt;em&gt;new knowledge&lt;/em&gt; in the form of new mathematical proofs or conjectures would need more rigour and encoding the knowledge of mathematics in the form of logical formulas and training AI systems on such a corpus could be one way of achieving reasoning capabilities. Besides solving competitive math problems, such systems might be able to discover new physical structures that are lighter and stronger, or better algorithms that are currently unknown, better deterministic optimal algorithms in the place of present day heuristics, or even proofs of non-existence of better algorithms for certain problems.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="AI/ML" />
+      
+        <category term="reasoning" />
+      
+
+      
+
+      
+        <summary type="html">When a Deep Learning algorithm invented Halicin, there was instant speculation about the ability of Deep Learning algorithms to discover new knowledge which in this case was a new antibiotic compound. This compound also seemed to have a new structure that was different from existing antibiotic compounds. Does this constitute new knowledge? Of course, it does. After all, the structure of the compound was not known earlier. This is akin to solving a Sudoku puzzle by searching through an enormous search space and arriving at a solution. The solution is new knowledge - depending on the way you look at it. While AI systems today are more akin to analogy machines than reasoning machines there is an intense debate about what kind of a machine would lead us to our quest of Artificial General Intelligence (AGI) - is the ability to reason needed at all? After all, human beings ourselves learn more through experiences and we reason more from our past experiences than from the rule book. However, according to Stanislas Dehaene’s book How We Learn we have certain intuition built into our brain that enables us to learn abstract concepts. In his book, he notes: Characteristic of the human species is a relentless search for abstract rules, high-level conclusions that are extracted from a specific situation and subsequently tested on new observations … Learning means managing an internal hierarchy of rules and trying to infer the most general ones that summarize a whole series of observations. This looks similar to logical reasoning (in the sense of mathematical logic in the realm of formal methods) where conclusions are inferred from hypotheses using a sequence of deduction rules. In order to illustrate this, let me pick one of the puzzles from TPTP library - the Aunt Agatha puzzle which is as follows: Someone who lives in Dreadbury Mansion killed Aunt Agatha. Agatha, the butler, and Charles live in Dreadbury Mansion, and are the only people who live therein. A killer always hates his victim, and is never richer than his victim. Charles hates no one that Aunt Agatha hates. Agatha hates everyone except the butler. The butler hates everyone not richer than Aunt Agatha. The butler hates everyone Aunt Agatha hates. No one hates everyone. Agatha is not the butler. Therefore: Agatha killed herself. If one were to encode the given facts in mathematical logic and prove the conclusion (the conjecture that Agatha killed herself) is deducible from the given facts, say in a theorem prover (like Vampire), it would be able to not only prove the conjecture, the logical reasoning system in Vampire would be able to show the sequence of steps that was used to arrive at the conclusion from the assumptions. 29. lives(sK0) [cnf transformation 26] 30. killed(sK0,agatha) [cnf transformation 26] ... ... ... 79. ~hates(butler,butler) [superposition 41,78] ... ... 82. hates(charles,agatha) &amp;lt;- (1) [backward demodulation 44,57] 89. ~hates(agatha,agatha) &amp;lt;- (1) [resolution 82,37] ... ... 93. $false [avatar sat refutation 66,71,81,92] A Vampire proof run would also discover new knowledge (i.e. new facts not explicitly stated in our input set of facts). For example, it could deduce that the butler does not hate himself (line 79 above) which is not explicitly mentioned in the set of assumptions (derived from our natural natural language text). Such a kind of logical reasoning would be a great cornerstone for explainable AI systems of the future. However, languages themselves are ambiguous and translating from an ambiguous natural language into an unambiguous formulas in first order logic (as in this case) is not a trivial task. Maybe, just maybe one could generate such formulas themselves by training a model using a large corpus of natual language text and the corresponding logical formulas that would be able to capture the essence of natual language statements, context, etc. in logical form. Note that the present day AI systems though demonstrate exemplary generative skills across text, images and video, the content generated, though novel in some cases, is an emergent behavior that arises from the vast knowledge base the model was trained on. Hence, it still lacks the capability to reason how it generated a particular content (it can not produce a sequence of deductions for example). A symbiotic combination of logical reasoning and analogy based reasoning would enable both an efficient generation of impressive content while at the same time being able to reason about the chain of thought involved in the process. GreaseLM and LEGO are research efforts towards infusing reasoning capabilities in language models. They however work on pruning and traversing a knowledge graph based on the context from embedding vectors, rather than translating the knowledge into formulas in mathematical logic. AI systems that need to solve problems in mathematics and to derive new knowledge in the form of new mathematical proofs or conjectures would need more rigour and encoding the knowledge of mathematics in the form of logical formulas and training AI systems on such a corpus could be one way of achieving reasoning capabilities. Besides solving competitive math problems, such systems might be able to discover new physical structures that are lighter and stronger, or better algorithms that are currently unknown, better deterministic optimal algorithms in the place of present day heuristics, or even proofs of non-existence of better algorithms for certain problems.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -167,6 +240,101 @@ wide range of styles, trends, and designers. Some of the key trends and movement
 
       
         <summary type="html">A few years ago, when Machine Learning was at its infancy, feature engineering used to be the swiss army knife for getting great results out of the models. Many domain experts, who claimed to know which features were important and which features weren’t important for a particular problem, became widely sought after. From a handful of features for predicting housing prices, like number of rooms, square footage, Zipcode, etc., to several hundreds of millions of features that might be present in a typical social media feed recommendation system, model features have grown at an impressive rate, thanks to the many varieties of inexpensive sensors and of course the distribution power of the internet. Feature Engineering became a role on its own in many companies that were building machine learning models. An automobile engineer would know which features are relevant or important to the stability of a car, while a grocery retailer would know about which items when placed at specific aisles in the store would garner more interest. Unsurprisingly, this also led to considerable interest from academia and subsequently there were more efficient techniques formalized and developed for effective feature selection based on the problem at hand and feature construction and feature extraction from raw data. Engineering teams started developing tools that facilitated such processes - like Featuretools for Python. Fast forward a decade, feature engineering seems to be less in fashion while prompt engineering has captured the podium. This is primarily due to the interest and advancement in large language models. While earlier machine learning models were built to solve specific problems and hence needed domain experts to curate the features that best helps the model, advancements in few shot learning made selecting specific features less and less relevant while maintaining the same accuracy of the model. Today, models like OpenAI’s ChatGPT and the like can work on a variety of domains as they are trained on a collective dataset (dataset from as many different domains as possible) and hence have captured the relationships between the different domains by attaching weights to the learned contexts as did the previous machine learning algorithms that attached weights to different features. A word like teddy would be identified with a context of toys more (larger weights) while the data is about donations to charity for helping children. The same word however would be identified with a context of politics while the data is about national parks and national forests. For example, experimenting with ChatGPT, when the system is prompted with the following question, it prompts back asking for clarifications, in order to identify the context. user: Can you tell me about teddy? ChatGPT: I'm sorry, but without additional context, I'm not sure which &quot;teddy&quot; you're referring to. There are several possible meanings for the word &quot;teddy,&quot; such as: ... ... The user might give an indirect context that the system still identifies with the initial prompt (teddy) - i.e. the system has memory and it retrieves the weights from its collection of different contexts, much like an indexing system would retrieve the best page among a collection of pages related to a search keyword. user: tell me about the teddy related to national parks and forests ChatGPT: Theodore Roosevelt is closely associated with the conservation movement in the United States and is often referred to as the &quot;Conservation President.&quot; During his presidency from 1901 to 1909, he took significant steps to protect natural resources, establish national parks, and preserve wilderness areas. ... ... The user could still prompt the system with a subsequent string that could entirely change the course of the conversation, much like how many real-world informal conversations move around from one topic to another while the topics themselves might be unrelated but tied together by some weak links. user: tell me about the teddy related to donations to charity for children ChatGPT: One possible &quot;teddy&quot; you might be referring to in this context is the &quot;Teddy Bear&quot; charity program. The Teddy Bear program is a charitable initiative that collects and distributes teddy bears and other stuffed animals to children in need, such as those who are sick, homeless, or traumatized. The Teddy Bear program was first started by police officers in the United States in ... ... ... The user could ask about an unrelated topic as a subsequent prompt but the system might still try to find a common context and if there is would talk about it, because the subsequent prompts are considered part of the same conversation. user: what about fashion? ChatGPT: In the world of fashion, a &quot;teddy&quot; can refer to a type of lingerie for women. A teddy is a one-piece garment that combines a camisole top and panties, often made from silk or other ... ... Why is this impressive or important. In many real-world impactful applications (rather than informal chat systems), it is crucial to maintain a conversation topic - think about an airline customer service chatbot or an internet service center or education software where one builds on from simple fundamental concepts to advanced topics that are built by stitching together fundamental concepts. It is also crucial to have the ability to switch to a completely different topic even when there might be a related weak link in the conversation thread. This switch is effected by engineering the prompt in such a way as to turn the system’s attention from it’s current context to a new context. user: No, let's just talk about contemporary fashion... ChatGPT: Certainly! Contemporary fashion is a constantly evolving and diverse industry, encompassing a wide range of styles, trends, and designers. Some of the key trends and movements in ... ... ... Now that prompt engineering gets the job done, is feature engineering irrelevant? Not really. It would still require a domain expert to help train the system with well engineered prompts in order for the system not to stray away. For example, a teacher could help with engineering the right prompts that would make the learning process more effective by not only charting the path to learn - from essential fundamental concepts to more involved concepts, but also in personalizing the path by identifying the learning challenges based on the questions (prompts) from the user (learner). This could be the next revolution in personalized, adaptive learning systems. There could be many other situations where such systems could benefit from domain experts. Some of them include negotiation systems, interviews and management training systems, navigation, technical support, as well as entertainment systems. Adding to this, multi-modal prompting systems, where the prompts themselves would have other modes (like voice, images, etc.) in addition to text would be immensely powerful in many real-world applications. Voice prompts would be very useful for autonomous machines, and image prompts would be exciting for content creation. I am eagerly looking forward to playing with those.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">The Different Layers of AI Innovation →</title>
+      
+      <link href="https://dotkay.github.io/2022/08/17/ai-innovation-layers/" rel="alternate" type="text/html" title="The Different Layers of AI Innovation" />
+      <published>2022-08-17T00:00:00+00:00</published>
+      <updated>2022-08-17T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2022/08/17/ai-innovation-layers</id>
+      <content type="html" xml:base="https://dotkay.github.io/2022/08/17/ai-innovation-layers/">&lt;p&gt;When we hear about AI applications these days, either companies like NVIDIA or Graphcore is in focus or the companies that develop applications like OpenAI or Meta is in focus. However there are several layers to AI. Understanding what constitutes the different layers and which companies are the key players in any or many of the layers would enable one to identify moats, challenges and growth drivers of such companies. Besides, one could also identify potential for future opportunities for vertical integration and consolidation.&lt;/p&gt;
+
+&lt;p&gt;AI had many winters over the last several decades. However, over the last decade AI enabled applications seem to be proliferating and has already been infused with several day to day software applications - like voice assistants, maps, translators, etc. Two key developments that happened over the last couple of decades are chiefly responsible for this proliferation:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Availability of data, due to inexpensive sensors (image sensors like camera, messages in social media apps, etc.)&lt;/li&gt;
+  &lt;li&gt;Availability of compute, due to faster CPUs and GPUs&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Looking at just the two key components would mislead us to think about just software to process the data and hardware to execute the software. One might want to break it down into further components in order to identify the key players in each of the components.&lt;/p&gt;
+
+&lt;h2&gt;Layers of AI&lt;/h2&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/dotkay.github.io/source/assets/images/misc/ai_layers.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Hardware Accelerator Layer&lt;/h3&gt;
+
+&lt;p&gt;This is the one of the main layers that brought AI research out of its many winters. &lt;a href=&quot;https://inria.hal.science/inria-00112631/document&quot;&gt;Kumar’s work&lt;/a&gt; at Microsoft Research, &lt;a href=&quot;https://people.idsia.ch/~juergen/ijcai2011.pdf&quot;&gt;Dan Ciresan’s work&lt;/a&gt; at IDSIA on accelerating CNNs (Convolutional Neural Networks) using GPUs followed by the famous &lt;a href=&quot;https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf&quot;&gt;AlexNet work&lt;/a&gt; brought attention to the use of hardware acclerators like GPUs for applications that are heavy on matrix computations. GPUs are Single Instruction Multiple Data (SIMD) architecture machines that could excel at tasks that are massively parallel. Subsequently, there were other accelerators built based on other architectures like Bulk Synchronous Processing (BSP) (e.g. Graphcore), or Systolic Arrays (e.g. TPUs) that were targeted on accelerating specific architectures. A broad install base as well as accelerators fine tuned over a long period of time to excel at specific deep learning model architectures and deep learning frameworks could serve as a moat that prevents others from having a slice of the market share easily. A good analogy is to think of hardware layer as the muscles that enable heavy computations.&lt;/p&gt;
+
+&lt;h3&gt;System Software/Compiler Layer&lt;/h3&gt;
+
+&lt;p&gt;The System Software or Compiler Layer sits closest to the hardware accelerator thereby optimizing the executions of machine instructions as much as possible. CUDA and OpenCL are the programming models closely tied to the software drivers (system software) or compilers. Lately, Graphcore has graph compilers that optimizes the execution of graph networks (using the Poplar SDK) on Graphcore IPUs. There are also companies like Groq that make a much tighter integration between the compiler layer and the hardware layer. In particular, the Groq compiler does all the optimizations on the input model and continuously orchestrates the instructions as operands for those instructions arrive, with the exact knowledge of which hardware execution units are available to execute the instructions.&lt;/p&gt;
+
+&lt;h3&gt;Model Architecture Layer&lt;/h3&gt;
+
+&lt;p&gt;It is not often that one can separate out this layer. Once certain model architectures become stabilized, it might make sense to optimize the layers beneath it (hardware and system software layers) in order to serve this particular architecture. The popular architectures might be Transformers for languages, Convolutional Neural Networks for Images, Graph Neural Networks for graph datasets, etc. However, since newer algorithms are still being developed, the current trends are more about optimizing the hardware and system software layers to optimize specific components of the models. The &lt;a href=&quot;https://blogs.nvidia.com/blog/2022/03/22/h100-transformer-engine/&quot;&gt;Transformer Engine&lt;/a&gt; in H100 GPUs would be an example of such an optimization.&lt;/p&gt;
+
+&lt;h3&gt;Deep Learning (DL) Frameworks Layer&lt;/h3&gt;
+
+&lt;p&gt;The different DL Frameworks like Tensorflow, PyTorch, JAX, etc. are similar superficially and have over the years become more similar than different. However, there are compiler instrumentations that optimize such frameworks, very much like Groq Compiler, NVIDIA CUDA, OpenAI Triton, etc. Some of the optimizations like operator fusion have been adopted by the DL frameworks like PyTorch by default and many more such optimizations might become default as research and engineering in DL advances. This layer is also important as it might turn out to be critical to the iterative development of algorithms. Most DL algorithms are iterative in nature and having fine grained control over the progress of the experiments in terms of debugging, performance analysis and the like would ultimately determine the popularity, adoption and subsequently advances in such frameworks. For example, PyTorch executes eagerly using dynamic graphs, it was much easier for programmers to monitor. Tensorflow moved to eager execution from later versions. Which framework is best suited is an ongoing debate in the community with academic researchers leaning towards PyTorch and production engineers leaning towards Tensorflow. There have been other frameworks which were popular initially but lost steam over time.&lt;/p&gt;
+
+&lt;h3&gt;Algorithms Layer&lt;/h3&gt;
+
+&lt;p&gt;Algorithmic innovations have led to developments in newer, efficient and more effective model architectures. Though some of the algorithms have been known for a very long time (like backpropagation, CNNs, etc.) the development in other layers (availability of general purpose programmable hardware accelerators, easy-to-use DL frameworks and most importantly the availability of data to train the networks) have significantly aided advancements in algorithms. 
+This has led to architectures like &lt;em&gt;Transformers&lt;/em&gt; with layers like &lt;em&gt;Attention&lt;/em&gt; that seem to push forward the state-of-the-art in DL research. However, it wasn’t an easy innovation and it is definitely not the last - researchers tried different architectures from Recurrent Neural Networks (RNNs), Long Short-Term Memory (LSTM), Sequence-to-Sequence models, etc. before iteratively discovering the bottlenecks and devising newer architectures to optimize those. If one of these algorithms were determined to be the most optimal, it would make sense to bake it in silicon in order to get the most efficient performance. It has not happened yet as one does not know what future architectures would bring in this fast paced world of DL research.&lt;/p&gt;
+
+&lt;h3&gt;Data Layer&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;There were 5 exabytes of information created between the dawn of civilization through 2003, but that much information is now created every 2 days.”  – &lt;em&gt;Eric Schmidt&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;em&gt;Data&lt;/em&gt; along with &lt;em&gt;Compute&lt;/em&gt; is one of the key drivers of today’s Deep Learning advances. The growth and availability of inexpensive sensors and access to analyze them has put all the algorithms that were developed in theory over the past several decades into practice within a span of a decade. However, as DL applications impermeate more and more of our lives, there would be questions around the source of &lt;em&gt;data&lt;/em&gt; the models were trained on and if the data provider was compensated for the same. Further, the emergent behaviors of today’s AI systems are the result of the data they were trained on but without having the ability to trace back the emergent behavior to the data points that led to it. These would be the areas of research that could eventually lead to &lt;em&gt;explainable AI&lt;/em&gt; systems that we aspire for.&lt;/p&gt;
+
+&lt;h3&gt;Reasoning Layer&lt;/h3&gt;
+
+&lt;p&gt;Different from logical reasoning systems which were referred to as &lt;em&gt;reasoning engines&lt;/em&gt;, today’s AI systems are more &lt;em&gt;analogy engines&lt;/em&gt; than reasoning ones. The exceptional efficiency and effectiveness of such systems seem to be the result of emergent behavior arising from training these systems on unbelievably vast quantities of data. Even with its effectiveness in language tasks, such AI systems seem to be not so good at logical reasoning. The infusion of logical reasoning behaviors into analogy based reasoning architectures of today’s systems would possibly create effective systems that is also able to reason about its emergent behaviors. Since the research in this area is not very well developed at the time of this writing, it is depicted as a grey box in the image above.&lt;/p&gt;
+
+&lt;h3&gt;Regulatory Layer&lt;/h3&gt;
+
+&lt;p&gt;This layer is still an underdeveloped layer (and hence depicted using dotted lines). With recent discussions around the data the systems are trained on and the transparency of algorithms and their explainability, this layer might encompass more than just the data layer and the algorithms layer. In the coming years the systems are likely to get regulated in order to deter inappropriate usage of such systems.&lt;/p&gt;
+
+&lt;p&gt;It is indeed a great time for AI - the recent advances in research, several applications and multitude of challenges will make the next few years something exciting to look forward to.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="AI/ML" />
+      
+        <category term="DL Accelerators" />
+      
+        <category term="Frameworks" />
+      
+        <category term="Algorithms" />
+      
+
+      
+
+      
+        <summary type="html">When we hear about AI applications these days, either companies like NVIDIA or Graphcore is in focus or the companies that develop applications like OpenAI or Meta is in focus. However there are several layers to AI. Understanding what constitutes the different layers and which companies are the key players in any or many of the layers would enable one to identify moats, challenges and growth drivers of such companies. Besides, one could also identify potential for future opportunities for vertical integration and consolidation. AI had many winters over the last several decades. However, over the last decade AI enabled applications seem to be proliferating and has already been infused with several day to day software applications - like voice assistants, maps, translators, etc. Two key developments that happened over the last couple of decades are chiefly responsible for this proliferation: Availability of data, due to inexpensive sensors (image sensors like camera, messages in social media apps, etc.) Availability of compute, due to faster CPUs and GPUs Looking at just the two key components would mislead us to think about just software to process the data and hardware to execute the software. One might want to break it down into further components in order to identify the key players in each of the components. Layers of AI Hardware Accelerator Layer This is the one of the main layers that brought AI research out of its many winters. Kumar’s work at Microsoft Research, Dan Ciresan’s work at IDSIA on accelerating CNNs (Convolutional Neural Networks) using GPUs followed by the famous AlexNet work brought attention to the use of hardware acclerators like GPUs for applications that are heavy on matrix computations. GPUs are Single Instruction Multiple Data (SIMD) architecture machines that could excel at tasks that are massively parallel. Subsequently, there were other accelerators built based on other architectures like Bulk Synchronous Processing (BSP) (e.g. Graphcore), or Systolic Arrays (e.g. TPUs) that were targeted on accelerating specific architectures. A broad install base as well as accelerators fine tuned over a long period of time to excel at specific deep learning model architectures and deep learning frameworks could serve as a moat that prevents others from having a slice of the market share easily. A good analogy is to think of hardware layer as the muscles that enable heavy computations. System Software/Compiler Layer The System Software or Compiler Layer sits closest to the hardware accelerator thereby optimizing the executions of machine instructions as much as possible. CUDA and OpenCL are the programming models closely tied to the software drivers (system software) or compilers. Lately, Graphcore has graph compilers that optimizes the execution of graph networks (using the Poplar SDK) on Graphcore IPUs. There are also companies like Groq that make a much tighter integration between the compiler layer and the hardware layer. In particular, the Groq compiler does all the optimizations on the input model and continuously orchestrates the instructions as operands for those instructions arrive, with the exact knowledge of which hardware execution units are available to execute the instructions. Model Architecture Layer It is not often that one can separate out this layer. Once certain model architectures become stabilized, it might make sense to optimize the layers beneath it (hardware and system software layers) in order to serve this particular architecture. The popular architectures might be Transformers for languages, Convolutional Neural Networks for Images, Graph Neural Networks for graph datasets, etc. However, since newer algorithms are still being developed, the current trends are more about optimizing the hardware and system software layers to optimize specific components of the models. The Transformer Engine in H100 GPUs would be an example of such an optimization. Deep Learning (DL) Frameworks Layer The different DL Frameworks like Tensorflow, PyTorch, JAX, etc. are similar superficially and have over the years become more similar than different. However, there are compiler instrumentations that optimize such frameworks, very much like Groq Compiler, NVIDIA CUDA, OpenAI Triton, etc. Some of the optimizations like operator fusion have been adopted by the DL frameworks like PyTorch by default and many more such optimizations might become default as research and engineering in DL advances. This layer is also important as it might turn out to be critical to the iterative development of algorithms. Most DL algorithms are iterative in nature and having fine grained control over the progress of the experiments in terms of debugging, performance analysis and the like would ultimately determine the popularity, adoption and subsequently advances in such frameworks. For example, PyTorch executes eagerly using dynamic graphs, it was much easier for programmers to monitor. Tensorflow moved to eager execution from later versions. Which framework is best suited is an ongoing debate in the community with academic researchers leaning towards PyTorch and production engineers leaning towards Tensorflow. There have been other frameworks which were popular initially but lost steam over time. Algorithms Layer Algorithmic innovations have led to developments in newer, efficient and more effective model architectures. Though some of the algorithms have been known for a very long time (like backpropagation, CNNs, etc.) the development in other layers (availability of general purpose programmable hardware accelerators, easy-to-use DL frameworks and most importantly the availability of data to train the networks) have significantly aided advancements in algorithms. This has led to architectures like Transformers with layers like Attention that seem to push forward the state-of-the-art in DL research. However, it wasn’t an easy innovation and it is definitely not the last - researchers tried different architectures from Recurrent Neural Networks (RNNs), Long Short-Term Memory (LSTM), Sequence-to-Sequence models, etc. before iteratively discovering the bottlenecks and devising newer architectures to optimize those. If one of these algorithms were determined to be the most optimal, it would make sense to bake it in silicon in order to get the most efficient performance. It has not happened yet as one does not know what future architectures would bring in this fast paced world of DL research. Data Layer There were 5 exabytes of information created between the dawn of civilization through 2003, but that much information is now created every 2 days.” – Eric Schmidt Data along with Compute is one of the key drivers of today’s Deep Learning advances. The growth and availability of inexpensive sensors and access to analyze them has put all the algorithms that were developed in theory over the past several decades into practice within a span of a decade. However, as DL applications impermeate more and more of our lives, there would be questions around the source of data the models were trained on and if the data provider was compensated for the same. Further, the emergent behaviors of today’s AI systems are the result of the data they were trained on but without having the ability to trace back the emergent behavior to the data points that led to it. These would be the areas of research that could eventually lead to explainable AI systems that we aspire for. Reasoning Layer Different from logical reasoning systems which were referred to as reasoning engines, today’s AI systems are more analogy engines than reasoning ones. The exceptional efficiency and effectiveness of such systems seem to be the result of emergent behavior arising from training these systems on unbelievably vast quantities of data. Even with its effectiveness in language tasks, such AI systems seem to be not so good at logical reasoning. The infusion of logical reasoning behaviors into analogy based reasoning architectures of today’s systems would possibly create effective systems that is also able to reason about its emergent behaviors. Since the research in this area is not very well developed at the time of this writing, it is depicted as a grey box in the image above. Regulatory Layer This layer is still an underdeveloped layer (and hence depicted using dotted lines). With recent discussions around the data the systems are trained on and the transparency of algorithms and their explainability, this layer might encompass more than just the data layer and the algorithms layer. In the coming years the systems are likely to get regulated in order to deter inappropriate usage of such systems. It is indeed a great time for AI - the recent advances in research, several applications and multitude of challenges will make the next few years something exciting to look forward to.</summary>
       
 
       
@@ -1676,123 +1844,6 @@ description                       object
 
       
         <summary type="html">We perceive our sense of self as an amalgamation of the different sensory inputs - visual, tactile, locomotive, etc., that our brain processes and interprets. Or in other words, our sense of self is an interpretation made for us by our brain (mind) after processing several inputs. In olden days philosophers who tried to understand one’s true self found it difficult to reason about the interpretation of sense of self - are we really who we are? or are we manifestations of our mind’s interpretation of several inputs? This is a fascinating topic and lately neuroscience research is trying to understand which parts of the brain are processing and how our brain creates such interpretations. In his book, The Man Who Wasn’t There, journalist Anil Ananthaswamy takes us through the neuroscience research on this topic. The main message of this book is that our sense of self is an interpretation of several inputs which are beyond just sensory inputs but our own physical body and society play a vital role. And in this age where Computer Scientists are working on Deep Learning as well as trying to understand the neurological pathways in order to build systems that mimic the human decision making apparatus, while that apparatus itself is not completely understood. What fascinates me about this study is how the mind’s computation of sense of self can be influenced (or cheated) by changing the mapping (think of it as lookup table entries) the mind preserves for different sensory and other inputs. In many cases, what we feel and believe our sense of self is, is just an interpretation (an entry in the table) that is fetched given the inputs. We can influence such inputs to pick up a different entry that would alter our sense of self. There is also a classic neuroscience experiment from the 90s that demonstrates how the mapping in our brain, representing our physical sense of self, can be altered within minutes. You can take a look at an example experiment below: I am intrigued about the possibility of changing our emotional sense of self and if it could be done non-invasively using technology. Such a possibility would be a big boost to curing several mental disorders just by altering the mapping in the mind, when we know how the mapping is created, where it is stored and how it is interpreted. Also, one needs to be aware of ramifications of this - can such mappings be altered by say adversarial inputs - visual or societal - in the form of social media posts or news articles. We might be destroying our own sense of self by letting our mind interpret the inputs that we consume, without us realizing the end result - thinking we are who our mind interprets (influenced interpretation/self) rather than who we really are (actual self).</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Internet Speeds and Cost →</title>
-      
-      <link href="https://dotkay.github.io/2020/09/19/worldwide-internet/" rel="alternate" type="text/html" title="Internet Speeds and Cost" />
-      <published>2020-09-19T00:00:00+00:00</published>
-      <updated>2020-09-19T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2020/09/19/worldwide-internet</id>
-      <content type="html" xml:base="https://dotkay.github.io/2020/09/19/worldwide-internet/">&lt;p&gt;With online education becoming the norm due to the pandemic there is a growing debate about inequality that is brought about by access to reliable, affordable internet connectivity. At the same time, many countries in the developing world are seeing a huge increase in people connecting to the internet, many of them for the first time. With prices of internet becoming affordable in many parts of the developing world, more and more services are being offered online.&lt;/p&gt;
-
-&lt;p&gt;If the number of subscriptions in 2019 were any indicator of the growth, the pandemic has only accelerated the subscriptions. More and more of our daily activities like education, work, essential services like shopping groceries, etc. all have come to rely on internet connectivity. The mobile phone, being the most affordable computer in many parts of the world today, with an internet connectivity dictates whether you can participate in these activities or not.&lt;/p&gt;
-
-&lt;iframe seamless=&quot;&quot; frameborder=&quot;0&quot; src=&quot;https://public.tableau.com/views/MobileSubscriptions_16384135133810/MobileBroadbandSubscription2019?embed=yes&amp;amp;:display_count=yes&amp;amp;:showVizHome=no&quot; width=&quot;900&quot; height=&quot;950&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;While growing internet connectivity is certainly good news, let us see how affordable they are across the globe. The cost of internet in most parts of the developing world is much less than in the west. However, the quality of internet is not as good as in the west. The visualization below shows the cost of internet (in USD) in different parts of the world as well as the mean download speed. We can see that the mean download speed is relatively poor in many parts of the world. Crucially several activities like education, work, etc. require not just a connectivity but a good one.&lt;/p&gt;
-
-&lt;iframe seamless=&quot;&quot; frameborder=&quot;0&quot; src=&quot;https://public.tableau.com/views/InternetSpeedsandPrices/Dashboard1?embed=yes&amp;amp;:display_count=yes&amp;amp;:showVizHome=no&quot; width=&quot;900&quot; height=&quot;950&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;Even when the pandemic ceases to exist, many important everyday activities, commerce and essential services would require internet connectivity. With AI based upscaling technologies, we can hope that many of the educational material could be delivered even with a poor connectivity without reducing the effectiveness of the medium of delivery. In parallel, technologies like low orbit constellation of satellites delivering internet, like the ones being planned by Starlink and OneWeb should see its deployment fast enough in order to rebalance the loss created by internet inequality.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="online" />
-      
-        <category term="education" />
-      
-        <category term="internet" />
-      
-        <category term="technology" />
-      
-
-      
-
-      
-        <summary type="html">With online education becoming the norm due to the pandemic there is a growing debate about inequality that is brought about by access to reliable, affordable internet connectivity. At the same time, many countries in the developing world are seeing a huge increase in people connecting to the internet, many of them for the first time. With prices of internet becoming affordable in many parts of the developing world, more and more services are being offered online. If the number of subscriptions in 2019 were any indicator of the growth, the pandemic has only accelerated the subscriptions. More and more of our daily activities like education, work, essential services like shopping groceries, etc. all have come to rely on internet connectivity. The mobile phone, being the most affordable computer in many parts of the world today, with an internet connectivity dictates whether you can participate in these activities or not. While growing internet connectivity is certainly good news, let us see how affordable they are across the globe. The cost of internet in most parts of the developing world is much less than in the west. However, the quality of internet is not as good as in the west. The visualization below shows the cost of internet (in USD) in different parts of the world as well as the mean download speed. We can see that the mean download speed is relatively poor in many parts of the world. Crucially several activities like education, work, etc. require not just a connectivity but a good one. Even when the pandemic ceases to exist, many important everyday activities, commerce and essential services would require internet connectivity. With AI based upscaling technologies, we can hope that many of the educational material could be delivered even with a poor connectivity without reducing the effectiveness of the medium of delivery. In parallel, technologies like low orbit constellation of satellites delivering internet, like the ones being planned by Starlink and OneWeb should see its deployment fast enough in order to rebalance the loss created by internet inequality.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Electric Batteries and Supply Chain Economics →</title>
-      
-      <link href="https://dotkay.github.io/2020/09/13/electric-batteries/" rel="alternate" type="text/html" title="Electric Batteries and Supply Chain Economics" />
-      <published>2020-09-13T00:00:00+00:00</published>
-      <updated>2020-09-13T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2020/09/13/electric-batteries</id>
-      <content type="html" xml:base="https://dotkay.github.io/2020/09/13/electric-batteries/">&lt;p&gt;One of the many issues the global pandemic has exposed is the (mostly) single point of failure in global supply chain systems. Over the last couple of decades global corporations optimized their supply chain to such an extent that it became far from flexible, while being extremely optimized. While the supply chain disruptions in today’s products - from face masks to medical equipments got exposed, this post is about the future supply chain challenges.&lt;/p&gt;
-
-&lt;p&gt;With many countries rallying towards fighting climate change, electric vehicles are at the forefront of that fight. With the cost per kilowatt-hour touching $100/kWhr or even less, electric vehicles would not only make economic sense but also reduce the total cost of ownership drastically. While American companies like Tesla are at the head of the pack in innovation and execution, the components for uninterrupted production as well as security lie elsewhere - the supply chain for electric car batteries.&lt;/p&gt;
-
-&lt;p&gt;As Benchmark’s Simon Mores says there are two ways of reducing cost of Li-ion batteries:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Controlling the supply of raw materials that go into batteries&lt;/li&gt;
-  &lt;li&gt;Changing how batteries are made (scale)&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;While the prices of raw materials were at all time high, companies like Tesla maintain lead by controlling the manufacturing process - “the scale” as 25-40% of the cost of an electric vehicle can be attributed to the cost of the battery. That is where Gigafactories become interesting and so does controlling the supply chain. But so far, American auto companies, to a large extent, have only been assembling the components that constitute the battery. There is a lot of effort that goes into a battery before this final assembly.&lt;/p&gt;
-
-&lt;p&gt;Let us break this apart looking at the value chain of electric battery manufacturing:&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/misc/ev_bat_value_chain.PNG&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-
-&lt;p&gt;If one were to superimpose the geographies that control different parts of the value chain, one could immediately see the premonitions of future supply chain challenges.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/tmp/main/misc/ev_bat_value_chain_geo.PNG&quot; /&gt;&lt;/center&gt;
-&lt;/div&gt;
-
-&lt;p&gt;More than 50% of every one of the raw materials is dependent on one geography, which is a recipe for future disruptions. As Benchmark’s Vivas Kumar points out, the only part of the value chain that can’t be moved around are the mines themselves. Every other part of the value chain can be located in different parts of the globe. Most of the early stages of the value chain like Cathode, cell manufacturing, etc. are controlled predominantly by specific geographies that would be a supply chain and security risk when electric vehicles become like mobile phones. A wise thing for such an industry like Auto to do is to shore up the different components so that the critical component (battery) supply is not disrupted in the future.&lt;/p&gt;
-
-&lt;p&gt;One has to wait and see if the electric battery supply chain gets reshored and does not become another disruption waiting to happen or if short term optimization goals will lead to long-term disasters, just as it is happening in semiconductors and electronics.&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="electric battery" />
-      
-        <category term="Li" />
-      
-        <category term="Manufacturing" />
-      
-
-      
-
-      
-        <summary type="html">One of the many issues the global pandemic has exposed is the (mostly) single point of failure in global supply chain systems. Over the last couple of decades global corporations optimized their supply chain to such an extent that it became far from flexible, while being extremely optimized. While the supply chain disruptions in today’s products - from face masks to medical equipments got exposed, this post is about the future supply chain challenges. With many countries rallying towards fighting climate change, electric vehicles are at the forefront of that fight. With the cost per kilowatt-hour touching $100/kWhr or even less, electric vehicles would not only make economic sense but also reduce the total cost of ownership drastically. While American companies like Tesla are at the head of the pack in innovation and execution, the components for uninterrupted production as well as security lie elsewhere - the supply chain for electric car batteries. As Benchmark’s Simon Mores says there are two ways of reducing cost of Li-ion batteries: Controlling the supply of raw materials that go into batteries Changing how batteries are made (scale) While the prices of raw materials were at all time high, companies like Tesla maintain lead by controlling the manufacturing process - “the scale” as 25-40% of the cost of an electric vehicle can be attributed to the cost of the battery. That is where Gigafactories become interesting and so does controlling the supply chain. But so far, American auto companies, to a large extent, have only been assembling the components that constitute the battery. There is a lot of effort that goes into a battery before this final assembly. Let us break this apart looking at the value chain of electric battery manufacturing: If one were to superimpose the geographies that control different parts of the value chain, one could immediately see the premonitions of future supply chain challenges. More than 50% of every one of the raw materials is dependent on one geography, which is a recipe for future disruptions. As Benchmark’s Vivas Kumar points out, the only part of the value chain that can’t be moved around are the mines themselves. Every other part of the value chain can be located in different parts of the globe. Most of the early stages of the value chain like Cathode, cell manufacturing, etc. are controlled predominantly by specific geographies that would be a supply chain and security risk when electric vehicles become like mobile phones. A wise thing for such an industry like Auto to do is to shore up the different components so that the critical component (battery) supply is not disrupted in the future. One has to wait and see if the electric battery supply chain gets reshored and does not become another disruption waiting to happen or if short term optimization goals will lead to long-term disasters, just as it is happening in semiconductors and electronics.</summary>
       
 
       
