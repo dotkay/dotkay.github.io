@@ -107,6 +107,4 @@ fof(a11, axiom,
 % c1: Agatha killed herself
 fof(c1, conjecture,
     killed(agatha, agatha)).
-
 ```
-</span>
