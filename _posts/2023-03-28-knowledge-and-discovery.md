@@ -41,3 +41,72 @@ A Vampire proof run would also discover new knowledge (i.e. new facts not explic
 Note that the present day AI systems though demonstrate exemplary generative skills across text, images and video, the content generated, though novel in some cases, is an emergent behavior that arises from the vast knowledge base the model was trained on. Hence, it still lacks the capability to reason how it generated a particular content (it can not produce a sequence of deductions for example).
 
 A symbiotic combination of logical reasoning and analogy based reasoning would enable both an efficient generation of impressive content while at the same time being able to reason about the chain of thought involved in the process. [GreaseLM](https://arxiv.org/abs/2201.08860) and [LEGO](https://proceedings.mlr.press/v139/ren21a.html) are research efforts towards infusing reasoning capabilities in language models. They however work on pruning and traversing a knowledge graph based on the context from embedding vectors, rather than translating the knowledge into formulas in mathematical logic. AI systems that need to solve problems in mathematics and to derive *new knowledge* in the form of new mathematical proofs or conjectures would need more rigour and encoding the knowledge of mathematics in the form of logical formulas and training AI systems on such a corpus could be one way of achieving reasoning capabilities. Besides solving competitive math problems, such systems might be able to discover new physical structures that are lighter and stronger, or better algorithms that are currently unknown, better deterministic optimal algorithms in the place of present day heuristics, or even proofs of non-existence of better algorithms for certain problems. 
+
+<span style="font-size: 70%">
+<i>The annotated logical encoding of the Aunt Agatha problem in TPTP syntax is provided below:</i>
+
+```
+% axioms
+% a1: someone who lives in D Mansion (DM) killed Agatha
+fof(a1, axiom,
+    ? [X] : (lives(X) & killed(X, agatha))).
+
+% a2_0, a2_1, a2_2: Agatha, Butler and Charles live in DM
+fof(a2_0, axiom,
+    lives(agatha)).
+fof(a2_1, axiom,
+    lives(butler)).
+fof(a2_2, axiom,
+    lives(charles)).
+
+% a3: Agatha, Butler and Charles are the only people who live in DM
+fof(a3, axiom,
+    ! [X] : (lives(X)
+          => ( X = agatha
+	     | X = butler
+	     | X = charles))).
+
+% a4: A killer always hates his victim
+fof(a4, axiom,
+    ! [X, Y] : ( killed(X, Y)
+             =>  hates(X, Y))).
+
+% a5: A killer is never richer than his victim
+fof(a5, axiom,
+    ! [X, Y] : ( killed(X, Y)
+             =>  ~richer(X, Y))).
+
+% a6: Charles hates no one that Aunt Agatha hates
+fof(a6, axiom,
+    ! [X] : ( hates(agatha, X)
+          => ~hates(charles, X))).
+
+% a7: Agatha hates everyone except the Butler
+fof(a7, axiom,
+    ! [X] : ( (X != butler)
+          =>  hates(agatha, X))).
+
+% a8: The Butler hates everyone not richer than Aunt Agatha
+fof(a8, axiom,
+    ! [X] : ( ~richer(X, agatha)
+          => hates(butler, X))).
+
+% a9: The Butler hates everyone Aunt Agatha hates
+fof(a9, axiom,
+    ! [X] : ( hates(agatha, X)
+          =>  hates(butler, X))).
+
+% a10: No one hates everyone
+fof(a10, axiom,
+    ! [X] : ? [Y] : ~hates(X, Y)).
+
+% a11: Agatha is not the Butler
+fof(a11, axiom,
+   (agatha != butler)).
+
+% c1: Agatha killed herself
+fof(c1, conjecture,
+    killed(agatha, agatha)).
+
+```
+</span>
