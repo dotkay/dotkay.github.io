@@ -17,7 +17,7 @@ $$
 Since we know, from an [earlier post](https://dotkay.github.io/2019/03/09/reinforcement-learning-theory) that the return $G_t$ is the total discounted rewards starting from state *s*.
 
 $$
-G_t = R_{t+1} + \gamma R_{t+1} + \cdots = \sum_{i=0}^{\infty} \gamma^{i} R_{t+i+1}
+G_t = R_{t+1} + \gamma R_{t+2} + \cdots = \sum_{i=0}^{\infty} \gamma^{i} R_{t+i+1}
 $$
 
 Using the above in $q_{\pi}(s, a)$, 

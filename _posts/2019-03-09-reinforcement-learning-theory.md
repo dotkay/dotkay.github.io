@@ -32,7 +32,7 @@ $$
 If I am a young graduate student, I might be more focussed on long-term rewards (higher pay later on) at the cost of sacrificing short-term rewards (early employment). If I were a trader in a hedge fund, I might be more focussed on short-term bets (short selling) rather than long-term growth companies. It is fair to say that the reward in each of the above cases has a different rate of growth. One could be myopic and be interested in short-term rewards or one could be long-sighted and wait for long-term rewards. In order to accomodate this, we introduce a discount factor $\gamma \in [0, 1]$, which when close to $0$ indicates interest in short-term rewards and when close to $1$ indicates long-sightedness. The expected total reward, also called *return* in RL literature is the total discounted reward from a given point in time. More formally,
 
 $$
-G_t = R_{t+1} + \gamma R_{t+1} + \cdots = \sum_{i=0}^{\infty} \gamma^{i} R_{t+i+1}
+G_t = R_{t+1} + \gamma R_{t+2} + \cdots = \sum_{i=0}^{\infty} \gamma^{i} R_{t+i+1}
 $$
 
 How does one evaluate a state *s*. One needs a metric to compare states to say one state is better than the other. The *state value function v(s)* gives the long-term value of a state *s*. Note that it is *long-term* value, i.e. the value of the state *s* into the future, if we start from state *s*. More formally, 
