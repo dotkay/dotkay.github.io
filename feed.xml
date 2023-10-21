@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2023-10-21T21:43:46+00:00</updated>
+  <updated>2023-10-21T21:51:32+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -22,9 +22,9 @@
   
     <entry>
       
-      <title type="html">Temperature and Sampling in LLMs →</title>
+      <title type="html">LLM Tokens, Sampling and Hallucinations →</title>
       
-      <link href="https://dotkay.github.io/2023/08/06/top-p-and-top-k/" rel="alternate" type="text/html" title="Temperature and Sampling in LLMs" />
+      <link href="https://dotkay.github.io/2023/08/06/top-p-and-top-k/" rel="alternate" type="text/html" title="LLM Tokens, Sampling and Hallucinations" />
       <published>2023-08-06T00:00:00+00:00</published>
       <updated>2023-08-06T00:00:00+00:00</updated>
       <id>https://dotkay.github.io/2023/08/06/top-p-and-top-k</id>
@@ -208,6 +208,8 @@
         <category term="LLM" />
       
         <category term="Tokens" />
+      
+        <category term="Sampling" />
       
 
       
