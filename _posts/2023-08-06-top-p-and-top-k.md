@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Temperature and Sampling in LLMs
-categories: [AI/ML, LLM, Tokens]
-keywords: [AI/ML, LLM, Tokens]
+title: LLM Tokens, Sampling and Hallucinations
+categories: [AI/ML, LLM, Tokens, Sampling]
+keywords: [AI/ML, LLM, Tokens, Sampling]
 external-url: https://dotkay.github.io/2023/08/06/top-p-and-top-k
 ---
 
