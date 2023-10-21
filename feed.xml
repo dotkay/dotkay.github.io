@@ -5,7 +5,7 @@
   
   <link href="https://dotkay.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://dotkay.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2023-06-20T18:34:44+00:00</updated>
+  <updated>2023-10-21T21:43:46+00:00</updated>
   <id>https://dotkay.github.io//</id>
 
   
@@ -18,6 +18,370 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Temperature and Sampling in LLMs →</title>
+      
+      <link href="https://dotkay.github.io/2023/08/06/top-p-and-top-k/" rel="alternate" type="text/html" title="Temperature and Sampling in LLMs" />
+      <published>2023-08-06T00:00:00+00:00</published>
+      <updated>2023-08-06T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2023/08/06/top-p-and-top-k</id>
+      <content type="html" xml:base="https://dotkay.github.io/2023/08/06/top-p-and-top-k/">&lt;p&gt;Many Large Language Model (LLM) APIs have certain parameters that help in selecting the tokens. I am not sure if these should be called &lt;em&gt;parameters&lt;/em&gt; as these are unlike temperature, which is a &lt;em&gt;hyperparameter&lt;/em&gt; - better considered as a sampling technique or inference time parameter setting. These control how predictable (i.e. one could be highly certain that the tokens would come from a most probable set of tokens) the output is. More technically, they control output probability distributions. After all, we are living in a world where probabilistic systems rule everything and everyone has, by now, heard of hallucinations from LLM applications that generate text.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Top-K&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;LLMs typically work on a sequence of tokens. For simplicity the tokens could be considered as words in the target language (for translation or content generation task). Note that most LLMs (like ChatGPT for example) tokenize on sub-words: i.e. for English language every word is approximately 1-1.5 tokens while for other European languages like Spanish or French every word is approximately 2+ tokens. It is important to note that the number is tokens is not the same as the number of words in the target language. When an LLM gobbles up an input sentence and tries to generate an output sentence, it has to predict the tokens in the output language vocabulary one by one. On a very high level, this generates a discrete probability distribution over all possible tokens available (the softmax layer at the end of your network does this). The different output tokens would have different probabilities associated with it and they would sum to 1.&lt;/p&gt;
+
+&lt;p&gt;For example, if our task is a sentence completion task, and our input sentence is&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Aurore likes eating ____________.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Our LLM could potentially fill it up with any of the thousands of tokens that would have an associated high probability with &lt;em&gt;eat&lt;/em&gt;. It could choose bread, cheese, pizza or even snail, rabbit or a shark. What if we want it to predict only the most likely outcomes (e.g. bread, cheese, etc. and not rare tokens like a shark), we can make the LLM choose from among the top &lt;em&gt;K&lt;/em&gt; tokens. Our LLM would then:&lt;/p&gt;
+
+&lt;p&gt;Assume that there are only 6 tokens to choose from, with the following probabilities:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Token&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Probability&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Bread&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_0 : 0.43$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cheese&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_1 : 0.35$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Pizza&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_2 : 0.16$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Rabbit&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_3 : 0.04$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Snail&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_4 : 0.015$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Shark&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_5 : 0.005$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Order all of the tokens in order of their probabilities&lt;/li&gt;
+  &lt;li&gt;Select the K tokens with the highest probablities and creates a new distribution&lt;/li&gt;
+  &lt;li&gt;Sample the token from this new distribution to predict&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note the the probabilities should add up to 1.&lt;/p&gt;
+
+&lt;p&gt;Now from the above set of six tokens, if we want to choose the most probable 3 tokens (K = 3), those would be:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Token&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Probability&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Bread&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_0 : 0.43$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cheese&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_1 : 0.35$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Pizza&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_2 : 0.16$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;This is our new distribution. However the probabilities should add up to 1 and hence the above set needs to be normalized by the sum of the K = 3 tokens. (0.43 + 0.35 + 0.16 = 0.94). This normalization would give us:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Token&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Probability&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Bread&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_0 : 0.46$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cheese&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_1 : 0.37$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Pizza&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_2 : 0.17$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;which sums to 1. If you set K=1, it would be a &lt;em&gt;greedy&lt;/em&gt; approach where the highest probability token would always get selected.
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Top-p&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;This is also referred to as &lt;em&gt;nucleus sampling&lt;/em&gt;. Very similar to Top-K but instead of requesting certain most probable tokens, we want to choose enough tokens to cover a certain probability denoted &lt;em&gt;p&lt;/em&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Order all of the tokens in order of their probabilities&lt;/li&gt;
+  &lt;li&gt;Select the most probable tokens in such a way that their probabilities sum to at least &lt;em&gt;p&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;Sample the token from this new distribution to predict&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Suppose we set &lt;em&gt;p&lt;/em&gt; to 0.75 in our case, we would be picking the following tokens to choose from (their probabilities sum to at least 0.9 (0.43 + 0.35 = 0.78)&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Token&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Probability&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Bread&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_0 : 0.43$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cheese&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_1 : 0.35$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Again, we will have to normalize the new distribution as done in Top-K, so that the probabilities sum to 1.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Token&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Probability&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Bread&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_0 : 0.55$&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Cheese&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;$t_1 : 0.45$&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The next time you feel hallucinated, you may want to check these parameter settings in your API calls.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="AI/ML" />
+      
+        <category term="LLM" />
+      
+        <category term="Tokens" />
+      
+
+      
+
+      
+        <summary type="html">Many Large Language Model (LLM) APIs have certain parameters that help in selecting the tokens. I am not sure if these should be called parameters as these are unlike temperature, which is a hyperparameter - better considered as a sampling technique or inference time parameter setting. These control how predictable (i.e. one could be highly certain that the tokens would come from a most probable set of tokens) the output is. More technically, they control output probability distributions. After all, we are living in a world where probabilistic systems rule everything and everyone has, by now, heard of hallucinations from LLM applications that generate text. Top-K LLMs typically work on a sequence of tokens. For simplicity the tokens could be considered as words in the target language (for translation or content generation task). Note that most LLMs (like ChatGPT for example) tokenize on sub-words: i.e. for English language every word is approximately 1-1.5 tokens while for other European languages like Spanish or French every word is approximately 2+ tokens. It is important to note that the number is tokens is not the same as the number of words in the target language. When an LLM gobbles up an input sentence and tries to generate an output sentence, it has to predict the tokens in the output language vocabulary one by one. On a very high level, this generates a discrete probability distribution over all possible tokens available (the softmax layer at the end of your network does this). The different output tokens would have different probabilities associated with it and they would sum to 1. For example, if our task is a sentence completion task, and our input sentence is Aurore likes eating ____________. Our LLM could potentially fill it up with any of the thousands of tokens that would have an associated high probability with eat. It could choose bread, cheese, pizza or even snail, rabbit or a shark. What if we want it to predict only the most likely outcomes (e.g. bread, cheese, etc. and not rare tokens like a shark), we can make the LLM choose from among the top K tokens. Our LLM would then: Assume that there are only 6 tokens to choose from, with the following probabilities: Token Probability Bread $t_0 : 0.43$ Cheese $t_1 : 0.35$ Pizza $t_2 : 0.16$ Rabbit $t_3 : 0.04$ Snail $t_4 : 0.015$ Shark $t_5 : 0.005$ Order all of the tokens in order of their probabilities Select the K tokens with the highest probablities and creates a new distribution Sample the token from this new distribution to predict Note the the probabilities should add up to 1. Now from the above set of six tokens, if we want to choose the most probable 3 tokens (K = 3), those would be: Token Probability Bread $t_0 : 0.43$ Cheese $t_1 : 0.35$ Pizza $t_2 : 0.16$ This is our new distribution. However the probabilities should add up to 1 and hence the above set needs to be normalized by the sum of the K = 3 tokens. (0.43 + 0.35 + 0.16 = 0.94). This normalization would give us: Token Probability Bread $t_0 : 0.46$ Cheese $t_1 : 0.37$ Pizza $t_2 : 0.17$ which sums to 1. If you set K=1, it would be a greedy approach where the highest probability token would always get selected. Top-p This is also referred to as nucleus sampling. Very similar to Top-K but instead of requesting certain most probable tokens, we want to choose enough tokens to cover a certain probability denoted p. Order all of the tokens in order of their probabilities Select the most probable tokens in such a way that their probabilities sum to at least p Sample the token from this new distribution to predict Suppose we set p to 0.75 in our case, we would be picking the following tokens to choose from (their probabilities sum to at least 0.9 (0.43 + 0.35 = 0.78) Token Probability Bread $t_0 : 0.43$ Cheese $t_1 : 0.35$ Again, we will have to normalize the new distribution as done in Top-K, so that the probabilities sum to 1. Token Probability Bread $t_0 : 0.55$ Cheese $t_1 : 0.45$ The next time you feel hallucinated, you may want to check these parameter settings in your API calls.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Temperature and Sampling in LLMs →</title>
+      
+      <link href="https://dotkay.github.io/2023/07/04/temperature-sampling-llms/" rel="alternate" type="text/html" title="Temperature and Sampling in LLMs" />
+      <published>2023-07-04T00:00:00+00:00</published>
+      <updated>2023-07-04T00:00:00+00:00</updated>
+      <id>https://dotkay.github.io/2023/07/04/temperature-sampling-llms</id>
+      <content type="html" xml:base="https://dotkay.github.io/2023/07/04/temperature-sampling-llms/">&lt;p&gt;The original motivation for using &lt;em&gt;temperature&lt;/em&gt; to control the output of Large Language Models (LLMs) comes from &lt;em&gt;Statistical Mechanics&lt;/em&gt;. This concept was adopted for neural networks probably first by David Ackley, Geoffrey Hinton and Terrence Sejnowskli in &lt;a href=&quot;https://www.cs.toronto.edu/~fritz/absps/cogscibm.pdf&quot;&gt;&lt;em&gt;A Learning Algorithm for Botzmann Machines&lt;/em&gt;&lt;/a&gt;. While the paper talks about constraint satisfaction problems using a parallel network of processing units, the way to understand the concept of temperature for today’s neural networks is simpler.&lt;/p&gt;
+
+&lt;p&gt;Think of the neural network structure given below:&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;img_container&quot;&gt;
+  &lt;center&gt;&lt;img src=&quot;https://raw.githubusercontent.com/dotkay/dotkay.github.io/source/assets/images/misc/image-1.png&quot; /&gt;&lt;/center&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We have an Input layer, a set of hidden layers and also the activations shown by &lt;em&gt;w&lt;/em&gt; (for multiplication by weight elements). What we get as an output is a real value $x_i$. If we are dealing with a binary classification task, what we want is to interpret this value $x_i$ to have two probabilities indicating the probabilities for the two possible classes. If our task is a multi-class classification, we will have more probabilities for outputs. A common choice for this is a sigmoid function, which for binary classification tasks is the logistic function and in multi-class tasks, the multinomial logistic function (&lt;em&gt;softmax&lt;/em&gt;). This is the primary reason behind books referring to the arguments of softmax as &lt;em&gt;logits&lt;/em&gt;. The term &lt;em&gt;logit&lt;/em&gt; was originally &lt;a href=&quot;https://www.jstor.org/stable/3001655&quot;&gt;used by Joseph Berkson&lt;/a&gt; to mean log of odds and as an analogy for &lt;em&gt;probit&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s understand it using some simple code fragments. In the below, we have some probabilities &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;probs&lt;/code&gt; that add up to 1.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;probs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0179&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.03&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;probs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;probs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0179&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.03&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let us calculate the log of the odds of these.&lt;/p&gt;
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;math&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_logits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;probs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;probs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;logits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_logits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;probs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;logits
+
+&amp;gt; [-9.21024036697585,
+ -4.00489242331702,
+ -6.212606095751519,
+ -3.4760986898352733,
+ -2.9444389791664403,
+ -0.4054651081081643,
+ 0.0]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let us compute the regular softmax function:&lt;/p&gt;
+
+\[\sigma(x_i) = \frac{e^{x_i}}  {\sum\limits_{i} e^{x_i}}\]
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;softmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;denominator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;softmax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;denominator&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;softmax&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And compute the softmax for our logits - essentially we are converting them into an interpretable way.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;softmax(logits)
+
+&amp;gt; [5.648507096749673e-05,
+ 0.010294080664302612,
+ 0.0011318521535150297,
+ 0.017467862616618552,
+ 0.029726011821263155,
+ 0.37652948306933326,
+ 0.5647942246039999]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, let us add the temperature parameter to control the softmax output. Our modified softmax is now:&lt;/p&gt;
+
+\[\sigma(x_i) = \frac{e^{\tfrac{x_i}{T}}}{\sum\limits_{i}  e^{\tfrac{x_i}{T}}}\]
+
+&lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;softmax_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;denominator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;softmax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;denominator&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logits&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;softmax&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we now compute softmax for different values of temperature (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt; in the function above),&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;softmax_t(logits, t=0.1)
+
+&amp;gt; [9.83937567458523e-41,
+ 3.976549800632757e-18,
+ 1.0268990926840024e-27,
+ 7.870973150024767e-16,
+ 1.6032351163946892e-13,
+ 0.017045927454927112,
+ 0.9829540725449118]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For small temperature values &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t=0.1&lt;/code&gt; for example, we see that the smaller logits almost vanish and the larger ones survive. If you think of these as tokens in the target language (a source-target language translation or content generation in a target language), it would mean that only a few of the tokens get a chance to be used and hence it would be relatively bland content.&lt;/p&gt;
+
+&lt;p&gt;If we increase the temperature, say to a 1 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t=1&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;softmax_t(logits, t=1)
+
+&amp;gt; [5.648507096749673e-05,
+ 0.010294080664302612,
+ 0.0011318521535150297,
+ 0.017467862616618552,
+ 0.029726011821263155,
+ 0.37652948306933326,
+ 0.5647942246039999]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If we keep increasing it to a 100, and then to a 1000, we see more interesting behaviors.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;softmax_t(logits, t=100)
+
+&amp;gt; [0.13520713120321545,
+ 0.14243152917854485,
+ 0.13932150536327115,
+ 0.14318669304928164,
+ 0.1439499862705803,
+ 0.14765163186672028,
+ 0.14825152306838635]
+
+softmax_t(logits, t=1000)
+
+&amp;gt; [0.14207868212056274,
+ 0.1428201792975013,
+ 0.14250522103172697,
+ 0.14289572168473877,
+ 0.1429717137819637,
+ 0.143335176443405,
+ 0.14339330564010144]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We see that more tokens are having similar chances of getting used. In the above case, at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t=1000&lt;/code&gt;, every token has equal probability of getting used in the target language and hence it has more creative freedom to use all possible words and create more previously unseen (and some times awkward) content.&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="AI/ML" />
+      
+        <category term="LLM" />
+      
+        <category term="sampling" />
+      
+
+      
+
+      
+        <summary type="html">The original motivation for using temperature to control the output of Large Language Models (LLMs) comes from Statistical Mechanics. This concept was adopted for neural networks probably first by David Ackley, Geoffrey Hinton and Terrence Sejnowskli in A Learning Algorithm for Botzmann Machines. While the paper talks about constraint satisfaction problems using a parallel network of processing units, the way to understand the concept of temperature for today’s neural networks is simpler. Think of the neural network structure given below: We have an Input layer, a set of hidden layers and also the activations shown by w (for multiplication by weight elements). What we get as an output is a real value $x_i$. If we are dealing with a binary classification task, what we want is to interpret this value $x_i$ to have two probabilities indicating the probabilities for the two possible classes. If our task is a multi-class classification, we will have more probabilities for outputs. A common choice for this is a sigmoid function, which for binary classification tasks is the logistic function and in multi-class tasks, the multinomial logistic function (softmax). This is the primary reason behind books referring to the arguments of softmax as logits. The term logit was originally used by Joseph Berkson to mean log of odds and as an analogy for probit. Let’s understand it using some simple code fragments. In the below, we have some probabilities probs that add up to 1. probs = [0.0001, 0.0179, 0.002, 0.03, 0.05, 0.4, 0.5] probs, sum(probs) &amp;gt; ([0.0001, 0.0179, 0.002, 0.03, 0.05, 0.4, 0.5], 1.0) Let us calculate the log of the odds of these. import math def get_logits(probs): return [math.log(x/(1-x)) for x in probs] logits = get_logits(probs) logits &amp;gt; [-9.21024036697585, -4.00489242331702, -6.212606095751519, -3.4760986898352733, -2.9444389791664403, -0.4054651081081643, 0.0] Let us compute the regular softmax function: \[\sigma(x_i) = \frac{e^{x_i}} {\sum\limits_{i} e^{x_i}}\] def softmax(logits): denominator = sum([math.exp(x) for x in logits]) softmax = [math.exp(x)/denominator for x in logits] return softmax And compute the softmax for our logits - essentially we are converting them into an interpretable way. softmax(logits) &amp;gt; [5.648507096749673e-05, 0.010294080664302612, 0.0011318521535150297, 0.017467862616618552, 0.029726011821263155, 0.37652948306933326, 0.5647942246039999] Now, let us add the temperature parameter to control the softmax output. Our modified softmax is now: \[\sigma(x_i) = \frac{e^{\tfrac{x_i}{T}}}{\sum\limits_{i} e^{\tfrac{x_i}{T}}}\] def softmax_t(logits, t=1.0): denominator = sum([math.exp(x/t) for x in logits]) softmax = [math.exp(x/t)/denominator for x in logits] return softmax If we now compute softmax for different values of temperature (t in the function above), softmax_t(logits, t=0.1) &amp;gt; [9.83937567458523e-41, 3.976549800632757e-18, 1.0268990926840024e-27, 7.870973150024767e-16, 1.6032351163946892e-13, 0.017045927454927112, 0.9829540725449118] For small temperature values t=0.1 for example, we see that the smaller logits almost vanish and the larger ones survive. If you think of these as tokens in the target language (a source-target language translation or content generation in a target language), it would mean that only a few of the tokens get a chance to be used and hence it would be relatively bland content. If we increase the temperature, say to a 1 (t=1): softmax_t(logits, t=1) &amp;gt; [5.648507096749673e-05, 0.010294080664302612, 0.0011318521535150297, 0.017467862616618552, 0.029726011821263155, 0.37652948306933326, 0.5647942246039999] If we keep increasing it to a 100, and then to a 1000, we see more interesting behaviors. softmax_t(logits, t=100) &amp;gt; [0.13520713120321545, 0.14243152917854485, 0.13932150536327115, 0.14318669304928164, 0.1439499862705803, 0.14765163186672028, 0.14825152306838635] softmax_t(logits, t=1000) &amp;gt; [0.14207868212056274, 0.1428201792975013, 0.14250522103172697, 0.14289572168473877, 0.1429717137819637, 0.143335176443405, 0.14339330564010144] We see that more tokens are having similar chances of getting used. In the above case, at t=1000, every token has equal probability of getting used in the target language and hence it has more creative freedom to use all possible words and create more previously unseen (and some times awkward) content.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
@@ -1824,104 +2188,6 @@ description                       object
 
       
         <summary type="html">A week ago Tesla Motors (TSLA) joined the S&amp;amp;P 500 Index - the stock market index that keeps track of the performance of 500 largest companies listed in stock markets in the US. Overall TSLA has been very volatile - many argue that the volatility (risk) indicates the opportunies for Tesla. Now that we are towards the end of the year, a pandemic year, let’s see how the S&amp;amp;P 500 performed and how Tesla performed. And in terms of the value of TSLA stock and S&amp;amp;P 500 Index, this is how they fared during this year: tsla_df = pdr.get_data_yahoo(&quot;TSLA&quot;, start=&quot;2010-07-01&quot;, end=&quot;2020-12-20&quot;, interval=&quot;wk&quot;) ... ... plt.plot(snp_df['Date'], snp_df['Adj Close'],label='S&amp;amp;P') plt.plot(tsla_df['Date'], tsla_df['Adj Close'], label='TSLA') plt.xlabel('Date') plt.ylabel('Market Value') ... ... All the data was collected using pandas_datareader and the plots done using seaborn library.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Humans and Space →</title>
-      
-      <link href="https://dotkay.github.io/2020/11/11/humans-and-space/" rel="alternate" type="text/html" title="Humans and Space" />
-      <published>2020-11-11T00:00:00+00:00</published>
-      <updated>2020-11-11T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2020/11/11/humans-and-space</id>
-      <content type="html" xml:base="https://dotkay.github.io/2020/11/11/humans-and-space/">&lt;p&gt;Since time immmorial, humans have been interested in astronomy and space. This can be dated back to the &lt;a href=&quot;https://www.youtube.com/watch?v=jgjcy04PDRM&quot;&gt;work of Aryabhatta&lt;/a&gt; and the ideas of &lt;a href=&quot;https://www.youtube.com/watch?v=BMPaq8sf8Ko&quot;&gt;Greek astronomers&lt;/a&gt; like Aristotle. However, human journey to space, as we know today, happened much later. Today, we are in a race to conquer the planets and use our knowledge of space acquired over centuries to advance many technologies.&lt;/p&gt;
-
-&lt;p&gt;Space is an important frontier for many technological advances. Global Positioning Systems (GPS), International Space Station (ISS), communication satellites, and (hopefully) very soon low earth orbit satellites beaming wireless internet are some of the greatest engineering marvels. Beyond space tourism and inhabiting Mars, there are many more important reasons why space might be very important.&lt;/p&gt;
-
-&lt;p&gt;This fun post shows the number of trips made by American and Russian astronauts and the various expeditions to space over the last two decades.&lt;/p&gt;
-
-&lt;iframe seamless=&quot;&quot; frameborder=&quot;0&quot; src=&quot;https://public.tableau.com/views/HumansandSpaceMissions/Dashboard1?:language=en-US&amp;amp;:display_count=n&amp;amp;:origin=viz_share_link?embed=yes&amp;amp;:display_count=yes&amp;amp;:showVizHome=no&quot; width=&quot;1100&quot; height=&quot;950&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="space" />
-      
-        <category term="technology" />
-      
-        <category term="USA" />
-      
-        <category term="Russia" />
-      
-
-      
-
-      
-        <summary type="html">Since time immmorial, humans have been interested in astronomy and space. This can be dated back to the work of Aryabhatta and the ideas of Greek astronomers like Aristotle. However, human journey to space, as we know today, happened much later. Today, we are in a race to conquer the planets and use our knowledge of space acquired over centuries to advance many technologies. Space is an important frontier for many technological advances. Global Positioning Systems (GPS), International Space Station (ISS), communication satellites, and (hopefully) very soon low earth orbit satellites beaming wireless internet are some of the greatest engineering marvels. Beyond space tourism and inhabiting Mars, there are many more important reasons why space might be very important. This fun post shows the number of trips made by American and Russian astronauts and the various expeditions to space over the last two decades.</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Our Sense of Self →</title>
-      
-      <link href="https://dotkay.github.io/2020/10/10/sense-of-self/" rel="alternate" type="text/html" title="Our Sense of Self" />
-      <published>2020-10-10T00:00:00+00:00</published>
-      <updated>2020-10-10T00:00:00+00:00</updated>
-      <id>https://dotkay.github.io/2020/10/10/sense-of-self</id>
-      <content type="html" xml:base="https://dotkay.github.io/2020/10/10/sense-of-self/">&lt;p&gt;We perceive our sense of self as an amalgamation of the different sensory inputs - visual, tactile, locomotive, etc., that our brain processes and interprets. Or in other words, our sense of self is an interpretation made for us by our brain (mind) after processing several inputs. In olden days philosophers who tried to understand one’s true self found it difficult to reason about the interpretation of sense of self - are we really who we are? or are we manifestations of our mind’s interpretation of several inputs? This is a fascinating topic and lately neuroscience research is trying to understand which parts of the brain are processing and how our brain creates such interpretations.&lt;/p&gt;
-
-&lt;p&gt;In his book, &lt;a href=&quot;https://www.amazon.com/Man-Who-Wasnt-There-Investigations/dp/0525954198&quot;&gt;The Man Who Wasn’t There&lt;/a&gt;, journalist Anil Ananthaswamy takes us through the neuroscience research on this topic. The main message of this book is that our sense of self is an interpretation of several inputs which are beyond just sensory inputs but our own physical body and society play a vital role. And in this age where Computer Scientists are working on Deep Learning as well as trying to understand the neurological pathways in order to build systems that mimic the human decision making apparatus, while that apparatus itself is not completely understood.&lt;/p&gt;
-
-&lt;p&gt;What fascinates me about this study is how the mind’s computation of sense of self can be influenced (or cheated) by changing the mapping (think of it as lookup table entries) the mind preserves for different sensory and other inputs. In many cases, what we feel and believe our sense of self is, is just an interpretation (an entry in the table) that is fetched given the inputs. We can influence such inputs to pick up a different entry that would alter our sense of self. There is also a classic neuroscience experiment from the 90s that demonstrates how the mapping in our brain, representing our physical sense of self, can be altered within minutes. You can take a look at an example experiment below:&lt;/p&gt;
-
-&lt;div class=&quot;img_container&quot;&gt;
-  &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/ASM12lpDDy0&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-
-&lt;p&gt;I am intrigued about the possibility of changing our emotional sense of self and if it could be done non-invasively using technology. Such a possibility would be a big boost to curing several mental disorders just by altering the mapping in the mind, when we know how the mapping is created, where it is stored and how it is interpreted. Also, one needs to be aware of ramifications of this - can such mappings be altered by say adversarial inputs - visual or societal - in the form of social media posts or news articles. We might be destroying our own sense of self by letting our mind interpret the inputs that we consume, without us realizing the end result - thinking we are who our mind interprets (influenced interpretation/self) rather than who we really are (actual self).&lt;/p&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-        <category term="mind" />
-      
-        <category term="psychology" />
-      
-        <category term="philosophy" />
-      
-        <category term="neuroscience" />
-      
-        <category term="brain" />
-      
-
-      
-
-      
-        <summary type="html">We perceive our sense of self as an amalgamation of the different sensory inputs - visual, tactile, locomotive, etc., that our brain processes and interprets. Or in other words, our sense of self is an interpretation made for us by our brain (mind) after processing several inputs. In olden days philosophers who tried to understand one’s true self found it difficult to reason about the interpretation of sense of self - are we really who we are? or are we manifestations of our mind’s interpretation of several inputs? This is a fascinating topic and lately neuroscience research is trying to understand which parts of the brain are processing and how our brain creates such interpretations. In his book, The Man Who Wasn’t There, journalist Anil Ananthaswamy takes us through the neuroscience research on this topic. The main message of this book is that our sense of self is an interpretation of several inputs which are beyond just sensory inputs but our own physical body and society play a vital role. And in this age where Computer Scientists are working on Deep Learning as well as trying to understand the neurological pathways in order to build systems that mimic the human decision making apparatus, while that apparatus itself is not completely understood. What fascinates me about this study is how the mind’s computation of sense of self can be influenced (or cheated) by changing the mapping (think of it as lookup table entries) the mind preserves for different sensory and other inputs. In many cases, what we feel and believe our sense of self is, is just an interpretation (an entry in the table) that is fetched given the inputs. We can influence such inputs to pick up a different entry that would alter our sense of self. There is also a classic neuroscience experiment from the 90s that demonstrates how the mapping in our brain, representing our physical sense of self, can be altered within minutes. You can take a look at an example experiment below: I am intrigued about the possibility of changing our emotional sense of self and if it could be done non-invasively using technology. Such a possibility would be a big boost to curing several mental disorders just by altering the mapping in the mind, when we know how the mapping is created, where it is stored and how it is interpreted. Also, one needs to be aware of ramifications of this - can such mappings be altered by say adversarial inputs - visual or societal - in the form of social media posts or news articles. We might be destroying our own sense of self by letting our mind interpret the inputs that we consume, without us realizing the end result - thinking we are who our mind interprets (influenced interpretation/self) rather than who we really are (actual self).</summary>
       
 
       

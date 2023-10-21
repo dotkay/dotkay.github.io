@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            inlineMath: [['$','$']],
+            processEscapes: true
+          }
+        });
+    </script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Temperature and Sampling in LLMs</title>
+  <meta name="description" content="The original motivation for using temperature to control the output of Large Language Models (LLMs) comes from Statistical Mechanics. This concept was adopted for neural networks probably first by David Ackley, Geoffrey Hinton and Terrence Sejnowskli in A Learning Algorithm for Botzmann Machines. While the paper talks about constraint satisfaction problems using a parallel network of processing units, the way to understand the concept of temperature for today’s neural networks is simpler. Think of the neural network structure given below: We have an Input layer, a set of hidden layers and also the activations shown by w (for multiplication by weight elements). What we get as an output is a real value $x_i$. If we are dealing with a binary classification task, what we want is to interpret this value $x_i$ to have two probabilities indicating the probabilities for the two possible classes. If our task is a multi-class classification, we will have more probabilities for outputs. A common choice for this is a sigmoid function, which for binary classification tasks is the logistic function and in multi-class tasks, the multinomial logistic function (softmax). This is the primary reason behind books referring to the arguments of softmax as logits. The term logit was originally used by Joseph Berkson to mean log of odds and as an analogy for probit. Let’s understand it using some simple code fragments. In the below, we have some probabilities probs that add up to 1. probs = [0.0001, 0.0179, 0.002, 0.03, 0.05, 0.4, 0.5] probs, sum(probs) &amp;gt; ([0.0001, 0.0179, 0.002, 0.03, 0.05, 0.4, 0.5], 1.0) Let us calculate the log of the odds of these. import math def get_logits(probs): return [math.log(x/(1-x)) for x in probs] logits = get_logits(probs) logits &amp;gt; [-9.21024036697585, -4.00489242331702, -6.212606095751519, -3.4760986898352733, -2.9444389791664403, -0.4054651081081643, 0.0] Let us compute the regular softmax function: \[\sigma(x_i) = \frac{e^{x_i}} {\sum\limits_{i} e^{x_i}}\] def softmax(logits): denominator = sum([math.exp(x) for x in logits]) softmax = [math.exp(x)/denominator for x in logits] return softmax And compute the softmax for our logits - essentially we are converting them into an interpretable way. softmax(logits) &amp;gt; [5.648507096749673e-05, 0.010294080664302612, 0.0011318521535150297, 0.017467862616618552, 0.029726011821263155, 0.37652948306933326, 0.5647942246039999] Now, let us add the temperature parameter to control the softmax output. Our modified softmax is now: \[\sigma(x_i) = \frac{e^{\tfrac{x_i}{T}}}{\sum\limits_{i} e^{\tfrac{x_i}{T}}}\] def softmax_t(logits, t=1.0): denominator = sum([math.exp(x/t) for x in logits]) softmax = [math.exp(x/t)/denominator for x in logits] return softmax If we now compute softmax for different values of temperature (t in the function above), softmax_t(logits, t=0.1) &amp;gt; [9.83937567458523e-41, 3.976549800632757e-18, 1.0268990926840024e-27, 7.870973150024767e-16, 1.6032351163946892e-13, 0.017045927454927112, 0.9829540725449118] For small temperature values t=0.1 for example, we see that the smaller logits almost vanish and the larger ones survive. If you think of these as tokens in the target language (a source-target language translation or content generation in a target language), it would mean that only a few of the tokens get a chance to be used and hence it would be relatively bland content. If we increase the temperature, say to a 1 (t=1): softmax_t(logits, t=1) &amp;gt; [5.648507096749673e-05, 0.010294080664302612, 0.0011318521535150297, 0.017467862616618552, 0.029726011821263155, 0.37652948306933326, 0.5647942246039999] If we keep increasing it to a 100, and then to a 1000, we see more interesting behaviors. softmax_t(logits, t=100) &amp;gt; [0.13520713120321545, 0.14243152917854485, 0.13932150536327115, 0.14318669304928164, 0.1439499862705803, 0.14765163186672028, 0.14825152306838635] softmax_t(logits, t=1000) &amp;gt; [0.14207868212056274, 0.1428201792975013, 0.14250522103172697, 0.14289572168473877, 0.1429717137819637, 0.143335176443405, 0.14339330564010144] We see that more tokens are having similar chances of getting used. In the above case, at t=1000, every token has equal probability of getting used in the target language and hence it has more creative freedom to use all possible words and create more previously unseen (and some times awkward) content.">
+  
+    
+    <meta name="keywords" content="AI/ML,LLM,sampling">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://dotkay.github.io/2023/07/04/temperature-sampling-llms/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Kalyan" href="https://dotkay.github.io/feed.xml">
+
+  
+
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Temperature and Sampling in LLMs">
+  <meta name="twitter:description" content="The original motivation for using temperature to control the output of Large Language Models (LLMs) comes from Statistical Mechanics. This concept was adopted for neural networks probably first by ...">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-105390377-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+    <a class="site-title" href="/">Kalyan</a> 
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Posts</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline"><a href="https://dotkay.github.io/2023/07/04/temperature-sampling-llms">Temperature and Sampling in LLMs &rarr;</a></h1>
+    
+    <p class="post-meta"><time datetime="2023-07-04T00:00:00+00:00" itemprop="datePublished">Jul 4, 2023</time> • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/ai-ml/">AI/ML</a>,
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/llm/">LLM</a>,
+    
+  
+    
+  
+    
+  
+
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/sampling/">sampling</a>
+    
+  
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>The original motivation for using <em>temperature</em> to control the output of Large Language Models (LLMs) comes from <em>Statistical Mechanics</em>. This concept was adopted for neural networks probably first by David Ackley, Geoffrey Hinton and Terrence Sejnowskli in <a href="https://www.cs.toronto.edu/~fritz/absps/cogscibm.pdf"><em>A Learning Algorithm for Botzmann Machines</em></a>. While the paper talks about constraint satisfaction problems using a parallel network of processing units, the way to understand the concept of temperature for today’s neural networks is simpler.</p>
+
+<p>Think of the neural network structure given below:</p>
+
+<p><br /></p>
+<div class="img_container">
+  <center><img src="https://raw.githubusercontent.com/dotkay/dotkay.github.io/source/assets/images/misc/image-1.png" /></center>
+</div>
+
+<p>We have an Input layer, a set of hidden layers and also the activations shown by <em>w</em> (for multiplication by weight elements). What we get as an output is a real value $x_i$. If we are dealing with a binary classification task, what we want is to interpret this value $x_i$ to have two probabilities indicating the probabilities for the two possible classes. If our task is a multi-class classification, we will have more probabilities for outputs. A common choice for this is a sigmoid function, which for binary classification tasks is the logistic function and in multi-class tasks, the multinomial logistic function (<em>softmax</em>). This is the primary reason behind books referring to the arguments of softmax as <em>logits</em>. The term <em>logit</em> was originally <a href="https://www.jstor.org/stable/3001655">used by Joseph Berkson</a> to mean log of odds and as an analogy for <em>probit</em>.</p>
+
+<p>Let’s understand it using some simple code fragments. In the below, we have some probabilities <code class="language-plaintext highlighter-rouge">probs</code> that add up to 1.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">probs</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.0179</span><span class="p">,</span> <span class="mf">0.002</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="n">probs</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+
+<span class="o">&gt;</span> <span class="p">([</span><span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.0179</span><span class="p">,</span> <span class="mf">0.002</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="mf">1.0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Let us calculate the log of the odds of these.</p>
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">def</span> <span class="nf">get_logits</span><span class="p">(</span><span class="n">probs</span><span class="p">):</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">math</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">probs</span><span class="p">]</span>
+
+<span class="n">logits</span> <span class="o">=</span> <span class="n">get_logits</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logits
+
+&gt; [-9.21024036697585,
+ -4.00489242331702,
+ -6.212606095751519,
+ -3.4760986898352733,
+ -2.9444389791664403,
+ -0.4054651081081643,
+ 0.0]
+</code></pre></div></div>
+
+<p>Let us compute the regular softmax function:</p>
+
+\[\sigma(x_i) = \frac{e^{x_i}}  {\sum\limits_{i} e^{x_i}}\]
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">):</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">logits</span><span class="p">])</span>
+    <span class="n">softmax</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">denominator</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">logits</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">softmax</span>
+</code></pre></div></div>
+
+<p>And compute the softmax for our logits - essentially we are converting them into an interpretable way.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>softmax(logits)
+
+&gt; [5.648507096749673e-05,
+ 0.010294080664302612,
+ 0.0011318521535150297,
+ 0.017467862616618552,
+ 0.029726011821263155,
+ 0.37652948306933326,
+ 0.5647942246039999]
+</code></pre></div></div>
+
+<p>Now, let us add the temperature parameter to control the softmax output. Our modified softmax is now:</p>
+
+\[\sigma(x_i) = \frac{e^{\tfrac{x_i}{T}}}{\sum\limits_{i}  e^{\tfrac{x_i}{T}}}\]
+
+<div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">softmax_t</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">logits</span><span class="p">])</span>
+    <span class="n">softmax</span> <span class="o">=</span> <span class="p">[</span><span class="n">math</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">t</span><span class="p">)</span><span class="o">/</span><span class="n">denominator</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">logits</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">softmax</span>
+</code></pre></div></div>
+
+<p>If we now compute softmax for different values of temperature (<code class="language-plaintext highlighter-rouge">t</code> in the function above),</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>softmax_t(logits, t=0.1)
+
+&gt; [9.83937567458523e-41,
+ 3.976549800632757e-18,
+ 1.0268990926840024e-27,
+ 7.870973150024767e-16,
+ 1.6032351163946892e-13,
+ 0.017045927454927112,
+ 0.9829540725449118]
+</code></pre></div></div>
+
+<p>For small temperature values <code class="language-plaintext highlighter-rouge">t=0.1</code> for example, we see that the smaller logits almost vanish and the larger ones survive. If you think of these as tokens in the target language (a source-target language translation or content generation in a target language), it would mean that only a few of the tokens get a chance to be used and hence it would be relatively bland content.</p>
+
+<p>If we increase the temperature, say to a 1 (<code class="language-plaintext highlighter-rouge">t=1</code>):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>softmax_t(logits, t=1)
+
+&gt; [5.648507096749673e-05,
+ 0.010294080664302612,
+ 0.0011318521535150297,
+ 0.017467862616618552,
+ 0.029726011821263155,
+ 0.37652948306933326,
+ 0.5647942246039999]
+</code></pre></div></div>
+
+<p>If we keep increasing it to a 100, and then to a 1000, we see more interesting behaviors.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>softmax_t(logits, t=100)
+
+&gt; [0.13520713120321545,
+ 0.14243152917854485,
+ 0.13932150536327115,
+ 0.14318669304928164,
+ 0.1439499862705803,
+ 0.14765163186672028,
+ 0.14825152306838635]
+
+softmax_t(logits, t=1000)
+
+&gt; [0.14207868212056274,
+ 0.1428201792975013,
+ 0.14250522103172697,
+ 0.14289572168473877,
+ 0.1429717137819637,
+ 0.143335176443405,
+ 0.14339330564010144]
+</code></pre></div></div>
+
+<p>We see that more tokens are having similar chances of getting used. In the above case, at <code class="language-plaintext highlighter-rouge">t=1000</code>, every token has equal probability of getting used in the target language and hence it has more creative freedom to use all possible words and create more previously unseen (and some times awkward) content.</p>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://dotkay.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
