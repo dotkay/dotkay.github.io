@@ -45,6 +45,7 @@ Now from the above set of six tokens, if we want to choose the most probable 3 t
 | Bread | $t_0 : 0.43$ |
 | Cheese | $t_1 : 0.35$ |
 | Pizza | $t_2 : 0.16$ |
+<br>
 
 This is our new distribution. However the probabilities should add up to 1 and hence the above set needs to be normalized by the sum of the K = 3 tokens. (0.43 + 0.35 + 0.16 = 0.94). This normalization would give us:
 
@@ -53,6 +54,7 @@ This is our new distribution. However the probabilities should add up to 1 and h
 | Bread | $t_0 : 0.46$ |
 | Cheese | $t_1 : 0.37$ |
 | Pizza | $t_2 : 0.17$ |
+<br>
 
 which sums to 1. If you set K=1, it would be a *greedy* approach where the highest probability token would always get selected.
 <br>
@@ -71,6 +73,7 @@ Suppose we set *p* to 0.75 in our case, we would be picking the following tokens
 | :-- | :-- |
 | Bread | $t_0 : 0.43$ |
 | Cheese | $t_1 : 0.35$ |
+<br>
 
 Again, we will have to normalize the new distribution as done in Top-K, so that the probabilities sum to 1.
 
@@ -78,5 +81,6 @@ Again, we will have to normalize the new distribution as done in Top-K, so that 
 | :-- | :-- |
 | Bread | $t_0 : 0.55$ |
 | Cheese | $t_1 : 0.45$ |
+<br>
 
 The next time you feel hallucinated, you may want to check these parameter settings in your API calls.
