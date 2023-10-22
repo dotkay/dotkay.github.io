@@ -23,14 +23,36 @@ Our LLM could potentially fill it up with any of the thousands of tokens that wo
 
 Assume that there are only 6 tokens to choose from, with the following probabilities:
 
-| Token | Probability |
-| ------- | ------- |
-| Bread | $t_0 = 0.43$ |
-| Cheese | $t_1 = 0.35$ |
-| Pizza | $t_2 = 0.16$ |
-| Rabbit | $t_3 = 0.04$ |
-| Snail | $t_4 = 0.015$ |
-| Shark | $t_5 = 0.005$ |
+ <table>
+  <tr>
+    <th>Token</th>
+    <th>Probability</th>
+  </tr>
+  <tr>
+    <td>Bread</td>
+    <td> t<sub>0</sub> : 0.43 </td>
+  </tr>
+  <tr>  
+    <td>Cheese</td>
+    <td>t<sub>1</sub> : 0.35</td>
+  </tr>
+  <tr>  
+    <td>Pizza</td>
+    <td>t<sub>2</sub> : 0.16</td>
+  </tr>
+  <tr>  
+    <td>Rabbit</td>
+    <td>t<sub>3</sub> : 0.04</td>
+  </tr>
+  <tr>  
+    <td>Snail</td>
+    <td>t<sub>4</sub> : 0.015</td>
+  </tr>
+  <tr>  
+    <td>Shark</td>
+    <td>t<sub>5</sub> : 0.005</td>
+  </tr>
+</table> 
 <br>
 
 * Order all of the tokens in order of their probabilities
@@ -41,21 +63,45 @@ Note the the probabilities should add up to 1.
 
 Now from the above set of six tokens, if we want to choose the most probable 3 tokens (K = 3), those would be:
 
-| Token | Probability |
-| :------ | :------ |
-| Bread | $t_0 = 0.43$ |
-| Cheese | $t_1 = 0.35$ |
-| Pizza | $t_2 = 0.16$ |
-<br>
+<table>
+  <tr>
+    <th>Token</th>
+    <th>Probability</th>
+  </tr>
+  <tr>
+    <td>Bread</td>
+    <td> t<sub>0</sub> : 0.43 </td>
+  </tr>
+  <tr>  
+    <td>Cheese</td>
+    <td>t<sub>1</sub> : 0.35</td>
+  </tr>
+  <tr>  
+    <td>Pizza</td>
+    <td>t<sub>2</sub> : 0.16</td>
+  </tr>
+</table>
 
 This is our new distribution. However the probabilities should add up to 1 and hence the above set needs to be normalized by the sum of the K = 3 tokens. (0.43 + 0.35 + 0.16 = 0.94). This normalization would give us:
 
-| Token | Probability |
-| :------- | :------- |
-| Bread | $t_0 : 0.46$ |
-| Cheese | $t_1 : 0.37$ |
-| Pizza | $t_2 : 0.17$ |
-<br>
+<table>
+  <tr>
+    <th>Token</th>
+    <th>Probability</th>
+  </tr>
+  <tr>
+    <td>Bread</td>
+    <td> t<sub>0</sub> : 0.46 </td>
+  </tr>
+  <tr>  
+    <td>Cheese</td>
+    <td>t<sub>1</sub> : 0.37</td>
+  </tr>
+  <tr>  
+    <td>Pizza</td>
+    <td>t<sub>2</sub> : 0.17</td>
+  </tr>
+</table>
 
 which sums to 1. If you set K=1, it would be a *greedy* approach where the highest probability token would always get selected.
 <br>
@@ -70,18 +116,36 @@ This is also referred to as *nucleus sampling*. Very similar to Top-K but instea
 
 Suppose we set *p* to 0.75 in our case, we would be picking the following tokens to choose from (their probabilities sum to at least 0.9 (0.43 + 0.35 = 0.78)
 
-| Token | Probability |
-| ------- | ------- |
-| Bread | $t_0 : 0.43$ |
-| Cheese | $t_1 : 0.35$ |
-<br>
+<table>
+  <tr>
+    <th>Token</th>
+    <th>Probability</th>
+  </tr>
+  <tr>
+    <td>Bread</td>
+    <td> t<sub>0</sub> : 0.43 </td>
+  </tr>
+  <tr>  
+    <td>Cheese</td>
+    <td>t<sub>1</sub> : 0.35</td>
+  </tr>
+</table>
 
 Again, we will have to normalize the new distribution as done in Top-K, so that the probabilities sum to 1.
 
-| Token | Probability |
-| ------- | ------- |
-| Bread | $t_0 : 0.55$ |
-| Cheese | $t_1 : 0.45$ |
-<br>
+<table>
+  <tr>
+    <th>Token</th>
+    <th>Probability</th>
+  </tr>
+  <tr>
+    <td>Bread</td>
+    <td> t<sub>0</sub> : 0.55 </td>
+  </tr>
+  <tr>  
+    <td>Cheese</td>
+    <td>t<sub>1</sub> : 0.45</td>
+  </tr>
+</table>
 
 The next time you feel hallucinated, you may want to check these parameter settings in your API calls.
